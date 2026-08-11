@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Beachzinho — Beach Tennis</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0d1b2a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Beachzinho">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="icon" href="/icon.svg">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--navy:#0d1b2a;--navy2:#0f3460;--navy3:#1b3a5c;--org:#f5a623;--grn:#2ecc71;--red:#e74c3c;--blu:#74b9ff;--bg:#f0f2f7}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1a2332;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
+.phone{width:100%;max-width:420px;min-height:92vh;background:var(--bg);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 60px rgba(0,0,0,.5);position:relative}
+@media(max-width:440px){body{padding:0}.phone{border-radius:0;min-height:100vh}}
+#app{flex:1;overflow-y:auto;padding-bottom:78px}
+/* HEADER */
+.hd{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:18px 18px 14px;position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px}
+.hd .back{background:rgba(255,255,255,.14);border:none;color:#fff;border-radius:10px;width:34px;height:34px;font-size:1.05em;cursor:pointer;flex-shrink:0}
+.hd h2{font-size:1.06em;font-weight:800;flex:1}
+.hd .sub{font-size:.72em;opacity:.7;display:block;font-weight:400}
+.hd .ic{font-size:1.3em}
+/* SPLASH */
+.splash{background:linear-gradient(160deg,#0d1b2a 0%,#1b3a5c 55%,#0f3460 100%);min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;text-align:center;padding:30px}
+.splash h1{font-size:2.6em;font-weight:900;letter-spacing:-1px}
+.splash h1 span{color:var(--org)}
+.splash p{opacity:.75;margin:8px 0 38px;font-size:.95em}
+.rolebtn{width:100%;max-width:300px;border:none;border-radius:16px;padding:18px;font-size:1.02em;font-weight:800;cursor:pointer;margin-bottom:14px;display:flex;align-items:center;gap:14px;text-align:left;transition:.15s}
+.rolebtn:active{transform:scale(.97)}
+.rolebtn .e{font-size:1.7em}
+.rolebtn small{display:block;font-weight:500;font-size:.78em;opacity:.75;margin-top:2px}
+.rb-p{background:var(--org);color:#1a1a2e}
+.rb-a{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.3)}
+.rb-w{background:rgba(116,185,255,.15);color:#cfe6ff;border:1.5px solid rgba(116,185,255,.4)}
+.rb-g{background:rgba(46,204,113,.14);color:#d4f5e2;border:1.5px solid rgba(46,204,113,.45)}
+.plano{background:#fff;border:2px solid #dde5f0;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;position:relative;transition:.15s}
+.plano:active{transform:scale(.98)}
+.plano.hot{border-color:var(--org);box-shadow:0 4px 16px rgba(245,166,35,.25)}
+.plano .tagp{position:absolute;top:-10px;right:14px;background:var(--org);color:#1a1a2e;border-radius:20px;font-size:.66em;font-weight:900;padding:3px 12px}
+.plano h3{color:var(--navy);font-size:1em}
+.plano .pr{font-size:1.25em;font-weight:900;color:var(--navy2);margin:4px 0}
+.plano p{font-size:.8em;color:#789}
+/* SECTIONS */
+.pad{padding:16px}
+.stitle{font-size:.82em;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
+.stitle a{color:var(--org);font-size:.9em;text-decoration:none;cursor:pointer}
+/* SEARCH */
+.search{background:#fff;border:1.5px solid #dde5f0;border-radius:14px;padding:12px 16px;display:flex;gap:10px;color:#889;font-size:.92em;margin-bottom:4px}
+/* CARDS */
+.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(13,27,42,.06);cursor:pointer;transition:.15s}
+.card:active{transform:scale(.98)}
+.card h3{font-size:.98em;color:var(--navy);margin-bottom:4px}
+.card .meta{font-size:.8em;color:#788;display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.hrow{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.hrow::-webkit-scrollbar{display:none}
+.hcard{min-width:170px;background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 10px rgba(13,27,42,.07);cursor:pointer;flex-shrink:0}
+.hcard .top{font-size:1.6em;margin-bottom:6px}
+.hcard h3{font-size:.9em;color:var(--navy)}
+.hcard p{font-size:.76em;color:#788;margin-top:3px}
+/* BADGES */
+.badge{display:inline-block;border-radius:20px;padding:3px 11px;font-size:.72em;font-weight:700;margin:2px 2px 2px 0}
+.bO{background:#fff3d0;color:#c97d0a}.bB{background:#e3edfb;color:#1b4a7a}.bG{background:#e5f9ee;color:#1e8f4e}.bR{background:#fdeaea;color:#c0392b}.bP{background:#f3e9fa;color:#7d3c98}.bN{background:var(--navy);color:#fff}.bGy{background:#636e72;color:#fff}
+/* BUTTONS */
+.btn{border:none;border-radius:12px;padding:13px 18px;font-size:.92em;font-weight:800;cursor:pointer;width:100%;margin-top:10px;transition:.15s}
+.btn:active{transform:scale(.97)}
+.btn-o{background:var(--org);color:#1a1a2e}
+.btn-g{background:#25d366;color:#fff}
+.btn-n{background:var(--navy2);color:#fff}
+.btn-ghost{background:#fff;color:var(--navy);border:1.5px solid #dde5f0}
+.btn-sm{width:auto;padding:8px 14px;font-size:.8em;margin-top:0}
+.btn-grn{background:var(--grn);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+/* WIDGET LIVE */
+.live{background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:18px;padding:16px;color:#fff;margin-bottom:6px}
+.live .lrow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:.85em}
+.live .lrow:last-child{border-bottom:none}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:6px;animation:pl 1.2s infinite}
+@keyframes pl{50%{opacity:.3}}
+/* AGENDA */
+.days{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px;scrollbar-width:none}
+.day{background:#fff;border:1.5px solid #dde5f0;border-radius:12px;padding:8px 14px;text-align:center;cursor:pointer;flex-shrink:0;font-size:.8em;color:#567}
+.day.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.day b{display:block;font-size:1.15em}
+.slot{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 6px rgba(13,27,42,.05)}
+.slot .h{font-weight:800;color:var(--navy);font-size:.92em;width:48px}
+.st{font-size:.78em;font-weight:700;border-radius:20px;padding:4px 12px}
+.st-l{background:#e5f9ee;color:#1e8f4e}.st-o{background:#fdeaea;color:#c0392b}.st-p{background:#fff3d0;color:#c97d0a}
+/* TABS */
+.tabs{display:flex;gap:6px;margin:12px 0;overflow-x:auto;scrollbar-width:none}
+.tab{background:#fff;border:1.5px solid #dde5f0;border-radius:20px;padding:7px 16px;font-size:.8em;font-weight:700;color:#567;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.tab.on{background:var(--org);border-color:var(--org);color:#1a1a2e}
+/* STATS */
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.stat{background:#fff;border-radius:14px;padding:14px 10px;text-align:center;box-shadow:0 2px 8px rgba(13,27,42,.06)}
+.stat b{font-size:1.35em;color:var(--navy);display:block}
+.stat span{font-size:.68em;color:#789;text-transform:uppercase;font-weight:700;letter-spacing:.4px}
+.stat.g b{color:#1e8f4e}.stat.r b{color:#c0392b}.stat.o b{color:#c97d0a}
+/* RANK */
+.rk{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 6px rgba(13,27,42,.05)}
+.rk .pos{font-weight:900;color:var(--org);width:36px;font-size:1.05em}
+.rk .nm{flex:1;font-weight:700;color:var(--navy);font-size:.92em}
+.rk .nm small{display:block;font-weight:500;color:#889;font-size:.8em}
+.rk .pts{font-weight:800;color:#1e8f4e;font-size:.88em}
+/* NAV */
+.nav{position:absolute;bottom:0;left:0;right:0;background:var(--navy);display:flex;justify-content:space-around;padding:10px 4px 14px;z-index:50}
+.ni{background:none;border:none;color:#8a9bb0;font-size:.66em;font-weight:700;text-align:center;cursor:pointer;padding:2px 8px}
+.ni span{display:block;font-size:1.55em;margin-bottom:2px}
+.ni.on{color:var(--org)}
+/* FORM */
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:.78em;font-weight:700;color:var(--navy);margin-bottom:6px}
+.fld input,.fld select,.fld textarea{width:100%;border:1.5px solid #dde5f0;border-radius:12px;padding:11px 14px;font-size:.9em;background:#fff;color:#234;font-family:inherit}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:#fff;border:1.5px solid #dde5f0;border-radius:20px;padding:7px 14px;font-size:.78em;font-weight:700;color:#567;cursor:pointer}
+.chip.on{background:var(--navy2);border-color:var(--navy2);color:#fff}
+/* SCORE */
+.score{background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 10px rgba(13,27,42,.06)}
+.svs{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:14px 0}
+.steam{flex:1;text-align:center;font-size:.82em;font-weight:700;color:var(--navy)}
+.snum{display:flex;align-items:center;gap:8px}
+.snum button{width:30px;height:30px;border:none;border-radius:8px;background:#e8eef8;font-weight:900;cursor:pointer;color:var(--navy)}
+.snum b{font-size:1.7em;width:36px;text-align:center;color:var(--navy)}
+.dist{background:#f7f9fd;border-radius:12px;padding:12px;margin-top:12px;font-size:.82em}
+.dist .dr{display:flex;justify-content:space-between;padding:4px 0}
+/* ALERT / TOAST */
+.al{border-radius:12px;padding:13px 15px;margin-bottom:12px;font-size:.85em}
+.al-y{background:#fff9e8;border:1.5px solid #f5d78e;color:#8a6d1a}
+.al-g{background:#eafaf1;border:1.5px solid #a8e6c5;color:#1e6b42}
+.al-b{background:#e8f4fd;border:1.5px solid #a8d4f0;color:#1b4a7a}
+#toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:30px;font-size:.85em;font-weight:700;opacity:0;transition:.3s;z-index:99;white-space:nowrap;pointer-events:none;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* NEWS */
+.news{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 10px rgba(13,27,42,.06);cursor:pointer}
+.news .nimg{height:86px;display:flex;align-items:center;justify-content:center;font-size:2.4em;color:#fff}
+.news .nbody{padding:12px 14px}
+.news h3{font-size:.9em;color:var(--navy)}
+.news p{font-size:.76em;color:#789;margin-top:4px}
+.news .tag{font-size:.68em;font-weight:800;color:var(--org);text-transform:uppercase;letter-spacing:.5px}
+/* H2H */
+.h2h{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:14px 0}
+.h2h .pl{background:#fff;border-radius:14px;padding:14px 8px;text-align:center;box-shadow:0 2px 8px rgba(13,27,42,.06)}
+.h2h .pl .av{font-size:2em}
+.h2h .pl b{display:block;font-size:.82em;color:var(--navy);margin-top:4px}
+.h2h .vs{font-weight:900;color:var(--org);font-size:1.1em}
+.hbar{display:flex;height:10px;border-radius:6px;overflow:hidden;margin:6px 0 14px}
+.hbar div:first-child{background:var(--grn)}.hbar div:last-child{background:var(--red)}
+.empty{text-align:center;color:#99a;padding:40px 20px;font-size:.9em}
+.empty span{font-size:2.6em;display:block;margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div id="app"></div>
+  <div id="navbar"></div>
+  <div id="toast"></div>
+</div>
+
+<script>
+/* DADOS (simulação em memória) */
+const DB = {
+  me: {name:'João Silva', city:'Florianópolis', won:247, lost:189, ligas:2, torneios:4, rank:12},
+  arenas: [
+    {id:1, name:'Arena Vida Fit', emoji:'🏖️', dist:'2.3 km', star:4.8, addr:'Rua das Palmeiras, 120', hours:'Seg–Sex 07h–23h · Sáb/Dom 08h–20h', zap:'48999990001', quadras:2, feat:'Coberta · Iluminada · Areia fina'},
+    {id:2, name:'Arena Beira Mar', emoji:'🌊', dist:'4.1 km', star:4.6, addr:'Av. Atlântica, 900', hours:'Todos os dias 06h–22h', zap:'48999990002', quadras:3, feat:'Vista mar · Iluminada'},
+    {id:3, name:'Arena Central BT', emoji:'🎾', dist:'5.8 km', star:4.9, addr:'Rua do Centro, 45', hours:'Seg–Sáb 07h–23h', zap:'48999990003', quadras:4, feat:'Coberta · Bar · Estacionamento'},
+  ],
+  ligas: [
+    {id:1, arenaId:1, name:'Liga Terça Mista Open', cat:'Misto', nivel:'Open', dia:'Terça', hora:'19h–21h', vagas:'2 de 8 duplas', preco:'R$ 40/dupla/semana', status:'ativa'},
+    {id:2, arenaId:1, name:'Liga Seg Masculina', cat:'Masculino', nivel:'Intermediário', dia:'Segunda', hora:'20h–22h', vagas:'1 de 6 duplas', preco:'R$ 35/dupla/semana', status:'ativa'},
+    {id:3, arenaId:2, name:'Liga Qui Feminina', cat:'Feminino', nivel:'Intermediário', dia:'Quinta', hora:'19h–21h', vagas:'3 de 8 duplas', preco:'R$ 40/dupla/semana', status:'ativa'},
+    {id:4, arenaId:3, name:'Liga Sex Dupla Fixa', cat:'Dupla Fixa', nivel:'Avançado', dia:'Sexta', hora:'19h30–22h', vagas:'Lotada — lista de espera', preco:'R$ 50/dupla/semana', status:'pausada'},
+  ],
+  rotativos: [
+    {id:1, arenaId:1, name:'Rotativo Sábado Manhã', data:'Sáb 04/07 · 09h–12h', vagas:'4 de 12', preco:'R$ 25/pessoa', nivel:'Todos os níveis'},
+    {id:2, arenaId:3, name:'Rotativo Quarta Noite', data:'Qua 08/07 · 19h–22h', vagas:'7 de 16', preco:'R$ 30/pessoa', nivel:'Intermediário+'},
+  ],
+  torneios: [
+    {id:1, arenaId:2, name:'Copa Beira Mar de Inverno', data:'18–19 Jul', insc:'até 10/07', cats:'Masc A/B/C · Fem A/B · Misto', preco:'R$ 90/dupla', premio:'R$ 3.000 + troféus'},
+    {id:2, arenaId:3, name:'Open Central BT 2026', data:'08–09 Ago', insc:'até 30/07', cats:'Todas + Sub-18', preco:'R$ 100/dupla', premio:'R$ 5.000'},
+  ],
+  slots: [
+    {h:'08h', status:'livre', who:null},
+    {h:'09h', status:'ocupado', who:'Carlos M.'},
+    {h:'10h', status:'pendente', who:'Maria T.'},
+    {h:'11h', status:'livre', who:null},
+    {h:'12h', status:'livre', who:null},
+    {h:'17h', status:'ocupado', who:'Liga Ter Mista'},
+    {h:'18h', status:'livre', who:null},
+    {h:'19h', status:'livre', who:null},
+  ],
+  pedidos: [
+    {id:1, nome:'Maria T.', det:'Quadra 1 · Ter 07/07 · 10h–11h', slotH:'10h'},
+  ],
+  minhasReservas: [],
+  itfM: [
+    {p:1,n:'Mattia Spoto',c:'🇮🇹',pts:6654},{p:2,n:'Nicolas Gianotti',c:'🇫🇷',pts:6616},
+    {p:3,n:'André Baran',c:'🇧🇷',pts:4560},{p:4,n:'Giovanni Cariani',c:'🇧🇷',pts:4010},
+    {p:5,n:'Michele Cappelletti',c:'🇮🇹',pts:3949},{p:6,n:'Felipe Cogo Loch',c:'🇧🇷',pts:3820},
+    {p:7,n:'Daniel Mola',c:'🇧🇷',pts:3784},{p:8,n:'Gabriele Gini',c:'🇮🇹',pts:3437},
+    {p:9,n:'Antonio Ramos Viera',c:'🇪🇸',pts:3365},{p:10,n:'Niccolò Gasparri',c:'🇮🇹',pts:2887},
+  ],
+  itfF: [
+    {p:1,n:'Giulia Gasparri',c:'🇮🇹',pts:6112},{p:1,n:'Ninny Valentini',c:'🇮🇹',pts:6112},
+    {p:3,n:'Sophia Chow',c:'🇧🇷',pts:5842},{p:3,n:'Vitória Marchezini',c:'🇧🇷',pts:5842},
+    {p:5,n:'Elizaveta Kudinova',c:'🏳️',pts:4144},{p:5,n:'Anastasiia Semenova',c:'🏳️',pts:4144},
+    {p:7,n:'Veronica Casadei',c:'🇮🇹',pts:3862},{p:7,n:'Ariadna Costa Graell',c:'🇪🇸',pts:3862},
+    {p:9,n:'Patricia Diaz',c:'🇻🇪',pts:3524},{p:9,n:'Rafaella Miiller',c:'🇧🇷',pts:3524},
+  ],
+  calend: [
+    {live:true, n:'BT400 Palmas', det:'🔴 AO VIVO · Quartas de final · Brasil', tipo:'itf'},
+    {n:'Sand Series Portugal', det:'14–19 Jul · Nazaré 🇵🇹 · US$ 100.000', tipo:'itf'},
+    {n:'Copa do Mundo ITF', det:'10–16 Ago · Itália 🇮🇹', tipo:'itf'},
+    {n:'Liga Ter Mista — Vida Fit', det:'Toda terça 19h · Rodada 8 em 07/07', tipo:'local'},
+    {n:'Copa Beira Mar de Inverno', det:'18–19 Jul · Arena Beira Mar', tipo:'local'},
+    {n:'Open Central BT 2026', det:'08–09 Ago · Arena Central BT', tipo:'local'},
+  ],
+  news: [
+    {tag:'Ranking ITF', t:'Chow e Marchezini assumem o nº 1 mundial', p:'Primeira dupla 100% brasileira a liderar o ranking feminino da ITF em 14 anos.', ic:'🇧🇷', bg:'linear-gradient(135deg,#1e8f4e,#27ae60)'},
+    {tag:'Ranking ITF', t:'Spoto e Gianotti travam duelo pelo topo', p:'Italiano soma 6.654 pts contra 6.616 do francês — disputa mais acirrada da temporada.', ic:'🏆', bg:'linear-gradient(135deg,#0f3460,#1b3a5c)'},
+    {tag:'Circuito', t:'Sand Series Portugal terá premiação recorde', p:'Etapa de Nazaré distribui US$ 100 mil — a maior da temporada.', ic:'💰', bg:'linear-gradient(135deg,#c97d0a,#f5a623)'},
+    {tag:'Técnica', t:'5 erros mais comuns no smash de beach tennis', p:'Análise técnica com dicas para subir de nível no ataque de rede.', ic:'🎾', bg:'linear-gradient(135deg,#7d3c98,#8e44ad)'},
+  ],
+  h2hData: {a:{n:'João Silva', av:'🧢', v:8, g:142}, b:{n:'Pedro Lima', av:'🧔', v:3, g:98}},
+  historico: [
+    {d:'30/06/26', arena:'Arena Vida Fit', ev:'Liga Ter Mista · Rodada 7', tipo:'liga', par:'Ana Costa', adv:'Pedro Lima & Cris Melo', pl:'6 × 4', res:'win'},
+    {d:'28/06/26', arena:'Arena Central BT', ev:'Rotativo Sábado', tipo:'rotativo', par:'Rafa Martins', adv:'Leo Braga & Duda Freitas', pl:'6 × 2', res:'win'},
+    {d:'23/06/26', arena:'Arena Vida Fit', ev:'Liga Ter Mista · Rodada 6', tipo:'liga', par:'Ana Costa', adv:'Rafa Martins & Duda Freitas', pl:'4 × 6', res:'loss'},
+    {d:'21/06/26', arena:'Arena Beira Mar', ev:'Open de Inverno · Semifinal', tipo:'torneio', par:'Ana Costa', adv:'Caio Nunes & Bia Rocha', pl:'5 × 7', res:'loss'},
+    {d:'21/06/26', arena:'Arena Beira Mar', ev:'Open de Inverno · Quartas', tipo:'torneio', par:'Ana Costa', adv:'Tico Souza & Mel Dias', pl:'6 × 3', res:'win'},
+    {d:'16/06/26', arena:'Arena Vida Fit', ev:'Liga Ter Mista · Rodada 5', tipo:'liga', par:'Ana Costa', adv:'Leo Braga & Bia Rocha', pl:'6 × 1', res:'win'},
+    {d:'14/06/26', arena:'Arena Vida Fit', ev:'Jogo avulso · Quadra 2', tipo:'avulso', par:'Pedro Lima', adv:'Rafa Martins & Caio Nunes', pl:'7 × 5', res:'win'},
+    {d:'09/06/26', arena:'Arena Vida Fit', ev:'Liga Ter Mista · Rodada 4', tipo:'liga', par:'Ana Costa', adv:'Pedro Lima & Cris Melo', pl:'3 × 6', res:'loss'},
+  ],
+  partidaAtual: {ta:'João & Ana', tb:'Pedro & Cris', sa:6, sb:4, lancada:false},
+  assinatura: null,
+  planosGrupo: [
+    {n:'Grupo 6', preco:'Grátis', max:6, desc:'Para a turma que joga toda semana', destaque:false},
+    {n:'Grupo 12', preco:'R$ 29/mês', max:12, desc:'Turma grande com revezamento', destaque:true},
+    {n:'Grupo 20', preco:'R$ 49/mês', max:20, desc:'Comunidade com várias duplas', destaque:false},
+    {n:'Arena Pro', preco:'R$ 149/mês', max:'∞', desc:'Vira arena: locação, ligas públicas, torneios e leads', destaque:false},
+  ],
+  grupo: {
+    nome:'Turma da Terça', plano:'Grupo 12', max:12, codigo:'TERCA-2026',
+    local:'Quadra Society Beira-Rio (local fixo)', dia:'Toda terça · 20h–22h',
+    membros:['João Silva 🧢','Ana Costa','Pedro Lima','Cris Melo','Rafa Martins','Duda Freitas','Leo Braga','Bia Rocha'],
+    jogos:[
+      {d:'30/06/26', a:['João Silva 🧢','Ana Costa'], b:['Pedro Lima','Cris Melo'], sa:6, sb:4},
+      {d:'30/06/26', a:['Rafa Martins','Duda Freitas'], b:['Leo Braga','Bia Rocha'], sa:6, sb:3},
+      {d:'23/06/26', a:['João Silva 🧢','Rafa Martins'], b:['Pedro Lima','Leo Braga'], sa:4, sb:6},
+      {d:'23/06/26', a:['Ana Costa','Bia Rocha'], b:['Cris Melo','Duda Freitas'], sa:6, sb:2},
+    ],
+  },
+};
+
+/* ESTADO / NAVEGAÇÃO */
+let S = {role:null, screen:'intro', stack:[], param:null, tab:null, day:0};
+
+function go(screen, param=null, tab=null){ S.stack.push({screen:S.screen,param:S.param,tab:S.tab}); S.screen=screen; S.param=param; S.tab=tab; render(); }
+function back(){ const p=S.stack.pop(); if(p){S.screen=p.screen;S.param=p.param;S.tab=p.tab;} render(); }
+function nav(screen){ S.stack=[]; S.screen=screen; S.param=null; S.tab=null; render(); }
+function setTab(t){ S.tab=t; render(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2400); }
+
+/* COMPONENTES */
+function header(title, sub='', showBack=true){
+  return `<div class="hd">${showBack?'<button class="back" onclick="back()">‹</button>':''}<h2>${title}${sub?`<span class="sub">${sub}</span>`:''}</h2></div>`;
+}
+function navbar(){
+  const el=document.getElementById('navbar');
+  if(S.role==='player'){
+    const items=[['p-home','🏠','Início'],['p-explore','🔍','Explorar'],['p-agenda','📅','Agenda'],['portal','🌐','Portal'],['p-perfil','👤','Perfil']];
+    el.innerHTML=`<div class="nav">${items.map(i=>`<button class="ni ${S.screen===i[0]||(i[0]==='portal'&&S.screen.startsWith('portal'))?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
+  } else if(S.role==='arena'){
+    const items=[['a-dash','📊','Dashboard'],['a-quadras','🎾','Quadras'],['a-ligas','🏅','Ligas'],['a-games','📋','Games'],['a-perfil','⚙️','Perfil']];
+    el.innerHTML=`<div class="nav">${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
+  } else if(S.role==='grupo'){
+    const items=[['g-home','🏠','Grupo'],['g-jogos','📜','Jogos'],['g-addjogo','➕','Placar'],['portal','🌐','Portal'],['g-plano','⚙️','Plano']];
+    el.innerHTML=`<div class="nav">${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
+  } else el.innerHTML='';
+}
+
+/* TELA — APRESENTAÇÃO */
+function vIntro(){
+  const fcard=f=>`<div class="card" style="cursor:default;display:flex;gap:14px;align-items:flex-start"><span style="font-size:1.8em;flex-shrink:0">${f[0]}</span><span><h3>${f[1]}</h3><p style="font-size:.83em;color:#678;margin-top:3px">${f[2]}</p></span></div>`;
+  return `<div style="background:linear-gradient(160deg,#0d1b2a 0%,#1b3a5c 55%,#0f3460 100%);color:#fff;padding:44px 24px 28px;text-align:center">
+    <div style="font-size:3em">🏖️</div>
+    <h1 style="font-size:2em;font-weight:900;letter-spacing:-.5px">Beach<span style="color:var(--org)">zinho</span></h1>
+    <p style="opacity:.9;margin:12px 0 6px;font-size:1.08em;font-weight:800">Sua arena no controle.<br>Seus jogadores conectados.</p>
+    <p style="opacity:.6;font-size:.85em">O app completo do Beach Tennis: quadras, ligas, rankings e pagamentos — sem planilha, sem caderno, sem erro.</p>
+    <button class="btn btn-o" style="margin-top:18px" onclick="nav('splash')">🚀 Começar agora — grátis</button>
+    <div style="display:flex;justify-content:space-around;margin-top:24px">
+      <div><b style="font-size:1.35em;color:var(--org)">3 min</b><br><span style="font-size:.68em;opacity:.7">para cadastrar<br>sua arena</span></div>
+      <div><b style="font-size:1.35em;color:var(--org)">0</b><br><span style="font-size:.68em;opacity:.7">conflitos<br>de agenda</span></div>
+      <div><b style="font-size:1.35em;color:var(--org)">100%</b><br><span style="font-size:.68em;opacity:.7">cobrança<br>automática</span></div>
+    </div>
+  </div>
+  <div class="pad">
+    <div class="stitle">🏢 Para a sua arena</div>
+    ${[
+      ['🎾','Agenda de quadras sem erro','Horários livres, ocupados e pendentes em tempo real. Chega de reserva duplicada, caderno ou WhatsApp perdido.'],
+      ['💰','Receba na hora da reserva','Pix e cartão direto no app. O jogador paga ao reservar — menos furo e caixa previsível.'],
+      ['🏅','Ligas e torneios no piloto automático','Você lança o placar uma vez; o sistema distribui os games, monta o ranking e avisa os jogadores.'],
+      ['📣','Sua arena no mapa da cidade','Jogadores próximos encontram sua quadra, suas ligas e seus torneios — e chamam direto no seu WhatsApp.'],
+      ['🔔','Cobrança automática de planos','Lembrete, link de pagamento e aviso de atraso por e-mail e WhatsApp, sem você mover um dedo.'],
+    ].map(fcard).join('')}
+    <div class="stitle">👤 Para o jogador</div>
+    ${[
+      ['🔍','Quadra livre em segundos','Mapa com as arenas da cidade, agenda em tempo real e reserva paga em 3 toques.'],
+      ['📊','Seu histórico e ranking','Cada game vira estatística: aproveitamento, head-to-head e ranking da sua cidade.'],
+      ['🌐','O mundo do beach tennis','Ranking ITF ao vivo, calendário de torneios e notícias — tudo dentro do app.'],
+    ].map(fcard).join('')}
+    <div class="stitle">👥 Para a sua turma</div>
+    ${[['🏆','Ranking da resenha','A turma de toda semana com placar, ranking interno e zoeira organizada — a partir de grátis.']].map(fcard).join('')}
+    <div class="stitle">⚡ Antes × Depois do Beachzinho</div>
+    <div class="card" style="cursor:default">
+      ${[['Reservas','Caderno e WhatsApp','App em tempo real'],['Pagamento','"Depois a gente acerta"','Pix na reserva'],['Ranking','Planilha no Excel','Automático'],['Cobrança','Constrangimento','Régua automática'],['Divulgação','Boca a boca','Mapa da cidade']].map(r=>`<div style="display:flex;gap:6px;font-size:.79em;padding:7px 0;border-bottom:1px solid #f0f3f8"><b style="width:78px;color:var(--navy);flex-shrink:0">${r[0]}</b><span style="flex:1;color:#c0392b">✗ ${r[1]}</span><span style="flex:1;color:#1e8f4e;font-weight:700">✓ ${r[2]}</span></div>`).join('')}
+    </div>
+    <button class="btn btn-o" onclick="S.pendingPlan=3;go('auth','arena')">🏢 Cadastrar minha arena</button>
+    <button class="btn btn-n" onclick="nav('g-planos')">👥 Criar meu grupo — a partir de grátis</button>
+    <button class="btn btn-ghost" onclick="S.role='player';nav('p-home')">👤 Sou jogador — entrar grátis</button>
+  </div>`;
+}
+
+/* TELAS — SPLASH */
+function vSplash(){
+  return `<div class="splash">
+    <h1>🏖️ Beach<span>zinho</span></h1>
+    <p>Arenas · Ligas · Quadras · Rankings<br>Tudo do Beach Tennis em um só lugar</p>
+    <button class="rolebtn rb-p" onclick="S.role='player';nav('p-home');toast('Bem-vindo, João! 👋')"><span class="e">👤</span><span>Sou Jogador<small>Buscar arenas, ligas e reservar quadras</small></span></button>
+    <button class="rolebtn rb-a" onclick="S.pendingPlan=3;go('auth','arena')"><span class="e">🏢</span><span>Sou Arena<small>Gerenciar quadras, ligas e torneios</small></span></button>
+    <button class="rolebtn rb-g" onclick="nav('g-planos')"><span class="e">👥</span><span>Pequeno Grupo <span style="background:var(--org);color:#1a1a2e;border-radius:10px;font-size:.6em;padding:2px 8px;vertical-align:middle">NOVO</span><small>Sua turma fixa: jogos, ranking interno e 1 local</small></span></button>
+    <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e">🌐</span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
+    <a style="color:#8a9bb0;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')">ℹ️ Por que usar o Beachzinho?</a>
+  </div>`;
+}
+
+/* TELAS — JOGADOR */
+function vPHome(){
+  const liga=DB.ligas[0], arena=DB.arenas[0];
+  return `<div class="hd"><h2>Olá, João 👋<span class="sub">📍 Florianópolis, SC</span></h2><span class="ic" onclick="toast('3 notificações não lidas 🔔')" style="cursor:pointer">🔔</span></div>
+  <div class="pad">
+    <div class="search" onclick="go('p-explore')">🔍 <span>Buscar arena, liga ou torneio...</span></div>
+    <div class="stitle" style="margin-top:14px">🌐 Mundo do Beach Tennis <a onclick="nav('portal')">Ver portal →</a></div>
+    <div class="live">
+      <div class="lrow"><span><span class="dot"></span><b>AO VIVO</b> — BT400 Palmas 🇧🇷</span><span onclick="nav('portal')" style="color:var(--org);cursor:pointer">▶</span></div>
+      <div class="lrow"><span>📊 Seu ranking na cidade</span><b style="color:var(--org)">#12</b></div>
+      <div class="lrow"><span>⚡ Último resultado</span><b style="color:#2ecc71">6 × 4 vitória</b></div>
+    </div>
+    <div class="stitle">🔥 Ligas desta semana <a onclick="go('p-explore')">Ver todas</a></div>
+    <div class="hrow">
+      ${DB.ligas.filter(l=>l.status==='ativa').map(l=>`<div class="hcard" onclick="go('p-liga',${l.id})"><div class="top">🏅</div><h3>${l.name}</h3><p>${l.dia} · ${l.hora}</p><p style="color:#1e8f4e;font-weight:700">${l.vagas}</p></div>`).join('')}
+    </div>
+    <div class="stitle">🎾 Quadras disponíveis agora</div>
+    <div class="card" onclick="go('p-quadra',1)">
+      <h3>${arena.emoji} ${arena.name} — Quadra 1</h3>
+      <div class="meta"><span>📍 ${arena.dist}</span><span>⭐ ${arena.star}</span><span style="color:#1e8f4e;font-weight:700">🟢 4 horários livres hoje</span></div>
+    </div>
+    <div class="stitle">🏆 Torneios abertos</div>
+    ${DB.torneios.map(t=>`<div class="card" onclick="go('p-torneio',${t.id})"><h3>🏆 ${t.name}</h3><div class="meta"><span>📅 ${t.data}</span><span>💰 ${t.premio}</span></div></div>`).join('')}
+    <div class="stitle">🔄 Rotativos próximos</div>
+    ${DB.rotativos.map(r=>`<div class="card" onclick="toast('Interesse enviado à arena! 🙋')"><h3>🔄 ${r.name}</h3><div class="meta"><span>${r.data}</span><span style="color:#c97d0a;font-weight:700">${r.vagas} vagas</span><span>${r.preco}</span></div></div>`).join('')}
+  </div>`;
+}
+
+function vPExplore(){
+  return header('🔍 Explorar Arenas','Florianópolis, SC')+`
+  <div class="pad">
+    <div style="background:linear-gradient(135deg,#cfe3f7,#a8ccec);border-radius:16px;height:130px;display:flex;align-items:center;justify-content:center;font-size:.85em;color:#1b4a7a;font-weight:700;margin-bottom:14px">🗺️ Mapa interativo — ${DB.arenas.length} arenas próximas</div>
+    <div class="tabs">
+      <div class="tab on">Todas</div><div class="tab" onclick="toast('Filtro: Ligas')">🏅 Ligas</div><div class="tab" onclick="toast('Filtro: Quadras')">🎾 Quadras</div><div class="tab" onclick="toast('Filtro: Rotativos')">🔄 Rotativos</div><div class="tab" onclick="toast('Filtro: Torneios')">🏆 Torneios</div>
+    </div>
+    ${DB.arenas.map(a=>`<div class="card" onclick="go('p-arena',${a.id})">
+      <h3>${a.emoji} ${a.name}</h3>
+      <div class="meta"><span>📍 ${a.dist}</span><span>⭐ ${a.star}</span><span>🎾 ${a.quadras} quadras</span></div>
+      <div style="margin-top:8px">${DB.ligas.some(l=>l.arenaId===a.id&&l.status==='ativa')?'<span class="badge bO">Ligas</span>':''}<span class="badge bB">Quadras</span>${DB.rotativos.some(r=>r.arenaId===a.id)?'<span class="badge bG">Rotativo</span>':''}${DB.torneios.some(t=>t.arenaId===a.id)?'<span class="badge bP">Torneio</span>':''}</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function vPArena(){
+  const a=DB.arenas.find(x=>x.id===S.param)||DB.arenas[0];
+  const tab=S.tab||'ligas';
+  const ligas=DB.ligas.filter(l=>l.arenaId===a.id), rots=DB.rotativos.filter(r=>r.arenaId===a.id), tors=DB.torneios.filter(t=>t.arenaId===a.id);
+  let body='';
+  if(tab==='ligas') body = ligas.length? ligas.map(l=>`<div class="card" onclick="go('p-liga',${l.id})"><h3>🏅 ${l.name}</h3><div class="meta"><span>📅 ${l.dia} ${l.hora}</span><span>${l.preco}</span></div><div style="margin-top:6px"><span class="badge bB">${l.cat}</span><span class="badge bO">${l.nivel}</span>${l.status==='pausada'?'<span class="badge bR">Pausada</span>':`<span class="badge bG">${l.vagas}</span>`}</div></div>`).join('') : '<div class="empty"><span>🏅</span>Nenhuma liga ativa nesta arena</div>';
+  if(tab==='quadras') body = `<div class="card" onclick="go('p-quadra',${a.id})"><h3>🎾 Quadra 1</h3><div class="meta"><span>💡 ${a.feat}</span></div><div class="meta"><span style="color:#1e8f4e;font-weight:700">🟢 Horários livres hoje — toque para reservar</span></div></div>` + (a.quadras>1?`<div class="card" onclick="go('p-quadra',${a.id})"><h3>🎾 Quadra 2</h3><div class="meta"><span style="color:#c97d0a;font-weight:700">🟡 Poucos horários hoje</span></div></div>`:'');
+  if(tab==='rotativos') body = rots.length? rots.map(r=>`<div class="card"><h3>🔄 ${r.name}</h3><div class="meta"><span>${r.data}</span><span>${r.preco}</span><span>${r.nivel}</span></div><button class="btn btn-o btn-sm" style="margin-top:10px" onclick="event.stopPropagation();toast('Interesse enviado! A arena vai confirmar 🙋')">Quero jogar</button></div>`).join('') : '<div class="empty"><span>🔄</span>Sem rotativos programados</div>';
+  if(tab==='torneios') body = tors.length? tors.map(t=>`<div class="card" onclick="go('p-torneio',${t.id})"><h3>🏆 ${t.name}</h3><div class="meta"><span>📅 ${t.data}</span><span>Inscrições ${t.insc}</span></div></div>`).join('') : '<div class="empty"><span>🏆</span>Sem torneios no momento</div>';
+  return header(`${a.emoji} ${a.name}`, `⭐ ${a.star} · ${a.dist}`)+`
+  <div class="pad">
+    <div class="card" style="cursor:default">
+      <div class="meta"><span>📍 ${a.addr}</span></div>
+      <div class="meta"><span>⏰ ${a.hours}</span></div>
+      <div class="meta"><span>💡 ${a.feat}</span></div>
+      <button class="btn btn-g" onclick="toast('Abrindo WhatsApp da arena... 💬')">💬 Falar no WhatsApp</button>
+    </div>
+    <div class="tabs">
+      ${['ligas','quadras','rotativos','torneios'].map(t=>`<div class="tab ${tab===t?'on':''}" onclick="setTab('${t}')">${{ligas:'🏅 Ligas',quadras:'🎾 Quadras',rotativos:'🔄 Rotativos',torneios:'🏆 Torneios'}[t]}</div>`).join('')}
+    </div>
+    ${body}
+  </div>`;
+}
+
+function vPLiga(){
+const l=DB.ligas.find(x=>x.id===S.param)||DB.ligas[0];
+const a=DB.arenas.find(x=>x.id===l.arenaId);
+return header('🏅 '+l.name, a.name)+`
+<div class="pad">
+<div class="card" style="cursor:default">
+<div style="margin-bottom:8px"><span class="badge bB">${l.cat}</span><span class="badge bO">${l.nivel}</span><span class="badge ${l.status==='ativa'?'bG':'bR'}">${l.status==='ativa'?'Ativa':'Pausada'}</span></div>
+<div class="meta"><span>📅 Toda ${l.dia} · ${l.hora}</span></div>
+<div class="meta"><span>👥 ${l.vagas}</span></div>
+<div class="meta"><span>💰 ${l.preco}</span></div>
+<div class="meta"><span>📍 ${a.name} — ${a.addr}</span></div>
+</div>
+<div class="al al-b">ℹ️ Rodadas semanais com placar lançado pela arena. Seus games entram automaticamente no seu perfil e no ranking da cidade.</div>
+<div class="stitle">📊 Classificação atual — Rodada 7</div>
+${[['1º João & Ana','42 games'],['2º Rafa & Duda','38 games'],['3º Pedro & Cris','35 games'],['4º Leo & Bia','29 games']].map(r=>`<div class="rk"><span class="pos">${r[0].split(' ')[0]}</span><span class="nm">${r[0].substring(3)}</span><span class="pts">${r[1]}</span></div>`).join('')}
+<button class="btn btn-o" onclick="toast('Pedido enviado! A arena vai te chamar 🎾')">✅ Quero Participar</button>
+<button class="btn btn-g" onclick="toast('Abrindo WhatsApp da arena... 💬')">💬 Falar com a arena</button>
+</div>`;
+}
+
+function vPTorneio(){
+const t=DB.torneios.find(x=>x.id===S.param)||DB.torneios[0];
+const a=DB.arenas.find(x=>x.id===t.arenaId);
+return header('🏆 '+t.name, a.name)+`
+<div class="pad">
+<div style="background:linear-gradient(135deg,#0f3460,#1b3a5c);border-radius:16px;padding:22px;text-align:center;color:#fff;margin-bottom:14px">
+<div style="font-size:2.2em">🏆</div><b style="font-size:1.05em">${t.name}</b>
+<p style="opacity:.8;font-size:.82em;margin-top:6px">📅 ${t.data} · Inscrições ${t.insc}</p>
+</div>
+<div class="card" style="cursor:default">
+<div class="meta"><span>🏷️ Categorias: ${t.cats}</span></div>
+<div class="meta"><span>💰 Inscrição: ${t.preco}</span></div>
+<div class="meta"><span>🎁 Premiação: ${t.premio}</span></div>
+<div class="meta"><span>📍 ${a.name}</span></div>
+</div>
+<button class="btn btn-o" onclick="toast('Inscrição iniciada! Escolha sua categoria 📝')">📝 Inscrever minha dupla</button>
+<button class="btn btn-ghost" onclick="toast('Regulamento aberto 📄')">📄 Ver regulamento</button>
+</div>`;
+}
+
+function vPQuadra(){
+const days=[['Ter','07'],['Qua','08'],['Qui','09'],['Sex','10'],['Sáb','11']];
+return header('🎾 Quadra 1 — Agenda','Arena Vida Fit · R$ 80/hora')+`
+<div class="pad">
+<div class="days">${days.map((d,i)=>`<div class="day ${S.day===i?'on':''}" onclick="S.day=${i};render()">${d[0]}<b>${d[1]}</b></div>`).join('')}</div>
+${DB.slots.map((s,i)=>{
+if(s.status==='livre') return `<div class="slot"><span class="h">${s.h}</span><span class="st st-l">🟢 Livre</span><button class="btn btn-o btn-sm" onclick="go('p-checkout',${i})">Reservar</button></div>`;
+if(s.status==='ocupado') return `<div class="slot"><span class="h">${s.h}</span><span class="st st-o">🔴 Ocupado</span><span style="font-size:.78em;color:#99a">—</span></div>`;
+return `<div class="slot"><span class="h">${s.h}</span><span class="st st-p">🟡 Pendente</span><span style="font-size:.78em;color:#99a">aguardando arena</span></div>`;
+}).join('')}
+<div class="al al-b" style="margin-top:10px">💡 Toque em Reservar para conferir o valor, escolher a forma de pagamento e confirmar.</div>
+</div>`;
+}
+
+/* Checkout da reserva */
+const PRECO_HORA = 80, TAXA_APP = 0;
+function vPCheckout(){
+  const i=S.param, s=DB.slots[i];
+  if(!s || s.status!=='livre') return header('🧾 Confirmar Reserva')+`<div class="pad"><div class="empty"><span>⚠️</span>Este horário não está mais disponível.</div></div>`;
+  const pay=S.pay||'pix';
+  const hFim=(parseInt(s.h)+1).toString().padStart(2,'0')+'h';
+  const total=PRECO_HORA+TAXA_APP;
+  return header('🧾 Confirmar Reserva','Arena Vida Fit · Quadra 1')+`
+  <div class="pad">
+    <div class="card" style="cursor:default">
+      <h3>🎾 Resumo da reserva</h3>
+      <div class="meta" style="margin-top:8px"><span>🏢 Arena Vida Fit — Quadra 1</span></div>
+      <div class="meta"><span>📅 Terça, 07/07/2026</span></div>
+      <div class="meta"><span>⏰ ${s.h} às ${hFim} (1 hora)</span></div>
+      <div class="meta"><span>💡 Coberta · Iluminada</span></div>
+    </div>
+    <div class="card" style="cursor:default">
+      <h3>💰 Valores</h3>
+      <div class="dist" style="margin-top:8px;background:#f7f9fd">
+        <div class="dr"><span>Locação da quadra (1h)</span><span>R$ ${PRECO_HORA.toFixed(2).replace('.',',')}</span></div>
+        <div class="dr"><span>Taxa do app</span><span style="color:#1e8f4e;font-weight:700">Grátis</span></div>
+        <div class="dr" style="border-top:1.5px dashed #dde5f0;margin-top:4px;padding-top:8px"><span><b>Total</b></span><span style="font-weight:900;color:var(--navy);font-size:1.1em">R$ ${total.toFixed(2).replace('.',',')}</span></div>
+      </div>
+    </div>
+    <div class="card" style="cursor:default">
+      <h3>💳 Forma de pagamento</h3>
+      <div class="chips" style="margin-top:10px">
+        <div class="chip ${pay==='pix'?'on':''}" onclick="S.pay='pix';render()">⚡ Pix</div>
+        <div class="chip ${pay==='card'?'on':''}" onclick="S.pay='card';render()">💳 Cartão</div>
+        <div class="chip ${pay==='arena'?'on':''}" onclick="S.pay='arena';render()">🏢 Pagar na arena</div>
+      </div>
+      <p style="font-size:.78em;color:#789;margin-top:10px">${pay==='pix'?'⚡ Pagamento instantâneo. Sua reserva é confirmada assim que a arena aceitar — se recusar, o valor é estornado na hora.':pay==='card'?'💳 O valor só é cobrado quando a arena confirmar a reserva.':'🏢 Você paga direto no balcão. A reserva fica pendente até a arena confirmar.'}</p>
+    </div>
+    <button class="btn btn-o" onclick="pagarReservar(${i},'${pay}')">${pay==='arena'?'✅ Confirmar reserva':'✅ Pagar R$ '+total.toFixed(2).replace('.',',')+' e reservar'}</button>
+    <button class="btn btn-ghost" onclick="back()">← Voltar à agenda</button>
+    <div class="al al-b" style="margin-top:12px">🔒 Pagamento simulado no protótipo. No app final: Pix e cartão via gateway (ex: Mercado Pago / Stripe) com repasse à arena.</div>
+  </div>`;
+}
+function pagarReservar(i, pay){
+  const s=DB.slots[i];
+  s.status='pendente'; s.who='João Silva';
+  const pg= pay==='pix'?'💰 Pago via Pix':pay==='card'?'💳 Cartão (pré-autorizado)':'🏢 Pagamento na arena';
+  DB.pedidos.push({id:Date.now(), nome:'João Silva', det:`Quadra 1 · Ter 07/07 · ${s.h}`, slotH:s.h, pg});
+  DB.minhasReservas.push({det:`Arena Vida Fit · Quadra 1 · Ter 07/07 · ${s.h}`, status:'pendente', pg, valor:'R$ 80,00'});
+  toast(pay==='arena'?'Reserva enviada! Pague na arena 🏢':'Pagamento aprovado! Reserva enviada ✅');
+  S.pay=null; nav('p-agenda');
+}
+
+function vPAgenda(){
+  return header('📅 Minha Agenda','Reservas e compromissos', false)+`
+  <div class="pad">
+    <div class="stitle">🎾 Minhas reservas</div>
+    ${DB.minhasReservas.length? DB.minhasReservas.map(r=>`<div class="card" style="cursor:default"><h3>🎾 ${r.det}</h3><div style="margin-top:6px"><span class="badge ${r.status==='confirmada'?'bG':r.status==='recusada'?'bR':'bO'}">${r.status==='confirmada'?'✅ Confirmada':r.status==='recusada'?'❌ Recusada — valor estornado':'⏳ Aguardando arena'}</span>${r.pg?`<span class="badge bB">${r.pg}</span>`:''}${r.valor?`<span class="badge" style="background:#eef0f5;color:#567">${r.valor}</span>`:''}</div></div>`).join('') : '<div class="empty"><span>📅</span>Nenhuma reserva ainda.<br>Explore as arenas e reserve uma quadra!</div>'}
+    <div class="stitle">🏅 Compromissos fixos</div>
+    <div class="card" style="cursor:default"><h3>🏅 Liga Terça Mista Open</h3><div class="meta"><span>Toda terça · 19h–21h · Arena Vida Fit</span></div><div style="margin-top:6px"><span class="badge bG">Próxima: Ter 07/07 · Rodada 8</span></div></div>
+    <div class="card" style="cursor:default"><h3>🏅 Liga Seg Masculina</h3><div class="meta"><span>Toda segunda · 20h–22h · Arena Vida Fit</span></div></div>
+  </div>`;
+}
+
+function vPPerfil(){
+  const m=DB.me; const total=m.won+m.lost; const ap=(m.won/total*100).toFixed(1);
+  return header('👤 Meu Perfil','', false)+`
+  <div class="pad">
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:18px;padding:20px;color:#fff;text-align:center;margin-bottom:14px">
+      <div style="font-size:2.6em">🧢</div><b style="font-size:1.15em">${m.name}</b>
+      <p style="opacity:.75;font-size:.8em;margin-top:2px">📍 ${m.city} · Ranking cidade <b style="color:var(--org)">#${m.rank}</b></p>
+    </div>
+    <div class="stats">
+      <div class="stat g"><b>${m.won}</b><span>Games ganhos</span></div>
+      <div class="stat r"><b>${m.lost}</b><span>Games perdidos</span></div>
+      <div class="stat o"><b>${ap}%</b><span>Aproveitamento</span></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>+${m.won-m.lost}</b><span>Saldo</span></div>
+      <div class="stat"><b>${m.ligas}</b><span>Ligas ativas</span></div>
+      <div class="stat"><b>${m.torneios}</b><span>Torneios</span></div>
+    </div>
+    <div class="stitle">📈 Últimos jogos <a onclick="go('p-historico')">Ver todos →</a></div>
+    ${DB.historico.slice(0,4).map(j=>`<div class="rk" onclick="go('p-historico')"><span class="pos">${j.res==='win'?'✅':'❌'}</span><span class="nm">${j.ev}<small>${j.d} · ${j.arena} · com ${j.par}</small></span><span class="pts" style="color:${j.res==='win'?'#1e8f4e':'#c0392b'}">${j.pl}</span></div>`).join('')}
+    <button class="btn btn-o" onclick="go('p-historico')">📜 Histórico completo de jogos</button>
+    <button class="btn btn-n" onclick="go('portal-h2h')">⚔️ Head-to-Head com outro jogador</button>
+    <button class="btn btn-ghost" onclick="S.role=null;nav('splash')">↩️ Trocar de perfil</button>
+  </div>`;
+}
+
+function vPHistorico(){
+  const f=S.tab||'todos';
+  const jogos = f==='todos' ? DB.historico : DB.historico.filter(j=>j.tipo===f);
+  const v=jogos.filter(j=>j.res==='win').length, d=jogos.length-v;
+  const tipoIc={liga:'🏅',torneio:'🏆',rotativo:'🔄',avulso:'🎾'};
+  return header('📜 Histórico de Jogos', DB.historico.length+' partidas registradas')+`
+  <div class="pad">
+    <div class="tabs">
+      ${[['todos','Todos'],['liga','🏅 Ligas'],['torneio','🏆 Torneios'],['rotativo','🔄 Rotativos'],['avulso','🎾 Avulsos']].map(t=>`<div class="tab ${f===t[0]?'on':''}" onclick="setTab('${t[0]}')">${t[1]}</div>`).join('')}
+    </div>
+    <div class="stats">
+      <div class="stat"><b>${jogos.length}</b><span>Jogos</span></div>
+      <div class="stat g"><b>${v}</b><span>Vitórias</span></div>
+      <div class="stat r"><b>${d}</b><span>Derrotas</span></div>
+    </div>
+    <button class="btn btn-o" onclick="go('p-addjogo')" style="margin:2px 0 14px">➕ Registrar jogo manualmente</button>
+    ${jogos.length? jogos.map(j=>`
+    <div class="card" style="cursor:default;border-left:4px solid ${j.res==='win'?'var(--grn)':'var(--red)'}">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3>${tipoIc[j.tipo]} ${j.ev}</h3>
+        <b style="color:${j.res==='win'?'#1e8f4e':'#c0392b'};font-size:1.05em;white-space:nowrap">${j.pl}</b>
+      </div>
+      <div class="meta"><span>📅 ${j.d}${j.hora?' · '+j.hora:''}</span><span>📍 ${j.arena}</span></div>
+      <div class="meta"><span>🤝 Parceiro: <b style="color:#456">${j.par}</b></span></div>
+      <div class="meta"><span>⚔️ Adversários: <b style="color:#456">${j.adv}</b></span></div>
+      <div style="margin-top:6px"><span class="badge ${j.res==='win'?'bG':'bR'}">${j.res==='win'?'✅ Vitória':'❌ Derrota'}</span><span class="badge bB">${{liga:'Liga',torneio:'Torneio',rotativo:'Rotativo',avulso:'Avulso'}[j.tipo]}</span>${j.manual?'<span class="badge bP">📝 Manual</span>':'<span class="badge bGy">🏢 Validado pela arena</span>'}</div>
+    </div>`).join('') : '<div class="empty"><span>📜</span>Nenhum jogo deste tipo ainda</div>'}
+    <div class="al al-b">🗄️ Jogos de liga, torneio e rotativo entram sozinhos quando a arena lança o placar (tabela <b>game_records</b>). Jogos avulsos você pode registrar manualmente — eles ganham o selo 📝 e não contam no ranking oficial.</div>
+  </div>`;
+}
+
+/* Registro manual de jogo */
+function vPAddJogo(){
+  return header('➕ Registrar Jogo','Jogo avulso · registro manual')+`
+  <div class="pad">
+    <div class="fld"><label>📍 Local</label><select id="mj-local">
+      ${DB.arenas.map(a=>`<option>${a.name}</option>`).join('')}
+      <option>Outro local</option>
+    </select></div>
+    <div class="fld"><label>Nome do local (se "Outro")</label><input id="mj-local2" placeholder="Ex: Praia do Campeche — quadra pública"></div>
+    <div style="display:flex;gap:10px">
+      <div class="fld" style="flex:1"><label>📅 Data</label><input type="date" id="mj-data" value="2026-07-02"></div>
+      <div class="fld" style="flex:1"><label>⏰ Hora</label><input type="time" id="mj-hora" value="19:00"></div>
+    </div>
+    <div class="fld"><label>🤝 Seu parceiro(a) de dupla</label><input id="mj-par" placeholder="Ex: Ana Costa (vazio = jogo de simples)"></div>
+    <div style="display:flex;gap:10px">
+      <div class="fld" style="flex:1"><label>⚔️ Adversário 1</label><input id="mj-adv1" placeholder="Ex: Pedro Lima"></div>
+      <div class="fld" style="flex:1"><label>⚔️ Adversário 2</label><input id="mj-adv2" placeholder="Ex: Cris Melo"></div>
+    </div>
+    <div class="fld"><label>🎾 Placar (games)</label>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:#789;font-weight:700">SUA DUPLA</small><input type="number" id="mj-sa" value="6" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
+        <b style="color:var(--org);font-size:1.2em">×</b>
+        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:#789;font-weight:700">ADVERSÁRIOS</small><input type="number" id="mj-sb" value="4" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
+      </div>
+    </div>
+    <button class="btn btn-o" onclick="salvarJogo()">✅ Salvar no meu histórico</button>
+    <button class="btn btn-ghost" onclick="back()">Cancelar</button>
+    <div class="al al-y" style="margin-top:12px">📝 Registros manuais recebem um selo próprio e <b>não contam no ranking oficial</b> — só jogos validados pela arena pontuam. Se o adversário também usa o Beachzinho, ele pode confirmar o placar e o jogo vira validado.</div>
+  </div>`;
+}
+function salvarJogo(){
+  const g=id=>document.getElementById(id);
+  const sa=parseInt(g('mj-sa').value)||0, sb=parseInt(g('mj-sb').value)||0;
+  if(sa===sb){ toast('⚠️ O placar não pode terminar empatado'); return; }
+  const adv1=g('mj-adv1').value.trim(), adv2=g('mj-adv2').value.trim();
+  if(!adv1){ toast('⚠️ Informe pelo menos um adversário'); return; }
+  const local=g('mj-local2').value.trim() || g('mj-local').value;
+  const dISO=g('mj-data').value||'2026-07-02';
+  const d=dISO.split('-').reverse().map((x,i)=>i===2?x.slice(2):x).join('/');
+  const hora=(g('mj-hora').value||'19:00').replace(':','h');
+  const par=g('mj-par').value.trim()||'— (simples)';
+  DB.historico.unshift({d, hora, arena:local, ev:'Jogo avulso', tipo:'avulso', par, adv:adv2?adv1+' & '+adv2:adv1, pl:`${sa} × ${sb}`, res:sa>sb?'win':'loss', manual:true});
+  DB.me.won+=sa; DB.me.lost+=sb;
+  toast('Jogo registrado no histórico! 📝'); S.tab=null; nav('p-perfil'); go('p-historico');
+}
+
+/* TELAS — PORTAL */
+function vPortal(){
+  const tab=S.tab||'ranking';
+  let body='';
+  if(tab==='ranking'){
+    const g=S.gen||'M'; const list=g==='M'?DB.itfM:DB.itfF;
+    body=`<div class="tabs"><div class="tab ${g==='M'?'on':''}" onclick="S.gen='M';render()">Masculino</div><div class="tab ${g==='F'?'on':''}" onclick="S.gen='F';render()">Feminino</div></div>
+    ${list.map(r=>`<div class="rk"><span class="pos">#${r.p}</span><span class="nm">${r.n} ${r.c}${r.c==='🇧🇷'?'<small style="color:#1e8f4e">Brasil 🎾</small>':''}</span><span class="pts">${r.pts.toLocaleString('pt-BR')} pts</span></div>`).join('')}
+    <div class="al al-b" style="margin-top:10px">📡 Snapshot real da ITF de 16/02/2026 (demo). No app final, os dados vêm da API oficial da ITF com atualização automática após cada torneio. Em abr/2026, Chow &amp; Marchezini 🇧🇷 assumiram o nº 1 feminino.</div>
+    <div class="stitle">📍 Ranking local Beachzinho — Florianópolis</div>
+    ${[['#10','Rafa Martins','412 games'],['#11','Duda Freitas','405 games'],['#12','João Silva 🧢 (você)','398 games'],['#13','Leo Braga','390 games']].map(r=>`<div class="rk" ${r[1].includes('você')?'style="border:2px solid var(--org)"':''}><span class="pos">${r[0]}</span><span class="nm">${r[1]}</span><span class="pts">${r[2]}</span></div>`).join('')}`;
+  }
+  if(tab==='calend'){
+    body=`<div class="stitle">🌍 Circuito ITF + eventos locais</div>`+DB.calend.map(c=>`<div class="card" style="cursor:default${c.live?';border:2px solid var(--red)':''}"><h3>${c.live?'<span class="dot"></span>':''} ${c.tipo==='itf'?'🌐':'🏖️'} ${c.n}</h3><div class="meta"><span>${c.det}</span></div><div style="margin-top:6px"><span class="badge ${c.tipo==='itf'?'bB':'bO'}">${c.tipo==='itf'?'ITF Oficial':'Arena local'}</span></div></div>`).join('');
+  }
+  if(tab==='news'){
+    body=DB.news.map(n=>`<div class="news" onclick="toast('Abrindo notícia completa 📰')"><div class="nimg" style="background:${n.bg}">${n.ic}</div><div class="nbody"><span class="tag">${n.tag}</span><h3>${n.t}</h3><p>${n.p}</p></div></div>`).join('');
+  }
+  if(tab==='h2h'){ body=h2hBody(); }
+  return `<div class="hd">${S.role?'':'<button class="back" onclick="S.role=null;nav(\'splash\')">‹</button>'}<h2>🌐 Portal Beach Tennis<span class="sub">Rankings · Calendário · Notícias · H2H</span></h2></div>
+  <div class="pad">
+    <div class="tabs">
+      ${[['ranking','🏆 Rankings'],['calend','📅 Calendário'],['news','📰 Notícias'],['h2h','⚔️ H2H']].map(t=>`<div class="tab ${tab===t[0]?'on':''}" onclick="setTab('${t[0]}')">${t[1]}</div>`).join('')}
+    </div>
+    ${body}
+  </div>`;
+}
+function h2hBody(){
+  const d=DB.h2hData; const tot=d.a.v+d.b.v; const pa=(d.a.v/tot*100).toFixed(0);
+  return `<div class="al al-b">⚔️ Compare dois jogadores — vitórias, games e evolução. Vale para atletas ITF e jogadores da plataforma.</div>
+  <div class="h2h">
+    <div class="pl"><div class="av">${d.a.av}</div><b>${d.a.n}</b></div>
+    <div class="vs">VS</div>
+    <div class="pl"><div class="av">${d.b.av}</div><b>${d.b.n}</b></div>
+  </div>
+  <div class="card" style="cursor:default">
+    <div style="display:flex;justify-content:space-between;font-size:.85em;font-weight:800;color:var(--navy)"><span style="color:#1e8f4e">${d.a.v} vitórias</span><span>Confrontos</span><span style="color:#c0392b">${d.b.v} vitórias</span></div>
+    <div class="hbar"><div style="width:${pa}%"></div><div style="width:${100-pa}%"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:.85em;font-weight:800;color:var(--navy)"><span style="color:#1e8f4e">${d.a.g}</span><span>Games</span><span style="color:#c0392b">${d.b.g}</span></div>
+    <div class="hbar"><div style="width:${(d.a.g/(d.a.g+d.b.g)*100).toFixed(0)}%"></div><div style="width:${(d.b.g/(d.a.g+d.b.g)*100).toFixed(0)}%"></div></div>
+  </div>
+  <button class="btn btn-ghost" onclick="toast('Busca de jogadores 🔍')">🔍 Comparar outros jogadores</button>`;
+}
+function vPortalH2H(){ S.tab='h2h'; return vPortal(); }
+
+/* TELAS — PEQUENO GRUPO */
+function vGPlanos(){
+  return `<div class="hd"><button class="back" onclick="S.role=null;nav('splash')">‹</button><h2>👥 Pequenos Grupos<span class="sub">Escolha o plano da sua turma</span></h2></div>
+  <div class="pad">
+    <div class="al al-g">🎾 Para turmas fixas que já jogam toda semana: registre os jogos, tenha ranking interno e histórico — sem precisar de uma arena.</div>
+    ${DB.planosGrupo.map((p,i)=>`
+    <div class="plano ${p.destaque?'hot':''}" onclick="escolherPlano(${i})">
+      ${p.destaque?'<span class="tagp">MAIS POPULAR</span>':''}
+      <h3>${i===3?'🏢':'👥'} ${p.n}</h3>
+      <div class="pr">${p.preco}</div>
+      <p>${p.desc}</p>
+      <div style="margin-top:8px">
+        <span class="badge bB">${p.max==='∞'?'Membros ilimitados':'Até '+p.max+' jogadores'}</span>
+        <span class="badge ${i===3?'bO':''}" style="${i===3?'':'background:#eef0f5;color:#567'}">${i===3?'Todos os recursos':'1 local fixo'}</span>
+      </div>
+    </div>`).join('')}
+    <div class="stitle">📋 O que muda entre Grupo e Arena</div>
+    <div class="card" style="cursor:default">
+      ${[['Registrar jogos e placares','✅','✅'],['Ranking interno do grupo','✅','✅'],['Portal ITF e notícias','✅','✅'],['Locais cadastrados','1 fixo','Ilimitados'],['Aparecer no Explorar (mapa)','—','✅'],['Locação de quadra (agenda pública)','—','✅'],['Ligas e rotativos abertos ao público','—','✅'],['Torneios com inscrição','—','✅'],['Ranking oficial da cidade','—','✅'],['Leads via WhatsApp','—','✅']].map(r=>`<div style="display:flex;justify-content:space-between;font-size:.82em;padding:6px 0;border-bottom:1px solid #f0f3f8"><span style="color:#456">${r[0]}</span><span style="width:64px;text-align:center;font-weight:700;color:#1e8f4e">${r[1]}</span><span style="width:64px;text-align:center;font-weight:700;color:#1b4a7a">${r[2]}</span></div>`).join('')}
+      <div style="display:flex;justify-content:space-between;font-size:.7em;font-weight:800;color:#99a;padding-top:6px"><span></span><span style="width:64px;text-align:center">GRUPO</span><span style="width:64px;text-align:center">ARENA</span></div>
+    </div>
+  </div>`;
+}
+function escolherPlano(i){
+  S.pendingPlan=i;
+  const dest = i===3 ? 'arena' : 'grupo';
+  const logado = S.role==='grupo' || S.role==='arena';
+  if(logado){ go('sub-checkout', dest); return; }
+  go('auth', dest);
+}
+function rankGrupo(){
+  const r={};
+  DB.grupo.membros.forEach(m=>r[m]={n:m,won:0,lost:0,j:0});
+  DB.grupo.jogos.forEach(j=>{
+    j.a.forEach(m=>{ if(r[m]){r[m].won+=j.sa; r[m].lost+=j.sb; r[m].j++;} });
+    j.b.forEach(m=>{ if(r[m]){r[m].won+=j.sb; r[m].lost+=j.sa; r[m].j++;} });
+  });
+  return Object.values(r).sort((a,b)=>(b.won-b.lost)-(a.won-a.lost));
+}
+function vGHome(){
+  const g=DB.grupo, rk=rankGrupo();
+  return `<div class="hd"><h2>👥 ${g.nome}<span class="sub">${g.plano} · ${g.membros.length}/${g.max} membros</span></h2><span class="ic" onclick="nav('g-plano')" style="cursor:pointer">⚙️</span></div>
+  <div class="pad">
+    <div class="live">
+      <div class="lrow"><span>📍 ${g.local}</span></div>
+      <div class="lrow"><span>📅 Próximo jogo</span><b style="color:var(--org)">Ter 07/07 · 20h–22h</b></div>
+      <div class="lrow"><span>🔑 Código de convite</span><b style="color:var(--org);letter-spacing:1px">${g.codigo}</b></div>
+    </div>
+    <button class="btn btn-o" onclick="nav('g-addjogo')">➕ Lançar placar do jogo</button>
+    <div class="stitle">🏆 Ranking interno <a onclick="nav('g-jogos')">Ver jogos →</a></div>
+    ${rk.slice(0,5).map((m,i)=>`<div class="rk" ${m.n.includes('🧢')?'style="border:2px solid var(--org)"':''}><span class="pos">${['🥇','🥈','🥉','#4','#5'][i]}</span><span class="nm">${m.n}<small>${m.j} jogos · ${m.won} ganhos / ${m.lost} perdidos</small></span><span class="pts">${m.won-m.lost>0?'+':''}${m.won-m.lost}</span></div>`).join('')}
+    <div class="stitle">👥 Membros (${g.membros.length}/${g.max})</div>
+    <div class="card" style="cursor:default">
+      <div class="chips">${g.membros.map(m=>`<div class="chip" style="cursor:default">${m}</div>`).join('')}
+      ${g.membros.length<g.max?`<div class="chip on" onclick="convidar()">+ Convidar</div>`:''}</div>
+      ${g.membros.length>=g.max?`<div class="al al-y" style="margin:10px 0 0">⚠️ Limite do plano atingido (${g.max}). Faça upgrade para adicionar mais membros.</div>`:''}
+    </div>
+    <div class="al al-b">🔒 Grupo privado: não aparece no mapa nem no ranking oficial da cidade. Entrada só com o código de convite.</div>
+  </div>`;
+}
+function convidar(){
+  const g=DB.grupo;
+  if(g.membros.length>=g.max){ toast('⚠️ Limite do plano atingido — faça upgrade'); return; }
+  g.membros.push(['Caio Nunes','Mel Dias','Tico Souza','Nina Reis'][g.membros.length-8]||'Novo Jogador');
+  toast('Convite enviado! Membro adicionado 👥'); render();
+}
+function vGJogos(){
+  const g=DB.grupo;
+  return header('📜 Jogos do Grupo', g.jogos.length+' partidas registradas', false)+`
+  <div class="pad">
+    <button class="btn btn-o" onclick="nav('g-addjogo')">➕ Lançar placar</button>
+    <div style="height:8px"></div>
+    ${g.jogos.map(j=>`
+    <div class="card" style="cursor:default;border-left:4px solid ${j.sa>j.sb?'var(--grn)':'var(--red)'}">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 style="font-size:.88em">${j.a.join(' & ')}</h3><b style="color:#1e8f4e">${j.sa}</b>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+        <h3 style="font-size:.88em">${j.b.join(' & ')}</h3><b style="color:#c0392b">${j.sb}</b>
+      </div>
+      <div class="meta" style="margin-top:8px"><span>📅 ${j.d}</span><span>📍 ${g.local.split(' (')[0]}</span></div>
+    </div>`).join('')}
+  </div>`;
+}
+function vGAddJogo(){
+  const g=DB.grupo;
+  const sel=(id,def)=>`<select id="${id}">${g.membros.map((m,i)=>`<option ${i===def?'selected':''}>${m}</option>`).join('')}</select>`;
+  return header('➕ Lançar Placar','Jogo interno do grupo')+`
+  <div class="pad">
+    <div style="display:flex;gap:10px">
+      <div class="fld" style="flex:1"><label>📅 Data</label><input type="date" id="gj-data" value="2026-07-02"></div>
+      <div class="fld" style="flex:1"><label>⏰ Hora</label><input type="time" id="gj-hora" value="20:00"></div>
+    </div>
+    <div class="fld"><label>🔵 Dupla A</label><div style="display:flex;gap:8px">${sel('gj-a1',0)}${sel('gj-a2',1)}</div></div>
+    <div class="fld"><label>🔴 Dupla B</label><div style="display:flex;gap:8px">${sel('gj-b1',2)}${sel('gj-b2',3)}</div></div>
+    <div class="fld"><label>🎾 Placar (games)</label>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:#789;font-weight:700">DUPLA A</small><input type="number" id="gj-sa" value="6" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
+        <b style="color:var(--org);font-size:1.2em">×</b>
+        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:#789;font-weight:700">DUPLA B</small><input type="number" id="gj-sb" value="4" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
+      </div>
+    </div>
+    <button class="btn btn-o" onclick="salvarJogoGrupo()">✅ Salvar — atualiza o ranking do grupo</button>
+    <button class="btn btn-ghost" onclick="back()">Cancelar</button>
+    <div class="al al-b" style="margin-top:12px">📊 O placar atualiza o ranking interno na hora e fica visível para todos os ${g.membros.length} membros.</div>
+  </div>`;
+}
+function salvarJogoGrupo(){
+  const g=id=>document.getElementById(id).value;
+  const sa=parseInt(g('gj-sa'))||0, sb=parseInt(g('gj-sb'))||0;
+  if(sa===sb){ toast('⚠️ O placar não pode terminar empatado'); return; }
+  const dupla=[g('gj-a1'),g('gj-a2'),g('gj-b1'),g('gj-b2')];
+  if(new Set(dupla).size<4){ toast('⚠️ Um jogador não pode estar em duas posições'); return; }
+  const dISO=g('gj-data')||'2026-07-02';
+  const d=dISO.split('-').reverse().map((x,i)=>i===2?x.slice(2):x).join('/');
+  DB.grupo.jogos.unshift({d, a:[dupla[0],dupla[1]], b:[dupla[2],dupla[3]], sa, sb});
+  toast('Placar salvo! Ranking atualizado 🏆'); nav('g-home');
+}
+function vGPlano(){
+  const g=DB.grupo;
+  return header('⚙️ Meu Plano', g.nome, false)+`
+  <div class="pad">
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:18px;padding:20px;color:#fff;text-align:center;margin-bottom:14px">
+      <div style="font-size:2.2em">👥</div><b style="font-size:1.1em">${g.plano}</b>
+      <p style="opacity:.75;font-size:.8em;margin-top:4px">${g.membros.length}/${g.max} membros · 1 local fixo · Código ${g.codigo}</p>
+    </div>
+    <div class="stitle">📏 Regras do plano Grupo</div>
+    <div class="card" style="cursor:default"><ul style="margin:0 0 0 18px">
+      <li style="font-size:.85em;color:#456;margin-bottom:7px">👥 Limite de <b>${g.max} jogadores</b> — upgrade libera mais vagas</li>
+      <li style="font-size:.85em;color:#456;margin-bottom:7px">📍 <b>1 local fixo</b> cadastrado (sem agenda pública de locação)</li>
+      <li style="font-size:.85em;color:#456;margin-bottom:7px">🔒 Grupo <b>privado</b> — fora do mapa e da busca; entrada só por convite</li>
+      <li style="font-size:.85em;color:#456;margin-bottom:7px">🏆 Ranking <b>interno</b> — não pontua no ranking oficial da cidade</li>
+      <li style="font-size:.85em;color:#456;margin-bottom:7px">🚫 Sem ligas públicas, rotativos abertos, torneios ou leads comerciais</li>
+      <li style="font-size:.85em;color:#456">🌐 Portal ITF, notícias e H2H liberados para todos os membros</li>
+    </ul></div>
+    <button class="btn btn-n" onclick="go('sub-status')">💳 Minha assinatura e cobranças</button>
+    <div class="stitle">⬆️ Fazer upgrade</div>
+    ${DB.planosGrupo.map((p,i)=>p.n===g.plano?'':`<div class="plano ${p.destaque?'hot':''}" onclick="escolherPlano(${i})"><h3>${i===3?'🏢':'👥'} ${p.n} — <span style="color:var(--navy2)">${p.preco}</span></h3><p>${p.max==='∞'?'Membros ilimitados + todos os recursos de arena':'Até '+p.max+' jogadores'} · histórico preservado</p></div>`).join('')}
+    <button class="btn btn-ghost" onclick="S.role=null;nav('splash')">↩️ Trocar de perfil</button>
+  </div>`;
+}
+
+/* CADASTRO / LOGIN / ASSINATURA */
+function vAuth(){
+  const dest=S.param||'arena';
+  const tab=S.tab||'cadastro';
+  const p = dest==='grupo' ? DB.planosGrupo[S.pendingPlan??1] : DB.planosGrupo[3];
+  return header('🔐 Acesso '+(dest==='grupo'?'do Grupo':'da Arena'), 'Plano escolhido: '+p.n+' · '+p.preco)+`
+  <div class="pad">
+    <div class="tabs">
+      <div class="tab ${tab==='cadastro'?'on':''}" onclick="setTab('cadastro')">✨ Criar conta</div>
+      <div class="tab ${tab==='login'?'on':''}" onclick="setTab('login')">Já tenho conta</div>
+    </div>
+    ${tab==='cadastro'?`
+    <div class="fld"><label>${dest==='grupo'?'👥 Nome do grupo':'🏢 Nome da arena'}</label><input placeholder="${dest==='grupo'?'Ex: Turma da Terça':'Ex: Arena Vida Fit'}"></div>
+    <div class="fld"><label>👤 Seu nome (responsável)</label><input placeholder="Nome completo"></div>
+    <div class="fld"><label>📧 E-mail</label><input type="email" placeholder="voce@email.com"></div>
+    <div class="fld"><label>💬 WhatsApp</label><input placeholder="(48) 9 9999-9999"></div>
+    <div class="fld"><label>🔒 Senha</label><input type="password" placeholder="Mínimo 8 caracteres"></div>`:`
+    <div class="fld"><label>📧 E-mail</label><input type="email" placeholder="voce@email.com"></div>
+    <div class="fld"><label>🔒 Senha</label><input type="password" placeholder="Sua senha"></div>`}
+    <button class="btn btn-o" onclick="go('sub-checkout','${dest}')">${tab==='cadastro'?'Criar conta':'Entrar'} → Pagamento</button>
+    <button class="btn btn-ghost" onclick="toast('Login Google simulado 🔑');go('sub-checkout','${dest}')">🔴 Continuar com Google</button>
+    <div class="al al-b" style="margin-top:12px">🔒 No app real: Supabase Auth — e-mail verificado, recuperação de senha e login Google/telefone já prontos, sem custo extra.</div>
+  </div>`;
+}
+function vSubCheckout(){
+  const dest=S.param||'arena';
+  const p = dest==='grupo' ? DB.planosGrupo[S.pendingPlan??1] : DB.planosGrupo[3];
+  const gratis = p.preco==='Grátis';
+  const pay=S.pay||'card';
+  return header('💳 Assinatura','Checkout seguro')+`
+  <div class="pad">
+    <div class="plano hot" style="cursor:default">
+      <h3>${dest==='grupo'?'👥':'🏢'} ${p.n}</h3>
+      <div class="pr">${p.preco}</div>
+      <p>${p.desc}</p>
+      <div style="margin-top:6px"><span class="badge bB">${p.max==='∞'?'Membros ilimitados':'Até '+p.max+' jogadores'}</span><span class="badge bG">Cancele quando quiser</span></div>
+    </div>
+    ${gratis?`<div class="al al-g">🎁 Plano gratuito — sem cartão e sem cobrança. Faça upgrade quando o grupo crescer.</div>`:`
+    <div class="card" style="cursor:default">
+      <h3>💳 Forma de pagamento</h3>
+      <div class="chips" style="margin-top:10px">
+        <div class="chip ${pay==='card'?'on':''}" onclick="S.pay='card';render()">💳 Cartão — renova sozinho</div>
+        <div class="chip ${pay==='pix'?'on':''}" onclick="S.pay='pix';render()">⚡ Pix — link por ciclo</div>
+      </div>
+      <p style="font-size:.78em;color:#789;margin-top:10px">${pay==='card'?'💳 Renovação automática todo mês. Você recebe aviso por e-mail antes de cada cobrança.':'⚡ Todo mês o link Pix chega por e-mail e WhatsApp, 7 dias antes do vencimento.'}</p>
+      ${pay==='card'?`<div class="fld" style="margin-top:10px"><label>Número do cartão</label><input placeholder="0000 0000 0000 0000"></div>
+      <div style="display:flex;gap:10px"><div class="fld" style="flex:1"><label>Validade</label><input placeholder="MM/AA"></div><div class="fld" style="flex:1"><label>CVV</label><input placeholder="123"></div></div>`:''}
+    </div>`}
+    <button class="btn btn-o" onclick="assinar('${dest}','${pay}')">${gratis?'✅ Ativar plano grátis':'✅ Assinar — '+p.preco}</button>
+    <button class="btn btn-ghost" onclick="back()">← Voltar</button>
+    <div class="al al-b" style="margin-top:12px">🔒 Pagamento simulado no protótipo. No app real: gateway (Asaas / Mercado Pago / Stripe) — o webhook de "pagamento aprovado" ativa o plano automaticamente, sem ação manual.</div>
+  </div>`;
+}
+function assinar(dest, pay){
+  const p = dest==='grupo' ? DB.planosGrupo[S.pendingPlan??1] : DB.planosGrupo[3];
+  const gratis = p.preco==='Grátis';
+  DB.assinatura={plano:p.n, preco:p.preco, dest,
+    metodo: gratis?'—':(pay==='pix'?'⚡ Pix (link por ciclo)':'💳 Cartão •••• 4242'),
+    status:'ativa', venc:'02/08/26',
+    log: gratis?['02/07 📧 Boas-vindas enviado — plano grátis ativo']:['02/07 ✅ Pagamento aprovado via webhook — '+p.preco,'02/07 📧 E-mail de boas-vindas + recibo enviado']};
+  if(dest==='grupo'){ DB.grupo.plano=p.n; DB.grupo.max=p.max==='∞'?99:p.max; S.role='grupo'; nav('g-home'); }
+  else { S.role='arena'; nav('a-dash'); }
+  toast(gratis?'Conta criada! Plano grátis ativo 🎉':'Assinatura ativa! Bem-vindo 🎉');
+}
+function vSubStatus(){
+  if(!DB.assinatura) DB.assinatura={plano:S.role==='grupo'?DB.grupo.plano:'Arena Pro',preco:S.role==='grupo'?'R$ 29/mês':'R$ 149/mês',dest:S.role==='grupo'?'grupo':'arena',metodo:'💳 Cartão •••• 4242',status:'ativa',venc:'02/08/26',log:['02/07 ✅ Pagamento aprovado — assinatura ativa','02/07 📧 Recibo enviado por e-mail']};
+  const a=DB.assinatura;
+  const st={ativa:['🟢 Ativa','bG','Próxima cobrança em '+a.venc],d3:['🟡 Vence em 3 dias','bO','Renove até '+a.venc+' para não perder o acesso'],vencida:['🔴 Vencida','bR','Pagamento em atraso — acesso será limitado em 4 dias'],rebaixada:['⚪ Rebaixada p/ grátis','bGy','Dados preservados. Reative quando quiser']}[a.status];
+  const etapas=[['D-7','📧 E-mail + push: lembrete de renovação'],['D-3','📧 E-mail + 💬 WhatsApp com link de pagamento'],['D0','💳 Cobrança automática (cartão) ou vencimento do Pix'],['D+3','⚠️ Aviso de atraso por e-mail e WhatsApp'],['D+7','⚪ Conta rebaixada para o plano grátis (dados preservados)']];
+  const idx={ativa:0,d3:1,vencida:3,rebaixada:4}[a.status];
+  return header('💳 Minha Assinatura', a.plano+' · '+a.preco, false)+`
+  <div class="pad">
+    <div class="card" style="cursor:default">
+      <div style="display:flex;justify-content:space-between;align-items:center"><h3>${a.plano}</h3><span class="badge ${st[1]}">${st[0]}</span></div>
+      <div class="meta"><span>💰 ${a.preco}</span><span>${a.metodo}</span></div>
+      <div class="meta"><span>${st[2]}</span></div>
+      ${a.status==='vencida'||a.status==='rebaixada'?`<button class="btn btn-o" onclick="DB.assinatura.status='ativa';DB.assinatura.venc='02/09/26';DB.assinatura.log.unshift('hoje ✅ Pagamento recebido — plano reativado');toast('Plano reativado! 🎉');render()">💳 Pagar agora e reativar</button>`:''}
+    </div>
+    <div class="stitle">📏 Régua de cobrança automática</div>
+    <div class="card" style="cursor:default">
+      ${etapas.map((e,i)=>`<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #f0f3f8;font-size:.83em;${i===idx?'font-weight:800':''}"><span style="width:38px;color:${i<=idx?'var(--org)':'#99a'};font-weight:800;flex-shrink:0">${e[0]}</span><span style="color:${i<=idx?'#234':'#99a'}">${e[1]}${i===idx?' ← agora':''}</span></div>`).join('')}
+    </div>
+    <button class="btn btn-n" onclick="simTempo()">⏩ Simular passagem do tempo (demo)</button>
+    <div class="stitle">📬 Comunicações enviadas (automáticas)</div>
+    ${a.log.map(l=>`<div class="rk" style="font-size:.85em"><span class="nm" style="font-weight:500">${l}</span></div>`).join('')}
+    <button class="btn btn-ghost" onclick="go('g-planos')">🔁 Trocar de plano</button>
+    <button class="btn btn-ghost" onclick="toast('Assinatura será cancelada ao fim do ciclo 😢')">Cancelar assinatura</button>
+  </div>`;
+}
+function simTempo(){
+  const a=DB.assinatura; if(!a) return;
+  if(a.status==='ativa'){ a.status='d3'; a.log.unshift('30/07 📧 Lembrete automático: assinatura vence em 3 dias','30/07 💬 WhatsApp: link de pagamento enviado'); toast('⏩ 27 dias depois... lembretes disparados'); }
+  else if(a.status==='d3'){ a.status='vencida'; a.log.unshift('02/08 💳 Cobrança automática falhou (cartão recusado)','05/08 ⚠️ E-mail + WhatsApp: pagamento em atraso'); toast('⏩ Venceu — avisos de atraso enviados'); }
+  else if(a.status==='vencida'){ a.status='rebaixada'; a.log.unshift('09/08 ⚪ Conta rebaixada para o plano grátis — dados preservados'); toast('⏩ 7 dias de atraso — conta rebaixada'); }
+  else { a.status='ativa'; a.venc='02/09/26'; a.log.unshift('10/08 ✅ Pagamento recebido — plano reativado com todo o histórico'); toast('✅ Pagou — tudo reativado!'); }
+  render();
+}
+
+/* TELAS — ARENA */
+function vADash(){
+  const pend=DB.pedidos.length;
+  return `<div class="hd"><h2>📊 Arena Vida Fit<span class="sub">Dashboard operacional · ${new Date().toLocaleDateString('pt-BR')}</span></h2><span class="ic" onclick="toast(pend+' pendências 🔔')" style="cursor:pointer">🔔</span></div>
+  <div class="pad">
+    ${pend?`<div class="al al-y" style="cursor:pointer" onclick="nav('a-quadras')">⚠️ <b>${pend} pedido${pend>1?'s':''} de reserva aguardando</b> — toque para responder</div>`:'<div class="al al-g">✅ Nenhuma pendência no momento</div>'}
+    ${!DB.partidaAtual.lancada?`<div class="al al-y" style="cursor:pointer" onclick="nav('a-games')">📋 <b>Rodada 8 da Liga Ter Mista</b> — placar aguardando lançamento</div>`:''}
+    <div class="stats">
+      <div class="stat o"><b>3/4</b><span>Quadras hoje</span></div>
+      <div class="stat"><b>${DB.ligas.filter(l=>l.arenaId===1&&l.status==='ativa').length}</b><span>Ligas ativas</span></div>
+      <div class="stat g"><b>R$ 1.240</b><span>Receita hoje</span></div>
+    </div>
+    <div class="stitle">⚡ Ações rápidas</div>
+    <div class="hrow">
+      <div class="hcard" onclick="nav('a-ligas')"><div class="top">🏅</div><h3>+ Nova Liga</h3><p>Criar liga recorrente</p></div>
+      <div class="hcard" onclick="nav('a-quadras')"><div class="top">🎾</div><h3>Agenda</h3><p>Gerenciar quadras</p></div>
+      <div class="hcard" onclick="nav('a-games')"><div class="top">📋</div><h3>Lançar Games</h3><p>Rodada pendente</p></div>
+      <div class="hcard" onclick="toast('Criação de torneio 🏆')"><div class="top">🏆</div><h3>+ Torneio</h3><p>Anunciar evento</p></div>
+    </div>
+    <div class="stitle">📅 Hoje na arena</div>
+    ${[['17h–19h','Liga Ter Mista · Rodada 8'],['19h–20h','Quadra 1 · Reserva Carlos M.'],['20h–22h','Rotativo noite · 9 confirmados']].map(e=>`<div class="rk"><span class="pos" style="font-size:.8em;width:64px">${e[0]}</span><span class="nm">${e[1]}</span></div>`).join('')}
+  </div>`;
+}
+
+function vAQuadras(){
+  return header('🎾 Quadras — Agenda','Quadra 1 · Ter 07/07', false)+`
+  <div class="pad">
+    ${DB.pedidos.length?`<div class="stitle">📬 Pedidos de reserva (${DB.pedidos.length})</div>`+DB.pedidos.map(p=>`
+      <div class="card" style="cursor:default">
+        <h3>⏳ ${p.nome}</h3><div class="meta"><span>${p.det}</span></div>${p.pg?`<div style="margin-top:6px"><span class="badge bG">${p.pg}</span><span class="badge bB">R$ 80,00</span></div>`:''}
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="btn btn-grn btn-sm" style="flex:1" onclick="responder(${p.id},true)">✅ Confirmar</button>
+          <button class="btn btn-red btn-sm" style="flex:1" onclick="responder(${p.id},false)">❌ Recusar</button>
+          <button class="btn btn-ghost btn-sm" onclick="toast('Abrindo WhatsApp 💬')">💬</button>
+        </div>
+      </div>`).join(''):''}
+    <div class="stitle">📅 Agenda do dia</div>
+    ${DB.slots.map((s,i)=>{
+      if(s.status==='livre') return `<div class="slot"><span class="h">${s.h}</span><span class="st st-l">🟢 Livre</span><button class="btn btn-ghost btn-sm" onclick="DB.slots[${i}].status='ocupado';DB.slots[${i}].who='Bloqueio manual';toast('Horário bloqueado 🔒');render()">Bloquear</button></div>`;
+      if(s.status==='ocupado') return `<div class="slot"><span class="h">${s.h}</span><span class="st st-o">🔴 ${s.who}</span><button class="btn btn-ghost btn-sm" onclick="DB.slots[${i}].status='livre';DB.slots[${i}].who=null;toast('Horário liberado ✅');render()">Liberar</button></div>`;
+      return `<div class="slot"><span class="h">${s.h}</span><span class="st st-p">🟡 ${s.who}</span><span style="font-size:.75em;color:#c97d0a;font-weight:700">responder acima ↑</span></div>`;
+    }).join('')}
+  </div>`;
+}
+function responder(id, ok){
+  const p=DB.pedidos.find(x=>x.id===id); if(!p) return;
+  const slot=DB.slots.find(s=>s.h===p.slotH);
+  if(slot){ slot.status= ok?'ocupado':'livre'; slot.who= ok?p.nome:null; }
+  const res=DB.minhasReservas.find(r=>r.det.includes(p.slotH)); if(res) res.status= ok?'confirmada':'recusada';
+  DB.pedidos=DB.pedidos.filter(x=>x.id!==id);
+  toast(ok?'Reserva confirmada! Jogador notificado 🔔':'Pedido recusado. Jogador notificado 🔔');
+  render();
+}
+
+function vALigas(){
+  const tab=S.tab||'lista';
+  if(tab==='form') return header('📋 Nova Liga','Arena Vida Fit')+`
+  <div class="pad">
+    <div class="fld"><label>Nome da liga</label><input placeholder="Ex: Liga Quarta Mista" id="f-nome"></div>
+    <div class="fld"><label>Modalidade</label><select><option>Beach Tennis</option><option>Vôlei de Praia</option><option>Futevôlei</option></select></div>
+    <div class="fld"><label>Categoria</label><div class="chips" id="f-cat">${['Masculino','Feminino','Misto','Dupla Fixa','Rei e Rainha'].map((c,i)=>`<div class="chip ${i===2?'on':''}" onclick="this.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${c}</div>`).join('')}</div></div>
+    <div class="fld"><label>Nível</label><div class="chips">${['Iniciante','Intermediário','Avançado','Open'].map((c,i)=>`<div class="chip ${i===3?'on':''}" onclick="this.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${c}</div>`).join('')}</div></div>
+    <div class="fld"><label>Dia recorrente</label><div class="chips">${['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].map((c,i)=>`<div class="chip ${i===2?'on':''}" onclick="this.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${c}</div>`).join('')}</div></div>
+    <div style="display:flex;gap:10px"><div class="fld" style="flex:1"><label>Início</label><input type="time" value="19:00"></div><div class="fld" style="flex:1"><label>Fim</label><input type="time" value="21:00"></div></div>
+    <div style="display:flex;gap:10px"><div class="fld" style="flex:1"><label>Máx. duplas</label><input type="number" value="8"></div><div class="fld" style="flex:1"><label>Valor por dupla</label><input value="R$ 40/semana"></div></div>
+    <div class="fld"><label>Regras / observações (opcional)</label><textarea rows="2" placeholder="Ex: formato round-robin, 1 set por confronto..."></textarea></div>
+    <button class="btn btn-o" onclick="criarLiga()">✅ Publicar Liga</button>
+    <button class="btn btn-ghost" onclick="setTab('lista')">Cancelar</button>
+  </div>`;
+  return header('🏅 Minhas Ligas','Arena Vida Fit', false)+`
+  <div class="pad">
+    ${DB.ligas.filter(l=>l.arenaId===1).map(l=>`<div class="card" style="cursor:default"><h3>${l.status==='ativa'?'🟢':'⏸️'} ${l.name}</h3><div class="meta"><span>📅 ${l.dia} ${l.hora}</span><span>${l.vagas}</span></div><div style="margin-top:6px"><span class="badge bB">${l.cat}</span><span class="badge bO">${l.nivel}</span></div></div>`).join('')}
+    <button class="btn btn-o" onclick="setTab('form')">+ Nova Liga</button>
+  </div>`;
+}
+function criarLiga(){
+  const nome=document.getElementById('f-nome').value||'Liga Quarta Mista';
+  DB.ligas.push({id:Date.now(), arenaId:1, name:nome, cat:'Misto', nivel:'Open', dia:'Quarta', hora:'19h–21h', vagas:'8 de 8 duplas', preco:'R$ 40/dupla/semana', status:'ativa'});
+  toast('Liga publicada! Jogadores próximos serão notificados 🔔'); setTab('lista');
+}
+
+function vAGames(){
+  const p=DB.partidaAtual;
+  if(p.lancada) return header('📋 Lançar Games','Liga Ter Mista · Rodada 8', false)+`
+  <div class="pad">
+    <div class="al al-g">✅ <b>Placar lançado!</b> O sistema distribuiu os games automaticamente para os 4 jogadores.</div>
+    <div class="stitle">📊 Distribuição registrada</div>
+    ${[['João Silva','+'+p.sa+' ganhos / '+p.sb+' sofridos','WIN'],['Ana Costa','+'+p.sa+' ganhos / '+p.sb+' sofridos','WIN'],['Pedro Lima','+'+p.sb+' ganhos / '+p.sa+' sofridos','LOSS'],['Cris Melo','+'+p.sb+' ganhos / '+p.sa+' sofridos','LOSS']].map(r=>`<div class="rk"><span class="pos">${r[2]==='WIN'?'✅':'❌'}</span><span class="nm">${r[0]}<small>${r[1]}</small></span><span class="pts" style="color:${r[2]==='WIN'?'#1e8f4e':'#c0392b'}">${r[2]}</span></div>`).join('')}
+    <div class="al al-b">🗄️ 4 registros criados em <b>game_records</b> — um por jogador. Rankings e perfis atualizados na hora.</div>
+    <button class="btn btn-n" onclick="DB.partidaAtual={ta:'Rafa & Duda',tb:'Leo & Bia',sa:6,sb:3,lancada:false};toast('Partida 2 de 4 carregada');render()">→ Próxima partida da rodada</button>
+  </div>`;
+  return header('📋 Lançar Games','Liga Ter Mista · Rodada 8 · Partida 1 de 4', false)+`
+  <div class="pad">
+    <div class="score">
+      <div style="text-align:center;font-size:.78em;font-weight:800;color:#889;text-transform:uppercase;letter-spacing:.5px">Placar da partida (games)</div>
+      <div class="svs">
+        <div class="steam">🔵 ${p.ta}</div>
+        <div class="snum"><button onclick="DB.partidaAtual.sa=Math.max(0,DB.partidaAtual.sa-1);render()">−</button><b>${p.sa}</b><button onclick="DB.partidaAtual.sa++;render()">+</button></div>
+      </div>
+      <div style="text-align:center;font-weight:900;color:var(--org)">×</div>
+      <div class="svs">
+        <div class="steam">🔴 ${p.tb}</div>
+        <div class="snum"><button onclick="DB.partidaAtual.sb=Math.max(0,DB.partidaAtual.sb-1);render()">−</button><b>${p.sb}</b><button onclick="DB.partidaAtual.sb++;render()">+</button></div>
+      </div>
+      <div class="dist">
+        <b style="color:var(--navy)">O sistema vai distribuir automaticamente:</b>
+        <div class="dr"><span>▸ ${p.ta.split(' & ')[0]} / ${p.ta.split(' & ')[1]}</span><span style="color:${p.sa>=p.sb?'#1e8f4e':'#c0392b'};font-weight:700">+${p.sa} ganhos · ${p.sa>p.sb?'WIN':p.sa<p.sb?'LOSS':'—'}</span></div>
+        <div class="dr"><span>▸ ${p.tb.split(' & ')[0]} / ${p.tb.split(' & ')[1]}</span><span style="color:${p.sb>=p.sa?'#1e8f4e':'#c0392b'};font-weight:700">+${p.sb} ganhos · ${p.sb>p.sa?'WIN':p.sb<p.sa?'LOSS':'—'}</span></div>
+      </div>
+      <button class="btn btn-o" onclick="lancar()">✅ Confirmar placar ${p.sa} × ${p.sb}</button>
+    </div>
+    <div class="al al-b" style="margin-top:12px">💡 Um único lançamento por partida — os games entram no perfil individual de cada um dos 4 jogadores, sem digitação extra.</div>
+  </div>`;
+}
+function lancar(){
+  const p=DB.partidaAtual; p.lancada=true;
+  if(p.ta.includes('João')){
+    DB.me.won+=p.sa; DB.me.lost+=p.sb;
+    DB.historico.unshift({d:'02/07/26', arena:'Arena Vida Fit', ev:'Liga Ter Mista · Rodada 8', tipo:'liga', par:p.ta.split(' & ')[1], adv:p.tb.replace(' & ',' Lima & ')+' Melo', pl:`${p.sa} × ${p.sb}`, res:p.sa>p.sb?'win':'loss'});
+  }
+  toast('Placar confirmado! Games distribuídos 📊'); render();
+}
+
+function vAPerfil(){
+  const a=DB.arenas[0];
+  return header('⚙️ Perfil da Arena','', false)+`
+  <div class="pad">
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:18px;padding:20px;color:#fff;text-align:center;margin-bottom:14px">
+      <div style="font-size:2.4em">${a.emoji}</div><b style="font-size:1.1em">${a.name}</b>
+      <p style="opacity:.75;font-size:.8em;margin-top:2px">⭐ ${a.star} · ${a.quadras} quadras · Florianópolis</p>
+    </div>
+    <div class="fld"><label>📍 Endereço</label><input value="${a.addr}"></div>
+    <div class="fld"><label>💬 WhatsApp comercial</label><input value="(48) 99999-0001"></div>
+    <div class="fld"><label>📷 Instagram</label><input value="@arenavidafit"></div>
+    <div class="fld"><label>⏰ Horário de funcionamento</label><input value="${a.hours}"></div>
+    <div class="fld"><label>💡 Características</label><input value="${a.feat}"></div>
+    <button class="btn btn-o" onclick="toast('Perfil atualizado ✅')">Salvar alterações</button>
+    <button class="btn btn-n" onclick="go('sub-status')">💳 Minha assinatura</button>
+    <button class="btn btn-ghost" onclick="S.role=null;nav('splash')">↩️ Trocar de perfil</button>
+  </div>`;
+}
+
+/* RENDER */
+const SCREENS = {
+  'splash':vSplash,'intro':vIntro,
+  'p-home':vPHome,'p-explore':vPExplore,'p-arena':vPArena,'p-liga':vPLiga,'p-torneio':vPTorneio,'p-quadra':vPQuadra,'p-checkout':vPCheckout,'p-agenda':vPAgenda,'p-perfil':vPPerfil,'p-historico':vPHistorico,'p-addjogo':vPAddJogo,
+  'portal':vPortal,'portal-h2h':vPortalH2H,
+  'a-dash':vADash,'a-quadras':vAQuadras,'a-ligas':vALigas,'a-games':vAGames,'a-perfil':vAPerfil,
+  'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
+  'auth':vAuth,'sub-checkout':vSubCheckout,'sub-status':vSubStatus,
+};
+function render(){
+  const fn=SCREENS[S.screen]||vSplash;
+  document.getElementById('app').innerHTML=fn();
+  document.getElementById('app').scrollTop=0;
+  navbar();
+}
+render();
+
+/* PWA — service worker */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{ navigator.serviceWorker.register('/sw.js').catch(()=>{}); });
+}
+</script>
+</body>
+</html>
