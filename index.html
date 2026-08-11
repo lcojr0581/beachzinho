@@ -18,6 +18,18 @@
 body{font-family:'Segoe UI',Arial,sans-serif;background:#dfe3e8;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
 .phone{width:100%;max-width:420px;min-height:92vh;background:var(--bg);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 60px rgba(0,0,0,.5);position:relative}
 @media(max-width:440px){body{padding:0}.phone{border-radius:0;min-height:100vh}}
+/* MODO COMPUTADOR */
+@media(min-width:900px){
+body{padding:24px 0;align-items:center}
+.phone{max-width:1040px;flex-direction:row-reverse;min-height:88vh;max-height:92vh}
+#app{padding-bottom:24px;height:100%}
+#navbar{flex-shrink:0}
+#navbar .nav{position:static;height:100%;min-height:88vh;flex-direction:column;justify-content:flex-start;gap:4px;width:200px;padding:22px 12px;border-radius:28px 0 0 28px}
+#navbar .ni{display:flex;align-items:center;gap:12px;font-size:.92em;padding:12px 14px;border-radius:12px;text-align:left;width:100%}
+#navbar .ni span{font-size:1.25em;margin:0}
+#navbar .ni.on{background:rgba(255,255,255,.14)}
+.splash,.intro{min-height:auto}
+}
 #app{flex:1;overflow-y:auto;padding-bottom:78px}
 /* HEADER */
 .hd{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:18px 18px 14px;position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px}
