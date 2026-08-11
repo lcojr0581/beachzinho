@@ -313,7 +313,7 @@ function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg
 
 /* ═══════════ COMPONENTES ═══════════ */
 function header(title, sub='', showBack=true){
-  return `<div class="hd">${showBack?'<button class="back" onclick="back()">‹</button>':''}<h2>${title}${sub?`<span class="sub">${sub}</span>`:''}</h2></div>`;
+  return `<div class="hd"><button class="back" onclick="back()">‹</button><h2>${title}${sub?`<span class="sub">${sub}</span>`:''}</h2></div>`;
 }
 function navbar(){
   const el=document.getElementById('navbar');
@@ -340,7 +340,7 @@ function vIntro(){
     <p style="opacity:.9;margin:12px 0 6px;font-size:1.08em;font-weight:800">Sua arena no controle.<br>Seus jogadores conectados.</p>
     <p style="opacity:.6;font-size:.85em">Quadras, ligas, aulas, rankings e pagamentos — tudo em um só app.</p>
     <button class="btn btn-o" style="margin-top:18px" onclick="nav('splash')">🚀 Começar agora — grátis</button>
-    <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.45)" onclick="S.pendingPlan=3;go('auth','arena')">🔐 Fazer login · Cadastre-se</button>
+    <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.45)" onclick="S.pendingPlan=3;go('auth','arena','login')">🔐 Fazer login · Cadastre-se</button>
     <div style="display:flex;justify-content:space-around;margin-top:24px">
       <div><b style="font-size:1.35em;color:var(--org)">3 min</b><br><span style="font-size:.68em;opacity:.7">para cadastrar<br>sua arena</span></div>
       <div><b style="font-size:1.35em;color:var(--org)">0</b><br><span style="font-size:.68em;opacity:.7">conflitos<br>de agenda</span></div>
@@ -744,7 +744,7 @@ function vPortal(){
     body=DB.news.map(n=>`<div class="news" onclick="toast('Abrindo notícia completa 📰')"><div class="nimg" style="background:${n.bg}">${n.ic}</div><div class="nbody"><span class="tag">${n.tag}</span><h3>${n.t}</h3><p>${n.p}</p></div></div>`).join('');
   }
   if(tab==='h2h'){ body=h2hBody(); }
-  return `<div class="hd">${S.role?'':'<button class="back" onclick="S.role=null;nav(\'splash\')">‹</button>'}<h2>🌐 Portal Beach Tennis<span class="sub">Rankings · Calendário · Notícias · H2H</span></h2></div>
+  return `<div class="hd"><button class="back" onclick="${S.role?'back()':'S.role=null;nav(\'splash\')'}">‹</button><h2>🌐 Portal Beach Tennis<span class="sub">Rankings · Calendário · Notícias · H2H</span></h2></div>
   <div class="pad">
     <div class="tabs">
       ${[['ranking','🏆 Rankings'],['calend','📅 Calendário'],['news','📰 Notícias'],['h2h','⚔️ H2H']].map(t=>`<div class="tab ${tab===t[0]?'on':''}" onclick="setTab('${t[0]}')">${t[1]}</div>`).join('')}
