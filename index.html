@@ -1178,9 +1178,9 @@ function vProfHome(){
     ${!chamadaFeita?`<div class="al al-y" style="cursor:pointer" onclick="nav('pr-chamada')">📋 <b>Aula de hoje: Iniciante Manhã · 08h</b> — chamada pendente, toque para fazer</div>`:`<div class="al al-g">✅ Chamada de hoje registrada</div>`}
     ${pend?`<div class="al al-y" style="cursor:pointer" onclick="nav('pr-alunos')">💰 <b>${pend} mensalidade${pend>1?'s':''} a receber</b> — toque para ver</div>`:''}
     <div class="stats">
-      <div class="stat"><b>${p.turmas.length}</b><span>Turmas</span></div>
-      <div class="stat"><b>${p.alunos.length}</b><span>Alunos</span></div>
-      <div class="stat g"><b>${p.alunos.filter(a=>a.pag==='pago').length}/${p.alunos.length}</b><span>Pagos no mês</span></div>
+      <div class="stat" style="cursor:pointer" onclick="nav('pr-turmas')"><b>${p.turmas.length}</b><span>Turmas →</span></div>
+      <div class="stat" style="cursor:pointer" onclick="nav('pr-alunos')"><b>${p.alunos.length}</b><span>Alunos →</span></div>
+      <div class="stat g" style="cursor:pointer" onclick="nav('pr-alunos');S.tab='pago';render()"><b>${p.alunos.filter(a=>a.pag==='pago').length}/${p.alunos.length}</b><span>Pagos no mês →</span></div>
     </div>
     <div class="stitle">📅 Hoje</div>
     <div class="card" onclick="nav('pr-chamada')">
@@ -1289,7 +1289,8 @@ function profChamada(id, st){
 function vProfAlunos(){
   const p=DB.prof;
   const f=S.tab||'todos';
-  const lista=p.alunos.filter(a=>f==='todos'||a.pag===f);
+  const busca=(S.busca||'').toLowerCase();
+  const lista=p.alunos.filter(a=>(f==='todos'||a.pag===f)&&(!busca||a.nome.toLowerCase().includes(busca)));
   const badge={pago:['✅ Pago','bG'],pendente:['⏳ Pendente','bO'],atrasado:['🔴 Atrasado','bR']};
   return header('📋 Alunos & Cobranças','Toque em Pagos/Pendentes/Atrasados para filtrar', false)+`
   <div class="pad">
@@ -1298,6 +1299,11 @@ function vProfAlunos(){
       <div class="stat o" style="cursor:pointer;${f==='pendente'?'outline:2.5px solid #c97d0a':''}" onclick="setTab(S.tab==='pendente'?'todos':'pendente')"><b>${p.alunos.filter(a=>a.pag==='pendente').length}</b><span>Pendentes</span></div>
       <div class="stat r" style="cursor:pointer;${f==='atrasado'?'outline:2.5px solid #d13438':''}" onclick="setTab(S.tab==='atrasado'?'todos':'atrasado')"><b>${p.alunos.filter(a=>a.pag==='atrasado').length}</b><span>Atrasados</span></div>
     </div>
+    <div style="display:flex;gap:8px;margin-bottom:4px">
+      <input value="${S.busca||''}" placeholder="🔎 Buscar aluno por nome..." oninput="S.busca=this.value" onchange="render()" style="flex:1;border:1.5px solid #dde5f0;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff">
+      <button class="btn btn-ghost btn-sm" onclick="render()">Buscar</button>
+    </div>
+    ${S.busca?`<div class="al al-b" style="cursor:pointer" onclick="S.busca='';render()">🔎 Buscando: <b>"${S.busca}"</b> (${lista.length}) — toque para limpar</div>`:''}
     <button class="btn btn-o" onclick="go('pr-novo-aluno')">➕ Cadastrar aluno</button>
     ${f!=='todos'?`<div class="al al-b" style="cursor:pointer" onclick="setTab('todos')">🔎 Filtrando: <b>${badge[f][0]}</b> (${lista.length}) — toque para limpar</div>`:''}
     ${lista.length? '' : '<div class="empty"><span>🔎</span>Nenhum aluno neste filtro</div>'}
