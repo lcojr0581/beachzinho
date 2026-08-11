@@ -250,12 +250,12 @@ const DB = {
       {id:3, nome:'Avançado Noite', nivel:'Avançado', local:'Quadra Society Beira-Rio', dia:'Ter/Qui', hora:'19h', max:4, valor:'R$ 300/mês'},
     ],
     alunos:[
-      {id:1, nome:'Ana Costa', turma:1, pag:'pago', venc:'dia 05', repo:0, pres:8, faltas:0},
-      {id:2, nome:'Pedro Lima', turma:1, pag:'pendente', venc:'dia 10', repo:1, pres:6, faltas:1},
-      {id:3, nome:'Cris Melo', turma:1, pag:'atrasado', venc:'dia 05', repo:0, pres:5, faltas:2},
-      {id:4, nome:'Bia Rocha', turma:2, pag:'pago', venc:'dia 05', repo:0, pres:9, faltas:0},
-      {id:5, nome:'João Silva 🧢', turma:3, pag:'pago', venc:'dia 05', repo:1, pres:7, faltas:0},
-      {id:6, nome:'Leo Braga', turma:3, pag:'pendente', venc:'dia 08', repo:0, pres:6, faltas:1},
+      {id:1, nome:'Ana Costa', turma:1, pag:'pago', venc:'dia 05', repo:0, pres:8, faltas:0, hist:[{d:'10/08/26',st:'pres',obs:'Evoluiu muito no saque'},{d:'05/08/26',st:'pres',obs:'Treino de smash'},{d:'03/08/26',st:'avisada',obs:'Avisou por trabalho'}]},
+      {id:2, nome:'Pedro Lima', turma:1, pag:'pendente', venc:'dia 10', repo:1, pres:6, faltas:1, hist:[{d:'10/08/26',st:'pres',obs:'Melhorar posicionamento na rede'},{d:'05/08/26',st:'falta',obs:'Sem aviso'},{d:'03/08/26',st:'pres',obs:''}]},
+      {id:3, nome:'Cris Melo', turma:1, pag:'atrasado', venc:'dia 05', repo:0, pres:5, faltas:2, hist:[{d:'10/08/26',st:'avisada',obs:'Reposição marcada p/ sábado'},{d:'05/08/26',st:'pres',obs:'Aula focada em voleio'}]},
+      {id:4, nome:'Bia Rocha', turma:2, pag:'pago', venc:'dia 05', repo:0, pres:9, faltas:0, hist:[{d:'08/08/26',st:'pres',obs:'Kids: coordenação com bolinha'},{d:'01/08/26',st:'pres',obs:''}]},
+      {id:5, nome:'João Silva 🧢', turma:3, pag:'pago', venc:'dia 05', repo:1, pres:7, faltas:0, hist:[{d:'06/08/26',st:'pres',obs:'Preparação para o torneio'},{d:'04/08/26',st:'pres',obs:'Físico + defesa'}]},
+      {id:6, nome:'Leo Braga', turma:3, pag:'pendente', venc:'dia 08', repo:0, pres:6, faltas:1, hist:[{d:'06/08/26',st:'pres',obs:''},{d:'04/08/26',st:'avisada',obs:'Viagem'}]},
     ],
     chamada:{},
     agenda:{
@@ -305,7 +305,7 @@ const DB = {
 let S = {role:null, screen:'intro', stack:[], param:null, tab:null, day:0};
 
 function go(screen, param=null, tab=null){ S.stack.push({screen:S.screen,param:S.param,tab:S.tab}); S.screen=screen; S.param=param; S.tab=tab; render(); }
-function back(){ const p=S.stack.pop(); if(p){S.screen=p.screen;S.param=p.param;S.tab=p.tab;} render(); }
+function back(){ const p=S.stack.pop(); if(p){S.screen=p.screen;S.param=p.param;S.tab=p.tab; render(); return;} const home={player:'p-home',arena:'a-dash',prof:'pr-home',grupo:'g-home'}[S.role]; nav(home||'splash'); }
 function nav(screen){ S.stack=[]; S.screen=screen; S.param=null; S.tab=null; render(); }
 function setTab(t){ S.tab=t; render(); }
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2400); }
@@ -333,14 +333,13 @@ function navbar(){
 
 /* ═══════════ TELA — APRESENTAÇÃO ═══════════ */
 function vIntro(){
-  const fcard=f=>`<div class="card" style="cursor:default;display:flex;gap:14px;align-items:flex-start"><span style="font-size:1.8em;flex-shrink:0">${f[0]}</span><span><h3>${f[1]}</h3><p style="font-size:.83em;color:#678;margin-top:3px">${f[2]}</p></span></div>`;
   return `<div style="background:linear-gradient(160deg,#003e73 0%,#005a9e 55%,#0078d4 100%);color:#fff;padding:44px 24px 28px;text-align:center">
     <div style="font-size:3em">🏖️</div>
     <h1 style="font-size:2em;font-weight:900;letter-spacing:-.5px">Beach<span style="color:var(--org)">zinho</span></h1>
     <p style="opacity:.9;margin:12px 0 6px;font-size:1.08em;font-weight:800">Sua arena no controle.<br>Seus jogadores conectados.</p>
-    <p style="opacity:.6;font-size:.85em">O app completo do Beach Tennis: quadras, ligas, rankings e pagamentos — sem planilha, sem caderno, sem erro.</p>
-    <button class="btn btn-o" style="margin-top:18px" onclick="nav(\'splash\')">🚀 Começar agora — grátis</button>
-    <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.45)" onclick="S.pendingPlan=3;go(\'auth\',\'arena\')">🔐 Fazer login · Cadastre-se</button>
+    <p style="opacity:.6;font-size:.85em">Quadras, ligas, aulas, rankings e pagamentos — tudo em um só app.</p>
+    <button class="btn btn-o" style="margin-top:18px" onclick="nav('splash')">🚀 Começar agora — grátis</button>
+    <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.45)" onclick="S.pendingPlan=3;go('auth','arena')">🔐 Fazer login · Cadastre-se</button>
     <div style="display:flex;justify-content:space-around;margin-top:24px">
       <div><b style="font-size:1.35em;color:var(--org)">3 min</b><br><span style="font-size:.68em;opacity:.7">para cadastrar<br>sua arena</span></div>
       <div><b style="font-size:1.35em;color:var(--org)">0</b><br><span style="font-size:.68em;opacity:.7">conflitos<br>de agenda</span></div>
@@ -348,37 +347,70 @@ function vIntro(){
     </div>
   </div>
   <div class="pad">
-    <div class="stitle">🏢 Para a sua arena</div>
+    <div class="stitle">Escolha a sua frente</div>
     ${[
-      ['🎾','Agenda de quadras sem erro','Horários livres, ocupados e pendentes em tempo real. Chega de reserva duplicada, caderno ou WhatsApp perdido.'],
-      ['💰','Receba na hora da reserva','Pix e cartão direto no app. O jogador paga ao reservar — menos furo e caixa previsível.'],
-      ['🏅','Ligas e torneios no piloto automático','Você lança o placar uma vez; o sistema distribui os games, monta o ranking e avisa os jogadores.'],
-      ['📣','Sua arena no mapa da cidade','Jogadores próximos encontram sua quadra, suas ligas e seus torneios — e chamam direto no seu WhatsApp.'],
-      ['🔔','Cobrança automática de planos','Lembrete, link de pagamento e aviso de atraso por e-mail e WhatsApp, sem você mover um dedo.'],
-    ].map(fcard).join('')}
-    <div class="stitle">👤 Para o jogador</div>
-    ${[
-      ['🔍','Quadra livre em segundos','Mapa com as arenas da cidade, agenda em tempo real e reserva paga em 3 toques.'],
-      ['📊','Seu histórico e ranking','Cada game vira estatística: aproveitamento, head-to-head e ranking da sua cidade.'],
-      ['🌐','O mundo do beach tennis','Ranking ITF ao vivo, calendário de torneios e notícias — tudo dentro do app.'],
-    ].map(fcard).join('')}
-    <div class="stitle">👥 Para a sua turma</div>
-    ${[['🏆','Ranking da resenha','A turma de toda semana com placar, ranking interno e zoeira organizada — a partir de grátis.']].map(fcard).join('')}
-    <div class="stitle">🎓 Para o professor</div>
-    ${[
-      ['⏰','Agenda, turmas e presença','Horários disponíveis, chamada com falta avisada e reposição automática — sem caderninho.'],
-      ['💰','Cobranças sem constrangimento','Lembrete automático por e-mail e WhatsApp; você só confirma o Pix recebido.'],
-    ].map(fcard).join('')}
-    <div class="stitle">🛒 Classificados</div>
-    ${[['🛒','Usados do meio esportivo','Anuncie e compre raquetes, bolinhas e equipamentos com filtro por cidade e dicas de segurança.']].map(fcard).join('')}
-    <div class="stitle">⚡ Antes × Depois do Beachzinho</div>
-    <div class="card" style="cursor:default">
-      ${[['Reservas','Caderno e WhatsApp','App em tempo real'],['Pagamento','"Depois a gente acerta"','Pix na reserva'],['Ranking','Planilha no Excel','Automático'],['Cobrança','Constrangimento','Régua automática'],['Divulgação','Boca a boca','Mapa da cidade']].map(r=>`<div style="display:flex;gap:6px;font-size:.79em;padding:7px 0;border-bottom:1px solid #f0f3f8"><b style="width:78px;color:var(--navy);flex-shrink:0">${r[0]}</b><span style="flex:1;color:#c0392b">✗ ${r[1]}</span><span style="flex:1;color:#1e8f4e;font-weight:700">✓ ${r[2]}</span></div>`).join('')}
+      ['arena','🏢','Cadastrar minha arena','Agenda sem conflito, ligas, pagamentos e leads'],
+      ['jogador','👤','Sou jogador','Reserve quadras, jogue ligas e suba no ranking'],
+      ['grupo','👥','Pequeno grupo','A turma fixa com placar e ranking interno'],
+      ['professor','🎓','Sou professor','Turmas, presença, reposições e cobranças'],
+      ['classificados','🛒','Classificados','Compre e venda usados do meio esportivo'],
+    ].map(f=>`<div class="card" onclick="go('beneficios','${f[0]}')">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:1.7em;flex-shrink:0">${f[1]}</span>
+        <span style="flex:1"><h3>${f[2]}</h3><p style="font-size:.8em;color:#678;margin-top:2px">${f[3]}</p></span>
+        <span style="color:var(--org);font-weight:900;font-size:1.2em">→</span>
+      </div>
+    </div>`).join('')}
+    <button class="btn btn-n" onclick="go('beneficios','arena')">✨ Ver os benefícios de cada frente</button>
+  </div>`;
+}
+const BENEF={
+  arena:{ic:'🏢',t:'Para a sua arena',cta:['🏢 Cadastrar minha arena',"S.pendingPlan=3;go('auth','arena')"],itens:[
+    ['🎾','Agenda de quadras sem erro','Horários livres, ocupados e pendentes em tempo real. Chega de reserva duplicada, caderno ou WhatsApp perdido.'],
+    ['💰','Receba na hora da reserva','Pix e cartão direto no app. O jogador paga ao reservar — menos furo e caixa previsível.'],
+    ['🏅','Ligas e torneios no piloto automático','Você lança o placar uma vez; o sistema distribui os games, monta o ranking e avisa os jogadores.'],
+    ['📣','Sua arena no mapa da cidade','Jogadores próximos encontram sua quadra e chamam direto no seu WhatsApp.'],
+    ['🔔','Cobrança automática de planos','Lembrete, link de pagamento e aviso de atraso por e-mail e WhatsApp.'],
+  ]},
+  jogador:{ic:'👤',t:'Para o jogador',cta:['👤 Entrar como jogador',"S.role='player';nav('p-home')"],itens:[
+    ['🔍','Quadra livre em segundos','Mapa com as arenas da cidade, agenda em tempo real e reserva paga em 3 toques.'],
+    ['📊','Seu histórico e ranking','Cada game vira estatística: aproveitamento, head-to-head e ranking da sua cidade.'],
+    ['🌐','O mundo do beach tennis','Ranking ITF ao vivo, calendário com onde assistir e notícias — tudo no app.'],
+  ]},
+  grupo:{ic:'👥',t:'Para a sua turma',cta:['👥 Criar meu grupo — a partir de grátis',"nav('g-planos')"],itens:[
+    ['🏆','Ranking da resenha','A turma de toda semana com placar, ranking interno e zoeira organizada.'],
+    ['🔑','Grupo privado por convite','Só entra quem tem o código — fora do mapa e do ranking oficial.'],
+    ['💸','A partir de grátis','Plano gratuito até 6 jogadores; upgrade quando a turma crescer.'],
+  ]},
+  professor:{ic:'🎓',t:'Para o professor',cta:['🎓 Sou professor — começar',"S.role='prof';nav('pr-home')"],itens:[
+    ['⏰','Agenda e turmas organizadas','Horários disponíveis, turmas por nível e local de cada aula.'],
+    ['📋','Presença e reposição automáticas','Chamada em um toque; falta avisada gera crédito de reposição sozinha.'],
+    ['📔','Anotações por aluno','Registro por dia com evolução — o aluno acompanha tudo pelo app.'],
+    ['💰','Cobranças sem constrangimento','Lembretes automáticos; você só confirma o recebimento.'],
+  ]},
+  classificados:{ic:'🛒',t:'Classificados',cta:['🛒 Ver os classificados',"S.role='player';nav('cl-home')"],itens:[
+    ['🎾','Só itens do meio esportivo','Raquetes, bolinhas, vestuário e equipamentos — nada fora do tema.'],
+    ['📍','Filtro por cidade e região','Encontre o que está perto de você.'],
+    ['🛡️','Regras de segurança','Cadastro verificado por código, aviso de responsabilidade e dicas em todo anúncio.'],
+    ['⏳','Anúncios de 20 dias','Vitrine sempre atual — expira e o vendedor republica.'],
+  ]},
+};
+function vBeneficios(){
+  const f=S.param&&BENEF[S.param]?S.param:'arena';
+  const b=BENEF[f];
+  const fcard=x=>`<div class="card" style="cursor:default;display:flex;gap:14px;align-items:flex-start"><span style="font-size:1.8em;flex-shrink:0">${x[0]}</span><span><h3>${x[1]}</h3><p style="font-size:.83em;color:#678;margin-top:3px">${x[2]}</p></span></div>`;
+  return `<div class="hd"><button class="back" onclick="nav('intro')">‹</button><h2>✨ Benefícios<span class="sub">${b.t}</span></h2></div>
+  <div class="pad">
+    <div class="tabs">
+      ${Object.keys(BENEF).map(k=>`<div class="tab ${k===f?'on':''}" onclick="S.param='${k}';render()">${BENEF[k].ic} ${k==='arena'?'Arena':k==='jogador'?'Jogador':k==='grupo'?'Grupo':k==='professor'?'Professor':'Classificados'}</div>`).join('')}
     </div>
-    <button class="btn btn-o" onclick="S.pendingPlan=3;go(\'auth\',\'arena\')">🏢 Cadastrar minha arena</button>
-    <button class="btn btn-n" onclick="nav(\'g-planos\')">👥 Criar meu grupo — a partir de grátis</button>
-    <button class="btn btn-n" onclick="S.role='prof';nav('pr-home')">🎓 Sou professor — organizar minhas turmas</button>
-    <button class="btn btn-ghost" onclick="S.role=\'player\';nav(\'p-home\')">👤 Sou jogador — entrar grátis</button>
+    ${b.itens.map(fcard).join('')}
+    ${f==='arena'?`<div class="stitle">⚡ Antes × Depois</div>
+    <div class="card" style="cursor:default">
+      ${[['Reservas','Caderno e WhatsApp','App em tempo real'],['Pagamento','"Depois a gente acerta"','Pix na reserva'],['Ranking','Planilha no Excel','Automático'],['Cobrança','Constrangimento','Régua automática']].map(r=>`<div style="display:flex;gap:6px;font-size:.79em;padding:7px 0;border-bottom:1px solid #f0f3f8"><b style="width:78px;color:var(--navy);flex-shrink:0">${r[0]}</b><span style="flex:1;color:#c0392b">✗ ${r[1]}</span><span style="flex:1;color:#1e8f4e;font-weight:700">✓ ${r[2]}</span></div>`).join('')}
+    </div>`:''}
+    <button class="btn btn-o" onclick="${b.cta[1]}">${b.cta[0]}</button>
+    <button class="btn btn-ghost" onclick="nav('intro')">← Voltar ao início</button>
   </div>`;
 }
 
@@ -387,6 +419,7 @@ function vSplash(){
   return `<div class="splash">
     <h1>🏖️ Beach<span>zinho</span></h1>
     <p>Arenas · Ligas · Quadras · Rankings<br>Tudo do Beach Tennis em um só lugar</p>
+    ${S.demo?'<div style="background:rgba(255,185,0,.18);border:1.5px solid rgba(255,185,0,.5);border-radius:12px;padding:10px 16px;font-size:.8em;margin-bottom:16px;max-width:300px">🎭 <b>MODO DEMONSTRAÇÃO</b><br>Entre em qualquer perfil abaixo — crie, edite e teste à vontade. Os dados são de exemplo.</div>':''}
     <button class="rolebtn rb-p" onclick="S.role='player';nav('p-home');toast('Bem-vindo, João! 👋')"><span class="e">👤</span><span>Sou Jogador<small>Buscar arenas, ligas e reservar quadras</small></span></button>
     <button class="rolebtn rb-a" onclick="S.pendingPlan=3;go('auth','arena')"><span class="e">🏢</span><span>Sou Arena<small>Gerenciar quadras, ligas e torneios</small></span></button>
     <button class="rolebtn rb-g" onclick="nav('g-planos')"><span class="e">👥</span><span>Pequeno Grupo <span style="background:var(--org);color:#1b1b1b;border-radius:10px;font-size:.6em;padding:2px 8px;vertical-align:middle">NOVO</span><small>Sua turma fixa: jogos, ranking interno e 1 local</small></span></button>
@@ -895,9 +928,10 @@ function vAuth(){
     <div class="fld"><label>📧 E-mail</label><input type="email" placeholder="voce@email.com"></div>
     <div class="fld"><label>💬 WhatsApp</label><input placeholder="(48) 9 9999-9999"></div>
     <div class="fld"><label>🔒 Senha</label><input type="password" placeholder="Mínimo 8 caracteres"></div>`:`
-    <div class="fld"><label>📧 E-mail</label><input type="email" placeholder="voce@email.com"></div>
-    <div class="fld"><label>🔒 Senha</label><input type="password" placeholder="Sua senha"></div>`}
-    <button class="btn btn-o" onclick="${tab==='cadastro'?`go('auth-verif','${dest}')`:`go('sub-checkout','${dest}')`}">${tab==='cadastro'?'Criar conta → Verificar':'Entrar → Pagamento'}</button>
+    <div class="fld"><label>📧 E-mail</label><input type="email" id="lg-email" placeholder="voce@email.com"></div>
+    <div class="fld"><label>🔒 Senha</label><input type="password" id="lg-senha" placeholder="Sua senha"></div>
+    <div class="al al-b">🎭 <b>Acesso de demonstração:</b> use o e-mail e a senha que você recebeu para explorar o app completo.</div>`}
+    <button class="btn btn-o" onclick="${tab==='cadastro'?`go('auth-verif','${dest}')`:`loginDemo()`}">${tab==='cadastro'?'Criar conta → Verificar':'Entrar'}</button>
     <button class="btn btn-ghost" onclick="toast('Login Google simulado 🔑');go('sub-checkout','${dest}')">🔴 Continuar com Google</button>
     <div class="al al-b" style="margin-top:12px">🔒 No app real: Supabase Auth — e-mail verificado, recuperação de senha e login Google/telefone já prontos, sem custo extra.</div>
   </div>`;
@@ -918,6 +952,17 @@ function authVerificar(dest){
   const v=(document.getElementById('av-cod')||{value:''}).value.trim();
   if(v.length<6){ toast('⚠️ Digite os 6 dígitos do código'); return; }
   toast('Conta verificada! ✅'); go('sub-checkout', dest);
+}
+function loginDemo(){
+  const e=(document.getElementById('lg-email')||{value:''}).value.trim().toLowerCase();
+  const s=(document.getElementById('lg-senha')||{value:''}).value;
+  if(e==='demo@beachzinho.app' && s==='beach123'){
+    S.demo=true; DB.classif.cadastroCompleto=true;
+    DB.assinatura={plano:'Arena Pro', preco:'R$ 149/mês', dest:'arena', metodo:'💳 Cartão •••• 4242 (demo)', status:'ativa', venc:'11/09/26', log:['11/08 ✅ Conta demo ativada — acesso completo liberado']};
+    toast('Bem-vindo ao modo demonstração! 🎭'); nav('splash');
+  } else {
+    toast('⚠️ Conta não encontrada — use o acesso demo enviado a você');
+  }
 }
 function vSubCheckout(){
   const dest=S.param||'arena';
@@ -1231,22 +1276,27 @@ function profChamada(id, st){
 }
 function vProfAlunos(){
   const p=DB.prof;
+  const f=S.tab||'todos';
+  const lista=p.alunos.filter(a=>f==='todos'||a.pag===f);
   const badge={pago:['✅ Pago','bG'],pendente:['⏳ Pendente','bO'],atrasado:['🔴 Atrasado','bR']};
-  return header('📋 Alunos & Cobranças','Confirmação manual de recebimento', false)+`
+  return header('📋 Alunos & Cobranças','Toque em Pagos/Pendentes/Atrasados para filtrar', false)+`
   <div class="pad">
     <div class="stats">
-      <div class="stat g"><b>${p.alunos.filter(a=>a.pag==='pago').length}</b><span>Pagos</span></div>
-      <div class="stat o"><b>${p.alunos.filter(a=>a.pag==='pendente').length}</b><span>Pendentes</span></div>
-      <div class="stat r"><b>${p.alunos.filter(a=>a.pag==='atrasado').length}</b><span>Atrasados</span></div>
+      <div class="stat g" style="cursor:pointer;${f==='pago'?'outline:2.5px solid #107c10':''}" onclick="setTab(S.tab==='pago'?'todos':'pago')"><b>${p.alunos.filter(a=>a.pag==='pago').length}</b><span>Pagos</span></div>
+      <div class="stat o" style="cursor:pointer;${f==='pendente'?'outline:2.5px solid #c97d0a':''}" onclick="setTab(S.tab==='pendente'?'todos':'pendente')"><b>${p.alunos.filter(a=>a.pag==='pendente').length}</b><span>Pendentes</span></div>
+      <div class="stat r" style="cursor:pointer;${f==='atrasado'?'outline:2.5px solid #d13438':''}" onclick="setTab(S.tab==='atrasado'?'todos':'atrasado')"><b>${p.alunos.filter(a=>a.pag==='atrasado').length}</b><span>Atrasados</span></div>
     </div>
-    ${p.alunos.map(a=>`
-    <div class="card" style="cursor:default">
+    ${f!=='todos'?`<div class="al al-b" style="cursor:pointer" onclick="setTab('todos')">🔎 Filtrando: <b>${badge[f][0]}</b> (${lista.length}) — toque para limpar</div>`:''}
+    ${lista.length? '' : '<div class="empty"><span>🔎</span>Nenhum aluno neste filtro</div>'}
+    ${lista.map(a=>`
+    <div class="card" onclick="go('pr-aluno',${a.id})">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <h3>${a.nome}</h3><span class="badge ${badge[a.pag][1]}">${badge[a.pag][0]}</span>
       </div>
       <div class="meta"><span>👥 ${profTurmaNome(a.turma)}</span><span>Vence ${a.venc}</span></div>
       <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span>🔁 Reposições: ${a.repo}</span></div>
-      ${a.pag!=='pago'?`<button class="btn btn-grn btn-sm" style="margin-top:10px" onclick="profConfirmarPag(${a.id})">✓ Confirmar recebimento</button>`:''}
+      <div style="margin-top:6px"><span class="badge bB">📔 Ver anotações por dia →</span></div>
+      ${a.pag!=='pago'?`<button class="btn btn-grn btn-sm" style="margin-top:10px" onclick="event.stopPropagation();profConfirmarPag(${a.id})">✓ Confirmar recebimento</button>`:''}
     </div>`).join('')}
     <div class="al al-b">💡 Lembretes automáticos por e-mail/WhatsApp: D-3 antes do vencimento, no dia, e aviso de atraso no D+3 — você só confirma o Pix recebido.</div>
   </div>`;
@@ -1254,6 +1304,49 @@ function vProfAlunos(){
 function profConfirmarPag(id){
   const a=DB.prof.alunos.find(x=>x.id===id); if(!a) return;
   a.pag='pago'; toast('Recebimento confirmado — recibo enviado ao aluno 🧾'); render();
+}
+function vProfAluno(){
+  const a=DB.prof.alunos.find(x=>x.id===S.param)||DB.prof.alunos[0];
+  if(!a.hist) a.hist=[];
+  return header('👤 '+a.nome, profTurmaNome(a.turma)+' · anotações por dia')+`
+  <div class="pad">
+    <div class="stats">
+      <div class="stat g"><b>${a.pres}</b><span>Presenças</span></div>
+      <div class="stat r"><b>${a.faltas}</b><span>Faltas</span></div>
+      <div class="stat o"><b>${a.repo}</b><span>Reposições</span></div>
+    </div>
+    <button class="btn btn-o" onclick="alunoNovaAnot(${a.id})">➕ Anotar aula de hoje</button>
+    <div class="stitle">📔 Dias e anotações</div>
+    ${a.hist.length? a.hist.map((r,i)=>`
+    <div class="card" style="cursor:default">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3>📅 ${r.d}</h3>
+        <span class="badge ${r.st==='pres'?'bG':r.st==='avisada'?'bO':'bR'}" style="cursor:pointer" onclick="alunoCicloSt(${a.id},${i})">${r.st==='pres'?'✅ Presente':r.st==='avisada'?'📩 Avisou falta':'❌ Faltou'} ↻</span>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <input id="obs-${i}" value="${(r.obs||'').replace(/"/g,'&quot;')}" placeholder="Anotação da aula (evolução, combinados...)" style="flex:1;border:1.5px solid #dde5f0;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
+        <button class="btn btn-ghost btn-sm" onclick="alunoSalvaObs(${a.id},${i})">💾 Salvar</button>
+      </div>
+    </div>`).join('') : '<div class="empty"><span>📔</span>Sem anotações ainda — toque em Anotar aula de hoje</div>'}
+    <div class="al al-b">💡 Toque no selo de presença para corrigir o dia (presente → avisou → faltou). Edite o texto e salve.</div>
+  </div>`;
+}
+function alunoCicloSt(id,i){
+  const a=DB.prof.alunos.find(x=>x.id===id); if(!a||!a.hist[i]) return;
+  const ordem=['pres','avisada','falta'];
+  a.hist[i].st=ordem[(ordem.indexOf(a.hist[i].st)+1)%3];
+  toast('Registro do dia corrigido ✏️'); render();
+}
+function alunoSalvaObs(id,i){
+  const a=DB.prof.alunos.find(x=>x.id===id); if(!a||!a.hist[i]) return;
+  a.hist[i].obs=(document.getElementById('obs-'+i)||{value:''}).value;
+  toast('Anotação salva 💾'); render();
+}
+function alunoNovaAnot(id){
+  const a=DB.prof.alunos.find(x=>x.id===id); if(!a) return;
+  if(!a.hist) a.hist=[];
+  a.hist.unshift({d:'11/08/26', st:'pres', obs:''});
+  toast('Dia de hoje adicionado 📔'); render();
 }
 function vProfPerfil(){
   const p=DB.prof;
@@ -1297,6 +1390,9 @@ function vPAulas(){
       <div class="stat r"><b>${m.faltas}</b><span>Faltas</span></div>
       <div class="stat o"><b>${m.repo}</b><span>Reposições</span></div>
     </div>
+    <div class="stitle">📔 Minhas anotações do professor</div>
+    ${(DB.prof.alunos.find(x=>x.id===5)&&DB.prof.alunos.find(x=>x.id===5).hist||[]).map(r=>`<div class="rk"><span class="pos">${r.st==='pres'?'✅':r.st==='avisada'?'📩':'❌'}</span><span class="nm">${r.d}<small>${r.obs||'Sem anotação neste dia'}</small></span></div>`).join('')||'<div class="empty"><span>📔</span>Sem anotações ainda</div>'}
+    <div class="al al-b">👀 Você vê tudo que o professor registra sobre suas aulas — presença do dia e anotações de evolução.</div>
     ${m.avisada?`<div class="al al-g">📩 Falta avisada para a próxima aula — você ganhou 1 crédito de reposição. Combine o horário com o professor.</div>`:`<button class="btn btn-o" onclick="avisarFalta()">📩 Avisar falta na próxima aula</button>`}
     <button class="btn btn-ghost" onclick="toast('Horários livres do professor abertos 🗓️')">🔁 Marcar reposição</button>
     <div class="al al-b" style="margin-top:10px">💡 Avise até 4h antes para ganhar reposição. Falta sem aviso não gera crédito.</div>
@@ -1454,13 +1550,13 @@ function vAPerfil(){
 
 /* ═══════════ RENDER ═══════════ */
 const SCREENS = {
-  'splash':vSplash,'intro':vIntro,
+  'splash':vSplash,'intro':vIntro,'beneficios':vBeneficios,
   'p-home':vPHome,'p-explore':vPExplore,'p-arena':vPArena,'p-liga':vPLiga,'p-torneio':vPTorneio,'p-quadra':vPQuadra,'p-checkout':vPCheckout,'p-agenda':vPAgenda,'p-perfil':vPPerfil,'p-historico':vPHistorico,'p-addjogo':vPAddJogo,
   'portal':vPortal,'portal-h2h':vPortalH2H,
   'a-dash':vADash,'a-quadras':vAQuadras,'a-ligas':vALigas,'a-games':vAGames,'a-perfil':vAPerfil,
   'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
   'auth':vAuth,'auth-verif':vAuthVerif,'sub-checkout':vSubCheckout,'sub-status':vSubStatus,
-  'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
+  'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-aluno':vProfAluno,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
   'cl-home':vClHome,'cl-item':vClItem,'cl-cadastro':vClCadastro,'cl-novo':vClNovo,'cl-meus':vClMeus,
 };
 function render(){
