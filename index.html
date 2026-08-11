@@ -18,22 +18,54 @@
 body{font-family:'Segoe UI',Arial,sans-serif;background:#dfe3e8;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
 .phone{width:100%;max-width:420px;min-height:92vh;background:var(--bg);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 60px rgba(0,0,0,.5);position:relative}
 @media(max-width:440px){body{padding:0}.phone{border-radius:0;min-height:100vh}}
-/* MODO COMPUTADOR — layout de site */
+/* MODO COMPUTADOR — painel com menu lateral */
 @media(min-width:900px){
-body:not(.force-mobile){padding:0;display:block}
-body:not(.force-mobile) .phone{max-width:none;width:100%;min-height:100vh;max-height:none;border-radius:0;box-shadow:none}
-body:not(.force-mobile) #app{padding-bottom:48px}
-body:not(.force-mobile) #navbar{order:-1}
-body:not(.force-mobile) .phone{display:flex;flex-direction:column}
-body:not(.force-mobile) #navbar .nav{position:static;flex-direction:row;justify-content:center;gap:12px;padding:10px 20px;border-radius:0}
-body:not(.force-mobile) #navbar .ni{display:flex;align-items:center;gap:8px;font-size:.92em;padding:9px 18px;border-radius:10px;width:auto}
-body:not(.force-mobile) #navbar .ni span{font-size:1.15em;margin:0}
-body:not(.force-mobile) #navbar .ni.on{background:rgba(255,255,255,.16)}
-body:not(.force-mobile) .pad{max-width:920px;margin:0 auto}
-body:not(.force-mobile) .hd{padding-left:max(24px,calc(50% - 460px));padding-right:max(24px,calc(50% - 460px))}
-body:not(.force-mobile) .splash{min-height:calc(100vh - 60px)}
-body:not(.force-mobile) .rolebtn{max-width:420px}
+body:not(.force-mobile){padding:0;display:block;background:#f5f5f5}
+body:not(.force-mobile) .phone{max-width:none;width:100%;height:100vh;max-height:none;border-radius:0;box-shadow:none;display:flex;flex-direction:row;background:#f5f5f5}
+body:not(.force-mobile) #navbar{order:-1;flex-shrink:0}
+body:not(.force-mobile) #navbar .nav{position:sticky;top:0;height:100vh;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:4px;width:250px;padding:20px 14px;border-radius:0}
+body:not(.force-mobile) #navbar .nav::before{content:'🏖️ Beachzinho';display:block;font-weight:800;font-size:1.35em;letter-spacing:-.3px;padding:8px 12px 20px;border-bottom:1px solid rgba(128,128,128,.28);margin-bottom:14px}
+body:not(.force-mobile) #navbar .ni{display:flex;align-items:center;gap:12px;font-size:.97em;font-weight:600;padding:12px 14px;border-radius:8px;width:100%;text-align:left;transition:background .15s,color .15s}
+body:not(.force-mobile) #navbar .ni span{font-size:1.2em;margin:0}
+body:not(.force-mobile) #app{flex:1;height:100vh;overflow-y:auto;padding-bottom:56px}
+body:not(.force-mobile) .pad{max-width:960px;margin:0 auto;padding:28px 36px}
+body:not(.force-mobile) .hd{padding:18px max(36px,calc(50% - 480px))}
+body:not(.force-mobile) .splash{min-height:100vh}
+body:not(.force-mobile) .rolebtn{max-width:440px}
 body:not(.force-mobile) #toast{position:fixed}
+body:not(.force-mobile) .card,body:not(.force-mobile) .hcard,body:not(.force-mobile) .rk,body:not(.force-mobile) .slot,body:not(.force-mobile) .score,body:not(.force-mobile) .plano,body:not(.force-mobile) .stat,body:not(.force-mobile) .news{box-shadow:none;border:1px solid #e3e3e3;border-radius:10px}
+body:not(.force-mobile) .btn{border-radius:6px;font-weight:600;font-size:.95em}
+body:not(.force-mobile) .badge{border-radius:5px}
+body:not(.force-mobile) .tabs .tab,body:not(.force-mobile) .chip,body:not(.force-mobile) .day{border-radius:6px}
+}
+/* chrome claro */
+@media(min-width:900px){
+body:not(.force-mobile):not(.dark) #navbar .nav{background:#fff;border-right:1px solid #e1e1e1}
+body:not(.force-mobile):not(.dark) #navbar .nav::before{color:#0078d4}
+body:not(.force-mobile):not(.dark) #navbar .ni{color:#3a3a3a}
+body:not(.force-mobile):not(.dark) #navbar .ni:hover{background:#f2f7fc}
+body:not(.force-mobile):not(.dark) #navbar .ni.on{background:#e6f1fb;color:#0078d4;box-shadow:inset 3px 0 0 #0078d4}
+body:not(.force-mobile):not(.dark) .hd{background:#fff;border-bottom:1px solid #e1e1e1;color:#1b1b1b}
+body:not(.force-mobile):not(.dark) .hd h2{color:#1b1b1b}
+body:not(.force-mobile):not(.dark) .hd .sub{color:#666;opacity:1}
+body:not(.force-mobile):not(.dark) .hd .back{background:#f0f0f0;color:#1b1b1b}
+body:not(.force-mobile):not(.dark) .btn-o{background:#0078d4;color:#fff}
+body:not(.force-mobile):not(.dark) .btn-n{background:#fff;color:#0078d4;border:1px solid #0078d4}
+body:not(.force-mobile):not(.dark) .tab.on{background:#0078d4;border-color:#0078d4;color:#fff}
+body:not(.force-mobile):not(.dark) .stat b{color:#005a9e}
+body:not(.force-mobile):not(.dark) .stitle{color:#3a3a3a}
+body:not(.force-mobile):not(.dark) #btn-dark,body:not(.force-mobile):not(.dark) #btn-view{background:#fff;border-color:#d0d0d0;color:#3a3a3a}
+}
+/* chrome escuro */
+@media(min-width:900px){
+body.dark:not(.force-mobile){background:#141414}
+body.dark:not(.force-mobile) .phone{background:#141414}
+body.dark:not(.force-mobile) #navbar .nav{background:#252525;border-right:1px solid #3a3a3a}
+body.dark:not(.force-mobile) #navbar .nav::before{color:#60cdff}
+body.dark:not(.force-mobile) #navbar .ni:hover{background:#2e2e2e}
+body.dark:not(.force-mobile) #navbar .ni.on{background:#17293a;color:#60cdff;box-shadow:inset 3px 0 0 #60cdff}
+body.dark:not(.force-mobile) .hd{background:#252525;border-bottom:1px solid #3a3a3a}
+body.dark:not(.force-mobile) .card,body.dark:not(.force-mobile) .rk,body.dark:not(.force-mobile) .slot,body.dark:not(.force-mobile) .stat,body.dark:not(.force-mobile) .plano,body.dark:not(.force-mobile) .score,body.dark:not(.force-mobile) .news,body.dark:not(.force-mobile) .hcard{border-color:#3a3a3a}
 }
 @media(max-width:899px){#btn-view{display:none}}
 /* MODO NOTURNO (Windows dark) */
@@ -406,6 +438,13 @@ function vIntro(){
         <span style="color:var(--org);font-weight:900;font-size:1.2em">→</span>
       </div>
     </div>`).join('')}
+    <div class="card" onclick="S.role=null;nav('portal')" style="border:2px solid #0078d4">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:1.7em;flex-shrink:0">🌐</span>
+        <span style="flex:1"><h3>Portal Beach Tennis — acesso livre</h3><p style="font-size:.8em;color:#678;margin-top:2px">Rankings ITF, calendário com onde assistir e notícias — sem precisar de login</p></span>
+        <span style="color:#0078d4;font-weight:900;font-size:1.2em">→</span>
+      </div>
+    </div>
     <button class="btn btn-n" onclick="go('beneficios','arena')">✨ Ver os benefícios de cada frente</button>
   </div>`;
 }
