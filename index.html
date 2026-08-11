@@ -1233,6 +1233,7 @@ function vProfTurmas(){
   </div>`;
   return header('👥 Minhas Turmas','', false)+`
   <div class="pad">
+    <button class="btn btn-n" onclick="go('pr-cal')">📅 Calendário de aulas — o que aconteceu em cada dia</button>
     ${DB.prof.turmas.map(t=>{
       const n=DB.prof.alunos.filter(a=>a.turma===t.id).length;
       return `<div class="card" style="cursor:default"><h3>👥 ${t.nome}</h3>
@@ -1254,6 +1255,30 @@ function profCriarTurma(){
   const g=id=>document.getElementById(id).value;
   DB.prof.turmas.push({id:Date.now(), nome:g('pt-nome')||'Nova Turma', nivel:S.nivelSel||DB.prof.niveis[0], local:g('pt-local')||'A definir', dia:g('pt-dia')||'Seg', hora:g('pt-hora')||'08h', max:parseInt(g('pt-max'))||6, valor:g('pt-valor')||'R$ 250/mês'});
   toast('Turma criada! 👥'); setTab('lista');
+}
+function vProfCal(){
+  const p=DB.prof;
+  const dias=[['11/08/26','Ter'],['10/08/26','Seg'],['09/08/26','Dom'],['08/08/26','Sáb'],['07/08/26','Sex'],['06/08/26','Qui'],['05/08/26','Qua'],['04/08/26','Ter'],['03/08/26','Seg'],['02/08/26','Dom'],['01/08/26','Sáb']];
+  const d=S.calDia||'10/08/26';
+  const ft=S.calTurma||0;
+  const regs=[];
+  p.alunos.forEach(a=>{(a.hist||[]).forEach(r=>{ if(r.d===d && (!ft||a.turma===ft)) regs.push({a,r}); })});
+  const pres=regs.filter(x=>x.r.st==='pres').length, fal=regs.length-pres;
+  return header('📅 Calendário de Aulas','Selecione o dia e a turma')+`
+  <div class="pad">
+    <div class="stitle">Dia</div>
+    <div class="days">${dias.map(x=>`<div class="day ${x[0]===d?'on':''}" onclick="S.calDia='${x[0]}';render()">${x[1]}<b>${x[0].slice(0,5)}</b></div>`).join('')}</div>
+    <div class="stitle">Turma</div>
+    <div class="tabs"><div class="tab ${!ft?'on':''}" onclick="S.calTurma=0;render()">Todas</div>${p.turmas.map(t=>`<div class="tab ${ft===t.id?'on':''}" onclick="S.calTurma=${t.id};render()">${t.nome}</div>`).join('')}</div>
+    ${regs.length?`<div class="stats">
+      <div class="stat"><b>${regs.length}</b><span>Registros</span></div>
+      <div class="stat g"><b>${pres}</b><span>Presenças</span></div>
+      <div class="stat r"><b>${fal}</b><span>Faltas/avisos</span></div>
+    </div>`:''}
+    <div class="stitle">📋 O que aconteceu em ${d}</div>
+    ${regs.length? regs.map(x=>`<div class="rk" onclick="go('pr-aluno',${x.a.id})"><span class="pos">${x.r.st==='pres'?'✅':x.r.st==='avisada'?'📩':'❌'}</span><span class="nm">${x.a.nome}<small>${profTurmaNome(x.a.turma)} · ${x.r.obs||'Sem anotação'}</small></span><span class="pts" style="color:#0078d4">ficha →</span></div>`).join('') : `<div class="empty"><span>📅</span>Nenhum registro em ${d}${ft?' para esta turma':''}</div>`}
+    <div class="al al-b">💡 A chamada de cada aula alimenta este calendário automaticamente. Toque num registro para abrir a ficha do aluno.</div>
+  </div>`;
 }
 function vProfChamada(){
   const p=DB.prof; const alunos=p.alunos.filter(a=>a.turma===1);
@@ -1624,7 +1649,7 @@ const SCREENS = {
   'a-dash':vADash,'a-quadras':vAQuadras,'a-ligas':vALigas,'a-games':vAGames,'a-perfil':vAPerfil,
   'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
   'auth':vAuth,'auth-verif':vAuthVerif,'sub-checkout':vSubCheckout,'sub-status':vSubStatus,
-  'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-aluno':vProfAluno,'pr-novo-aluno':vProfNovoAluno,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
+  'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-cal':vProfCal,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-aluno':vProfAluno,'pr-novo-aluno':vProfNovoAluno,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
   'cl-home':vClHome,'cl-item':vClItem,'cl-cadastro':vClCadastro,'cl-novo':vClNovo,'cl-meus':vClMeus,
 };
 function render(){
