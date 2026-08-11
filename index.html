@@ -1236,10 +1236,10 @@ function vProfTurmas(){
     <button class="btn btn-n" onclick="go('pr-cal')">📅 Calendário de aulas — o que aconteceu em cada dia</button>
     ${DB.prof.turmas.map(t=>{
       const n=DB.prof.alunos.filter(a=>a.turma===t.id).length;
-      return `<div class="card" style="cursor:default"><h3>👥 ${t.nome}</h3>
+      return `<div class="card" onclick="go('pr-turma',${t.id})"><h3>👥 ${t.nome}</h3>
       <div class="meta"><span>📅 ${t.dia} · ${t.hora}</span><span>📍 ${t.local}</span></div>
       <div class="meta"><span>💰 ${t.valor}</span></div>
-      <div style="margin-top:6px"><span class="badge bB">${t.nivel}</span><span class="badge ${n>=t.max?'bR':'bG'}">${n}/${t.max} alunos</span></div></div>`;
+      <div style="margin-top:6px"><span class="badge bB">${t.nivel}</span><span class="badge ${n>=t.max?'bR':'bG'}">${n}/${t.max} alunos</span><span class="badge bO">Abrir turma →</span></div></div>`;
     }).join('')}
     <button class="btn btn-o" onclick="setTab('form')">+ Nova Turma</button>
   </div>`;
@@ -1255,6 +1255,30 @@ function profCriarTurma(){
   const g=id=>document.getElementById(id).value;
   DB.prof.turmas.push({id:Date.now(), nome:g('pt-nome')||'Nova Turma', nivel:S.nivelSel||DB.prof.niveis[0], local:g('pt-local')||'A definir', dia:g('pt-dia')||'Seg', hora:g('pt-hora')||'08h', max:parseInt(g('pt-max'))||6, valor:g('pt-valor')||'R$ 250/mês'});
   toast('Turma criada! 👥'); setTab('lista');
+}
+function vProfTurma(){
+  const t=DB.prof.turmas.find(x=>x.id===S.param)||DB.prof.turmas[0];
+  const alunos=DB.prof.alunos.filter(a=>a.turma===t.id);
+  const badge={pago:['✅ Pago','bG'],pendente:['⏳ Pendente','bO'],atrasado:['🔴 Atrasado','bR']};
+  return header('👥 '+t.nome, t.nivel+' · '+t.dia+' '+t.hora)+`
+  <div class="pad">
+    <div class="card" style="cursor:default">
+      <div class="meta"><span>📍 ${t.local}</span></div>
+      <div class="meta"><span>💰 ${t.valor}</span><span>👥 ${alunos.length}/${t.max} vagas ocupadas</span></div>
+      <div style="margin-top:6px"><span class="badge bB">${t.nivel}</span></div>
+    </div>
+    <button class="btn btn-n" onclick="S.calTurma=${t.id};go('pr-cal')">📅 Ver os dias desta turma no calendário</button>
+    <button class="btn btn-ghost" onclick="go('pr-novo-aluno')">➕ Matricular aluno nesta turma</button>
+    <div class="stitle">Alunos matriculados (${alunos.length})</div>
+    ${alunos.length? alunos.map(a=>`
+    <div class="card" onclick="go('pr-aluno',${a.id})">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3>${a.nome}</h3><span class="badge ${badge[a.pag][1]}">${badge[a.pag][0]}</span>
+      </div>
+      <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span>🔁 ${a.repo}</span></div>
+      <div style="margin-top:6px"><span class="badge bB">📇 Ficha completa →</span></div>
+    </div>`).join('') : '<div class="empty"><span>👥</span>Nenhum aluno matriculado ainda</div>'}
+  </div>`;
 }
 function vProfCal(){
   const p=DB.prof;
@@ -1649,7 +1673,7 @@ const SCREENS = {
   'a-dash':vADash,'a-quadras':vAQuadras,'a-ligas':vALigas,'a-games':vAGames,'a-perfil':vAPerfil,
   'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
   'auth':vAuth,'auth-verif':vAuthVerif,'sub-checkout':vSubCheckout,'sub-status':vSubStatus,
-  'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-cal':vProfCal,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-aluno':vProfAluno,'pr-novo-aluno':vProfNovoAluno,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
+  'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-turma':vProfTurma,'pr-cal':vProfCal,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-aluno':vProfAluno,'pr-novo-aluno':vProfNovoAluno,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
   'cl-home':vClHome,'cl-item':vClItem,'cl-cadastro':vClCadastro,'cl-novo':vClNovo,'cl-meus':vClMeus,
 };
 function render(){
