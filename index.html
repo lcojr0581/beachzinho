@@ -18,17 +18,22 @@
 body{font-family:'Segoe UI',Arial,sans-serif;background:#dfe3e8;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
 .phone{width:100%;max-width:420px;min-height:92vh;background:var(--bg);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 60px rgba(0,0,0,.5);position:relative}
 @media(max-width:440px){body{padding:0}.phone{border-radius:0;min-height:100vh}}
-/* MODO COMPUTADOR */
+/* MODO COMPUTADOR — layout de site */
 @media(min-width:900px){
-body:not(.force-mobile){padding:24px 0;align-items:center}
-body:not(.force-mobile) .phone{max-width:1040px;flex-direction:row-reverse;min-height:88vh;max-height:92vh}
-body:not(.force-mobile) #app{padding-bottom:24px;height:100%}
-body:not(.force-mobile) #navbar{flex-shrink:0}
-body:not(.force-mobile) #navbar .nav{position:static;height:100%;min-height:88vh;flex-direction:column;justify-content:flex-start;gap:4px;width:200px;padding:22px 12px;border-radius:28px 0 0 28px}
-body:not(.force-mobile) #navbar .ni{display:flex;align-items:center;gap:12px;font-size:.92em;padding:12px 14px;border-radius:12px;text-align:left;width:100%}
-body:not(.force-mobile) #navbar .ni span{font-size:1.25em;margin:0}
-body:not(.force-mobile) #navbar .ni.on{background:rgba(255,255,255,.14)}
-body:not(.force-mobile) .splash{min-height:auto}
+body:not(.force-mobile){padding:0;display:block}
+body:not(.force-mobile) .phone{max-width:none;width:100%;min-height:100vh;max-height:none;border-radius:0;box-shadow:none}
+body:not(.force-mobile) #app{padding-bottom:48px}
+body:not(.force-mobile) #navbar{order:-1}
+body:not(.force-mobile) .phone{display:flex;flex-direction:column}
+body:not(.force-mobile) #navbar .nav{position:static;flex-direction:row;justify-content:center;gap:12px;padding:10px 20px;border-radius:0}
+body:not(.force-mobile) #navbar .ni{display:flex;align-items:center;gap:8px;font-size:.92em;padding:9px 18px;border-radius:10px;width:auto}
+body:not(.force-mobile) #navbar .ni span{font-size:1.15em;margin:0}
+body:not(.force-mobile) #navbar .ni.on{background:rgba(255,255,255,.16)}
+body:not(.force-mobile) .pad{max-width:920px;margin:0 auto}
+body:not(.force-mobile) .hd{padding-left:max(24px,calc(50% - 460px));padding-right:max(24px,calc(50% - 460px))}
+body:not(.force-mobile) .splash{min-height:calc(100vh - 60px)}
+body:not(.force-mobile) .rolebtn{max-width:420px}
+body:not(.force-mobile) #toast{position:fixed}
 }
 @media(max-width:899px){#btn-view{display:none}}
 /* MODO NOTURNO (Windows dark) */
