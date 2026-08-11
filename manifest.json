@@ -1,0 +1,15 @@
+{
+  "name": "Beachzinho — Beach Tennis",
+  "short_name": "Beachzinho",
+  "description": "Arenas, ligas, quadras e rankings de Beach Tennis",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1b2a",
+  "theme_color": "#0d1b2a",
+  "lang": "pt-BR",
+  "icons": [
+    {"src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+  ]
+}
