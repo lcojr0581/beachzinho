@@ -20,15 +20,38 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#dfe3e8;min-height:100vh
 @media(max-width:440px){body{padding:0}.phone{border-radius:0;min-height:100vh}}
 /* MODO COMPUTADOR */
 @media(min-width:900px){
-body{padding:24px 0;align-items:center}
-.phone{max-width:1040px;flex-direction:row-reverse;min-height:88vh;max-height:92vh}
-#app{padding-bottom:24px;height:100%}
-#navbar{flex-shrink:0}
-#navbar .nav{position:static;height:100%;min-height:88vh;flex-direction:column;justify-content:flex-start;gap:4px;width:200px;padding:22px 12px;border-radius:28px 0 0 28px}
-#navbar .ni{display:flex;align-items:center;gap:12px;font-size:.92em;padding:12px 14px;border-radius:12px;text-align:left;width:100%}
-#navbar .ni span{font-size:1.25em;margin:0}
-#navbar .ni.on{background:rgba(255,255,255,.14)}
-.splash,.intro{min-height:auto}
+body:not(.force-mobile){padding:24px 0;align-items:center}
+body:not(.force-mobile) .phone{max-width:1040px;flex-direction:row-reverse;min-height:88vh;max-height:92vh}
+body:not(.force-mobile) #app{padding-bottom:24px;height:100%}
+body:not(.force-mobile) #navbar{flex-shrink:0}
+body:not(.force-mobile) #navbar .nav{position:static;height:100%;min-height:88vh;flex-direction:column;justify-content:flex-start;gap:4px;width:200px;padding:22px 12px;border-radius:28px 0 0 28px}
+body:not(.force-mobile) #navbar .ni{display:flex;align-items:center;gap:12px;font-size:.92em;padding:12px 14px;border-radius:12px;text-align:left;width:100%}
+body:not(.force-mobile) #navbar .ni span{font-size:1.25em;margin:0}
+body:not(.force-mobile) #navbar .ni.on{background:rgba(255,255,255,.14)}
+body:not(.force-mobile) .splash{min-height:auto}
+}
+@media(max-width:899px){#btn-view{display:none}}
+/* MODO NOTURNO (Windows dark) */
+body.dark{background:#141414}
+body.dark .phone{background:#202020}
+body.dark .card,body.dark .hcard,body.dark .rk,body.dark .slot,body.dark .news,body.dark .score,body.dark .plano,body.dark .stat{background:#2b2b2b;box-shadow:none;border-color:#3a3a3a}
+body.dark .plano{border-color:#3a3a3a}
+body.dark .plano.hot{border-color:#ffb900}
+body.dark h3,body.dark .card h3,body.dark .hcard h3,body.dark .rk .nm,body.dark .slot .h,body.dark .stat b,body.dark .news h3{color:#f0f0f0}
+body.dark .stitle{color:#e8e8e8}
+body.dark .search,body.dark .tabs .tab,body.dark .chip,body.dark .day{background:#2b2b2b;border-color:#3a3a3a;color:#cfd6dd}
+body.dark .tab.on{background:#ffb900;border-color:#ffb900;color:#1b1b1b}
+body.dark .chip.on{background:#0078d4;border-color:#0078d4;color:#fff}
+body.dark .day.on{background:#0078d4;border-color:#0078d4;color:#fff}
+body.dark .fld input,body.dark .fld select,body.dark .fld textarea{background:#2b2b2b;border-color:#3a3a3a;color:#eee}
+body.dark .btn-ghost{background:#2b2b2b;color:#e8e8e8;border-color:#3a3a3a}
+body.dark .dist{background:#252525}
+body.dark .dist .dr,body.dark .card .meta,body.dark .hcard p,body.dark .news p,body.dark .plano p{color:#a8b2bc}
+body.dark .al-b{background:#17293a;border-color:#2d4a63;color:#9cc3e5}
+body.dark .al-y{background:#33290f;border-color:#5c4a1e;color:#e5c56b}
+body.dark .al-g{background:#13291a;border-color:#245c33;color:#7fd39a}
+body.dark .empty{color:#8a949e}
+body.dark p{color:#a8b2bc}
 }
 #app{flex:1;overflow-y:auto;padding-bottom:78px}
 /* HEADER */
@@ -167,6 +190,10 @@ body{padding:24px 0;align-items:center}
 </style>
 </head>
 <body>
+<div id="modes" style="position:fixed;top:12px;right:14px;z-index:999;display:flex;gap:8px">
+  <button id="btn-dark" onclick="toggleDark()" title="Modo noturno" style="width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:1.15em;cursor:pointer">🌙</button>
+  <button id="btn-view" onclick="toggleView()" title="Alternar computador/celular" style="width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:1.15em;cursor:pointer">📱</button>
+</div>
 <div class="phone">
   <div id="app"></div>
   <div id="navbar"></div>
@@ -1695,6 +1722,24 @@ function render(){
   navbar();
 }
 render();
+
+/* Preferências de exibição */
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  const on=document.body.classList.contains('dark');
+  document.getElementById('btn-dark').textContent=on?'☀️':'🌙';
+  try{localStorage.setItem('bz-dark',on?'1':'0');}catch(e){}
+}
+function toggleView(){
+  document.body.classList.toggle('force-mobile');
+  const on=document.body.classList.contains('force-mobile');
+  document.getElementById('btn-view').textContent=on?'🖥️':'📱';
+  try{localStorage.setItem('bz-view',on?'1':'0');}catch(e){}
+}
+try{
+  if(localStorage.getItem('bz-dark')==='1') toggleDark();
+  if(localStorage.getItem('bz-view')==='1') toggleView();
+}catch(e){}
 
 /* ═══════════ PWA — service worker ═══════════ */
 if('serviceWorker' in navigator){
