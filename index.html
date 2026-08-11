@@ -267,6 +267,18 @@ const DB = {
     diaSel:'Seg',
   },
   minhasAulas: {turma:'Avançado Noite', prof:'Prof. Rafa Martins', nivel:'Avançado', local:'Quadra Society Beira-Rio', prox:'Ter 07/07 · 19h', pres:7, faltas:0, repo:1, pag:'pago', venc:'dia 05', avisada:false},
+  classif: {
+    cadastroCompleto:false, codEnviado:false,
+    fCat:'Todas', fReg:'Todas',
+    itens:[
+      {id:1, t:'Raquete Drop Shot Conqueror 10', cat:'Raquetes', preco:'R$ 850', cond:'Seminova', cid:'Florianópolis', uf:'SC', reg:'Sul', vend:'Rafa M.', dias:3, ic:'🎾'},
+      {id:2, t:'Kit 3 bolinhas Sexy Brand', cat:'Bolinhas', preco:'R$ 45', cond:'Novas', cid:'São Paulo', uf:'SP', reg:'Sudeste', vend:'Ana C.', dias:12, ic:'🟠'},
+      {id:3, t:'Óculos de areia + boné', cat:'Acessórios', preco:'R$ 120', cond:'Usados', cid:'Maringá', uf:'PR', reg:'Sul', vend:'Leo B.', dias:18, ic:'🕶️'},
+      {id:4, t:'Rede oficial + fita de marcação', cat:'Equipamentos', preco:'R$ 390', cond:'Usada', cid:'Rio de Janeiro', uf:'RJ', reg:'Sudeste', vend:'Duda F.', dias:19, ic:'🥅'},
+      {id:5, t:'Camiseta UV + saia esportiva M', cat:'Vestuário', preco:'R$ 90', cond:'Seminovos', cid:'Curitiba', uf:'PR', reg:'Sul', vend:'Bia R.', dias:8, ic:'👕'},
+    ],
+    meus:[{id:9, t:'Raquete Shark Black One', cat:'Raquetes', preco:'R$ 600', dias:19, ic:'🎾'}],
+  },
   planosGrupo: [
     {n:'Grupo 6', preco:'Grátis', max:6, desc:'Para a turma que joga toda semana', destaque:false},
     {n:'Grupo 12', preco:'R$ 29/mês', max:12, desc:'Turma grande com revezamento', destaque:true},
@@ -395,6 +407,11 @@ function vPHome(){
     </div>
     <div class="stitle">🏆 Torneios abertos</div>
     ${DB.torneios.map(t=>`<div class="card" onclick="go('p-torneio',${t.id})"><h3>🏆 ${t.name}</h3><div class="meta"><span>📅 ${t.data}</span><span>💰 ${t.premio}</span></div></div>`).join('')}
+    <div class="stitle">🔄 Classificados <a onclick="go('cl-home')">Ver todos →</a></div>
+    <div class="card" onclick="go('cl-home')">
+      <h3>🛒 Usados do meio esportivo</h3>
+      <div class="meta"><span>Raquetes, bolinhas, acessórios e mais</span><span style="color:#1e8f4e;font-weight:700">${DB.classif.itens.length} anúncios ativos</span></div>
+    </div>
     <div class="stitle">🔄 Rotativos próximos</div>
     ${DB.rotativos.map(r=>`<div class="card" onclick="toast('Interesse enviado à arena! 🙋')"><h3>🔄 ${r.name}</h3><div class="meta"><span>${r.data}</span><span style="color:#c97d0a;font-weight:700">${r.vagas} vagas</span><span>${r.preco}</span></div></div>`).join('')}
   </div>`;
@@ -863,7 +880,7 @@ function vAuth(){
     <div class="fld"><label>🔒 Senha</label><input type="password" placeholder="Mínimo 8 caracteres"></div>`:`
     <div class="fld"><label>📧 E-mail</label><input type="email" placeholder="voce@email.com"></div>
     <div class="fld"><label>🔒 Senha</label><input type="password" placeholder="Sua senha"></div>`}
-    <button class="btn btn-o" onclick="go('sub-checkout','${dest}')">${tab==='cadastro'?'Criar conta':'Entrar'} → Pagamento</button>
+    <button class="btn btn-o" onclick="${tab==='cadastro'?`go('auth-verif','${dest}')`:`go('sub-checkout','${dest}')`}">${tab==='cadastro'?'Criar conta → Verificar':'Entrar → Pagamento'}</button>
     <button class="btn btn-ghost" onclick="toast('Login Google simulado 🔑');go('sub-checkout','${dest}')">🔴 Continuar com Google</button>
     <div class="al al-b" style="margin-top:12px">🔒 No app real: Supabase Auth — e-mail verificado, recuperação de senha e login Google/telefone já prontos, sem custo extra.</div>
   </div>`;
@@ -943,6 +960,152 @@ function simTempo(){
 }
 
 /* TELAS — ARENA */
+/* TELAS — PROFESSOR */
+/* TELAS — CLASSIFICADOS */
+function clDicas(){
+  return `<div class="al al-y"><b>⚠️ O Beachzinho não se responsabiliza</b> pela negociação, pagamento, entrega ou estado dos produtos anunciados. A compra é feita diretamente entre as partes.<br><br><b>🛡️ Dicas de segurança:</b><br>• Negocie e encontre em local público e movimentado<br>• Inspecione e teste o produto antes de pagar<br>• Nunca pague adiantado a desconhecidos<br>• Desconfie de preços muito abaixo do mercado</div>`;
+}
+function vClHome(){
+  const c=DB.classif;
+  const cats=['Todas','Raquetes','Bolinhas','Vestuário','Acessórios','Equipamentos'];
+  const regs=['Todas','Sul','Sudeste','Centro-Oeste','Nordeste','Norte'];
+  const itens=c.itens.filter(i=>(c.fCat==='Todas'||i.cat===c.fCat)&&(c.fReg==='Todas'||i.reg===c.fReg)&&i.dias<20);
+  return header('🛒 Classificados','Usados do meio esportivo · anúncios de 20 dias')+`
+  <div class="pad">
+    <button class="btn btn-o" onclick="clAnunciar()">➕ Anunciar um item</button>
+    <button class="btn btn-ghost" onclick="go('cl-meus')">📦 Meus anúncios (${DB.classif.meus.length})</button>
+    <div class="stitle">Categoria</div>
+    <div class="tabs">${cats.map(x=>`<div class="tab ${c.fCat===x?'on':''}" onclick="DB.classif.fCat='${x}';render()">${x}</div>`).join('')}</div>
+    <div class="stitle">Região</div>
+    <div class="tabs">${regs.map(x=>`<div class="tab ${c.fReg===x?'on':''}" onclick="DB.classif.fReg='${x}';render()">${x}</div>`).join('')}</div>
+    ${itens.length? itens.map(i=>`
+    <div class="card" onclick="go('cl-item',${i.id})">
+      <div style="display:flex;gap:12px;align-items:center">
+        <span style="font-size:2em">${i.ic}</span>
+        <span style="flex:1"><h3>${i.t}</h3>
+        <div class="meta"><span>📍 ${i.cid}/${i.uf}</span><span>${i.cond}</span><span style="color:#c97d0a">⏳ ${20-i.dias} dias restantes</span></div></span>
+        <b style="color:#1e8f4e;white-space:nowrap">${i.preco}</b>
+      </div>
+    </div>`).join('') : '<div class="empty"><span>🛒</span>Nenhum anúncio com esses filtros</div>'}
+    <div class="al al-b">📋 Somente itens do meio esportivo. Anúncios expiram em <b>20 dias</b> e precisam ser republicados pelo vendedor.</div>
+  </div>`;
+}
+function vClItem(){
+  const i=DB.classif.itens.find(x=>x.id===S.param)||DB.classif.itens[0];
+  return header('🛒 '+i.t, i.cat+' · '+i.cond)+`
+  <div class="pad">
+    <div style="background:linear-gradient(135deg,#e8eef8,#d5e2f2);border-radius:16px;height:150px;display:flex;align-items:center;justify-content:center;font-size:4em;margin-bottom:14px">${i.ic}</div>
+    <div class="card" style="cursor:default">
+      <div style="display:flex;justify-content:space-between;align-items:center"><h3>${i.t}</h3><b style="color:#1e8f4e;font-size:1.2em">${i.preco}</b></div>
+      <div class="meta"><span>🏷️ ${i.cat}</span><span>${i.cond}</span></div>
+      <div class="meta"><span>📍 ${i.cid}/${i.uf} — região ${i.reg}</span></div>
+      <div class="meta"><span>👤 Vendedor: ${i.vend}</span><span style="color:#c97d0a">⏳ expira em ${20-i.dias} dias</span></div>
+    </div>
+    ${clDicas()}
+    <button class="btn btn-g" onclick="toast('Abrindo WhatsApp do vendedor 💬')">💬 Falar com o vendedor no WhatsApp</button>
+    <button class="btn btn-ghost" onclick="toast('Anúncio denunciado — obrigado! 🛡️')">🚩 Denunciar anúncio</button>
+  </div>`;
+}
+function clAnunciar(){
+  if(!DB.classif.cadastroCompleto){ go('cl-cadastro'); toast('Complete o cadastro para anunciar 🔐'); return; }
+  go('cl-novo');
+}
+function vClCadastro(){
+  const c=DB.classif;
+  return header('🔐 Cadastro Completo','Obrigatório para anunciar')+`
+  <div class="pad">
+    <div class="al al-b">🛡️ Para a segurança de todos, só usuários com cadastro completo e verificado podem anunciar nos Classificados.</div>
+    <div class="fld"><label>👤 Nome completo</label><input placeholder="Seu nome completo"></div>
+    <div class="fld"><label>💬 WhatsApp</label><input placeholder="(48) 9 9999-9999"></div>
+    <div style="display:flex;gap:10px">
+      <div class="fld" style="flex:2"><label>📍 Cidade</label><input placeholder="Sua cidade"></div>
+      <div class="fld" style="flex:1"><label>UF</label><input placeholder="SC"></div>
+    </div>
+    ${!c.codEnviado?`
+    <button class="btn btn-o" onclick="DB.classif.codEnviado=true;toast('Código enviado por e-mail e SMS 📨');render()">📨 Enviar código de verificação</button>
+    <div class="al al-b" style="margin-top:10px">Enviaremos um código de 6 dígitos por e-mail (ou SMS) para confirmar sua identidade.</div>`:`
+    <div class="fld"><label>🔢 Código recebido (6 dígitos)</label><input id="cl-cod" placeholder="000000" style="text-align:center;font-size:1.3em;letter-spacing:6px"></div>
+    <button class="btn btn-o" onclick="clConfirmar()">✅ Confirmar código</button>
+    <button class="btn btn-ghost" onclick="toast('Novo código enviado 📨')">Reenviar código</button>`}
+  </div>`;
+}
+function clConfirmar(){
+  const v=(document.getElementById('cl-cod')||{value:''}).value.trim();
+  if(v.length<6){ toast('⚠️ Digite os 6 dígitos do código'); return; }
+  DB.classif.cadastroCompleto=true;
+  toast('Cadastro verificado! ✅'); go('cl-novo');
+}
+function vClNovo(){
+  return header('➕ Novo Anúncio','Válido por 20 dias')+`
+  <div class="pad">
+    <div class="fld"><label>📦 Título do anúncio</label><input id="cn-t" placeholder="Ex: Raquete Shark Black One"></div>
+    <div class="fld"><label>🏷️ Categoria (somente itens esportivos)</label><div class="chips" id="cn-cat">${['Raquetes','Bolinhas','Vestuário','Acessórios','Equipamentos'].map((c,i)=>`<div class="chip ${i===0?'on':''}" onclick="this.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${c}</div>`).join('')}</div></div>
+    <div style="display:flex;gap:10px">
+      <div class="fld" style="flex:1"><label>💰 Preço</label><input id="cn-p" placeholder="R$ 0,00"></div>
+      <div class="fld" style="flex:1"><label>Condição</label><select><option>Novo</option><option>Seminovo</option><option>Usado</option></select></div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <div class="fld" style="flex:2"><label>📍 Cidade</label><input placeholder="Sua cidade"></div>
+      <div class="fld" style="flex:1"><label>UF</label><input placeholder="SC"></div>
+    </div>
+    <div class="fld"><label>📷 Fotos</label><button class="btn btn-ghost" style="margin-top:0" onclick="toast('Upload de fotos no app real 📷')">+ Adicionar fotos</button></div>
+    ${clDicas()}
+    <div class="card" style="cursor:pointer" onclick="DB.classif.aceite=!DB.classif.aceite;render()">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <span style="font-size:1.3em">${DB.classif.aceite?'☑️':'⬜'}</span>
+        <span style="font-size:.83em;color:#456">Li e aceito as políticas: anúncio válido por <b>20 dias</b> (depois preciso republicar), somente <b>itens do meio esportivo</b>, e o Beachzinho <b>não se responsabiliza</b> pela negociação.</span>
+      </div>
+    </div>
+    <button class="btn btn-o" onclick="clPublicar()">✅ Publicar anúncio</button>
+    <button class="btn btn-ghost" onclick="back()">Cancelar</button>
+  </div>`;
+}
+function clPublicar(){
+  if(!DB.classif.aceite){ toast('⚠️ Aceite as políticas para publicar'); return; }
+  const t=(document.getElementById('cn-t')||{value:''}).value||'Item esportivo';
+  const p=(document.getElementById('cn-p')||{value:''}).value||'R$ 0,00';
+  DB.classif.meus.unshift({id:Date.now(), t, cat:'Raquetes', preco:p, dias:0, ic:'🎾'});
+  DB.classif.aceite=false;
+  toast('Anúncio publicado por 20 dias! 🛒'); nav('p-home'); go('cl-meus');
+}
+function vClMeus(){
+  const c=DB.classif;
+  return header('📦 Meus Anúncios','Validade de 20 dias cada')+`
+  <div class="pad">
+    ${c.meus.length? c.meus.map(m=>{
+      const rest=20-m.dias;
+      const st= m.dias>=20?['🔴 Expirado','bR']: rest<=3?['🟡 Expira em '+rest+' dia'+(rest>1?'s':''),'bO']:['🟢 Ativo · '+rest+' dias restantes','bG'];
+      return `<div class="card" style="cursor:default">
+      <div style="display:flex;justify-content:space-between;align-items:center"><h3>${m.ic} ${m.t}</h3><b style="color:#1e8f4e">${m.preco}</b></div>
+      <div style="margin-top:6px"><span class="badge ${st[1]}">${st[0]}</span><span class="badge bB">${m.cat}</span></div>
+      <button class="btn ${m.dias>=20?'btn-o':'btn-ghost'} btn-sm" style="margin-top:10px" onclick="clRenovar(${m.id})">${m.dias>=20?'🔄 Republicar por 20 dias':'🔄 Renovar agora'}</button>
+      </div>`;
+    }).join('') : '<div class="empty"><span>📦</span>Você ainda não tem anúncios</div>'}
+    <button class="btn btn-o" onclick="clAnunciar()">➕ Novo anúncio</button>
+  </div>`;
+}
+function clRenovar(id){
+  const m=DB.classif.meus.find(x=>x.id===id); if(!m) return;
+  m.dias=0; toast('Anúncio renovado por mais 20 dias! ✅'); render();
+}
+function vAuthVerif(){
+  const dest=S.param||'arena';
+  return header('📨 Verifique sua conta','Enviamos um código para você')+`
+  <div class="pad">
+    <div class="al al-b">🔐 Para confirmar sua identidade, enviamos um <b>código de 6 dígitos</b> para o seu e-mail (e por SMS, se cadastrado). Digite abaixo.</div>
+    <div class="fld"><label>🔢 Código de verificação</label><input id="av-cod" placeholder="000000" style="text-align:center;font-size:1.4em;letter-spacing:8px"></div>
+    <button class="btn btn-o" onclick="authVerificar('${dest}')">✅ Confirmar código</button>
+    <button class="btn btn-ghost" onclick="toast('Novo código enviado 📨')">Reenviar código</button>
+    <button class="btn btn-ghost" onclick="back()">← Voltar</button>
+    <div class="al al-b" style="margin-top:12px">💡 No app real: Supabase Auth envia o código por e-mail (grátis) ou SMS/WhatsApp (via Twilio). Sem confirmação, a conta não é ativada.</div>
+  </div>`;
+}
+function authVerificar(dest){
+  const v=(document.getElementById('av-cod')||{value:''}).value.trim();
+  if(v.length<6){ toast('⚠️ Digite os 6 dígitos do código'); return; }
+  toast('Conta verificada! ✅'); go('sub-checkout', dest);
+}
+
 /* TELAS — PROFESSOR */
 function profTurmaNome(id){ const t=DB.prof.turmas.find(x=>x.id===id); return t?t.nome:'—'; }
 function vProfHome(){
@@ -1280,6 +1443,7 @@ const SCREENS = {
   'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
   'auth':vAuth,'sub-checkout':vSubCheckout,'sub-status':vSubStatus,
   'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
+  'cl-home':vClHome,'cl-item':vClItem,'cl-cadastro':vClCadastro,'cl-novo':vClNovo,'cl-meus':vClMeus,'auth-verif':vAuthVerif,
 };
 function render(){
   const fn=SCREENS[S.screen]||vSplash;
