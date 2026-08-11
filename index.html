@@ -244,18 +244,19 @@ const DB = {
   prof: {
     nome:'Prof. Rafa Martins', espec:'Iniciante · Avançado · Kids', vinculo:'Arena Vida Fit',
     valores:{individual:'R$ 120/h', dupla:'R$ 80/pessoa', turma:'a partir de R$ 180/mês'},
+    niveis:['Iniciante','Intermediário','Avançado','Kids'],
     turmas:[
       {id:1, nome:'Iniciante Manhã', nivel:'Iniciante', local:'Arena Vida Fit — Quadra 2', dia:'Seg/Qua', hora:'08h', max:6, valor:'R$ 250/mês'},
       {id:2, nome:'Kids Sábado', nivel:'Kids', local:'Arena Vida Fit — Quadra 1', dia:'Sáb', hora:'09h', max:8, valor:'R$ 180/mês'},
       {id:3, nome:'Avançado Noite', nivel:'Avançado', local:'Quadra Society Beira-Rio', dia:'Ter/Qui', hora:'19h', max:4, valor:'R$ 300/mês'},
     ],
     alunos:[
-      {id:1, nome:'Ana Costa', turma:1, pag:'pago', venc:'dia 05', repo:0, pres:8, faltas:0, hist:[{d:'10/08/26',st:'pres',obs:'Evoluiu muito no saque'},{d:'05/08/26',st:'pres',obs:'Treino de smash'},{d:'03/08/26',st:'avisada',obs:'Avisou por trabalho'}]},
-      {id:2, nome:'Pedro Lima', turma:1, pag:'pendente', venc:'dia 10', repo:1, pres:6, faltas:1, hist:[{d:'10/08/26',st:'pres',obs:'Melhorar posicionamento na rede'},{d:'05/08/26',st:'falta',obs:'Sem aviso'},{d:'03/08/26',st:'pres',obs:''}]},
-      {id:3, nome:'Cris Melo', turma:1, pag:'atrasado', venc:'dia 05', repo:0, pres:5, faltas:2, hist:[{d:'10/08/26',st:'avisada',obs:'Reposição marcada p/ sábado'},{d:'05/08/26',st:'pres',obs:'Aula focada em voleio'}]},
-      {id:4, nome:'Bia Rocha', turma:2, pag:'pago', venc:'dia 05', repo:0, pres:9, faltas:0, hist:[{d:'08/08/26',st:'pres',obs:'Kids: coordenação com bolinha'},{d:'01/08/26',st:'pres',obs:''}]},
-      {id:5, nome:'João Silva 🧢', turma:3, pag:'pago', venc:'dia 05', repo:1, pres:7, faltas:0, hist:[{d:'06/08/26',st:'pres',obs:'Preparação para o torneio'},{d:'04/08/26',st:'pres',obs:'Físico + defesa'}]},
-      {id:6, nome:'Leo Braga', turma:3, pag:'pendente', venc:'dia 08', repo:0, pres:6, faltas:1, hist:[{d:'06/08/26',st:'pres',obs:''},{d:'04/08/26',st:'avisada',obs:'Viagem'}]},
+      {id:1, nome:'Ana Costa', turma:1, pag:'pago', venc:'dia 05', repo:0, pres:8, faltas:0, hist:[{d:'10/08/26',st:'pres',obs:'Evoluiu muito no saque'},{d:'05/08/26',st:'pres',obs:'Treino de smash'},{d:'03/08/26',st:'avisada',obs:'Avisou por trabalho'}], cad:{origem:'professor', desde:'02/06/26', primeira:'04/06/26', zap:'(48) 9 8811-2233'}, pagtos:[{m:'Ago/26', v:'R$ 250', st:'pago', dt:'05/08/26'},{m:'Jul/26', v:'R$ 250', st:'pago', dt:'04/07/26'},{m:'Jun/26', v:'R$ 250', st:'pago', dt:'05/06/26'}]},
+      {id:2, nome:'Pedro Lima', turma:1, pag:'pendente', venc:'dia 10', repo:1, pres:6, faltas:1, hist:[{d:'10/08/26',st:'pres',obs:'Melhorar posicionamento na rede'},{d:'05/08/26',st:'falta',obs:'Sem aviso'},{d:'03/08/26',st:'pres',obs:''}], cad:{origem:'app', desde:'15/06/26', primeira:'17/06/26', zap:'(48) 9 9922-4455'}, pagtos:[{m:'Ago/26', v:'R$ 250', st:'pendente', dt:null},{m:'Jul/26', v:'R$ 250', st:'pago', dt:'10/07/26'}]},
+      {id:3, nome:'Cris Melo', turma:1, pag:'atrasado', venc:'dia 05', repo:0, pres:5, faltas:2, hist:[{d:'10/08/26',st:'avisada',obs:'Reposição marcada p/ sábado'},{d:'05/08/26',st:'pres',obs:'Aula focada em voleio'}], cad:{origem:'professor', desde:'01/07/26', primeira:'03/07/26', zap:'(48) 9 7733-8899'}, pagtos:[{m:'Ago/26', v:'R$ 250', st:'atrasado', dt:null},{m:'Jul/26', v:'R$ 250', st:'pago', dt:'08/07/26'}]},
+      {id:4, nome:'Bia Rocha', turma:2, pag:'pago', venc:'dia 05', repo:0, pres:9, faltas:0, hist:[{d:'08/08/26',st:'pres',obs:'Kids: coordenação com bolinha'},{d:'01/08/26',st:'pres',obs:''}], cad:{origem:'professor', desde:'10/05/26', primeira:'11/05/26', zap:'(48) 9 6611-0022'}, pagtos:[{m:'Ago/26', v:'R$ 180', st:'pago', dt:'03/08/26'},{m:'Jul/26', v:'R$ 180', st:'pago', dt:'02/07/26'}]},
+      {id:5, nome:'João Silva 🧢', turma:3, pag:'pago', venc:'dia 05', repo:1, pres:7, faltas:0, hist:[{d:'06/08/26',st:'pres',obs:'Preparação para o torneio'},{d:'04/08/26',st:'pres',obs:'Físico + defesa'}], cad:{origem:'app', desde:'20/06/26', primeira:'23/06/26', zap:'(48) 9 5500-1122'}, pagtos:[{m:'Ago/26', v:'R$ 300', st:'pago', dt:'04/08/26'},{m:'Jul/26', v:'R$ 300', st:'pago', dt:'05/07/26'}]},
+      {id:6, nome:'Leo Braga', turma:3, pag:'pendente', venc:'dia 08', repo:0, pres:6, faltas:1, hist:[{d:'06/08/26',st:'pres',obs:''},{d:'04/08/26',st:'avisada',obs:'Viagem'}], cad:{origem:'app', desde:'28/06/26', primeira:'01/07/26', zap:'(48) 9 4433-6677'}, pagtos:[{m:'Ago/26', v:'R$ 300', st:'pendente', dt:null},{m:'Jul/26', v:'R$ 300', st:'pago', dt:'09/07/26'}]},
     ],
     chamada:{},
     agenda:{
@@ -1213,7 +1214,11 @@ function vProfTurmas(){
   if(tab==='form') return header('👥 Nova Turma','')+`
   <div class="pad">
     <div class="fld"><label>Nome da turma</label><input id="pt-nome" placeholder="Ex: Intermediário Tarde"></div>
-    <div class="fld"><label>Nível</label><div class="chips">${['Iniciante','Intermediário','Avançado','Kids'].map((c,i)=>`<div class="chip ${i===0?'on':''}" onclick="this.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${c}</div>`).join('')}</div></div>
+    <div class="fld"><label>Nível</label><div class="chips">${DB.prof.niveis.map(c=>`<div class="chip ${(S.nivelSel||DB.prof.niveis[0])===c?'on':''}" onclick="S.nivelSel='${c}';render()">${c}</div>`).join('')}<div class="chip" style="border-style:dashed" onclick="S.novoNv=!S.novoNv;render()">➕ Criar nível</div></div></div>
+    ${S.novoNv?`<div style="display:flex;gap:8px;margin-bottom:12px">
+      <input id="nv-nome" placeholder="Nome do novo nível (ex: Competitivo, 60+)" style="flex:1;border:1.5px solid #dde5f0;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
+      <button class="btn btn-o btn-sm" onclick="profCriarNivel()">Criar</button>
+    </div>`:''}
     <div class="fld"><label>📍 Local da aula</label><input id="pt-local" placeholder="Ex: Arena Vida Fit — Quadra 2"></div>
     <div style="display:flex;gap:10px">
       <div class="fld" style="flex:1"><label>Dias</label><input id="pt-dia" placeholder="Ex: Seg/Qua"></div>
@@ -1238,9 +1243,16 @@ function vProfTurmas(){
     <button class="btn btn-o" onclick="setTab('form')">+ Nova Turma</button>
   </div>`;
 }
+function profCriarNivel(){
+  const v=(document.getElementById('nv-nome')||{value:''}).value.trim();
+  if(!v){ toast('⚠️ Dê um nome ao nível'); return; }
+  if(!DB.prof.niveis.includes(v)) DB.prof.niveis.push(v);
+  S.nivelSel=v; S.novoNv=false;
+  toast('Nível "'+v+'" criado! 🏷️'); render();
+}
 function profCriarTurma(){
   const g=id=>document.getElementById(id).value;
-  DB.prof.turmas.push({id:Date.now(), nome:g('pt-nome')||'Nova Turma', nivel:'Iniciante', local:g('pt-local')||'A definir', dia:g('pt-dia')||'Seg', hora:g('pt-hora')||'08h', max:parseInt(g('pt-max'))||6, valor:g('pt-valor')||'R$ 250/mês'});
+  DB.prof.turmas.push({id:Date.now(), nome:g('pt-nome')||'Nova Turma', nivel:S.nivelSel||DB.prof.niveis[0], local:g('pt-local')||'A definir', dia:g('pt-dia')||'Seg', hora:g('pt-hora')||'08h', max:parseInt(g('pt-max'))||6, valor:g('pt-valor')||'R$ 250/mês'});
   toast('Turma criada! 👥'); setTab('lista');
 }
 function vProfChamada(){
@@ -1251,7 +1263,7 @@ function vProfChamada(){
     ${alunos.map(a=>`
     <div class="card" style="cursor:default">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <h3>${a.nome}</h3>
+        <h3 style="cursor:pointer" onclick="go('pr-aluno',${a.id})">${a.nome} ›</h3>
         ${st(a.id)?`<span class="badge ${st(a.id)==='pres'?'bG':st(a.id)==='avisada'?'bO':'bR'}">${st(a.id)==='pres'?'✅ Presente':st(a.id)==='avisada'?'📩 Falta avisada':'❌ Faltou'}</span>`:'<span class="badge" style="background:#eef0f5;color:#789">aguardando</span>'}
       </div>
       <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span>Reposições: ${a.repo}</span></div>
@@ -1286,6 +1298,7 @@ function vProfAlunos(){
       <div class="stat o" style="cursor:pointer;${f==='pendente'?'outline:2.5px solid #c97d0a':''}" onclick="setTab(S.tab==='pendente'?'todos':'pendente')"><b>${p.alunos.filter(a=>a.pag==='pendente').length}</b><span>Pendentes</span></div>
       <div class="stat r" style="cursor:pointer;${f==='atrasado'?'outline:2.5px solid #d13438':''}" onclick="setTab(S.tab==='atrasado'?'todos':'atrasado')"><b>${p.alunos.filter(a=>a.pag==='atrasado').length}</b><span>Atrasados</span></div>
     </div>
+    <button class="btn btn-o" onclick="go('pr-novo-aluno')">➕ Cadastrar aluno</button>
     ${f!=='todos'?`<div class="al al-b" style="cursor:pointer" onclick="setTab('todos')">🔎 Filtrando: <b>${badge[f][0]}</b> (${lista.length}) — toque para limpar</div>`:''}
     ${lista.length? '' : '<div class="empty"><span>🔎</span>Nenhum aluno neste filtro</div>'}
     ${lista.map(a=>`
@@ -1295,7 +1308,7 @@ function vProfAlunos(){
       </div>
       <div class="meta"><span>👥 ${profTurmaNome(a.turma)}</span><span>Vence ${a.venc}</span></div>
       <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span>🔁 Reposições: ${a.repo}</span></div>
-      <div style="margin-top:6px"><span class="badge bB">📔 Ver anotações por dia →</span></div>
+      <div style="margin-top:6px"><span class="badge bB">📔 Ficha completa →</span><span class="badge" style="background:#eef0f5;color:#567">${a.cad&&a.cad.origem==='app'?'📱 Auto-cadastro no app':'✍️ Cadastrado pelo professor'}</span></div>
       ${a.pag!=='pago'?`<button class="btn btn-grn btn-sm" style="margin-top:10px" onclick="event.stopPropagation();profConfirmarPag(${a.id})">✓ Confirmar recebimento</button>`:''}
     </div>`).join('')}
     <div class="al al-b">💡 Lembretes automáticos por e-mail/WhatsApp: D-3 antes do vencimento, no dia, e aviso de atraso no D+3 — você só confirma o Pix recebido.</div>
@@ -1315,8 +1328,17 @@ function vProfAluno(){
       <div class="stat r"><b>${a.faltas}</b><span>Faltas</span></div>
       <div class="stat o"><b>${a.repo}</b><span>Reposições</span></div>
     </div>
+    <div class="stitle">📇 Cadastro</div>
+    <div class="card" style="cursor:default">
+      <div class="meta"><span>${a.cad&&a.cad.origem==='app'?'📱 Auto-cadastro pelo app':'✍️ Cadastrado pelo professor'}</span></div>
+      <div class="meta"><span>📅 Aluno desde: <b style="color:#456">${a.cad?a.cad.desde:'—'}</b></span><span>🎾 1ª aula: <b style="color:#456">${a.cad?a.cad.primeira:'—'}</b></span></div>
+      <div class="meta"><span>💬 WhatsApp: <b style="color:#456">${a.cad?a.cad.zap:'—'}</b></span></div>
+      ${a.cad&&a.cad.zap&&a.cad.zap!=='—'?`<button class="btn btn-g btn-sm" style="margin-top:10px" onclick="window.open('https://wa.me/55'+'${a.cad.zap}'.replace(/\D/g,''),'_blank')">💬 Chamar ${a.nome.split(' ')[0]} no WhatsApp</button>`:''}
+    </div>
+    <div class="stitle">💰 Pagamentos (com data)</div>
+    ${(a.pagtos||[]).map((pg,pi)=>`<div class="rk"><span class="pos">${pg.st==='pago'?'✅':pg.st==='pendente'?'⏳':'🔴'}</span><span class="nm">${pg.m} · ${pg.v}<small>${pg.st==='pago'?'Pago em '+pg.dt:pg.st==='pendente'?'Aguardando pagamento':'Em atraso'}</small></span>${pg.st!=='pago'?`<button class="btn btn-grn btn-sm" onclick="alunoPagMes(${a.id},${pi})">✓ Recebi</button>`:''}</div>`).join('')}
     <button class="btn btn-o" onclick="alunoNovaAnot(${a.id})">➕ Anotar aula de hoje</button>
-    <div class="stitle">📔 Dias e anotações</div>
+    <div class="stitle">📅 Aulas feitas e faltas — por data</div>
     ${a.hist.length? a.hist.map((r,i)=>`
     <div class="card" style="cursor:default">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -1342,11 +1364,43 @@ function alunoSalvaObs(id,i){
   a.hist[i].obs=(document.getElementById('obs-'+i)||{value:''}).value;
   toast('Anotação salva 💾'); render();
 }
+function alunoPagMes(id,pi){
+  const a=DB.prof.alunos.find(x=>x.id===id); if(!a||!a.pagtos||!a.pagtos[pi]) return;
+  a.pagtos[pi].st='pago'; a.pagtos[pi].dt='11/08/26';
+  if(a.pagtos.every(p=>p.st==='pago')) a.pag='pago';
+  toast('Pagamento de '+a.pagtos[pi].m+' registrado 🧾'); render();
+}
 function alunoNovaAnot(id){
   const a=DB.prof.alunos.find(x=>x.id===id); if(!a) return;
   if(!a.hist) a.hist=[];
   a.hist.unshift({d:'11/08/26', st:'pres', obs:''});
   toast('Dia de hoje adicionado 📔'); render();
+}
+function vProfNovoAluno(){
+  return header('➕ Cadastrar Aluno','Registro completo desde o 1º dia')+`
+  <div class="pad">
+    <div class="fld"><label>👤 Nome completo</label><input id="na-nome" placeholder="Nome do aluno"></div>
+    <div class="fld"><label>💬 WhatsApp</label><input id="na-zap" placeholder="(48) 9 9999-9999"></div>
+    <div class="fld"><label>👥 Turma</label><select id="na-turma">${DB.prof.turmas.map(t=>`<option value="${t.id}">${t.nome} (${t.nivel})</option>`).join('')}</select></div>
+    <div style="display:flex;gap:10px">
+      <div class="fld" style="flex:1"><label>📅 Data da 1ª aula</label><input type="date" id="na-primeira" value="2026-08-11"></div>
+      <div class="fld" style="flex:1"><label>💰 Mensalidade</label><input id="na-valor" placeholder="R$ 250"></div>
+    </div>
+    <button class="btn btn-o" onclick="profCadAluno()">✅ Cadastrar aluno</button>
+    <button class="btn btn-ghost" onclick="back()">Cancelar</button>
+    <div class="al al-b" style="margin-top:12px">📱 O aluno também pode se cadastrar sozinho pelo app — nesse caso ele aparece na sua lista com o selo "Auto-cadastro" e você só aprova.</div>
+  </div>`;
+}
+function profCadAluno(){
+  const g=id=>(document.getElementById(id)||{value:''}).value;
+  const nome=g('na-nome').trim();
+  if(!nome){ toast('⚠️ Informe o nome do aluno'); return; }
+  const dISO=g('na-primeira')||'2026-08-11';
+  const d=dISO.split('-').reverse().map((x,i)=>i===2?x.slice(2):x).join('/');
+  DB.prof.alunos.push({id:Date.now(), nome, turma:parseInt(g('na-turma'))||DB.prof.turmas[0].id, pag:'pendente', venc:'dia 05', repo:0, pres:0, faltas:0, hist:[],
+    cad:{origem:'professor', desde:'11/08/26', primeira:d, zap:g('na-zap')||'—'},
+    pagtos:[{m:'Ago/26', v:g('na-valor')||'R$ 250', st:'pendente', dt:null}]});
+  toast('Aluno cadastrado! Ficha criada 📇'); nav('pr-alunos');
 }
 function vProfPerfil(){
   const p=DB.prof;
@@ -1556,7 +1610,7 @@ const SCREENS = {
   'a-dash':vADash,'a-quadras':vAQuadras,'a-ligas':vALigas,'a-games':vAGames,'a-perfil':vAPerfil,
   'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
   'auth':vAuth,'auth-verif':vAuthVerif,'sub-checkout':vSubCheckout,'sub-status':vSubStatus,
-  'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-aluno':vProfAluno,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
+  'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-aluno':vProfAluno,'pr-novo-aluno':vProfNovoAluno,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
   'cl-home':vClHome,'cl-item':vClItem,'cl-cadastro':vClCadastro,'cl-novo':vClNovo,'cl-meus':vClMeus,
 };
 function render(){
