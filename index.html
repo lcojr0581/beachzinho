@@ -38,6 +38,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#1a2332;min-height:100vh
 .rb-a{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.3)}
 .rb-w{background:rgba(116,185,255,.15);color:#cfe6ff;border:1.5px solid rgba(116,185,255,.4)}
 .rb-g{background:rgba(46,204,113,.14);color:#d4f5e2;border:1.5px solid rgba(46,204,113,.45)}
+.rb-t{background:rgba(245,166,35,.16);color:#ffe3b3;border:1.5px solid rgba(245,166,35,.45)}
 .plano{background:#fff;border:2px solid #dde5f0;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;position:relative;transition:.15s}
 .plano:active{transform:scale(.98)}
 .plano.hot{border-color:var(--org);box-shadow:0 4px 16px rgba(245,166,35,.25)}
@@ -238,6 +239,34 @@ const DB = {
   ],
   partidaAtual: {ta:'João & Ana', tb:'Pedro & Cris', sa:6, sb:4, lancada:false},
   assinatura: null,
+  prof: {
+    nome:'Prof. Rafa Martins', espec:'Iniciante · Avançado · Kids', vinculo:'Arena Vida Fit',
+    valores:{individual:'R$ 120/h', dupla:'R$ 80/pessoa', turma:'a partir de R$ 180/mês'},
+    turmas:[
+      {id:1, nome:'Iniciante Manhã', nivel:'Iniciante', local:'Arena Vida Fit — Quadra 2', dia:'Seg/Qua', hora:'08h', max:6, valor:'R$ 250/mês'},
+      {id:2, nome:'Kids Sábado', nivel:'Kids', local:'Arena Vida Fit — Quadra 1', dia:'Sáb', hora:'09h', max:8, valor:'R$ 180/mês'},
+      {id:3, nome:'Avançado Noite', nivel:'Avançado', local:'Quadra Society Beira-Rio', dia:'Ter/Qui', hora:'19h', max:4, valor:'R$ 300/mês'},
+    ],
+    alunos:[
+      {id:1, nome:'Ana Costa', turma:1, pag:'pago', venc:'dia 05', repo:0, pres:8, faltas:0},
+      {id:2, nome:'Pedro Lima', turma:1, pag:'pendente', venc:'dia 10', repo:1, pres:6, faltas:1},
+      {id:3, nome:'Cris Melo', turma:1, pag:'atrasado', venc:'dia 05', repo:0, pres:5, faltas:2},
+      {id:4, nome:'Bia Rocha', turma:2, pag:'pago', venc:'dia 05', repo:0, pres:9, faltas:0},
+      {id:5, nome:'João Silva 🧢', turma:3, pag:'pago', venc:'dia 05', repo:1, pres:7, faltas:0},
+      {id:6, nome:'Leo Braga', turma:3, pag:'pendente', venc:'dia 08', repo:0, pres:6, faltas:1},
+    ],
+    chamada:{},
+    agenda:{
+      'Seg':[['07h','livre'],['08h','aula'],['09h','livre'],['10h','livre'],['18h','bloq']],
+      'Ter':[['07h','livre'],['08h','livre'],['18h','livre'],['19h','aula']],
+      'Qua':[['07h','bloq'],['08h','aula'],['09h','livre'],['10h','livre']],
+      'Qui':[['18h','livre'],['19h','aula'],['20h','livre']],
+      'Sex':[['07h','livre'],['08h','livre'],['09h','bloq']],
+      'Sáb':[['09h','aula'],['10h','livre'],['11h','livre']],
+    },
+    diaSel:'Seg',
+  },
+  minhasAulas: {turma:'Avançado Noite', prof:'Prof. Rafa Martins', nivel:'Avançado', local:'Quadra Society Beira-Rio', prox:'Ter 07/07 · 19h', pres:7, faltas:0, repo:1, pag:'pago', venc:'dia 05', avisada:false},
   planosGrupo: [
     {n:'Grupo 6', preco:'Grátis', max:6, desc:'Para a turma que joga toda semana', destaque:false},
     {n:'Grupo 12', preco:'R$ 29/mês', max:12, desc:'Turma grande com revezamento', destaque:true},
@@ -277,6 +306,9 @@ function navbar(){
     el.innerHTML=`<div class="nav">${items.map(i=>`<button class="ni ${S.screen===i[0]||(i[0]==='portal'&&S.screen.startsWith('portal'))?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
   } else if(S.role==='arena'){
     const items=[['a-dash','📊','Dashboard'],['a-quadras','🎾','Quadras'],['a-ligas','🏅','Ligas'],['a-games','📋','Games'],['a-perfil','⚙️','Perfil']];
+    el.innerHTML=`<div class="nav">${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
+  } else if(S.role==='prof'){
+    const items=[['pr-home','🏠','Início'],['pr-agenda','⏰','Agenda'],['pr-turmas','👥','Turmas'],['pr-alunos','📋','Alunos'],['pr-perfil','🎓','Perfil']];
     el.innerHTML=`<div class="nav">${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
   } else if(S.role==='grupo'){
     const items=[['g-home','🏠','Grupo'],['g-jogos','📜','Jogos'],['g-addjogo','➕','Placar'],['portal','🌐','Portal'],['g-plano','⚙️','Plano']];
@@ -334,6 +366,7 @@ function vSplash(){
     <button class="rolebtn rb-p" onclick="S.role='player';nav('p-home');toast('Bem-vindo, João! 👋')"><span class="e">👤</span><span>Sou Jogador<small>Buscar arenas, ligas e reservar quadras</small></span></button>
     <button class="rolebtn rb-a" onclick="S.pendingPlan=3;go('auth','arena')"><span class="e">🏢</span><span>Sou Arena<small>Gerenciar quadras, ligas e torneios</small></span></button>
     <button class="rolebtn rb-g" onclick="nav('g-planos')"><span class="e">👥</span><span>Pequeno Grupo <span style="background:var(--org);color:#1a1a2e;border-radius:10px;font-size:.6em;padding:2px 8px;vertical-align:middle">NOVO</span><small>Sua turma fixa: jogos, ranking interno e 1 local</small></span></button>
+    <button class="rolebtn rb-t" onclick="S.role='prof';nav('pr-home');toast('Bem-vindo, professor! 🎓')"><span class="e">🎓</span><span>Sou Professor<small>Turmas, presença, reposições e cobranças</small></span></button>
     <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e">🌐</span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
     <a style="color:#8a9bb0;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')">ℹ️ Por que usar o Beachzinho?</a>
   </div>`;
@@ -541,6 +574,7 @@ function vPPerfil(){
     <div class="stitle">📈 Últimos jogos <a onclick="go('p-historico')">Ver todos →</a></div>
     ${DB.historico.slice(0,4).map(j=>`<div class="rk" onclick="go('p-historico')"><span class="pos">${j.res==='win'?'✅':'❌'}</span><span class="nm">${j.ev}<small>${j.d} · ${j.arena} · com ${j.par}</small></span><span class="pts" style="color:${j.res==='win'?'#1e8f4e':'#c0392b'}">${j.pl}</span></div>`).join('')}
     <button class="btn btn-o" onclick="go('p-historico')">📜 Histórico completo de jogos</button>
+    <button class="btn btn-n" onclick="go('p-aulas')">🎓 Minhas aulas</button>
     <button class="btn btn-n" onclick="go('portal-h2h')">⚔️ Head-to-Head com outro jogador</button>
     <button class="btn btn-ghost" onclick="S.role=null;nav('splash')">↩️ Trocar de perfil</button>
   </div>`;
@@ -909,6 +943,193 @@ function simTempo(){
 }
 
 /* TELAS — ARENA */
+/* TELAS — PROFESSOR */
+function profTurmaNome(id){ const t=DB.prof.turmas.find(x=>x.id===id); return t?t.nome:'—'; }
+function vProfHome(){
+  const p=DB.prof;
+  const pend=p.alunos.filter(a=>a.pag!=='pago').length;
+  const chamadaFeita=Object.keys(p.chamada).length>0;
+  return `<div class="hd"><h2>🎓 ${p.nome}<span class="sub">${p.vinculo?'Vinculado à '+p.vinculo:'Professor independente'}</span></h2><span class="ic" onclick="toast('Tudo em dia por aqui 🔔')" style="cursor:pointer">🔔</span></div>
+  <div class="pad">
+    ${!chamadaFeita?`<div class="al al-y" style="cursor:pointer" onclick="nav('pr-chamada')">📋 <b>Aula de hoje: Iniciante Manhã · 08h</b> — chamada pendente, toque para fazer</div>`:`<div class="al al-g">✅ Chamada de hoje registrada</div>`}
+    ${pend?`<div class="al al-y" style="cursor:pointer" onclick="nav('pr-alunos')">💰 <b>${pend} mensalidade${pend>1?'s':''} a receber</b> — toque para ver</div>`:''}
+    <div class="stats">
+      <div class="stat"><b>${p.turmas.length}</b><span>Turmas</span></div>
+      <div class="stat"><b>${p.alunos.length}</b><span>Alunos</span></div>
+      <div class="stat g"><b>${p.alunos.filter(a=>a.pag==='pago').length}/${p.alunos.length}</b><span>Pagos no mês</span></div>
+    </div>
+    <div class="stitle">📅 Hoje</div>
+    <div class="card" onclick="nav('pr-chamada')">
+      <h3>👥 Iniciante Manhã — 08h</h3>
+      <div class="meta"><span>📍 Arena Vida Fit — Quadra 2</span><span>${p.alunos.filter(a=>a.turma===1).length} alunos</span></div>
+      <div style="margin-top:6px"><span class="badge bO">Fazer chamada</span></div>
+    </div>
+    <div class="stitle">⚡ Ações rápidas</div>
+    <div class="hrow">
+      <div class="hcard" onclick="nav('pr-agenda')"><div class="top">⏰</div><h3>Disponibilidade</h3><p>Abrir/bloquear horários</p></div>
+      <div class="hcard" onclick="nav('pr-turmas')"><div class="top">👥</div><h3>Turmas</h3><p>Gerenciar e criar</p></div>
+      <div class="hcard" onclick="nav('pr-alunos')"><div class="top">💰</div><h3>Cobranças</h3><p>Confirmar recebimentos</p></div>
+    </div>
+  </div>`;
+}
+function vProfAgenda(){
+  const p=DB.prof; const dias=Object.keys(p.agenda); const d=p.diaSel;
+  return header('⏰ Minha Disponibilidade','Toque no horário para abrir/bloquear', false)+`
+  <div class="pad">
+    <div class="days">${dias.map(x=>`<div class="day ${x===d?'on':''}" onclick="DB.prof.diaSel='${x}';render()">${x}</div>`).join('')}</div>
+    ${p.agenda[d].map((s,i)=>{
+      if(s[1]==='aula') return `<div class="slot"><span class="h">${s[0]}</span><span class="st st-o">👥 Aula fixa</span><span style="font-size:.75em;color:#99a">turma</span></div>`;
+      if(s[1]==='livre') return `<div class="slot"><span class="h">${s[0]}</span><span class="st st-l">🟢 Disponível</span><button class="btn btn-ghost btn-sm" onclick="DB.prof.agenda['${d}'][${i}][1]='bloq';toast('Horário bloqueado 🔒');render()">Bloquear</button></div>`;
+      return `<div class="slot"><span class="h">${s[0]}</span><span class="st st-p">🔒 Bloqueado</span><button class="btn btn-ghost btn-sm" onclick="DB.prof.agenda['${d}'][${i}][1]='livre';toast('Horário aberto ✅');render()">Abrir</button></div>`;
+    }).join('')}
+    <div class="al al-b" style="margin-top:10px">💡 Horários 🟢 disponíveis aparecem para alunos agendarem aula avulsa ou experimental — e é neles que você marca reposições.</div>
+  </div>`;
+}
+function vProfTurmas(){
+  const tab=S.tab||'lista';
+  if(tab==='form') return header('👥 Nova Turma','')+`
+  <div class="pad">
+    <div class="fld"><label>Nome da turma</label><input id="pt-nome" placeholder="Ex: Intermediário Tarde"></div>
+    <div class="fld"><label>Nível</label><div class="chips">${['Iniciante','Intermediário','Avançado','Kids'].map((c,i)=>`<div class="chip ${i===0?'on':''}" onclick="this.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${c}</div>`).join('')}</div></div>
+    <div class="fld"><label>📍 Local da aula</label><input id="pt-local" placeholder="Ex: Arena Vida Fit — Quadra 2"></div>
+    <div style="display:flex;gap:10px">
+      <div class="fld" style="flex:1"><label>Dias</label><input id="pt-dia" placeholder="Ex: Seg/Qua"></div>
+      <div class="fld" style="flex:1"><label>Horário</label><input id="pt-hora" placeholder="Ex: 08h"></div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <div class="fld" style="flex:1"><label>Máx. alunos</label><input type="number" id="pt-max" value="6"></div>
+      <div class="fld" style="flex:1"><label>Valor</label><input id="pt-valor" placeholder="R$ 250/mês"></div>
+    </div>
+    <button class="btn btn-o" onclick="profCriarTurma()">✅ Criar turma</button>
+    <button class="btn btn-ghost" onclick="setTab('lista')">Cancelar</button>
+  </div>`;
+  return header('👥 Minhas Turmas','', false)+`
+  <div class="pad">
+    ${DB.prof.turmas.map(t=>{
+      const n=DB.prof.alunos.filter(a=>a.turma===t.id).length;
+      return `<div class="card" style="cursor:default"><h3>👥 ${t.nome}</h3>
+      <div class="meta"><span>📅 ${t.dia} · ${t.hora}</span><span>📍 ${t.local}</span></div>
+      <div class="meta"><span>💰 ${t.valor}</span></div>
+      <div style="margin-top:6px"><span class="badge bB">${t.nivel}</span><span class="badge ${n>=t.max?'bR':'bG'}">${n}/${t.max} alunos</span></div></div>`;
+    }).join('')}
+    <button class="btn btn-o" onclick="setTab('form')">+ Nova Turma</button>
+  </div>`;
+}
+function profCriarTurma(){
+  const g=id=>document.getElementById(id).value;
+  DB.prof.turmas.push({id:Date.now(), nome:g('pt-nome')||'Nova Turma', nivel:'Iniciante', local:g('pt-local')||'A definir', dia:g('pt-dia')||'Seg', hora:g('pt-hora')||'08h', max:parseInt(g('pt-max'))||6, valor:g('pt-valor')||'R$ 250/mês'});
+  toast('Turma criada! 👥'); setTab('lista');
+}
+function vProfChamada(){
+  const p=DB.prof; const alunos=p.alunos.filter(a=>a.turma===1);
+  const st=id=>p.chamada[id]||null;
+  return header('📋 Chamada','Iniciante Manhã · hoje 08h · Arena Vida Fit Q2')+`
+  <div class="pad">
+    ${alunos.map(a=>`
+    <div class="card" style="cursor:default">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3>${a.nome}</h3>
+        ${st(a.id)?`<span class="badge ${st(a.id)==='pres'?'bG':st(a.id)==='avisada'?'bO':'bR'}">${st(a.id)==='pres'?'✅ Presente':st(a.id)==='avisada'?'📩 Falta avisada':'❌ Faltou'}</span>`:'<span class="badge" style="background:#eef0f5;color:#789">aguardando</span>'}
+      </div>
+      <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span>Reposições: ${a.repo}</span></div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-grn btn-sm" style="flex:1" onclick="profChamada(${a.id},'pres')">✅ Presente</button>
+        <button class="btn btn-sm" style="flex:1;background:#fff3d0;color:#c97d0a" onclick="profChamada(${a.id},'avisada')">📩 Avisou</button>
+        <button class="btn btn-red btn-sm" style="flex:1" onclick="profChamada(${a.id},'falta')">❌ Faltou</button>
+      </div>
+    </div>`).join('')}
+    <button class="btn btn-o" onclick="toast('Chamada encerrada! Alunos notificados 🔔');nav('pr-home')">✅ Encerrar chamada</button>
+    <div class="al al-b" style="margin-top:10px">🔁 Falta <b>avisada</b> (até 4h antes) gera crédito de reposição automaticamente. Falta sem aviso não gera — e o aluno recebe o registro no app.</div>
+  </div>`;
+}
+function profChamada(id, st){
+  const a=DB.prof.alunos.find(x=>x.id===id); if(!a) return;
+  const antes=DB.prof.chamada[id];
+  DB.prof.chamada[id]=st;
+  if(st==='avisada' && antes!=='avisada'){ a.repo++; toast(a.nome.split(' ')[0]+' ganhou 1 reposição 🔁'); }
+  else if(st==='falta' && antes!=='falta'){ a.faltas++; toast('Falta registrada — aluno notificado 🔔'); }
+  else if(st==='pres' && antes!=='pres'){ a.pres++; }
+  render();
+}
+function vProfAlunos(){
+  const p=DB.prof;
+  const badge={pago:['✅ Pago','bG'],pendente:['⏳ Pendente','bO'],atrasado:['🔴 Atrasado','bR']};
+  return header('📋 Alunos & Cobranças','Confirmação manual de recebimento', false)+`
+  <div class="pad">
+    <div class="stats">
+      <div class="stat g"><b>${p.alunos.filter(a=>a.pag==='pago').length}</b><span>Pagos</span></div>
+      <div class="stat o"><b>${p.alunos.filter(a=>a.pag==='pendente').length}</b><span>Pendentes</span></div>
+      <div class="stat r"><b>${p.alunos.filter(a=>a.pag==='atrasado').length}</b><span>Atrasados</span></div>
+    </div>
+    ${p.alunos.map(a=>`
+    <div class="card" style="cursor:default">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3>${a.nome}</h3><span class="badge ${badge[a.pag][1]}">${badge[a.pag][0]}</span>
+      </div>
+      <div class="meta"><span>👥 ${profTurmaNome(a.turma)}</span><span>Vence ${a.venc}</span></div>
+      <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span>🔁 Reposições: ${a.repo}</span></div>
+      ${a.pag!=='pago'?`<button class="btn btn-grn btn-sm" style="margin-top:10px" onclick="profConfirmarPag(${a.id})">✓ Confirmar recebimento</button>`:''}
+    </div>`).join('')}
+    <div class="al al-b">💡 Lembretes automáticos por e-mail/WhatsApp: D-3 antes do vencimento, no dia, e aviso de atraso no D+3 — você só confirma o Pix recebido.</div>
+  </div>`;
+}
+function profConfirmarPag(id){
+  const a=DB.prof.alunos.find(x=>x.id===id); if(!a) return;
+  a.pag='pago'; toast('Recebimento confirmado — recibo enviado ao aluno 🧾'); render();
+}
+function vProfPerfil(){
+  const p=DB.prof;
+  return header('🎓 Perfil do Professor','', false)+`
+  <div class="pad">
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:18px;padding:20px;color:#fff;text-align:center;margin-bottom:14px">
+      <div style="font-size:2.4em">🎓</div><b style="font-size:1.1em">${p.nome}</b>
+      <p style="opacity:.75;font-size:.8em;margin-top:2px">${p.espec}</p>
+    </div>
+    <div class="fld"><label>🏢 Vínculo com arena (opcional)</label><input value="${p.vinculo}"></div>
+    <div class="fld"><label>💰 Aula individual</label><input value="${p.valores.individual}"></div>
+    <div class="fld"><label>💰 Aula em dupla</label><input value="${p.valores.dupla}"></div>
+    <div class="fld"><label>💰 Turma</label><input value="${p.valores.turma}"></div>
+    <div class="stitle">📏 Regras (configuráveis)</div>
+    <div class="card" style="cursor:default">
+      <div class="meta"><span>📩 Aviso de falta até <b>4h antes</b> da aula</span></div>
+      <div class="meta"><span>🔁 Máx. <b>2 reposições/mês</b> · validade 30 dias</span></div>
+      <div class="meta"><span>❌ Falta sem aviso não gera reposição</span></div>
+    </div>
+    <button class="btn btn-o" onclick="toast('Perfil atualizado ✅')">Salvar alterações</button>
+    <button class="btn btn-ghost" onclick="S.role=null;nav('splash')">↩️ Trocar de perfil</button>
+  </div>`;
+}
+function vPAulas(){
+  const m=DB.minhasAulas;
+  return header('🎓 Minhas Aulas','')+`
+  <div class="pad">
+    <div class="card" style="cursor:default">
+      <h3>👥 ${m.turma}</h3>
+      <div class="meta"><span>🎓 ${m.prof}</span></div>
+      <div class="meta"><span>📍 ${m.local}</span></div>
+      <div style="margin-top:6px"><span class="badge bB">${m.nivel}</span><span class="badge ${m.pag==='pago'?'bG':'bO'}">${m.pag==='pago'?'✅ Mensalidade paga':'⏳ Mensalidade pendente'} · vence ${m.venc}</span></div>
+    </div>
+    <div class="live">
+      <div class="lrow"><span>📅 Próxima aula</span><b style="color:var(--org)">${m.prox}</b></div>
+      <div class="lrow"><span>🔁 Reposições disponíveis</span><b style="color:var(--org)">${m.repo}</b></div>
+    </div>
+    <div class="stats" style="margin-top:14px">
+      <div class="stat g"><b>${m.pres}</b><span>Presenças</span></div>
+      <div class="stat r"><b>${m.faltas}</b><span>Faltas</span></div>
+      <div class="stat o"><b>${m.repo}</b><span>Reposições</span></div>
+    </div>
+    ${m.avisada?`<div class="al al-g">📩 Falta avisada para a próxima aula — você ganhou 1 crédito de reposição. Combine o horário com o professor.</div>`:`<button class="btn btn-o" onclick="avisarFalta()">📩 Avisar falta na próxima aula</button>`}
+    <button class="btn btn-ghost" onclick="toast('Horários livres do professor abertos 🗓️')">🔁 Marcar reposição</button>
+    <div class="al al-b" style="margin-top:10px">💡 Avise até 4h antes para ganhar reposição. Falta sem aviso não gera crédito.</div>
+  </div>`;
+}
+function avisarFalta(){
+  const m=DB.minhasAulas;
+  if(m.avisada) return;
+  m.avisada=true; m.repo++;
+  toast('Professor notificado! +1 reposição 🔁'); render();
+}
+
 function vADash(){
   const pend=DB.pedidos.length;
   return `<div class="hd"><h2>📊 Arena Vida Fit<span class="sub">Dashboard operacional · ${new Date().toLocaleDateString('pt-BR')}</span></h2><span class="ic" onclick="toast(pend+' pendências 🔔')" style="cursor:pointer">🔔</span></div>
@@ -1058,6 +1279,7 @@ const SCREENS = {
   'a-dash':vADash,'a-quadras':vAQuadras,'a-ligas':vALigas,'a-games':vAGames,'a-perfil':vAPerfil,
   'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
   'auth':vAuth,'sub-checkout':vSubCheckout,'sub-status':vSubStatus,
+  'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
 };
 function render(){
   const fn=SCREENS[S.screen]||vSplash;
