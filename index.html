@@ -1195,7 +1195,10 @@ function loginDemo(){
   if(e==='demo@beachzinho.app' && s==='beach123'){
     S.demo=true; DB.classif.cadastroCompleto=true; try{localStorage.setItem('bz-demo','1');}catch(e){}
     DB.assinatura={plano:'Arena Pro', preco:'R$ 149/mês', dest:'arena', metodo:'💳 Cartão •••• 4242 (demo)', status:'ativa', venc:'11/09/26', log:['11/08 ✅ Conta demo ativada — acesso completo liberado']};
-    toast('Bem-vindo ao modo demonstração! 🎭'); nav('splash');
+    const dest=S.param;
+    if(dest==='arena'){ S.role='arena'; toast('Bem-vindo! Gerencial da arena 🎭'); nav('a-dash'); }
+    else if(dest==='grupo'){ S.role='grupo'; DB.grupo.plano=DB.planosGrupo[S.pendingPlan??1].n; toast('Bem-vindo! Área do grupo 🎭'); nav('g-home'); }
+    else { toast('Bem-vindo ao modo demonstração! 🎭'); nav('splash'); }
   } else {
     toast('⚠️ Conta não encontrada — use o acesso demo enviado a você');
   }
