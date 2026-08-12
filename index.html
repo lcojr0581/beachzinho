@@ -1175,6 +1175,7 @@ function vAuthVerif(){
   <div class="pad">
     <div class="al al-b">🔐 Para confirmar sua identidade, enviamos um <b>código de 6 dígitos</b> para o seu e-mail (e por SMS, se cadastrado). Digite abaixo.</div>
     <div class="fld"><label>🔢 Código de verificação</label><input id="av-cod" placeholder="000000" style="text-align:center;font-size:1.4em;letter-spacing:8px"></div>
+    <div class="al al-b">🧪 <b>Demonstração:</b> a validação está desligada — toque em Confirmar para continuar (no app real o código será exigido).</div>
     <button class="btn btn-o" onclick="authVerificar('${dest}')">✅ Confirmar código</button>
     <button class="btn btn-ghost" onclick="toast('Novo código enviado 📨')">Reenviar código</button>
     <button class="btn btn-ghost" onclick="back()">← Voltar</button>
@@ -1182,8 +1183,7 @@ function vAuthVerif(){
   </div>`;
 }
 function authVerificar(dest){
-  const v=(document.getElementById('av-cod')||{value:''}).value.trim();
-  if(v.length<6){ toast('⚠️ Digite os 6 dígitos do código'); return; }
+  // Protótipo: validação desligada — qualquer código (ou nenhum) passa
   toast('Conta verificada! ✅'); go('sub-checkout', dest);
 }
 function sairDemo(){ S.demo=false; try{localStorage.removeItem('bz-demo');}catch(e){} toast('Você saiu do modo demonstração'); render(); }
