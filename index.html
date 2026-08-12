@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Beachzinho — Beach Tennis</title>
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#003e73">
+<meta name="theme-color" content="#2C2C2A">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,14 +14,14 @@
 <link rel="icon" href="/icon-192.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{--navy:#003e73;--navy2:#0078d4;--navy3:#005a9e;--org:#ffb900;--grn:#107c10;--red:#d13438;--blu:#60cdff;--bg:#f3f3f3}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#dfe3e8;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
+:root{--navy:#2C2C2A;--navy2:#444441;--navy3:#3A3A38;--org:#EF9F27;--grn:#107c10;--red:#d13438;--blu:#D3D1C7;--bg:#FAFAF8}
+body{font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:#E9E7E1;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
 .phone{width:100%;max-width:420px;min-height:92vh;background:var(--bg);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 60px rgba(0,0,0,.5);position:relative}
 @media(max-width:440px){body{padding:0}.phone{border-radius:0;min-height:100vh}}
 /* MODO COMPUTADOR — painel com menu lateral */
 @media(min-width:900px){
-body:not(.force-mobile){padding:0;display:block;background:#f5f5f5}
-body:not(.force-mobile) .phone{max-width:none;width:100%;height:100vh;max-height:none;border-radius:0;box-shadow:none;display:flex;flex-direction:row;background:#f5f5f5}
+body:not(.force-mobile){padding:0;display:block;background:#F5F4EF}
+body:not(.force-mobile) .phone{max-width:none;width:100%;height:100vh;max-height:none;border-radius:0;box-shadow:none;display:flex;flex-direction:row;background:#F5F4EF}
 body:not(.force-mobile) #navbar{order:-1;flex-shrink:0}
 body:not(.force-mobile) #navbar .nav{position:sticky;top:0;height:100vh;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:4px;width:250px;padding:20px 14px;border-radius:0}
 body:not(.force-mobile) #navbar .nav::before{content:'🏖️ Beachzinho';display:block;font-weight:800;font-size:1.35em;letter-spacing:-.3px;padding:8px 12px 20px;border-bottom:1px solid rgba(128,128,128,.28);margin-bottom:14px}
@@ -41,18 +41,18 @@ body:not(.force-mobile) .tabs .tab,body:not(.force-mobile) .chip,body:not(.force
 /* chrome claro */
 @media(min-width:900px){
 body:not(.force-mobile):not(.dark) #navbar .nav{background:#fff;border-right:1px solid #e1e1e1}
-body:not(.force-mobile):not(.dark) #navbar .nav::before{color:#0078d4}
+body:not(.force-mobile):not(.dark) #navbar .nav::before{color:#444441}
 body:not(.force-mobile):not(.dark) #navbar .ni{color:#3a3a3a}
-body:not(.force-mobile):not(.dark) #navbar .ni:hover{background:#f2f7fc}
-body:not(.force-mobile):not(.dark) #navbar .ni.on{background:#e6f1fb;color:#0078d4;box-shadow:inset 3px 0 0 #0078d4}
+body:not(.force-mobile):not(.dark) #navbar .ni:hover{background:#F5F4EF}
+body:not(.force-mobile):not(.dark) #navbar .ni.on{background:#F1EFE8;color:#444441;box-shadow:inset 3px 0 0 #444441}
 body:not(.force-mobile):not(.dark) .hd{background:#fff;border-bottom:1px solid #e1e1e1;color:#1b1b1b}
 body:not(.force-mobile):not(.dark) .hd h2{color:#1b1b1b}
 body:not(.force-mobile):not(.dark) .hd .sub{color:#666;opacity:1}
 body:not(.force-mobile):not(.dark) .hd .back{background:#f0f0f0;color:#1b1b1b}
-body:not(.force-mobile):not(.dark) .btn-o{background:#0078d4;color:#fff}
-body:not(.force-mobile):not(.dark) .btn-n{background:#fff;color:#0078d4;border:1px solid #0078d4}
-body:not(.force-mobile):not(.dark) .tab.on{background:#0078d4;border-color:#0078d4;color:#fff}
-body:not(.force-mobile):not(.dark) .stat b{color:#005a9e}
+body:not(.force-mobile):not(.dark) .btn-o{background:#444441;color:#fff}
+body:not(.force-mobile):not(.dark) .btn-n{background:#fff;color:#444441;border:1px solid #444441}
+body:not(.force-mobile):not(.dark) .tab.on{background:#444441;border-color:#444441;color:#fff}
+body:not(.force-mobile):not(.dark) .stat b{color:#3A3A38}
 body:not(.force-mobile):not(.dark) .stitle{color:#3a3a3a}
 body:not(.force-mobile):not(.dark) #btn-dark,body:not(.force-mobile):not(.dark) #btn-view{background:#fff;border-color:#d0d0d0;color:#3a3a3a}
 }
@@ -61,9 +61,9 @@ body:not(.force-mobile):not(.dark) #btn-dark,body:not(.force-mobile):not(.dark) 
 body.dark:not(.force-mobile){background:#141414}
 body.dark:not(.force-mobile) .phone{background:#141414}
 body.dark:not(.force-mobile) #navbar .nav{background:#252525;border-right:1px solid #3a3a3a}
-body.dark:not(.force-mobile) #navbar .nav::before{color:#60cdff}
+body.dark:not(.force-mobile) #navbar .nav::before{color:#D3D1C7}
 body.dark:not(.force-mobile) #navbar .ni:hover{background:#2e2e2e}
-body.dark:not(.force-mobile) #navbar .ni.on{background:#17293a;color:#60cdff;box-shadow:inset 3px 0 0 #60cdff}
+body.dark:not(.force-mobile) #navbar .ni.on{background:#17293a;color:#D3D1C7;box-shadow:inset 3px 0 0 #D3D1C7}
 body.dark:not(.force-mobile) .hd{background:#252525;border-bottom:1px solid #3a3a3a}
 body.dark:not(.force-mobile) .card,body.dark:not(.force-mobile) .rk,body.dark:not(.force-mobile) .slot,body.dark:not(.force-mobile) .stat,body.dark:not(.force-mobile) .plano,body.dark:not(.force-mobile) .score,body.dark:not(.force-mobile) .news,body.dark:not(.force-mobile) .hcard{border-color:#3a3a3a}
 }
@@ -73,13 +73,13 @@ body.dark{background:#141414}
 body.dark .phone{background:#202020}
 body.dark .card,body.dark .hcard,body.dark .rk,body.dark .slot,body.dark .news,body.dark .score,body.dark .plano,body.dark .stat{background:#2b2b2b;box-shadow:none;border-color:#3a3a3a}
 body.dark .plano{border-color:#3a3a3a}
-body.dark .plano.hot{border-color:#ffb900}
+body.dark .plano.hot{border-color:#EF9F27}
 body.dark h3,body.dark .card h3,body.dark .hcard h3,body.dark .rk .nm,body.dark .slot .h,body.dark .stat b,body.dark .news h3{color:#f0f0f0}
 body.dark .stitle{color:#e8e8e8}
 body.dark .search,body.dark .tabs .tab,body.dark .chip,body.dark .day{background:#2b2b2b;border-color:#3a3a3a;color:#cfd6dd}
-body.dark .tab.on{background:#ffb900;border-color:#ffb900;color:#1b1b1b}
-body.dark .chip.on{background:#0078d4;border-color:#0078d4;color:#fff}
-body.dark .day.on{background:#0078d4;border-color:#0078d4;color:#fff}
+body.dark .tab.on{background:#EF9F27;border-color:#EF9F27;color:#1b1b1b}
+body.dark .chip.on{background:#444441;border-color:#444441;color:#fff}
+body.dark .day.on{background:#444441;border-color:#444441;color:#fff}
 body.dark .fld input,body.dark .fld select,body.dark .fld textarea{background:#2b2b2b;border-color:#3a3a3a;color:#eee}
 body.dark .btn-ghost{background:#2b2b2b;color:#e8e8e8;border-color:#3a3a3a}
 body.dark .dist{background:#252525}
@@ -98,8 +98,8 @@ body.dark p{color:#a8b2bc}
 .hd .sub{font-size:.72em;opacity:.7;display:block;font-weight:400}
 .hd .ic{font-size:1.3em}
 /* SPLASH */
-.splash{background:linear-gradient(160deg,#003e73 0%,#005a9e 55%,#0078d4 100%);min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;text-align:center;padding:30px}
-.splash h1{font-size:2.6em;font-weight:900;letter-spacing:-1px}
+.splash{background:linear-gradient(160deg,#2C2C2A 0%,#3A3A38 55%,#444441 100%);min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;text-align:center;padding:30px}
+.splash h1{font-size:2.6em;font-weight:800;letter-spacing:-1px}
 .splash h1 span{color:var(--org)}
 .splash p{opacity:.75;margin:8px 0 38px;font-size:.95em}
 .rolebtn{width:100%;max-width:300px;border:none;border-radius:16px;padding:18px;font-size:1.02em;font-weight:800;cursor:pointer;margin-bottom:14px;display:flex;align-items:center;gap:14px;text-align:left;transition:.15s}
@@ -107,29 +107,29 @@ body.dark p{color:#a8b2bc}
 .rolebtn .e{font-size:1.7em}
 .rolebtn small{display:block;font-weight:500;font-size:.78em;opacity:.75;margin-top:2px}
 .rb-p{background:var(--org);color:#1b1b1b}
-.rb-a{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.3)}
-.rb-w{background:rgba(116,185,255,.15);color:#cfe6ff;border:1.5px solid rgba(116,185,255,.4)}
-.rb-g{background:rgba(46,204,113,.14);color:#d4f5e2;border:1.5px solid rgba(46,204,113,.45)}
-.rb-t{background:rgba(245,166,35,.16);color:#ffe3b3;border:1.5px solid rgba(245,166,35,.45)}
-.rb-c{background:rgba(214,120,255,.14);color:#efd9ff;border:1.5px solid rgba(214,120,255,.45)}
+.rb-a{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(255,255,255,.30)}
+.rb-w{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(239,159,39,.55)}
+.rb-g{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(255,255,255,.30)}
+.rb-t{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(255,255,255,.30)}
+.rb-c{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(255,255,255,.30)}
 .menugrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
 .mi{background:#fff;border:1.5px solid #e3e7ee;border-radius:14px;padding:12px 10px;text-align:left;cursor:pointer;font-family:inherit;display:flex;gap:8px;align-items:center;font-size:.85em;font-weight:700;color:var(--navy)}
 .mi span.e{font-size:1.4em}
 .mi small{display:block;font-weight:400;color:#7a8699;font-size:.85em}
 .dark .mi{background:#2b2b2b;border-color:#3a3a3a;color:#eee}
-.plano{background:#fff;border:2px solid #dde5f0;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;position:relative;transition:.15s}
+.plano{background:#fff;border:2px solid #E5E3DB;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;position:relative;transition:.15s}
 .plano:active{transform:scale(.98)}
 .plano.hot{border-color:var(--org);box-shadow:0 4px 16px rgba(245,166,35,.25)}
-.plano .tagp{position:absolute;top:-10px;right:14px;background:var(--org);color:#1b1b1b;border-radius:20px;font-size:.66em;font-weight:900;padding:3px 12px}
+.plano .tagp{position:absolute;top:-10px;right:14px;background:var(--org);color:#1b1b1b;border-radius:20px;font-size:.66em;font-weight:800;padding:3px 12px}
 .plano h3{color:var(--navy);font-size:1em}
-.plano .pr{font-size:1.25em;font-weight:900;color:var(--navy2);margin:4px 0}
+.plano .pr{font-size:1.25em;font-weight:800;color:var(--navy2);margin:4px 0}
 .plano p{font-size:.8em;color:#789}
 /* SECTIONS */
 .pad{padding:16px}
 .stitle{font-size:.82em;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
 .stitle a{color:var(--org);font-size:.9em;text-decoration:none;cursor:pointer}
 /* SEARCH */
-.search{background:#fff;border:1.5px solid #dde5f0;border-radius:14px;padding:12px 16px;display:flex;gap:10px;color:#889;font-size:.92em;margin-bottom:4px}
+.search{background:#fff;border:1.5px solid #E5E3DB;border-radius:14px;padding:12px 16px;display:flex;gap:10px;color:#888780;font-size:.92em;margin-bottom:4px}
 /* CARDS */
 .card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(13,27,42,.06);cursor:pointer;transition:.15s}
 .card:active{transform:scale(.98)}
@@ -143,14 +143,14 @@ body.dark p{color:#a8b2bc}
 .hcard p{font-size:.76em;color:#788;margin-top:3px}
 /* BADGES */
 .badge{display:inline-block;border-radius:20px;padding:3px 11px;font-size:.72em;font-weight:700;margin:2px 2px 2px 0}
-.bO{background:#fff3d0;color:#c97d0a}.bB{background:#e3edfb;color:#1b4a7a}.bG{background:#e5f9ee;color:#1e8f4e}.bR{background:#fdeaea;color:#c0392b}.bP{background:#f3e9fa;color:#7d3c98}.bN{background:var(--navy);color:#fff}.bGy{background:#636e72;color:#fff}
+.bO{background:#fff3d0;color:#c97d0a}.bB{background:#F1EFE8;color:#444441}.bG{background:#e5f9ee;color:#1e8f4e}.bR{background:#fdeaea;color:#c0392b}.bP{background:#f3e9fa;color:#7d3c98}.bN{background:var(--navy);color:#fff}.bGy{background:#636e72;color:#fff}
 /* BUTTONS */
 .btn{border:none;border-radius:12px;padding:13px 18px;font-size:.92em;font-weight:800;cursor:pointer;width:100%;margin-top:10px;transition:.15s}
 .btn:active{transform:scale(.97)}
 .btn-o{background:var(--org);color:#1b1b1b}
 .btn-g{background:#25d366;color:#fff}
 .btn-n{background:var(--navy2);color:#fff}
-.btn-ghost{background:#fff;color:var(--navy);border:1.5px solid #dde5f0}
+.btn-ghost{background:#fff;color:var(--navy);border:1.5px solid #E5E3DB}
 .btn-sm{width:auto;padding:8px 14px;font-size:.8em;margin-top:0}
 .btn-grn{background:var(--grn);color:#fff}
 .btn-red{background:var(--red);color:#fff}
@@ -162,7 +162,7 @@ body.dark p{color:#a8b2bc}
 @keyframes pl{50%{opacity:.3}}
 /* AGENDA */
 .days{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px;scrollbar-width:none}
-.day{background:#fff;border:1.5px solid #dde5f0;border-radius:12px;padding:8px 14px;text-align:center;cursor:pointer;flex-shrink:0;font-size:.8em;color:#567}
+.day{background:#fff;border:1.5px solid #E5E3DB;border-radius:12px;padding:8px 14px;text-align:center;cursor:pointer;flex-shrink:0;font-size:.8em;color:#5F5E5A}
 .day.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 .day b{display:block;font-size:1.15em}
 .slot{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 6px rgba(13,27,42,.05)}
@@ -171,7 +171,7 @@ body.dark p{color:#a8b2bc}
 .st-l{background:#e5f9ee;color:#1e8f4e}.st-o{background:#fdeaea;color:#c0392b}.st-p{background:#fff3d0;color:#c97d0a}
 /* TABS */
 .tabs{display:flex;gap:6px;margin:12px 0;overflow-x:auto;scrollbar-width:none}
-.tab{background:#fff;border:1.5px solid #dde5f0;border-radius:20px;padding:7px 16px;font-size:.8em;font-weight:700;color:#567;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.tab{background:#fff;border:1.5px solid #E5E3DB;border-radius:20px;padding:7px 16px;font-size:.8em;font-weight:700;color:#5F5E5A;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .tab.on{background:var(--org);border-color:var(--org);color:#1b1b1b}
 /* STATS */
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
@@ -181,28 +181,28 @@ body.dark p{color:#a8b2bc}
 .stat.g b{color:#1e8f4e}.stat.r b{color:#c0392b}.stat.o b{color:#c97d0a}
 /* RANK */
 .rk{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 6px rgba(13,27,42,.05)}
-.rk .pos{font-weight:900;color:var(--org);width:36px;font-size:1.05em}
+.rk .pos{font-weight:800;color:var(--org);width:36px;font-size:1.05em}
 .rk .nm{flex:1;font-weight:700;color:var(--navy);font-size:.92em}
-.rk .nm small{display:block;font-weight:500;color:#889;font-size:.8em}
+.rk .nm small{display:block;font-weight:500;color:#888780;font-size:.8em}
 .rk .pts{font-weight:800;color:#1e8f4e;font-size:.88em}
 /* NAV */
 .nav{position:absolute;bottom:0;left:0;right:0;background:var(--navy);display:flex;justify-content:space-around;padding:10px 4px 14px;z-index:50}
-.ni{background:none;border:none;color:#8a9bb0;font-size:.66em;font-weight:700;text-align:center;cursor:pointer;padding:2px 8px}
+.ni{background:none;border:none;color:#B4B2A9;font-size:.66em;font-weight:700;text-align:center;cursor:pointer;padding:2px 8px}
 .ni span{display:block;font-size:1.55em;margin-bottom:2px}
 .ni.on{color:var(--org)}
 /* FORM */
 .fld{margin-bottom:12px}
 .fld label{display:block;font-size:.78em;font-weight:700;color:var(--navy);margin-bottom:6px}
-.fld input,.fld select,.fld textarea{width:100%;border:1.5px solid #dde5f0;border-radius:12px;padding:11px 14px;font-size:.9em;background:#fff;color:#234;font-family:inherit}
+.fld input,.fld select,.fld textarea{width:100%;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;background:#fff;color:#234;font-family:inherit}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{background:#fff;border:1.5px solid #dde5f0;border-radius:20px;padding:7px 14px;font-size:.78em;font-weight:700;color:#567;cursor:pointer}
+.chip{background:#fff;border:1.5px solid #E5E3DB;border-radius:20px;padding:7px 14px;font-size:.78em;font-weight:700;color:#5F5E5A;cursor:pointer}
 .chip.on{background:var(--navy2);border-color:var(--navy2);color:#fff}
 /* SCORE */
 .score{background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 10px rgba(13,27,42,.06)}
 .svs{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:14px 0}
 .steam{flex:1;text-align:center;font-size:.82em;font-weight:700;color:var(--navy)}
 .snum{display:flex;align-items:center;gap:8px}
-.snum button{width:30px;height:30px;border:none;border-radius:8px;background:#e8eef8;font-weight:900;cursor:pointer;color:var(--navy)}
+.snum button{width:30px;height:30px;border:none;border-radius:8px;background:#e8eef8;font-weight:800;cursor:pointer;color:var(--navy)}
 .snum b{font-size:1.7em;width:36px;text-align:center;color:var(--navy)}
 .dist{background:#f7f9fd;border-radius:12px;padding:12px;margin-top:12px;font-size:.82em}
 .dist .dr{display:flex;justify-content:space-between;padding:4px 0}
@@ -210,7 +210,7 @@ body.dark p{color:#a8b2bc}
 .al{border-radius:12px;padding:13px 15px;margin-bottom:12px;font-size:.85em}
 .al-y{background:#fff9e8;border:1.5px solid #f5d78e;color:#8a6d1a}
 .al-g{background:#eafaf1;border:1.5px solid #a8e6c5;color:#1e6b42}
-.al-b{background:#e8f4fd;border:1.5px solid #a8d4f0;color:#1b4a7a}
+.al-b{background:#e8f4fd;border:1.5px solid #a8d4f0;color:#444441}
 #toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:30px;font-size:.85em;font-weight:700;opacity:0;transition:.3s;z-index:99;white-space:nowrap;pointer-events:none;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 /* NEWS */
@@ -225,7 +225,7 @@ body.dark p{color:#a8b2bc}
 .h2h .pl{background:#fff;border-radius:14px;padding:14px 8px;text-align:center;box-shadow:0 2px 8px rgba(13,27,42,.06)}
 .h2h .pl .av{font-size:2em}
 .h2h .pl b{display:block;font-size:.82em;color:var(--navy);margin-top:4px}
-.h2h .vs{font-weight:900;color:var(--org);font-size:1.1em}
+.h2h .vs{font-weight:800;color:var(--org);font-size:1.1em}
 .hbar{display:flex;height:10px;border-radius:6px;overflow:hidden;margin:6px 0 14px}
 .hbar div:first-child{background:var(--grn)}.hbar div:last-child{background:var(--red)}
 .empty{text-align:center;color:#99a;padding:40px 20px;font-size:.9em}
@@ -305,8 +305,8 @@ const DB = {
   ],
   news: [
     {tag:'Ranking ITF', t:'Chow e Marchezini assumem o nº 1 mundial', p:'Primeira dupla 100% brasileira a liderar o ranking feminino da ITF em 14 anos.', ic:'🇧🇷', bg:'linear-gradient(135deg,#1e8f4e,#27ae60)'},
-    {tag:'Ranking ITF', t:'Spoto e Gianotti travam duelo pelo topo', p:'Italiano soma 6.654 pts contra 6.616 do francês — disputa mais acirrada da temporada.', ic:'🏆', bg:'linear-gradient(135deg,#0078d4,#005a9e)'},
-    {tag:'Circuito', t:'Sand Series Portugal terá premiação recorde', p:'Etapa de Nazaré distribui US$ 100 mil — a maior da temporada.', ic:'💰', bg:'linear-gradient(135deg,#c97d0a,#ffb900)'},
+    {tag:'Ranking ITF', t:'Spoto e Gianotti travam duelo pelo topo', p:'Italiano soma 6.654 pts contra 6.616 do francês — disputa mais acirrada da temporada.', ic:'🏆', bg:'linear-gradient(135deg,#444441,#3A3A38)'},
+    {tag:'Circuito', t:'Sand Series Portugal terá premiação recorde', p:'Etapa de Nazaré distribui US$ 100 mil — a maior da temporada.', ic:'💰', bg:'linear-gradient(135deg,#c97d0a,#EF9F27)'},
     {tag:'Técnica', t:'5 erros mais comuns no smash de beach tennis', p:'Análise técnica com dicas para subir de nível no ataque de rede.', ic:'🎾', bg:'linear-gradient(135deg,#7d3c98,#8e44ad)'},
   ],
   h2hData: {a:{n:'João Silva', av:'🧢', v:8, g:142}, b:{n:'Pedro Lima', av:'🧔', v:3, g:98}},
@@ -416,9 +416,9 @@ function navbar(){
 
 /* ═══════════ TELA — APRESENTAÇÃO ═══════════ */
 function vIntro(){
-  return `<div style="background:linear-gradient(160deg,#003e73 0%,#005a9e 55%,#0078d4 100%);color:#fff;padding:44px 24px 28px;text-align:center">
+  return `<div style="background:linear-gradient(160deg,#2C2C2A 0%,#3A3A38 55%,#444441 100%);color:#fff;padding:44px 24px 28px;text-align:center">
     <div style="font-size:3em">🏖️</div>
-    <h1 style="font-size:2em;font-weight:900;letter-spacing:-.5px">Beach<span style="color:var(--org)">zinho</span></h1>
+    <h1 style="font-size:2em;font-weight:800;letter-spacing:-.5px">Beach<span style="color:var(--org)">zinho</span></h1>
     <p style="opacity:.9;margin:12px 0 6px;font-size:1.08em;font-weight:800">Sua arena no controle.<br>Seus jogadores conectados.</p>
     <p style="opacity:.6;font-size:.85em">Quadras, ligas, aulas, rankings e pagamentos — tudo em um só app.</p>
     <button class="btn btn-o" style="margin-top:18px" onclick="nav('splash')">🚀 Começar agora — grátis</button>
@@ -440,15 +440,15 @@ function vIntro(){
     ].map(f=>`<div class="card" onclick="go('beneficios','${f[0]}')">
       <div style="display:flex;align-items:center;gap:12px">
         <span style="font-size:1.7em;flex-shrink:0">${f[1]}</span>
-        <span style="flex:1"><h3>${f[2]}</h3><p style="font-size:.8em;color:#678;margin-top:2px">${f[3]}</p></span>
-        <span style="color:var(--org);font-weight:900;font-size:1.2em">→</span>
+        <span style="flex:1"><h3>${f[2]}</h3><p style="font-size:.8em;color:#888780;margin-top:2px">${f[3]}</p></span>
+        <span style="color:var(--org);font-weight:800;font-size:1.2em">→</span>
       </div>
     </div>`).join('')}
-    <div class="card" onclick="S.role=null;nav('portal')" style="border:2px solid #0078d4">
+    <div class="card" onclick="S.role=null;nav('portal')" style="border:2px solid #444441">
       <div style="display:flex;align-items:center;gap:12px">
         <span style="font-size:1.7em;flex-shrink:0">🌐</span>
-        <span style="flex:1"><h3>Portal Beach Tennis — acesso livre</h3><p style="font-size:.8em;color:#678;margin-top:2px">Rankings ITF, calendário com onde assistir e notícias — sem precisar de login</p></span>
-        <span style="color:#0078d4;font-weight:900;font-size:1.2em">→</span>
+        <span style="flex:1"><h3>Portal Beach Tennis — acesso livre</h3><p style="font-size:.8em;color:#888780;margin-top:2px">Rankings ITF, calendário com onde assistir e notícias — sem precisar de login</p></span>
+        <span style="color:#444441;font-weight:800;font-size:1.2em">→</span>
       </div>
     </div>
     <button class="btn btn-n" onclick="go('beneficios','arena')">✨ Ver os benefícios de cada frente</button>
@@ -488,7 +488,7 @@ const BENEF={
 function vBeneficios(){
   const f=S.param&&BENEF[S.param]?S.param:'arena';
   const b=BENEF[f];
-  const fcard=x=>`<div class="card" style="cursor:default;display:flex;gap:14px;align-items:flex-start"><span style="font-size:1.8em;flex-shrink:0">${x[0]}</span><span><h3>${x[1]}</h3><p style="font-size:.83em;color:#678;margin-top:3px">${x[2]}</p></span></div>`;
+  const fcard=x=>`<div class="card" style="cursor:default;display:flex;gap:14px;align-items:flex-start"><span style="font-size:1.8em;flex-shrink:0">${x[0]}</span><span><h3>${x[1]}</h3><p style="font-size:.83em;color:#888780;margin-top:3px">${x[2]}</p></span></div>`;
   return `<div class="hd"><button class="back" onclick="nav('intro')">‹</button><h2>✨ Benefícios<span class="sub">${b.t}</span></h2></div>
   <div class="pad">
     <div class="tabs">
@@ -516,7 +516,7 @@ function vSplash(){
     <button class="rolebtn rb-t" onclick="S.role='prof';nav('pr-home');toast('Bem-vindo, professor! 🎓')"><span class="e">🎓</span><span>Sou Professor<small>Turmas, presença, reposições e cobranças</small></span></button>
     <button class="rolebtn rb-c" onclick="S.role='player';nav('cl-home')"><span class="e">🛒</span><span>Classificados<small>Compra e venda de itens do beach tennis</small></span></button>
     <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e">🌐</span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
-    <a style="color:#8a9bb0;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')">ℹ️ Por que usar o Beachzinho?</a>
+    <a style="color:#B4B2A9;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')">ℹ️ Por que usar o Beachzinho?</a>
   </div>`;
 }
 
@@ -573,7 +573,7 @@ function vPHome(){
 function vPExplore(){
   return header('🔍 Explorar Arenas','Florianópolis, SC')+`
   <div class="pad">
-    <div style="background:linear-gradient(135deg,#cfe3f7,#a8ccec);border-radius:16px;height:130px;display:flex;align-items:center;justify-content:center;font-size:.85em;color:#1b4a7a;font-weight:700;margin-bottom:14px">🗺️ Mapa interativo — ${DB.arenas.length} arenas próximas</div>
+    <div style="background:linear-gradient(135deg,#EDEBE2,#DEDBCE);border-radius:16px;height:130px;display:flex;align-items:center;justify-content:center;font-size:.85em;color:#444441;font-weight:700;margin-bottom:14px">🗺️ Mapa interativo — ${DB.arenas.length} arenas próximas</div>
     <div class="tabs">
       <div class="tab on">Todas</div><div class="tab" onclick="toast('Filtro: Ligas')">🏅 Ligas</div><div class="tab" onclick="toast('Filtro: Quadras')">🎾 Quadras</div><div class="tab" onclick="toast('Filtro: Rotativos')">🔄 Rotativos</div><div class="tab" onclick="toast('Filtro: Torneios')">🏆 Torneios</div>
     </div>
@@ -634,7 +634,7 @@ function vPTorneio(){
   const a=DB.arenas.find(x=>x.id===t.arenaId);
   return header('🏆 '+t.name, a.name)+`
   <div class="pad">
-    <div style="background:linear-gradient(135deg,#0078d4,#005a9e);border-radius:16px;padding:22px;text-align:center;color:#fff;margin-bottom:14px">
+    <div style="background:linear-gradient(135deg,#444441,#3A3A38);border-radius:16px;padding:22px;text-align:center;color:#fff;margin-bottom:14px">
       <div style="font-size:2.2em">🏆</div><b style="font-size:1.05em">${t.name}</b>
       <p style="opacity:.8;font-size:.82em;margin-top:6px">📅 ${t.data} · Inscrições ${t.insc}</p>
     </div>
@@ -685,7 +685,7 @@ function vPCheckout(){
       <div class="dist" style="margin-top:8px;background:#f7f9fd">
         <div class="dr"><span>Locação da quadra (1h)</span><span>R$ ${PRECO_HORA.toFixed(2).replace('.',',')}</span></div>
         <div class="dr"><span>Taxa do app</span><span style="color:#1e8f4e;font-weight:700">Grátis</span></div>
-        <div class="dr" style="border-top:1.5px dashed #dde5f0;margin-top:4px;padding-top:8px"><span><b>Total</b></span><span style="font-weight:900;color:var(--navy);font-size:1.1em">R$ ${total.toFixed(2).replace('.',',')}</span></div>
+        <div class="dr" style="border-top:1.5px dashed #E5E3DB;margin-top:4px;padding-top:8px"><span><b>Total</b></span><span style="font-weight:800;color:var(--navy);font-size:1.1em">R$ ${total.toFixed(2).replace('.',',')}</span></div>
       </div>
     </div>
     <div class="card" style="cursor:default">
@@ -716,7 +716,7 @@ function vPAgenda(){
   return header('📅 Minha Agenda','Reservas e compromissos', false)+`
   <div class="pad">
     <div class="stitle">🎾 Minhas reservas</div>
-    ${DB.minhasReservas.length? DB.minhasReservas.map(r=>`<div class="card" style="cursor:default"><h3>🎾 ${r.det}</h3><div style="margin-top:6px"><span class="badge ${r.status==='confirmada'?'bG':r.status==='recusada'?'bR':'bO'}">${r.status==='confirmada'?'✅ Confirmada':r.status==='recusada'?'❌ Recusada — valor estornado':'⏳ Aguardando arena'}</span>${r.pg?`<span class="badge bB">${r.pg}</span>`:''}${r.valor?`<span class="badge" style="background:#eef0f5;color:#567">${r.valor}</span>`:''}</div></div>`).join('') : '<div class="empty"><span>📅</span>Nenhuma reserva ainda.<br>Explore as arenas e reserve uma quadra!</div>'}
+    ${DB.minhasReservas.length? DB.minhasReservas.map(r=>`<div class="card" style="cursor:default"><h3>🎾 ${r.det}</h3><div style="margin-top:6px"><span class="badge ${r.status==='confirmada'?'bG':r.status==='recusada'?'bR':'bO'}">${r.status==='confirmada'?'✅ Confirmada':r.status==='recusada'?'❌ Recusada — valor estornado':'⏳ Aguardando arena'}</span>${r.pg?`<span class="badge bB">${r.pg}</span>`:''}${r.valor?`<span class="badge" style="background:#eef0f5;color:#5F5E5A">${r.valor}</span>`:''}</div></div>`).join('') : '<div class="empty"><span>📅</span>Nenhuma reserva ainda.<br>Explore as arenas e reserve uma quadra!</div>'}
     <div class="stitle">🏅 Compromissos fixos</div>
     <div class="card" style="cursor:default"><h3>🏅 Liga Terça Mista Open</h3><div class="meta"><span>Toda terça · 19h–21h · Arena Vida Fit</span></div><div style="margin-top:6px"><span class="badge bG">Próxima: Ter 18/08 · Rodada 8</span></div></div>
     <div class="card" style="cursor:default"><h3>🏅 Liga Seg Masculina</h3><div class="meta"><span>Toda segunda · 20h–22h · Arena Vida Fit</span></div></div>
@@ -1011,12 +1011,12 @@ function vGPlanos(){
       <p>${p.desc}</p>
       <div style="margin-top:8px">
         <span class="badge bB">${p.max==='∞'?'Membros ilimitados':'Até '+p.max+' jogadores'}</span>
-        <span class="badge ${i===3?'bO':''}" style="${i===3?'':'background:#eef0f5;color:#567'}">${i===3?'Todos os recursos':'1 local fixo'}</span>
+        <span class="badge ${i===3?'bO':''}" style="${i===3?'':'background:#eef0f5;color:#5F5E5A'}">${i===3?'Todos os recursos':'1 local fixo'}</span>
       </div>
     </div>`).join('')}
     <div class="stitle">📋 O que muda entre Grupo e Arena</div>
     <div class="card" style="cursor:default">
-      ${[['Registrar jogos e placares','✅','✅'],['Ranking interno do grupo','✅','✅'],['Portal ITF e notícias','✅','✅'],['Locais cadastrados','1 fixo','Ilimitados'],['Aparecer no Explorar (mapa)','—','✅'],['Locação de quadra (agenda pública)','—','✅'],['Ligas e rotativos abertos ao público','—','✅'],['Torneios com inscrição','—','✅'],['Ranking oficial da cidade','—','✅'],['Leads via WhatsApp','—','✅']].map(r=>`<div style="display:flex;justify-content:space-between;font-size:.82em;padding:6px 0;border-bottom:1px solid #f0f3f8"><span style="color:#456">${r[0]}</span><span style="width:64px;text-align:center;font-weight:700;color:#1e8f4e">${r[1]}</span><span style="width:64px;text-align:center;font-weight:700;color:#1b4a7a">${r[2]}</span></div>`).join('')}
+      ${[['Registrar jogos e placares','✅','✅'],['Ranking interno do grupo','✅','✅'],['Portal ITF e notícias','✅','✅'],['Locais cadastrados','1 fixo','Ilimitados'],['Aparecer no Explorar (mapa)','—','✅'],['Locação de quadra (agenda pública)','—','✅'],['Ligas e rotativos abertos ao público','—','✅'],['Torneios com inscrição','—','✅'],['Ranking oficial da cidade','—','✅'],['Leads via WhatsApp','—','✅']].map(r=>`<div style="display:flex;justify-content:space-between;font-size:.82em;padding:6px 0;border-bottom:1px solid #f0f3f8"><span style="color:#456">${r[0]}</span><span style="width:64px;text-align:center;font-weight:700;color:#1e8f4e">${r[1]}</span><span style="width:64px;text-align:center;font-weight:700;color:#444441">${r[2]}</span></div>`).join('')}
       <div style="display:flex;justify-content:space-between;font-size:.7em;font-weight:800;color:#99a;padding-top:6px"><span></span><span style="width:64px;text-align:center">GRUPO</span><span style="width:64px;text-align:center">ARENA</span></div>
     </div>
   </div>`;
@@ -1458,7 +1458,7 @@ function vProfTurmas(){
     <div class="fld"><label>Nome da turma</label><input id="pt-nome" placeholder="Ex: Intermediário Tarde"></div>
     <div class="fld"><label>Nível</label><div class="chips">${DB.prof.niveis.map(c=>`<div class="chip ${(S.nivelSel||DB.prof.niveis[0])===c?'on':''}" onclick="S.nivelSel='${c}';render()">${c}</div>`).join('')}<div class="chip" style="border-style:dashed" onclick="S.novoNv=!S.novoNv;render()">➕ Criar nível</div></div></div>
     ${S.novoNv?`<div style="display:flex;gap:8px;margin-bottom:12px">
-      <input id="nv-nome" placeholder="Nome do novo nível (ex: Competitivo, 60+)" style="flex:1;border:1.5px solid #dde5f0;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
+      <input id="nv-nome" placeholder="Nome do novo nível (ex: Competitivo, 60+)" style="flex:1;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
       <button class="btn btn-o btn-sm" onclick="profCriarNivel()">Criar</button>
     </div>`:''}
     <div class="fld"><label>📍 Local da aula</label><input id="pt-local" placeholder="Ex: Arena Vida Fit — Quadra 2"></div>
@@ -1542,7 +1542,7 @@ function vProfCal(){
       <div class="stat r"><b>${fal}</b><span>Faltas/avisos</span></div>
     </div>`:''}
     <div class="stitle">📋 O que aconteceu em ${d}</div>
-    ${regs.length? regs.map(x=>`<div class="rk" onclick="go('pr-aluno',${x.a.id})"><span class="pos">${x.r.st==='pres'?'✅':x.r.st==='avisada'?'📩':'❌'}</span><span class="nm">${x.a.nome}<small>${profTurmaNome(x.a.turma)} · ${x.r.obs||'Sem anotação'}</small></span><span class="pts" style="color:#0078d4">ficha →</span></div>`).join('') : `<div class="empty"><span>📅</span>Nenhum registro em ${d}${ft?' para esta turma':''}</div>`}
+    ${regs.length? regs.map(x=>`<div class="rk" onclick="go('pr-aluno',${x.a.id})"><span class="pos">${x.r.st==='pres'?'✅':x.r.st==='avisada'?'📩':'❌'}</span><span class="nm">${x.a.nome}<small>${profTurmaNome(x.a.turma)} · ${x.r.obs||'Sem anotação'}</small></span><span class="pts" style="color:#444441">ficha →</span></div>`).join('') : `<div class="empty"><span>📅</span>Nenhum registro em ${d}${ft?' para esta turma':''}</div>`}
     <div class="al al-b">💡 A chamada de cada aula alimenta este calendário automaticamente. Toque num registro para abrir a ficha do aluno.</div>
   </div>`;
 }
@@ -1591,7 +1591,7 @@ function vProfAlunos(){
       <div class="stat r" style="cursor:pointer;${f==='atrasado'?'outline:2.5px solid #d13438':''}" onclick="setTab(S.tab==='atrasado'?'todos':'atrasado')"><b>${p.alunos.filter(a=>a.pag==='atrasado').length}</b><span>Atrasados</span></div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:4px">
-      <input value="${S.busca||''}" placeholder="🔎 Buscar aluno por nome..." oninput="S.busca=this.value" onchange="render()" style="flex:1;border:1.5px solid #dde5f0;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff">
+      <input value="${S.busca||''}" placeholder="🔎 Buscar aluno por nome..." oninput="S.busca=this.value" onchange="render()" style="flex:1;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff">
       <button class="btn btn-ghost btn-sm" onclick="render()">Buscar</button>
     </div>
     ${S.busca?`<div class="al al-b" style="cursor:pointer" onclick="S.busca='';render()">🔎 Buscando: <b>"${S.busca}"</b> (${lista.length}) — toque para limpar</div>`:''}
@@ -1605,7 +1605,7 @@ function vProfAlunos(){
       </div>
       <div class="meta"><span>👥 ${profTurmaNome(a.turma)}</span><span>Vence ${a.venc}</span></div>
       <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span>🔁 Reposições: ${a.repo}</span></div>
-      <div style="margin-top:6px"><span class="badge bB">📔 Ficha completa →</span><span class="badge" style="background:#eef0f5;color:#567">${a.cad&&a.cad.origem==='app'?'📱 Auto-cadastro no app':'✍️ Cadastrado pelo professor'}</span></div>
+      <div style="margin-top:6px"><span class="badge bB">📔 Ficha completa →</span><span class="badge" style="background:#eef0f5;color:#5F5E5A">${a.cad&&a.cad.origem==='app'?'📱 Auto-cadastro no app':'✍️ Cadastrado pelo professor'}</span></div>
       ${a.pag!=='pago'?`<button class="btn btn-grn btn-sm" style="margin-top:10px" onclick="event.stopPropagation();profConfirmarPag(${a.id})">✓ Confirmar recebimento</button>`:''}
     </div>`).join('')}
     <div class="al al-b">💡 Lembretes automáticos por e-mail/WhatsApp: D-3 antes do vencimento, no dia, e aviso de atraso no D+3 — você só confirma o Pix recebido.</div>
@@ -1646,7 +1646,7 @@ function vProfAluno(){
         <span class="badge ${r.st==='pres'?'bG':r.st==='avisada'?'bO':'bR'}" style="cursor:pointer" onclick="alunoCicloSt(${a.id},${i})">${r.st==='pres'?'✅ Presente':r.st==='avisada'?'📩 Avisou falta':'❌ Faltou'} ↻</span>
       </div>
       <div style="display:flex;gap:8px;margin-top:10px">
-        <input id="obs-${i}" value="${(r.obs||'').replace(/"/g,'&quot;')}" placeholder="Anotação da aula (evolução, combinados...)" style="flex:1;border:1.5px solid #dde5f0;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
+        <input id="obs-${i}" value="${(r.obs||'').replace(/"/g,'&quot;')}" placeholder="Anotação da aula (evolução, combinados...)" style="flex:1;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
         <button class="btn btn-ghost btn-sm" onclick="alunoSalvaObs(${a.id},${i})">💾 Salvar</button>
       </div>
     </div>`).join('') : '<div class="empty"><span>📔</span>Sem anotações ainda — toque em Anotar aula de hoje</div>'}
@@ -1862,12 +1862,12 @@ function vAGames(){
   return header('📋 Lançar Games','Liga Ter Mista · Rodada 8 · Partida 1 de 4', false)+`
   <div class="pad">
     <div class="score">
-      <div style="text-align:center;font-size:.78em;font-weight:800;color:#889;text-transform:uppercase;letter-spacing:.5px">Placar da partida (games)</div>
+      <div style="text-align:center;font-size:.78em;font-weight:800;color:#888780;text-transform:uppercase;letter-spacing:.5px">Placar da partida (games)</div>
       <div class="svs">
         <div class="steam">🔵 ${p.ta}</div>
         <div class="snum"><button onclick="DB.partidaAtual.sa=Math.max(0,DB.partidaAtual.sa-1);render()">−</button><b>${p.sa}</b><button onclick="DB.partidaAtual.sa++;render()">+</button></div>
       </div>
-      <div style="text-align:center;font-weight:900;color:var(--org)">×</div>
+      <div style="text-align:center;font-weight:800;color:var(--org)">×</div>
       <div class="svs">
         <div class="steam">🔴 ${p.tb}</div>
         <div class="snum"><button onclick="DB.partidaAtual.sb=Math.max(0,DB.partidaAtual.sb-1);render()">−</button><b>${p.sb}</b><button onclick="DB.partidaAtual.sb++;render()">+</button></div>
