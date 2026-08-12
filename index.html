@@ -111,6 +111,7 @@ body.dark p{color:#a8b2bc}
 .rb-w{background:rgba(116,185,255,.15);color:#cfe6ff;border:1.5px solid rgba(116,185,255,.4)}
 .rb-g{background:rgba(46,204,113,.14);color:#d4f5e2;border:1.5px solid rgba(46,204,113,.45)}
 .rb-t{background:rgba(245,166,35,.16);color:#ffe3b3;border:1.5px solid rgba(245,166,35,.45)}
+.rb-c{background:rgba(214,120,255,.14);color:#efd9ff;border:1.5px solid rgba(214,120,255,.45)}
 .plano{background:#fff;border:2px solid #dde5f0;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;position:relative;transition:.15s}
 .plano:active{transform:scale(.98)}
 .plano.hot{border-color:var(--org);box-shadow:0 4px 16px rgba(245,166,35,.25)}
@@ -508,6 +509,7 @@ function vSplash(){
     <button class="rolebtn rb-a" onclick="S.pendingPlan=3;go('auth','arena')"><span class="e">🏢</span><span>Sou Arena<small>Gerenciar quadras, ligas e torneios</small></span></button>
     <button class="rolebtn rb-g" onclick="nav('g-planos')"><span class="e">👥</span><span>Pequeno Grupo <span style="background:var(--org);color:#1b1b1b;border-radius:10px;font-size:.6em;padding:2px 8px;vertical-align:middle">NOVO</span><small>Sua turma fixa: jogos, ranking interno e 1 local</small></span></button>
     <button class="rolebtn rb-t" onclick="S.role='prof';nav('pr-home');toast('Bem-vindo, professor! 🎓')"><span class="e">🎓</span><span>Sou Professor<small>Turmas, presença, reposições e cobranças</small></span></button>
+    <button class="rolebtn rb-c" onclick="S.role='player';nav('cl-home')"><span class="e">🛒</span><span>Classificados<small>Compra e venda de itens do beach tennis</small></span></button>
     <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e">🌐</span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
     <a style="color:#8a9bb0;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')">ℹ️ Por que usar o Beachzinho?</a>
   </div>`;
@@ -808,15 +810,39 @@ function salvarJogo(){
   toast('Jogo registrado no histórico! 📝'); S.tab=null; nav('p-perfil'); go('p-historico');
 }
 
+/* ═══════════ PORTAL — dados da nuvem (Supabase) ═══════════ */
+const SB_URL='https://wtugshylmqjfeybutvxk.supabase.co';
+const SB_KEY='sb_publishable_dul6Ox1TjJUoWhsseik_NA_V6ya7nqC';
+let itfCarregado=false;
+function carregarITF(){
+  if(itfCarregado||typeof fetch==='undefined') return;
+  const hd={apikey:SB_KEY};
+  Promise.all([
+    fetch('/itf.json?v='+Date.now()).then(r=>r.json()).catch(()=>null),
+    fetch(SB_URL+'/rest/v1/itf_eventos?select=*&order=ordem.asc',{headers:hd}).then(r=>r.json()).catch(()=>null)
+  ]).then(([rk,ev])=>{
+    if(rk&&Array.isArray(rk.M)&&rk.M.length){
+      DB.itfM=rk.M;
+      if(Array.isArray(rk.F)&&rk.F.length) DB.itfF=rk.F;
+    }
+    if(Array.isArray(ev)&&ev.length){
+      DB.calend=ev.map(x=>({n:x.nome,det:x.detalhe,tipo:x.tipo,live:!!x.live,yt:x.yt||null}));
+    }
+    itfCarregado=true;
+    if(S.screen==='portal'||S.screen==='portal-h2h') render();
+  }).catch(()=>{});
+}
+
 /* ═══════════ TELAS — PORTAL ═══════════ */
 function vPortal(){
+  carregarITF();
   const tab=S.tab||'ranking';
   let body='';
   if(tab==='ranking'){
     const g=S.gen||'M'; const list=g==='M'?DB.itfM:DB.itfF;
     body=`<div class="tabs"><div class="tab ${g==='M'?'on':''}" onclick="S.gen='M';render()">Masculino</div><div class="tab ${g==='F'?'on':''}" onclick="S.gen='F';render()">Feminino</div></div>
     ${list.map(r=>`<div class="rk"><span class="pos">#${r.p}</span><span class="nm">${r.n} ${r.c}${r.c==='🇧🇷'?'<small style="color:#1e8f4e">Brasil 🎾</small>':''}</span><span class="pts">${r.pts.toLocaleString('pt-BR')} pts</span></div>`).join('')}
-    <div class="al al-b" style="margin-top:10px">📡 Snapshot real da ITF de 16/02/2026 (demo). No app final, os dados vêm da API oficial da ITF com atualização automática após cada torneio. Em abr/2026, Chow &amp; Marchezini 🇧🇷 assumiram o nº 1 feminino.</div>
+    <div class="al al-b" style="margin-top:10px">📡 Dados carregados automaticamente da nuvem Beachzinho — o ranking e o calendário são atualizados no banco de dados, sem precisar publicar o app.</div>
     <div class="stitle">📍 Ranking local Beachzinho — Florianópolis</div>
     ${[['#10','Rafa Martins','412 games'],['#11','Duda Freitas','405 games'],['#12','João Silva 🧢 (você)','398 games'],['#13','Leo Braga','390 games']].map(r=>`<div class="rk" ${r[1].includes('você')?'style="border:2px solid var(--org)"':''}><span class="pos">${r[0]}</span><span class="nm">${r[1]}</span><span class="pts">${r[2]}</span></div>`).join('')}`;
   }
