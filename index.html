@@ -112,6 +112,11 @@ body.dark p{color:#a8b2bc}
 .rb-g{background:rgba(46,204,113,.14);color:#d4f5e2;border:1.5px solid rgba(46,204,113,.45)}
 .rb-t{background:rgba(245,166,35,.16);color:#ffe3b3;border:1.5px solid rgba(245,166,35,.45)}
 .rb-c{background:rgba(214,120,255,.14);color:#efd9ff;border:1.5px solid rgba(214,120,255,.45)}
+.menugrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.mi{background:#fff;border:1.5px solid #e3e7ee;border-radius:14px;padding:12px 10px;text-align:left;cursor:pointer;font-family:inherit;display:flex;gap:8px;align-items:center;font-size:.85em;font-weight:700;color:var(--navy)}
+.mi span.e{font-size:1.4em}
+.mi small{display:block;font-weight:400;color:#7a8699;font-size:.85em}
+.dark .mi{background:#2b2b2b;border-color:#3a3a3a;color:#eee}
 .plano{background:#fff;border:2px solid #dde5f0;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;position:relative;transition:.15s}
 .plano:active{transform:scale(.98)}
 .plano.hot{border-color:var(--org);box-shadow:0 4px 16px rgba(245,166,35,.25)}
@@ -241,7 +246,7 @@ body.dark p{color:#a8b2bc}
 <script>
 /* ═══════════ DADOS (simulação em memória) ═══════════ */
 const DB = {
-  me: {name:'João Silva', city:'Florianópolis', won:247, lost:189, ligas:2, torneios:4, rank:12},
+  me: {name:'João Silva', city:'Florianópolis', uf:'SC', won:247, lost:189, ligas:2, torneios:4, rank:12, zap:'(48) 9 5500-1122', email:'joao.silva@email.com', nasc:'1995-03-14', nivel:'Intermediário', lado:'Direito', minhasLigas:[1,2]},
   arenas: [
     {id:1, name:'Arena Vida Fit', emoji:'🏖️', dist:'2.3 km', star:4.8, addr:'Rua das Palmeiras, 120', hours:'Seg–Sex 07h–23h · Sáb/Dom 08h–20h', zap:'48999990001', quadras:2, feat:'Coberta · Iluminada · Areia fina'},
     {id:2, name:'Arena Beira Mar', emoji:'🌊', dist:'4.1 km', star:4.6, addr:'Av. Atlântica, 900', hours:'Todos os dias 06h–22h', zap:'48999990002', quadras:3, feat:'Vista mar · Iluminada'},
@@ -504,10 +509,10 @@ function vSplash(){
   return `<div class="splash">
     <h1>🏖️ Beach<span>zinho</span></h1>
     <p>Arenas · Ligas · Quadras · Rankings<br>Tudo do Beach Tennis em um só lugar</p>
-    ${S.demo?'<div style="background:rgba(255,185,0,.18);border:1.5px solid rgba(255,185,0,.5);border-radius:12px;padding:10px 16px;font-size:.8em;margin-bottom:16px;max-width:300px">🎭 <b>MODO DEMONSTRAÇÃO</b><br>Entre em qualquer perfil abaixo — crie, edite e teste à vontade. Os dados são de exemplo.</div>':''}
+    ${S.demo?'<div style="background:rgba(255,185,0,.18);border:1.5px solid rgba(255,185,0,.5);border-radius:12px;padding:10px 16px;font-size:.8em;margin-bottom:16px;max-width:300px">🎭 <b>MODO DEMONSTRAÇÃO</b><br>Entre em qualquer perfil abaixo — crie, edite e teste à vontade. Os dados são de exemplo. <a style="color:#ffd970;text-decoration:underline;cursor:pointer" onclick="sairDemo()">Sair do demo</a></div>':''}
     <button class="rolebtn rb-p" onclick="S.role='player';nav('p-home');toast('Bem-vindo, João! 👋')"><span class="e">👤</span><span>Sou Jogador<small>Buscar arenas, ligas e reservar quadras</small></span></button>
-    <button class="rolebtn rb-a" onclick="S.pendingPlan=3;go('auth','arena')"><span class="e">🏢</span><span>Sou Arena<small>Gerenciar quadras, ligas e torneios</small></span></button>
-    <button class="rolebtn rb-g" onclick="nav('g-planos')"><span class="e">👥</span><span>Pequeno Grupo <span style="background:var(--org);color:#1b1b1b;border-radius:10px;font-size:.6em;padding:2px 8px;vertical-align:middle">NOVO</span><small>Sua turma fixa: jogos, ranking interno e 1 local</small></span></button>
+    <button class="rolebtn rb-a" onclick="entrarArena()"><span class="e">🏢</span><span>Sou Arena<small>Gerenciar quadras, ligas e torneios</small></span></button>
+    <button class="rolebtn rb-g" onclick="entrarGrupo()"><span class="e">👥</span><span>Pequeno Grupo <span style="background:var(--org);color:#1b1b1b;border-radius:10px;font-size:.6em;padding:2px 8px;vertical-align:middle">NOVO</span><small>Sua turma fixa: jogos, ranking interno e 1 local</small></span></button>
     <button class="rolebtn rb-t" onclick="S.role='prof';nav('pr-home');toast('Bem-vindo, professor! 🎓')"><span class="e">🎓</span><span>Sou Professor<small>Turmas, presença, reposições e cobranças</small></span></button>
     <button class="rolebtn rb-c" onclick="S.role='player';nav('cl-home')"><span class="e">🛒</span><span>Classificados<small>Compra e venda de itens do beach tennis</small></span></button>
     <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e">🌐</span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
@@ -521,6 +526,18 @@ function vPHome(){
   return `<div class="hd"><h2>Olá, João 👋<span class="sub">📍 Florianópolis, SC</span></h2><span class="ic" onclick="toast('3 notificações não lidas 🔔')" style="cursor:pointer">🔔</span></div>
   <div class="pad">
     <div class="search" onclick="go('p-explore')">🔍 <span>Buscar arena, liga ou torneio...</span></div>
+
+    <div class="stitle">📋 O que você quer fazer?</div>
+    <div class="menugrid">
+      <button class="mi" onclick="go('p-minhasligas')"><span class="e">🏅</span><span>Ligas inscrito<small>${DB.me.minhasLigas.length} ligas ativas</small></span></button>
+      <button class="mi" onclick="go('p-ligas')"><span class="e">🔎</span><span>Ligas existentes<small>${DB.ligas.length} na região</small></span></button>
+      <button class="mi" onclick="go('p-torneios')"><span class="e">🏆</span><span>Próximos torneios<small>${DB.torneios.length} com inscrição aberta</small></span></button>
+      <button class="mi" onclick="go('p-quadras')"><span class="e">🎾</span><span>Quadras disponíveis<small>Reserve e pague online</small></span></button>
+      <button class="mi" onclick="go('p-pontos')"><span class="e">📊</span><span>Minha pontuação<small>Ranking #${DB.me.rank} na cidade</small></span></button>
+      <button class="mi" onclick="go('p-dados')"><span class="e">📝</span><span>Meus dados<small>Editar cadastro</small></span></button>
+      <button class="mi" onclick="go('p-historico')"><span class="e">📜</span><span>Histórico<small>Por tipo e por dia</small></span></button>
+      <button class="mi" onclick="go('cl-home')"><span class="e">🛒</span><span>Classificados<small>Compra e venda</small></span></button>
+    </div>
 
     <div class="stitle" style="margin-top:14px">🌐 Mundo do Beach Tennis <a onclick="nav('portal')">Ver portal →</a></div>
     <div class="live">
@@ -733,15 +750,117 @@ function vPPerfil(){
   </div>`;
 }
 
+function vPMinhasLigas(){
+  const minhas=DB.ligas.filter(l=>DB.me.minhasLigas.includes(l.id));
+  return header('🏅 Minhas Ligas','Você está inscrito em '+minhas.length+' ligas')+`
+  <div class="pad">
+    ${minhas.map(l=>{const a=DB.arenas.find(x=>x.id===l.arenaId);return `<div class="card" onclick="go('p-liga',${l.id})">
+      <h3>🏅 ${l.name}</h3>
+      <div class="meta"><span>${a.emoji} ${a.name}</span><span>${l.dia} · ${l.hora}</span><span>${l.cat} · ${l.nivel}</span></div>
+      <div style="margin-top:6px"><span class="badge bG">Próxima rodada: ${l.dia} 18/08</span></div>
+    </div>`}).join('')}
+    <div class="stitle">Quer jogar mais?</div>
+    <button class="btn btn-o" onclick="go('p-ligas')">🔎 Ver todas as ligas da região</button>
+  </div>`;
+}
+function vPLigas(){
+  return header('🔎 Ligas Existentes',DB.ligas.length+' ligas na região')+`
+  <div class="pad">
+    ${DB.ligas.map(l=>{const a=DB.arenas.find(x=>x.id===l.arenaId);const insc=DB.me.minhasLigas.includes(l.id);return `<div class="card" onclick="go('p-liga',${l.id})">
+      <h3>🏅 ${l.name} ${insc?'<span class="badge bG">Inscrito</span>':''}</h3>
+      <div class="meta"><span>${a.emoji} ${a.name}</span><span>${l.dia} · ${l.hora}</span><span>${l.preco}</span></div>
+      <div class="meta"><span>${l.cat} · ${l.nivel}</span><span style="color:${l.status==='ativa'?'#1e8f4e':'#c97d0a'};font-weight:700">${l.status==='ativa'?'🟢 '+l.vagas:'⏸️ '+l.vagas}</span></div>
+    </div>`}).join('')}
+  </div>`;
+}
+function vPTorneios(){
+  return header('🏆 Próximos Torneios','Inscrições abertas')+`
+  <div class="pad">
+    ${DB.torneios.map(t=>{const a=DB.arenas.find(x=>x.id===t.arenaId);return `<div class="card" onclick="go('p-torneio',${t.id})">
+      <h3>🏆 ${t.name}</h3>
+      <div class="meta"><span>${a.emoji} ${a.name}</span><span>📅 ${t.data}</span><span>💰 ${t.premio}</span></div>
+      <div class="meta"><span>Categorias: ${t.cats}</span></div>
+      <div style="margin-top:6px"><span class="badge bO">Inscrições ${t.insc}</span><span class="badge bB">${t.preco}</span></div>
+    </div>`}).join('')}
+  </div>`;
+}
+function vPQuadras(){
+  return header('🎾 Quadras Disponíveis','Reserve e pague pelo app')+`
+  <div class="pad">
+    ${DB.arenas.map(a=>`<div class="card" onclick="go('p-quadra',1)">
+      <h3>${a.emoji} ${a.name}</h3>
+      <div class="meta"><span>📍 ${a.dist}</span><span>⭐ ${a.star}</span><span>${a.quadras} quadras</span></div>
+      <div class="meta"><span>🕐 ${a.hours}</span></div>
+      <div style="margin-top:6px"><span class="badge bG">🟢 Horários livres hoje</span></div>
+    </div>`).join('')}
+  </div>`;
+}
+function vPPontos(){
+  const m=DB.me; const total=m.won+m.lost; const ap=(m.won/total*100).toFixed(1);
+  const ult=DB.historico.slice(0,5);
+  return header('📊 Minha Pontuação','Games validados pelas arenas')+`
+  <div class="pad">
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:18px;padding:18px;color:#fff;text-align:center;margin-bottom:12px">
+      <p style="opacity:.75;font-size:.8em">Ranking da cidade — ${m.city}</p>
+      <b style="font-size:2.2em;color:var(--org)">#${m.rank}</b>
+    </div>
+    <div class="stats">
+      <div class="stat g"><b>${m.won}</b><span>Games ganhos</span></div>
+      <div class="stat r"><b>${m.lost}</b><span>Games perdidos</span></div>
+      <div class="stat o"><b>${ap}%</b><span>Aproveitamento</span></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>+${m.won-m.lost}</b><span>Saldo de games</span></div>
+      <div class="stat"><b>${m.ligas}</b><span>Ligas ativas</span></div>
+      <div class="stat"><b>${m.torneios}</b><span>Torneios jogados</span></div>
+    </div>
+    <div class="al al-g">📈 Cada game validado pela arena vira pontuação no ranking. Registros manuais não pontuam até o adversário confirmar.</div>
+    <div class="stitle">Últimos resultados</div>
+    ${ult.map(j=>`<div class="rk"><span class="pos">${j.res==='win'?'✅':'❌'}</span><span class="nm">${j.ev}<small>${j.d} · ${j.arena}</small></span><span class="pts" style="color:${j.res==='win'?'#1e8f4e':'#c0392b'}">${j.pl}</span></div>`).join('')}
+    <button class="btn btn-o" onclick="go('p-historico')">📜 Histórico completo</button>
+  </div>`;
+}
+function vPDados(){
+  const m=DB.me;
+  return header('📝 Meus Dados','Cadastro do jogador')+`
+  <div class="pad">
+    <div class="al al-y">🔗 Ao se inscrever numa <b>aula, liga, torneio ou quadra</b>, estes dados são compartilhados automaticamente com o professor ou a arena responsável.</div>
+    <div class="stitle">Dados pessoais</div>
+    <label class="lbl">Nome completo</label><input class="inp" id="md-nome" value="${m.name}">
+    <label class="lbl">WhatsApp</label><input class="inp" id="md-zap" value="${m.zap}">
+    <label class="lbl">E-mail</label><input class="inp" id="md-email" value="${m.email}">
+    <label class="lbl">Nascimento</label><input class="inp" id="md-nasc" type="date" value="${m.nasc}">
+    <div class="stitle">Cidade e jogo</div>
+    <label class="lbl">Cidade</label><input class="inp" id="md-cidade" value="${m.city}">
+    <label class="lbl">UF</label><input class="inp" id="md-uf" value="${m.uf}" maxlength="2">
+    <label class="lbl">Nível</label><select class="inp" id="md-nivel">${['Iniciante','Intermediário','Avançado','Open'].map(n=>`<option ${m.nivel===n?'selected':''}>${n}</option>`).join('')}</select>
+    <label class="lbl">Lado preferido</label><select class="inp" id="md-lado">${['Direito','Esquerdo','Ambos'].map(n=>`<option ${m.lado===n?'selected':''}>${n}</option>`).join('')}</select>
+    <button class="btn btn-o" onclick="salvarMeusDados()">💾 Salvar alterações</button>
+  </div>`;
+}
+function salvarMeusDados(){
+  const g=id=>document.getElementById(id).value;
+  const m=DB.me;
+  m.name=g('md-nome')||m.name; m.zap=g('md-zap'); m.email=g('md-email'); m.nasc=g('md-nasc');
+  m.city=g('md-cidade'); m.uf=g('md-uf'); m.nivel=g('md-nivel'); m.lado=g('md-lado');
+  toast('Dados atualizados! Professores e arenas verão o cadastro novo ✅'); back();
+}
 function vPHistorico(){
   const f=S.tab||'todos';
-  const jogos = f==='todos' ? DB.historico : DB.historico.filter(j=>j.tipo===f);
+  const dia=S.histDia||'todas';
+  let jogos = f==='todos' ? DB.historico : DB.historico.filter(j=>j.tipo===f);
+  if(dia!=='todas') jogos=jogos.filter(j=>j.d===dia);
   const v=jogos.filter(j=>j.res==='win').length, d=jogos.length-v;
   const tipoIc={liga:'🏅',torneio:'🏆',rotativo:'🔄',avulso:'🎾'};
   return header('📜 Histórico de Jogos', DB.historico.length+' partidas registradas')+`
   <div class="pad">
     <div class="tabs">
       ${[['todos','Todos'],['liga','🏅 Ligas'],['torneio','🏆 Torneios'],['rotativo','🔄 Rotativos'],['avulso','🎾 Avulsos']].map(t=>`<div class="tab ${f===t[0]?'on':''}" onclick="setTab('${t[0]}')">${t[1]}</div>`).join('')}
+    </div>
+    <div class="stitle">Filtrar por dia</div>
+    <div class="tabs">
+      <div class="tab ${dia==='todas'?'on':''}" onclick="S.histDia='todas';render()">Todos os dias</div>
+      ${[...new Set(DB.historico.map(j=>j.d))].map(d=>`<div class="tab ${dia===d?'on':''}" onclick="S.histDia='${d}';render()">📅 ${d}</div>`).join('')}
     </div>
     <div class="stats">
       <div class="stat"><b>${jogos.length}</b><span>Jogos</span></div>
@@ -1067,11 +1186,14 @@ function authVerificar(dest){
   if(v.length<6){ toast('⚠️ Digite os 6 dígitos do código'); return; }
   toast('Conta verificada! ✅'); go('sub-checkout', dest);
 }
+function sairDemo(){ S.demo=false; try{localStorage.removeItem('bz-demo');}catch(e){} toast('Você saiu do modo demonstração'); render(); }
+function entrarArena(){ if(S.demo){ S.role='arena'; nav('a-dash'); toast('Modo demo: área da Arena liberada 🎭'); } else { S.pendingPlan=3; go('auth','arena'); } }
+function entrarGrupo(){ if(S.demo){ S.role='grupo'; nav('g-home'); toast('Modo demo: área do Grupo liberada 🎭'); } else { nav('g-planos'); } }
 function loginDemo(){
   const e=(document.getElementById('lg-email')||{value:''}).value.trim().toLowerCase();
   const s=(document.getElementById('lg-senha')||{value:''}).value;
   if(e==='demo@beachzinho.app' && s==='beach123'){
-    S.demo=true; DB.classif.cadastroCompleto=true;
+    S.demo=true; DB.classif.cadastroCompleto=true; try{localStorage.setItem('bz-demo','1');}catch(e){}
     DB.assinatura={plano:'Arena Pro', preco:'R$ 149/mês', dest:'arena', metodo:'💳 Cartão •••• 4242 (demo)', status:'ativa', venc:'11/09/26', log:['11/08 ✅ Conta demo ativada — acesso completo liberado']};
     toast('Bem-vindo ao modo demonstração! 🎭'); nav('splash');
   } else {
@@ -1789,7 +1911,7 @@ function vAPerfil(){
 /* ═══════════ RENDER ═══════════ */
 const SCREENS = {
   'splash':vSplash,'intro':vIntro,'beneficios':vBeneficios,
-  'p-home':vPHome,'p-explore':vPExplore,'p-arena':vPArena,'p-liga':vPLiga,'p-torneio':vPTorneio,'p-quadra':vPQuadra,'p-checkout':vPCheckout,'p-agenda':vPAgenda,'p-perfil':vPPerfil,'p-historico':vPHistorico,'p-addjogo':vPAddJogo,
+  'p-home':vPHome,'p-explore':vPExplore,'p-arena':vPArena,'p-liga':vPLiga,'p-torneio':vPTorneio,'p-quadra':vPQuadra,'p-checkout':vPCheckout,'p-agenda':vPAgenda,'p-perfil':vPPerfil,'p-historico':vPHistorico,'p-addjogo':vPAddJogo,'p-minhasligas':vPMinhasLigas,'p-ligas':vPLigas,'p-torneios':vPTorneios,'p-quadras':vPQuadras,'p-pontos':vPPontos,'p-dados':vPDados,
   'portal':vPortal,'portal-h2h':vPortalH2H,
   'a-dash':vADash,'a-quadras':vAQuadras,'a-ligas':vALigas,'a-games':vAGames,'a-perfil':vAPerfil,
   'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
@@ -1819,6 +1941,7 @@ function toggleView(){
   try{localStorage.setItem('bz-view',on?'1':'0');}catch(e){}
 }
 try{
+  if(localStorage.getItem('bz-demo')==='1'){ S.demo=true; DB.classif.cadastroCompleto=true; }
   if(localStorage.getItem('bz-dark')==='1') toggleDark();
   if(localStorage.getItem('bz-view')==='1') toggleView();
 }catch(e){}
