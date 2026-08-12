@@ -22,12 +22,13 @@ jobs:
           (async () => {
             const base = g => "https://www.itftennis.com/tennis/api/PlayerRankApi/GetPlayerRankings?circuitCode=BT&matchTypeCode=D&take=10&skip=0&isOrderAscending=true&playerTypeCode=" + g;
             const out = { atualizado: new Date().toISOString() };
-            for (const g of ["M","F"]) {
+            for (const g of ["M","W"]) {
+              const chave = g === "W" ? "F" : "M";
               const r = await fetch(base(g), { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36", "Accept": "application/json, text/plain, */*" } });
               const t = await r.text();
               if (!r.ok || t.trim().startsWith("<")) { console.error("ITF bloqueou " + g + " status " + r.status); process.exit(1); }
               const j = JSON.parse(t);
-              out[g] = j.items.map(it => ({ p: it.rank, n: ((it.playerGivenName||"") + " " + (it.playerFamilyName||"")).trim(), c: BAND[it.playerNationalityCode] || NEUTRA, pts: Math.round(it.pointsRankingTotal ?? it.points ?? 0) }));
+              out[chave] = j.items.map(it => ({ p: it.rank, n: ((it.playerGivenName||"") + " " + (it.playerFamilyName||"")).trim(), c: BAND[it.playerNationalityCode] || NEUTRA, pts: Math.round(it.pointsRankingTotal ?? it.points ?? 0) }));
             }
             fs.writeFileSync("itf.json", JSON.stringify(out));
             console.log("ok M=" + out.M.length + " F=" + out.F.length);
