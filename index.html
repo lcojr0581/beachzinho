@@ -12,8 +12,10 @@
 <meta name="apple-mobile-web-app-title" content="Beachzinho">
 <link rel="apple-touch-icon" href="/icon-192.png">
 <link rel="icon" href="/icon-192.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+.ti{line-height:1;vertical-align:-2px}
 :root{--navy:#2C2C2A;--navy2:#444441;--navy3:#3A3A38;--org:#EF9F27;--grn:#107c10;--red:#d13438;--blu:#D3D1C7;--bg:#FAFAF8}
 body{font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:#E9E7E1;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
 .phone{width:100%;max-width:420px;min-height:92vh;background:var(--bg);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 60px rgba(0,0,0,.5);position:relative}
@@ -234,8 +236,8 @@ body.dark p{color:#a8b2bc}
 </head>
 <body>
 <div id="modes" style="position:fixed;top:12px;right:14px;z-index:999;display:flex;gap:8px">
-  <button id="btn-dark" onclick="toggleDark()" title="Modo noturno" style="width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:1.15em;cursor:pointer">🌙</button>
-  <button id="btn-view" onclick="toggleView()" title="Alternar computador/celular" style="width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:1.15em;cursor:pointer">📱</button>
+  <button id="btn-dark" onclick="toggleDark()" title="Modo noturno" style="width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:1.15em;cursor:pointer"><i class="ti ti-moon"></i></button>
+  <button id="btn-view" onclick="toggleView()" title="Alternar computador/celular" style="width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:1.15em;cursor:pointer"><i class="ti ti-device-mobile"></i></button>
 </div>
 <div class="phone">
   <div id="app"></div>
@@ -400,17 +402,17 @@ function header(title, sub='', showBack=true){
 function navbar(){
   const el=document.getElementById('navbar');
   if(S.role==='player'){
-    const items=[['p-home','🏠','Início'],['p-explore','🔍','Explorar'],['p-agenda','📅','Agenda'],['portal','🌐','Portal'],['p-perfil','👤','Perfil']];
-    el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span>⌂</span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]||(i[0]==='portal'&&S.screen.startsWith('portal'))?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
+    const items=[['p-home','<i class=\"ti ti-layout-dashboard\"></i>','Início'],['p-explore','<i class=\"ti ti-search\"></i>','Explorar'],['p-agenda','<i class=\"ti ti-calendar\"></i>','Agenda'],['portal','<i class=\"ti ti-world\"></i>','Portal'],['p-perfil','<i class=\"ti ti-user\"></i>','Perfil']];
+    el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span><i class="ti ti-home"></i></span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]||(i[0]==='portal'&&S.screen.startsWith('portal'))?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
   } else if(S.role==='arena'){
-    const items=[['a-dash','📊','Dashboard'],['a-quadras','🎾','Quadras'],['a-ligas','🏅','Ligas'],['a-games','📋','Games'],['a-perfil','⚙️','Perfil']];
-    el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span>⌂</span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
+    const items=[['a-dash','<i class=\"ti ti-chart-bar\"></i>','Dashboard'],['a-quadras','<i class=\"ti ti-ball-tennis\"></i>','Quadras'],['a-ligas','<i class=\"ti ti-trophy\"></i>','Ligas'],['a-games','<i class=\"ti ti-clipboard-list\"></i>','Games'],['a-perfil','<i class=\"ti ti-settings\"></i>','Perfil']];
+    el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span><i class="ti ti-home"></i></span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
   } else if(S.role==='prof'){
-    const items=[['pr-home','🏠','Início'],['pr-agenda','⏰','Agenda'],['pr-turmas','👥','Turmas'],['pr-alunos','📋','Alunos'],['pr-perfil','🎓','Perfil']];
-    el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span>⌂</span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
+    const items=[['pr-home','<i class=\"ti ti-layout-dashboard\"></i>','Início'],['pr-agenda','<i class=\"ti ti-clock\"></i>','Agenda'],['pr-turmas','<i class=\"ti ti-users\"></i>','Turmas'],['pr-alunos','<i class=\"ti ti-clipboard-list\"></i>','Alunos'],['pr-perfil','<i class=\"ti ti-school\"></i>','Perfil']];
+    el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span><i class="ti ti-home"></i></span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
   } else if(S.role==='grupo'){
-    const items=[['g-home','🏠','Grupo'],['g-jogos','📜','Jogos'],['g-addjogo','➕','Placar'],['portal','🌐','Portal'],['g-plano','⚙️','Plano']];
-    el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span>⌂</span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
+    const items=[['g-home','<i class=\"ti ti-users\"></i>','Grupo'],['g-jogos','<i class=\"ti ti-list\"></i>','Jogos'],['g-addjogo','<i class=\"ti ti-plus\"></i>','Placar'],['portal','<i class=\"ti ti-world\"></i>','Portal'],['g-plano','<i class=\"ti ti-settings\"></i>','Plano']];
+    el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span><i class="ti ti-home"></i></span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
   } else el.innerHTML='';
 }
 
@@ -432,21 +434,21 @@ function vIntro(){
   <div class="pad">
     <div class="stitle">Escolha a sua frente</div>
     ${[
-      ['arena','🏢','Cadastrar minha arena','Agenda sem conflito, ligas, pagamentos e leads'],
-      ['jogador','👤','Sou jogador','Reserve quadras, jogue ligas e suba no ranking'],
-      ['grupo','👥','Pequeno grupo','A turma fixa com placar e ranking interno'],
-      ['professor','🎓','Sou professor','Turmas, presença, reposições e cobranças'],
-      ['classificados','🛒','Classificados','Compre e venda usados do meio esportivo'],
+      ['arena','<i class="ti ti-building"></i>','Cadastrar minha arena','Agenda sem conflito, ligas, pagamentos e leads'],
+      ['jogador','<i class="ti ti-user"></i>','Sou jogador','Reserve quadras, jogue ligas e suba no ranking'],
+      ['grupo','<i class="ti ti-users"></i>','Pequeno grupo','A turma fixa com placar e ranking interno'],
+      ['professor','<i class="ti ti-school"></i>','Sou professor','Turmas, presença, reposições e cobranças'],
+      ['classificados','<i class="ti ti-shopping-cart"></i>','Classificados','Compre e venda usados do meio esportivo'],
     ].map(f=>`<div class="card" onclick="go('beneficios','${f[0]}')">
       <div style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:1.7em;flex-shrink:0">${f[1]}</span>
+        <span style="font-size:1.55em;flex-shrink:0;color:#5F5E5A">${f[1]}</span>
         <span style="flex:1"><h3>${f[2]}</h3><p style="font-size:.8em;color:#888780;margin-top:2px">${f[3]}</p></span>
         <span style="color:var(--org);font-weight:800;font-size:1.2em">→</span>
       </div>
     </div>`).join('')}
     <div class="card" onclick="S.role=null;nav('portal')" style="border:2px solid #444441">
       <div style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:1.7em;flex-shrink:0">🌐</span>
+        <span style="font-size:1.7em;flex-shrink:0"><i class="ti ti-world" style="color:#2C2C2A"></i></span>
         <span style="flex:1"><h3>Portal Beach Tennis — acesso livre</h3><p style="font-size:.8em;color:#888780;margin-top:2px">Rankings ITF, calendário com onde assistir e notícias — sem precisar de login</p></span>
         <span style="color:#444441;font-weight:800;font-size:1.2em">→</span>
       </div>
@@ -510,12 +512,12 @@ function vSplash(){
     <h1>🏖️ Beach<span>zinho</span></h1>
     <p>Arenas · Ligas · Quadras · Rankings<br>Tudo do Beach Tennis em um só lugar</p>
     ${S.demo?'<div style="background:rgba(255,185,0,.18);border:1.5px solid rgba(255,185,0,.5);border-radius:12px;padding:10px 16px;font-size:.8em;margin-bottom:16px;max-width:300px">🎭 <b>MODO DEMONSTRAÇÃO</b><br>Entre em qualquer perfil abaixo — crie, edite e teste à vontade. Os dados são de exemplo. <a style="color:#ffd970;text-decoration:underline;cursor:pointer" onclick="sairDemo()">Sair do demo</a></div>':''}
-    <button class="rolebtn rb-p" onclick="S.role='player';nav('p-home');toast('Bem-vindo, João! 👋')"><span class="e">👤</span><span>Sou Jogador<small>Buscar arenas, ligas e reservar quadras</small></span></button>
-    <button class="rolebtn rb-a" onclick="entrarArena()"><span class="e">🏢</span><span>Sou Arena<small>Gerenciar quadras, ligas e torneios</small></span></button>
-    <button class="rolebtn rb-g" onclick="entrarGrupo()"><span class="e">👥</span><span>Pequeno Grupo <span style="background:var(--org);color:#1b1b1b;border-radius:10px;font-size:.6em;padding:2px 8px;vertical-align:middle">NOVO</span><small>Sua turma fixa: jogos, ranking interno e 1 local</small></span></button>
-    <button class="rolebtn rb-t" onclick="S.role='prof';nav('pr-home');toast('Bem-vindo, professor! 🎓')"><span class="e">🎓</span><span>Sou Professor<small>Turmas, presença, reposições e cobranças</small></span></button>
-    <button class="rolebtn rb-c" onclick="S.role='player';nav('cl-home')"><span class="e">🛒</span><span>Classificados<small>Compra e venda de itens do beach tennis</small></span></button>
-    <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e">🌐</span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
+    <button class="rolebtn rb-p" onclick="S.role='player';nav('p-home');toast('Bem-vindo, João! 👋')"><span class="e"><i class="ti ti-user"></i></span><span>Sou Jogador<small>Buscar arenas, ligas e reservar quadras</small></span></button>
+    <button class="rolebtn rb-a" onclick="entrarArena()"><span class="e"><i class="ti ti-building"></i></span><span>Sou Arena<small>Gerenciar quadras, ligas e torneios</small></span></button>
+    <button class="rolebtn rb-g" onclick="entrarGrupo()"><span class="e"><i class="ti ti-users"></i></span><span>Pequeno Grupo <span style="background:var(--org);color:#1b1b1b;border-radius:10px;font-size:.6em;padding:2px 8px;vertical-align:middle">NOVO</span><small>Sua turma fixa: jogos, ranking interno e 1 local</small></span></button>
+    <button class="rolebtn rb-t" onclick="S.role='prof';nav('pr-home');toast('Bem-vindo, professor! 🎓')"><span class="e"><i class="ti ti-school"></i></span><span>Sou Professor<small>Turmas, presença, reposições e cobranças</small></span></button>
+    <button class="rolebtn rb-c" onclick="S.role='player';nav('cl-home')"><span class="e"><i class="ti ti-shopping-cart"></i></span><span>Classificados<small>Compra e venda de itens do beach tennis</small></span></button>
+    <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e"><i class="ti ti-world"></i></span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
     <a style="color:#B4B2A9;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')">ℹ️ Por que usar o Beachzinho?</a>
   </div>`;
 }
@@ -529,14 +531,14 @@ function vPHome(){
 
     <div class="stitle">📋 O que você quer fazer?</div>
     <div class="menugrid">
-      <button class="mi" onclick="go('p-minhasligas')"><span class="e">🏅</span><span>Ligas inscrito<small>${DB.me.minhasLigas.length} ligas ativas</small></span></button>
-      <button class="mi" onclick="go('p-ligas')"><span class="e">🔎</span><span>Ligas existentes<small>${DB.ligas.length} na região</small></span></button>
-      <button class="mi" onclick="go('p-torneios')"><span class="e">🏆</span><span>Próximos torneios<small>${DB.torneios.length} com inscrição aberta</small></span></button>
-      <button class="mi" onclick="go('p-quadras')"><span class="e">🎾</span><span>Quadras disponíveis<small>Reserve e pague online</small></span></button>
-      <button class="mi" onclick="go('p-pontos')"><span class="e">📊</span><span>Minha pontuação<small>Ranking #${DB.me.rank} na cidade</small></span></button>
-      <button class="mi" onclick="go('p-dados')"><span class="e">📝</span><span>Meus dados<small>Editar cadastro</small></span></button>
-      <button class="mi" onclick="go('p-historico')"><span class="e">📜</span><span>Histórico<small>Por tipo e por dia</small></span></button>
-      <button class="mi" onclick="go('cl-home')"><span class="e">🛒</span><span>Classificados<small>Compra e venda</small></span></button>
+      <button class="mi" onclick="go('p-minhasligas')"><span class="e"><i class="ti ti-medal"></i></span><span>Ligas inscrito<small>${DB.me.minhasLigas.length} ligas ativas</small></span></button>
+      <button class="mi" onclick="go('p-ligas')"><span class="e"><i class="ti ti-search"></i></span><span>Ligas existentes<small>${DB.ligas.length} na região</small></span></button>
+      <button class="mi" onclick="go('p-torneios')"><span class="e"><i class="ti ti-trophy"></i></span><span>Próximos torneios<small>${DB.torneios.length} com inscrição aberta</small></span></button>
+      <button class="mi" onclick="go('p-quadras')"><span class="e"><i class="ti ti-ball-tennis"></i></span><span>Quadras disponíveis<small>Reserve e pague online</small></span></button>
+      <button class="mi" onclick="go('p-pontos')"><span class="e"><i class="ti ti-chart-bar"></i></span><span>Minha pontuação<small>Ranking #${DB.me.rank} na cidade</small></span></button>
+      <button class="mi" onclick="go('p-dados')"><span class="e"><i class="ti ti-id"></i></span><span>Meus dados<small>Editar cadastro</small></span></button>
+      <button class="mi" onclick="go('p-historico')"><span class="e"><i class="ti ti-history"></i></span><span>Histórico<small>Por tipo e por dia</small></span></button>
+      <button class="mi" onclick="go('cl-home')"><span class="e"><i class="ti ti-shopping-cart"></i></span><span>Classificados<small>Compra e venda</small></span></button>
     </div>
 
     <div class="stitle" style="margin-top:14px">🌐 Mundo do Beach Tennis <a onclick="nav('portal')">Ver portal →</a></div>
@@ -1048,8 +1050,8 @@ function vGHome(){
     </div>
     <button class="btn btn-o" onclick="nav('g-addjogo')">➕ Lançar placar do jogo</button>
     <div style="display:flex;gap:8px;margin:10px 0">
-      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')">🌐 Portal ITF</button>
-      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')">🛒 Classificados</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')"><i class="ti ti-world"></i> Portal ITF</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')"><i class="ti ti-shopping-cart"></i> Classificados</button>
     </div>
     <div class="stitle">🏆 Ranking interno <a onclick="nav('g-jogos')">Ver jogos →</a></div>
     ${rk.slice(0,5).map((m,i)=>`<div class="rk" ${m.n.includes('🧢')?'style="border:2px solid var(--org)"':''}><span class="pos">${['🥇','🥈','🥉','#4','#5'][i]}</span><span class="nm">${m.n}<small>${m.j} jogos · ${m.won} ganhos / ${m.lost} perdidos</small></span><span class="pts">${m.won-m.lost>0?'+':''}${m.won-m.lost}</span></div>`).join('')}
@@ -1421,8 +1423,8 @@ function vProfHome(){
       <div class="stat g" style="cursor:pointer" onclick="nav('pr-alunos');S.tab='pago';render()"><b>${p.alunos.filter(a=>a.pag==='pago').length}/${p.alunos.length}</b><span>Pagos no mês →</span></div>
     </div>
     <div style="display:flex;gap:8px;margin:10px 0">
-      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')">🌐 Portal ITF</button>
-      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')">🛒 Classificados</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')"><i class="ti ti-world"></i> Portal ITF</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')"><i class="ti ti-shopping-cart"></i> Classificados</button>
     </div>
     <div class="stitle">📅 Hoje</div>
     <div class="card" onclick="nav('pr-chamada')">
@@ -1777,8 +1779,8 @@ function vADash(){
       <div class="stat g"><b>R$ 1.240</b><span>Receita hoje</span></div>
     </div>
     <div style="display:flex;gap:8px;margin:10px 0">
-      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')">🌐 Portal ITF</button>
-      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')">🛒 Classificados</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')"><i class="ti ti-world"></i> Portal ITF</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')"><i class="ti ti-shopping-cart"></i> Classificados</button>
     </div>
     <div class="stitle">⚡ Ações rápidas</div>
     <div class="hrow">
@@ -1934,13 +1936,13 @@ render();
 function toggleDark(){
   document.body.classList.toggle('dark');
   const on=document.body.classList.contains('dark');
-  document.getElementById('btn-dark').textContent=on?'☀️':'🌙';
+  document.getElementById('btn-dark').innerHTML=on?'<i class="ti ti-sun"></i>':'<i class="ti ti-moon"></i>';
   try{localStorage.setItem('bz-dark',on?'1':'0');}catch(e){}
 }
 function toggleView(){
   document.body.classList.toggle('force-mobile');
   const on=document.body.classList.contains('force-mobile');
-  document.getElementById('btn-view').textContent=on?'🖥️':'📱';
+  document.getElementById('btn-view').innerHTML=on?'<i class="ti ti-device-desktop"></i>':'<i class="ti ti-device-mobile"></i>';
   try{localStorage.setItem('bz-view',on?'1':'0');}catch(e){}
 }
 try{
