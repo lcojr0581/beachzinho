@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Beachzinho — Beach Tennis</title>
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#2C2C2A">
+<meta name="theme-color" content="#0C3B4A">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,7 +16,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 .ti{line-height:1;vertical-align:-2px}
-:root{--navy:#2C2C2A;--navy2:#444441;--navy3:#3A3A38;--org:#EF9F27;--grn:#107c10;--red:#d13438;--blu:#D3D1C7;--bg:#FAFAF8;--ink:#2C2C2A;--ink2:#5F5E5A;--mut:#888780;--ok:#1e8f4e;--bad:#c0392b;--warn:#c97d0a}
+:root{--navy:#0C3B4A;--navy2:#155E75;--navy3:#0F4C5E;--org:#EF9F27;--grn:#107c10;--red:#d13438;--blu:#D3D1C7;--bg:#FAFAF8;--ink:#123240;--ink2:#51646E;--mut:#7E8C94;--ok:#1e8f4e;--bad:#c0392b;--warn:#c97d0a}
 body{font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:#E9E7E1;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
 .phone{width:100%;max-width:420px;min-height:92vh;background:var(--bg);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 60px rgba(0,0,0,.5);position:relative}
 @media(max-width:440px){body{padding:0}.phone{border-radius:0;min-height:100vh}}
@@ -43,18 +43,18 @@ body:not(.force-mobile) .tabs .tab,body:not(.force-mobile) .chip,body:not(.force
 /* chrome claro */
 @media(min-width:900px){
 body:not(.force-mobile):not(.dark) #navbar .nav{background:#fff;border-right:1px solid #e1e1e1}
-body:not(.force-mobile):not(.dark) #navbar .nav::before{color:#444441}
+body:not(.force-mobile):not(.dark) #navbar .nav::before{color:#155E75}
 body:not(.force-mobile):not(.dark) #navbar .ni{color:#3a3a3a}
 body:not(.force-mobile):not(.dark) #navbar .ni:hover{background:#F5F4EF}
-body:not(.force-mobile):not(.dark) #navbar .ni.on{background:#F1EFE8;color:#444441;box-shadow:inset 3px 0 0 #444441}
+body:not(.force-mobile):not(.dark) #navbar .ni.on{background:#F1EFE8;color:#155E75;box-shadow:inset 3px 0 0 #155E75}
 body:not(.force-mobile):not(.dark) .hd{background:#fff;border-bottom:1px solid #e1e1e1;color:#1b1b1b}
 body:not(.force-mobile):not(.dark) .hd h2{color:#1b1b1b}
 body:not(.force-mobile):not(.dark) .hd .sub{color:#666;opacity:1}
 body:not(.force-mobile):not(.dark) .hd .back{background:#f0f0f0;color:#1b1b1b}
-body:not(.force-mobile):not(.dark) .btn-o{background:#444441;color:#fff}
-body:not(.force-mobile):not(.dark) .btn-n{background:#fff;color:#444441;border:1px solid #444441}
-body:not(.force-mobile):not(.dark) .tab.on{background:#444441;border-color:#444441;color:#fff}
-body:not(.force-mobile):not(.dark) .stat b{color:#3A3A38}
+body:not(.force-mobile):not(.dark) .btn-o{background:#155E75;color:#fff}
+body:not(.force-mobile):not(.dark) .btn-n{background:#fff;color:#155E75;border:1px solid #155E75}
+body:not(.force-mobile):not(.dark) .tab.on{background:#155E75;border-color:#155E75;color:#fff}
+body:not(.force-mobile):not(.dark) .stat b{color:#0F4C5E}
 body:not(.force-mobile):not(.dark) .stitle{color:#3a3a3a}
 body:not(.force-mobile):not(.dark) #btn-dark,body:not(.force-mobile):not(.dark) #btn-view{background:#fff;border-color:#d0d0d0;color:#3a3a3a}
 }
@@ -80,8 +80,8 @@ body.dark h3,body.dark .card h3,body.dark .hcard h3,body.dark .rk .nm,body.dark 
 body.dark .stitle{color:#e8e8e8}
 body.dark .search,body.dark .tabs .tab,body.dark .chip,body.dark .day{background:#2b2b2b;border-color:#3a3a3a;color:#cfd6dd}
 body.dark .tab.on{background:#EF9F27;border-color:#EF9F27;color:#1b1b1b}
-body.dark .chip.on{background:#444441;border-color:#444441;color:#fff}
-body.dark .day.on{background:#444441;border-color:#444441;color:#fff}
+body.dark .chip.on{background:#155E75;border-color:#155E75;color:#fff}
+body.dark .day.on{background:#155E75;border-color:#155E75;color:#fff}
 body.dark .fld input,body.dark .fld select,body.dark .fld textarea{background:#2b2b2b;border-color:#3a3a3a;color:#eee}
 body.dark .btn-ghost{background:#2b2b2b;color:#e8e8e8;border-color:#3a3a3a}
 body.dark .dist{background:#252525}
@@ -100,7 +100,7 @@ body.dark p{color:#a8b2bc}
 .hd .sub{font-size:.72em;opacity:.7;display:block;font-weight:400}
 .hd .ic{font-size:1.3em}
 /* SPLASH */
-.splash{background:linear-gradient(160deg,#2C2C2A 0%,#3A3A38 55%,#444441 100%);min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;text-align:center;padding:30px}
+.splash{background:linear-gradient(160deg,#0C3B4A 0%,#0F4C5E 55%,#155E75 100%);min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;text-align:center;padding:30px}
 .splash h1{font-size:2.6em;font-weight:800;letter-spacing:-1px}
 .splash h1 span{color:var(--org)}
 .splash p{opacity:.75;margin:8px 0 38px;font-size:.95em}
@@ -109,11 +109,11 @@ body.dark p{color:#a8b2bc}
 .rolebtn .e{font-size:1.7em}
 .rolebtn small{display:block;font-weight:500;font-size:.78em;opacity:.75;margin-top:2px}
 .rb-p{background:var(--org);color:#1b1b1b}
-.rb-a{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(255,255,255,.30)}
+.rb-a{background:rgba(255,255,255,.10);color:#EAF4F7;border:1.5px solid rgba(255,255,255,.30)}
 .rb-w{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(239,159,39,.55)}
-.rb-g{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(255,255,255,.30)}
-.rb-t{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(255,255,255,.30)}
-.rb-c{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(255,255,255,.30)}
+.rb-g{background:rgba(255,255,255,.10);color:#EAF4F7;border:1.5px solid rgba(255,255,255,.30)}
+.rb-t{background:rgba(255,255,255,.10);color:#EAF4F7;border:1.5px solid rgba(255,255,255,.30)}
+.rb-c{background:rgba(255,255,255,.10);color:#EAF4F7;border:1.5px solid rgba(255,255,255,.30)}
 .menugrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
 .mi{background:#fff;border:1.5px solid #e3e7ee;border-radius:14px;padding:12px 10px;text-align:left;cursor:pointer;font-family:inherit;display:flex;gap:8px;align-items:center;font-size:.85em;font-weight:700;color:var(--ink)}
 .mi span.e{font-size:1.4em}
@@ -145,7 +145,7 @@ body.dark p{color:#a8b2bc}
 .hcard p{font-size:.76em;color:var(--mut);margin-top:3px}
 /* BADGES */
 .badge{display:inline-block;border-radius:20px;padding:3px 11px;font-size:.72em;font-weight:700;margin:2px 2px 2px 0}
-.bO{background:#fff3d0;color:var(--warn)}.bB{background:#F1EFE8;color:#444441}.bG{background:#e5f9ee;color:var(--ok)}.bR{background:#fdeaea;color:var(--bad)}.bP{background:#f3e9fa;color:#7d3c98}.bN{background:var(--navy);color:#fff}.bGy{background:#636e72;color:#fff}
+.bO{background:#fff3d0;color:var(--warn)}.bB{background:#F1EFE8;color:#155E75}.bG{background:#e5f9ee;color:var(--ok)}.bR{background:#fdeaea;color:var(--bad)}.bP{background:#f3e9fa;color:#7d3c98}.bN{background:var(--navy);color:#fff}.bGy{background:#636e72;color:#fff}
 /* BUTTONS */
 .btn{border:none;border-radius:12px;padding:13px 18px;font-size:.92em;font-weight:800;cursor:pointer;width:100%;margin-top:10px;transition:.15s}
 .btn:active{transform:scale(.97)}
@@ -212,7 +212,7 @@ body.dark p{color:#a8b2bc}
 .al{border-radius:12px;padding:13px 15px;margin-bottom:12px;font-size:.85em}
 .al-y{background:#fff9e8;border:1.5px solid #f5d78e;color:#8a6d1a}
 .al-g{background:#eafaf1;border:1.5px solid #a8e6c5;color:#1e6b42}
-.al-b{background:#e8f4fd;border:1.5px solid #a8d4f0;color:#444441}
+.al-b{background:#e8f4fd;border:1.5px solid #a8d4f0;color:#155E75}
 #toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:30px;font-size:.85em;font-weight:700;opacity:0;transition:.3s;z-index:99;white-space:nowrap;pointer-events:none;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 /* NEWS */
@@ -307,7 +307,7 @@ const DB = {
   ],
   news: [
     {tag:'Ranking ITF', t:'Chow e Marchezini assumem o nº 1 mundial', p:'Primeira dupla 100% brasileira a liderar o ranking feminino da ITF em 14 anos.', ic:'🇧🇷', bg:'linear-gradient(135deg,#1e8f4e,#27ae60)'},
-    {tag:'Ranking ITF', t:'Spoto e Gianotti travam duelo pelo topo', p:'Italiano soma 6.654 pts contra 6.616 do francês — disputa mais acirrada da temporada.', ic:'<i class="ti ti-trophy"></i>', bg:'linear-gradient(135deg,#444441,#3A3A38)'},
+    {tag:'Ranking ITF', t:'Spoto e Gianotti travam duelo pelo topo', p:'Italiano soma 6.654 pts contra 6.616 do francês — disputa mais acirrada da temporada.', ic:'<i class="ti ti-trophy"></i>', bg:'linear-gradient(135deg,#155E75,#0F4C5E)'},
     {tag:'Circuito', t:'Sand Series Portugal terá premiação recorde', p:'Etapa de Nazaré distribui US$ 100 mil — a maior da temporada.', ic:'<i class="ti ti-coin"></i>', bg:'linear-gradient(135deg,#c97d0a,#EF9F27)'},
     {tag:'Técnica', t:'5 erros mais comuns no smash de beach tennis', p:'Análise técnica com dicas para subir de nível no ataque de rede.', ic:'<i class="ti ti-ball-tennis"></i>', bg:'linear-gradient(135deg,#7d3c98,#8e44ad)'},
   ],
@@ -418,7 +418,7 @@ function navbar(){
 
 /* ═══════════ TELA — APRESENTAÇÃO ═══════════ */
 function vIntro(){
-  return `<div style="background:linear-gradient(160deg,#2C2C2A 0%,#3A3A38 55%,#444441 100%);color:#fff;padding:44px 24px 28px;text-align:center">
+  return `<div style="background:linear-gradient(160deg,#0C3B4A 0%,#0F4C5E 55%,#155E75 100%);color:#fff;padding:44px 24px 28px;text-align:center">
     <div style="font-size:3em">🏖️</div>
     <h1 style="font-size:2em;font-weight:800;letter-spacing:-.5px">Beach<span style="color:var(--org)">zinho</span></h1>
     <p style="opacity:.9;margin:12px 0 6px;font-size:1.08em;font-weight:800">Sua arena no controle.<br>Seus jogadores conectados.</p>
@@ -446,11 +446,11 @@ function vIntro(){
         <span style="color:var(--org);font-weight:800;font-size:1.2em">→</span>
       </div>
     </div>`).join('')}
-    <div class="card" onclick="S.role=null;nav('portal')" style="border:2px solid #444441">
+    <div class="card" onclick="S.role=null;nav('portal')" style="border:2px solid #155E75">
       <div style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:1.7em;flex-shrink:0"><i class="ti ti-world" style="color:#2C2C2A"></i></span>
+        <span style="font-size:1.7em;flex-shrink:0"><i class="ti ti-world" style="color:#0C3B4A"></i></span>
         <span style="flex:1"><h3>Portal Beach Tennis — acesso livre</h3><p style="font-size:.8em;color:var(--mut);margin-top:2px">Rankings ITF, calendário com onde assistir e notícias — sem precisar de login</p></span>
-        <span style="color:#444441;font-weight:800;font-size:1.2em">→</span>
+        <span style="color:#155E75;font-weight:800;font-size:1.2em">→</span>
       </div>
     </div>
     <button class="btn btn-n" onclick="go('beneficios','arena')"><i class="ti ti-sparkles"></i> Ver os benefícios de cada frente</button>
@@ -575,7 +575,7 @@ function vPHome(){
 function vPExplore(){
   return header('<i class="ti ti-search"></i> Explorar Arenas','Florianópolis, SC')+`
   <div class="pad">
-    <div style="background:linear-gradient(135deg,#EDEBE2,#DEDBCE);border-radius:16px;height:130px;display:flex;align-items:center;justify-content:center;font-size:.85em;color:#444441;font-weight:700;margin-bottom:14px"><i class="ti ti-map"></i> Mapa interativo — ${DB.arenas.length} arenas próximas</div>
+    <div style="background:linear-gradient(135deg,#EDEBE2,#DEDBCE);border-radius:16px;height:130px;display:flex;align-items:center;justify-content:center;font-size:.85em;color:#155E75;font-weight:700;margin-bottom:14px"><i class="ti ti-map"></i> Mapa interativo — ${DB.arenas.length} arenas próximas</div>
     <div class="tabs">
       <div class="tab on">Todas</div><div class="tab" onclick="toast('Filtro: Ligas')"><i class="ti ti-medal"></i> Ligas</div><div class="tab" onclick="toast('Filtro: Quadras')"><i class="ti ti-ball-tennis"></i> Quadras</div><div class="tab" onclick="toast('Filtro: Rotativos')"><i class="ti ti-refresh"></i> Rotativos</div><div class="tab" onclick="toast('Filtro: Torneios')"><i class="ti ti-trophy"></i> Torneios</div>
     </div>
@@ -636,7 +636,7 @@ function vPTorneio(){
   const a=DB.arenas.find(x=>x.id===t.arenaId);
   return header('<i class="ti ti-trophy"></i> '+t.name, a.name)+`
   <div class="pad">
-    <div style="background:linear-gradient(135deg,#444441,#3A3A38);border-radius:16px;padding:22px;text-align:center;color:#fff;margin-bottom:14px">
+    <div style="background:linear-gradient(135deg,#155E75,#0F4C5E);border-radius:16px;padding:22px;text-align:center;color:#fff;margin-bottom:14px">
       <div style="font-size:2.2em"><i class="ti ti-trophy"></i></div><b style="font-size:1.05em">${t.name}</b>
       <p style="opacity:.8;font-size:.82em;margin-top:6px"><i class="ti ti-calendar"></i> ${t.data} · Inscrições ${t.insc}</p>
     </div>
@@ -1018,7 +1018,7 @@ function vGPlanos(){
     </div>`).join('')}
     <div class="stitle"><i class="ti ti-clipboard-list"></i> O que muda entre Grupo e Arena</div>
     <div class="card" style="cursor:default">
-      ${[['Registrar jogos e placares','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Ranking interno do grupo','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Portal ITF e notícias','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Locais cadastrados','1 fixo','Ilimitados'],['Aparecer no Explorar (mapa)','—','<i class="ti ti-circle-check"></i>'],['Locação de quadra (agenda pública)','—','<i class="ti ti-circle-check"></i>'],['Ligas e rotativos abertos ao público','—','<i class="ti ti-circle-check"></i>'],['Torneios com inscrição','—','<i class="ti ti-circle-check"></i>'],['Ranking oficial da cidade','—','<i class="ti ti-circle-check"></i>'],['Leads via WhatsApp','—','<i class="ti ti-circle-check"></i>']].map(r=>`<div style="display:flex;justify-content:space-between;font-size:.82em;padding:6px 0;border-bottom:1px solid #f0f3f8"><span style="color:#456">${r[0]}</span><span style="width:64px;text-align:center;font-weight:700;color:var(--ok)">${r[1]}</span><span style="width:64px;text-align:center;font-weight:700;color:#444441">${r[2]}</span></div>`).join('')}
+      ${[['Registrar jogos e placares','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Ranking interno do grupo','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Portal ITF e notícias','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Locais cadastrados','1 fixo','Ilimitados'],['Aparecer no Explorar (mapa)','—','<i class="ti ti-circle-check"></i>'],['Locação de quadra (agenda pública)','—','<i class="ti ti-circle-check"></i>'],['Ligas e rotativos abertos ao público','—','<i class="ti ti-circle-check"></i>'],['Torneios com inscrição','—','<i class="ti ti-circle-check"></i>'],['Ranking oficial da cidade','—','<i class="ti ti-circle-check"></i>'],['Leads via WhatsApp','—','<i class="ti ti-circle-check"></i>']].map(r=>`<div style="display:flex;justify-content:space-between;font-size:.82em;padding:6px 0;border-bottom:1px solid #f0f3f8"><span style="color:#456">${r[0]}</span><span style="width:64px;text-align:center;font-weight:700;color:var(--ok)">${r[1]}</span><span style="width:64px;text-align:center;font-weight:700;color:#155E75">${r[2]}</span></div>`).join('')}
       <div style="display:flex;justify-content:space-between;font-size:.7em;font-weight:800;color:#99a;padding-top:6px"><span></span><span style="width:64px;text-align:center">GRUPO</span><span style="width:64px;text-align:center">ARENA</span></div>
     </div>
   </div>`;
@@ -1257,7 +1257,7 @@ function vSubStatus(){
       <div style="display:flex;justify-content:space-between;align-items:center"><h3>${a.plano}</h3><span class="badge ${st[1]}">${st[0]}</span></div>
       <div class="meta"><span><i class="ti ti-coin"></i> ${a.preco}</span><span>${a.metodo}</span></div>
       <div class="meta"><span>${st[2]}</span></div>
-      ${a.status==='vencida'||a.status==='rebaixada'?`<button class="btn btn-o" onclick="DB.assinatura.status='ativa';DB.assinatura.venc='11/10/26';DB.assinatura.log.unshift('hoje <i class="ti ti-circle-check"></i> Pagamento recebido — plano reativado');toast('Plano reativado! 🎉');render()"><i class="ti ti-credit-card"></i> Pagar agora e reativar</button>`:''}
+      ${a.status==='vencida'||a.status==='rebaixada'?`<button class="btn btn-o" onclick="DB.assinatura.status='ativa';DB.assinatura.venc='11/10/26';DB.assinatura.log.unshift('hoje ✅ Pagamento recebido — plano reativado');toast('Plano reativado! 🎉');render()"><i class="ti ti-credit-card"></i> Pagar agora e reativar</button>`:''}
     </div>
     <div class="stitle">📏 Régua de cobrança automática</div>
     <div class="card" style="cursor:default">
@@ -1544,7 +1544,7 @@ function vProfCal(){
       <div class="stat r"><b>${fal}</b><span>Faltas/avisos</span></div>
     </div>`:''}
     <div class="stitle"><i class="ti ti-clipboard-list"></i> O que aconteceu em ${d}</div>
-    ${regs.length? regs.map(x=>`<div class="rk" onclick="go('pr-aluno',${x.a.id})"><span class="pos">${x.r.st==='pres'?'<i class="ti ti-circle-check"></i>':x.r.st==='avisada'?'<i class="ti ti-mail"></i>':'<i class="ti ti-circle-x"></i>'}</span><span class="nm">${x.a.nome}<small>${profTurmaNome(x.a.turma)} · ${x.r.obs||'Sem anotação'}</small></span><span class="pts" style="color:#444441">ficha →</span></div>`).join('') : `<div class="empty"><span><i class="ti ti-calendar"></i></span>Nenhum registro em ${d}${ft?' para esta turma':''}</div>`}
+    ${regs.length? regs.map(x=>`<div class="rk" onclick="go('pr-aluno',${x.a.id})"><span class="pos">${x.r.st==='pres'?'<i class="ti ti-circle-check"></i>':x.r.st==='avisada'?'<i class="ti ti-mail"></i>':'<i class="ti ti-circle-x"></i>'}</span><span class="nm">${x.a.nome}<small>${profTurmaNome(x.a.turma)} · ${x.r.obs||'Sem anotação'}</small></span><span class="pts" style="color:#155E75">ficha →</span></div>`).join('') : `<div class="empty"><span><i class="ti ti-calendar"></i></span>Nenhum registro em ${d}${ft?' para esta turma':''}</div>`}
     <div class="al al-b"><i class="ti ti-bulb"></i> A chamada de cada aula alimenta este calendário automaticamente. Toque num registro para abrir a ficha do aluno.</div>
   </div>`;
 }
@@ -1593,7 +1593,7 @@ function vProfAlunos(){
       <div class="stat r" style="cursor:pointer;${f==='atrasado'?'outline:2.5px solid #d13438':''}" onclick="setTab(S.tab==='atrasado'?'todos':'atrasado')"><b>${p.alunos.filter(a=>a.pag==='atrasado').length}</b><span>Atrasados</span></div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:4px">
-      <input value="${S.busca||''}" placeholder="<i class="ti ti-search"></i> Buscar aluno por nome..." oninput="S.busca=this.value" onchange="render()" style="flex:1;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff">
+      <input value="${S.busca||''}" placeholder="Buscar aluno por nome..." oninput="S.busca=this.value" onchange="render()" style="flex:1;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff">
       <button class="btn btn-ghost btn-sm" onclick="render()">Buscar</button>
     </div>
     ${S.busca?`<div class="al al-b" style="cursor:pointer" onclick="S.busca='';render()"><i class="ti ti-search"></i> Buscando: <b>"${S.busca}"</b> (${lista.length}) — toque para limpar</div>`:''}
