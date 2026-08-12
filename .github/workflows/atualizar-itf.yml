@@ -1,0 +1,42 @@
+name: Atualizar ranking ITF
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 3 * * 1'
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Buscar ranking ITF e gerar itf.json
+        run: |
+          node -e '
+          const fs = require("fs");
+          const BAND = {BRA:"🇧🇷",ITA:"🇮🇹",FRA:"🇫🇷",ESP:"🇪🇸",POR:"🇵🇹",ARG:"🇦🇷",USA:"🇺🇸",GER:"🇩🇪",NED:"🇳🇱",GRE:"🇬🇷",SUI:"🇨🇭",GBR:"🇬🇧",JPN:"🇯🇵",CHI:"🇨🇱",URU:"🇺🇾",PAR:"🇵🇾",MEX:"🇲🇽",VEN:"🇻🇪",COL:"🇨🇴",AUS:"🇦🇺",BEL:"🇧🇪",SMR:"🇸🇲",EST:"🇪🇪",UKR:"🇺🇦",POL:"🇵🇱",CZE:"🇨🇿",SVK:"🇸🇰",HUN:"🇭🇺",CRO:"🇭🇷",SLO:"🇸🇮"};
+          const NEUTRA = "🏳️";
+          (async () => {
+            const base = g => "https://www.itftennis.com/tennis/api/PlayerRankApi/GetPlayerRankings?circuitCode=BT&matchTypeCode=D&take=10&skip=0&isOrderAscending=true&playerTypeCode=" + g;
+            const out = { atualizado: new Date().toISOString() };
+            for (const g of ["M","F"]) {
+              const r = await fetch(base(g), { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36", "Accept": "application/json, text/plain, */*" } });
+              const t = await r.text();
+              if (!r.ok || t.trim().startsWith("<")) { console.error("ITF bloqueou " + g + " status " + r.status); process.exit(1); }
+              const j = JSON.parse(t);
+              out[g] = j.items.map(it => ({ p: it.rank, n: ((it.playerGivenName||"") + " " + (it.playerFamilyName||"")).trim(), c: BAND[it.playerNationalityCode] || NEUTRA, pts: Math.round(it.pointsRankingTotal ?? it.points ?? 0) }));
+            }
+            fs.writeFileSync("itf.json", JSON.stringify(out));
+            console.log("ok M=" + out.M.length + " F=" + out.F.length);
+          })().catch(e => { console.error(e); process.exit(1); });
+          '
+      - name: Commit se mudou
+        run: |
+          git config user.name "beachzinho-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add itf.json
+          git diff --cached --quiet || git commit -m "Atualiza ranking ITF automaticamente"
+          git push
