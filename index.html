@@ -928,6 +928,10 @@ function vGHome(){
       <div class="lrow"><span>🔑 Código de convite</span><b style="color:var(--org);letter-spacing:1px">${g.codigo}</b></div>
     </div>
     <button class="btn btn-o" onclick="nav('g-addjogo')">➕ Lançar placar do jogo</button>
+    <div style="display:flex;gap:8px;margin:10px 0">
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')">🌐 Portal ITF</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')">🛒 Classificados</button>
+    </div>
     <div class="stitle">🏆 Ranking interno <a onclick="nav('g-jogos')">Ver jogos →</a></div>
     ${rk.slice(0,5).map((m,i)=>`<div class="rk" ${m.n.includes('🧢')?'style="border:2px solid var(--org)"':''}><span class="pos">${['🥇','🥈','🥉','#4','#5'][i]}</span><span class="nm">${m.n}<small>${m.j} jogos · ${m.won} ganhos / ${m.lost} perdidos</small></span><span class="pts">${m.won-m.lost>0?'+':''}${m.won-m.lost}</span></div>`).join('')}
     <div class="stitle">👥 Membros (${g.membros.length}/${g.max})</div>
@@ -1291,6 +1295,10 @@ function vProfHome(){
       <div class="stat" style="cursor:pointer" onclick="nav('pr-alunos')"><b>${p.alunos.length}</b><span>Alunos →</span></div>
       <div class="stat g" style="cursor:pointer" onclick="nav('pr-alunos');S.tab='pago';render()"><b>${p.alunos.filter(a=>a.pag==='pago').length}/${p.alunos.length}</b><span>Pagos no mês →</span></div>
     </div>
+    <div style="display:flex;gap:8px;margin:10px 0">
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')">🌐 Portal ITF</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')">🛒 Classificados</button>
+    </div>
     <div class="stitle">📅 Hoje</div>
     <div class="card" onclick="nav('pr-chamada')">
       <h3>👥 Iniciante Manhã — 08h</h3>
@@ -1642,6 +1650,10 @@ function vADash(){
       <div class="stat o"><b>3/4</b><span>Quadras hoje</span></div>
       <div class="stat"><b>${DB.ligas.filter(l=>l.arenaId===1&&l.status==='ativa').length}</b><span>Ligas ativas</span></div>
       <div class="stat g"><b>R$ 1.240</b><span>Receita hoje</span></div>
+    </div>
+    <div style="display:flex;gap:8px;margin:10px 0">
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')">🌐 Portal ITF</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')">🛒 Classificados</button>
     </div>
     <div class="stitle">⚡ Ações rápidas</div>
     <div class="hrow">
