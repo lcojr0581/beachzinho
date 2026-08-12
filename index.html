@@ -16,7 +16,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 .ti{line-height:1;vertical-align:-2px}
-:root{--navy:#2C2C2A;--navy2:#444441;--navy3:#3A3A38;--org:#EF9F27;--grn:#107c10;--red:#d13438;--blu:#D3D1C7;--bg:#FAFAF8}
+:root{--navy:#2C2C2A;--navy2:#444441;--navy3:#3A3A38;--org:#EF9F27;--grn:#107c10;--red:#d13438;--blu:#D3D1C7;--bg:#FAFAF8;--ink:#2C2C2A;--ink2:#5F5E5A;--mut:#888780;--ok:#1e8f4e;--bad:#c0392b;--warn:#c97d0a}
 body{font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:#E9E7E1;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
 .phone{width:100%;max-width:420px;min-height:92vh;background:var(--bg);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 60px rgba(0,0,0,.5);position:relative}
 @media(max-width:440px){body{padding:0}.phone{border-radius:0;min-height:100vh}}
@@ -71,7 +71,7 @@ body.dark:not(.force-mobile) .card,body.dark:not(.force-mobile) .rk,body.dark:no
 }
 @media(max-width:899px){#btn-view{display:none}}
 /* MODO NOTURNO (Windows dark) */
-body.dark{background:#141414}
+body.dark{background:#141414;--ink:#F1EFE8;--ink2:#C9C7BE;--mut:#a8b2bc;--ok:#5DCAA5;--bad:#F09975;--warn:#FAC775}
 body.dark .phone{background:#202020}
 body.dark .card,body.dark .hcard,body.dark .rk,body.dark .slot,body.dark .news,body.dark .score,body.dark .plano,body.dark .stat{background:#2b2b2b;box-shadow:none;border-color:#3a3a3a}
 body.dark .plano{border-color:#3a3a3a}
@@ -115,44 +115,44 @@ body.dark p{color:#a8b2bc}
 .rb-t{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(255,255,255,.30)}
 .rb-c{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(255,255,255,.30)}
 .menugrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
-.mi{background:#fff;border:1.5px solid #e3e7ee;border-radius:14px;padding:12px 10px;text-align:left;cursor:pointer;font-family:inherit;display:flex;gap:8px;align-items:center;font-size:.85em;font-weight:700;color:var(--navy)}
+.mi{background:#fff;border:1.5px solid #e3e7ee;border-radius:14px;padding:12px 10px;text-align:left;cursor:pointer;font-family:inherit;display:flex;gap:8px;align-items:center;font-size:.85em;font-weight:700;color:var(--ink)}
 .mi span.e{font-size:1.4em}
-.mi small{display:block;font-weight:400;color:#7a8699;font-size:.85em}
+.mi small{display:block;font-weight:400;color:var(--mut);font-size:.85em}
 .dark .mi{background:#2b2b2b;border-color:#3a3a3a;color:#eee}
 .plano{background:#fff;border:2px solid #E5E3DB;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;position:relative;transition:.15s}
 .plano:active{transform:scale(.98)}
 .plano.hot{border-color:var(--org);box-shadow:0 4px 16px rgba(245,166,35,.25)}
 .plano .tagp{position:absolute;top:-10px;right:14px;background:var(--org);color:#1b1b1b;border-radius:20px;font-size:.66em;font-weight:800;padding:3px 12px}
-.plano h3{color:var(--navy);font-size:1em}
+.plano h3{color:var(--ink);font-size:1em}
 .plano .pr{font-size:1.25em;font-weight:800;color:var(--navy2);margin:4px 0}
-.plano p{font-size:.8em;color:#789}
+.plano p{font-size:.8em;color:var(--mut)}
 /* SECTIONS */
 .pad{padding:16px}
-.stitle{font-size:.82em;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
+.stitle{font-size:.82em;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
 .stitle a{color:var(--org);font-size:.9em;text-decoration:none;cursor:pointer}
 /* SEARCH */
-.search{background:#fff;border:1.5px solid #E5E3DB;border-radius:14px;padding:12px 16px;display:flex;gap:10px;color:#888780;font-size:.92em;margin-bottom:4px}
+.search{background:#fff;border:1.5px solid #E5E3DB;border-radius:14px;padding:12px 16px;display:flex;gap:10px;color:var(--mut);font-size:.92em;margin-bottom:4px}
 /* CARDS */
 .card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(13,27,42,.06);cursor:pointer;transition:.15s}
 .card:active{transform:scale(.98)}
-.card h3{font-size:.98em;color:var(--navy);margin-bottom:4px}
-.card .meta{font-size:.8em;color:#788;display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.card h3{font-size:.98em;color:var(--ink);margin-bottom:4px}
+.card .meta{font-size:.8em;color:var(--mut);display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 .hrow{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
 .hrow::-webkit-scrollbar{display:none}
 .hcard{min-width:170px;background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 10px rgba(13,27,42,.07);cursor:pointer;flex-shrink:0}
 .hcard .top{font-size:1.6em;margin-bottom:6px}
-.hcard h3{font-size:.9em;color:var(--navy)}
-.hcard p{font-size:.76em;color:#788;margin-top:3px}
+.hcard h3{font-size:.9em;color:var(--ink)}
+.hcard p{font-size:.76em;color:var(--mut);margin-top:3px}
 /* BADGES */
 .badge{display:inline-block;border-radius:20px;padding:3px 11px;font-size:.72em;font-weight:700;margin:2px 2px 2px 0}
-.bO{background:#fff3d0;color:#c97d0a}.bB{background:#F1EFE8;color:#444441}.bG{background:#e5f9ee;color:#1e8f4e}.bR{background:#fdeaea;color:#c0392b}.bP{background:#f3e9fa;color:#7d3c98}.bN{background:var(--navy);color:#fff}.bGy{background:#636e72;color:#fff}
+.bO{background:#fff3d0;color:var(--warn)}.bB{background:#F1EFE8;color:#444441}.bG{background:#e5f9ee;color:var(--ok)}.bR{background:#fdeaea;color:var(--bad)}.bP{background:#f3e9fa;color:#7d3c98}.bN{background:var(--navy);color:#fff}.bGy{background:#636e72;color:#fff}
 /* BUTTONS */
 .btn{border:none;border-radius:12px;padding:13px 18px;font-size:.92em;font-weight:800;cursor:pointer;width:100%;margin-top:10px;transition:.15s}
 .btn:active{transform:scale(.97)}
 .btn-o{background:var(--org);color:#1b1b1b}
 .btn-g{background:#25d366;color:#fff}
 .btn-n{background:var(--navy2);color:#fff}
-.btn-ghost{background:#fff;color:var(--navy);border:1.5px solid #E5E3DB}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid #E5E3DB}
 .btn-sm{width:auto;padding:8px 14px;font-size:.8em;margin-top:0}
 .btn-grn{background:var(--grn);color:#fff}
 .btn-red{background:var(--red);color:#fff}
@@ -164,29 +164,29 @@ body.dark p{color:#a8b2bc}
 @keyframes pl{50%{opacity:.3}}
 /* AGENDA */
 .days{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px;scrollbar-width:none}
-.day{background:#fff;border:1.5px solid #E5E3DB;border-radius:12px;padding:8px 14px;text-align:center;cursor:pointer;flex-shrink:0;font-size:.8em;color:#5F5E5A}
-.day.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.day{background:#fff;border:1.5px solid #E5E3DB;border-radius:12px;padding:8px 14px;text-align:center;cursor:pointer;flex-shrink:0;font-size:.8em;color:var(--ink2)}
+.day.on{background:var(--navy);color:#fff;border-color:var(--ink)}
 .day b{display:block;font-size:1.15em}
 .slot{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 6px rgba(13,27,42,.05)}
-.slot .h{font-weight:800;color:var(--navy);font-size:.92em;width:48px}
+.slot .h{font-weight:800;color:var(--ink);font-size:.92em;width:48px}
 .st{font-size:.78em;font-weight:700;border-radius:20px;padding:4px 12px}
-.st-l{background:#e5f9ee;color:#1e8f4e}.st-o{background:#fdeaea;color:#c0392b}.st-p{background:#fff3d0;color:#c97d0a}
+.st-l{background:#e5f9ee;color:var(--ok)}.st-o{background:#fdeaea;color:var(--bad)}.st-p{background:#fff3d0;color:var(--warn)}
 /* TABS */
 .tabs{display:flex;gap:6px;margin:12px 0;overflow-x:auto;scrollbar-width:none}
-.tab{background:#fff;border:1.5px solid #E5E3DB;border-radius:20px;padding:7px 16px;font-size:.8em;font-weight:700;color:#5F5E5A;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.tab{background:#fff;border:1.5px solid #E5E3DB;border-radius:20px;padding:7px 16px;font-size:.8em;font-weight:700;color:var(--ink2);cursor:pointer;white-space:nowrap;flex-shrink:0}
 .tab.on{background:var(--org);border-color:var(--org);color:#1b1b1b}
 /* STATS */
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
 .stat{background:#fff;border-radius:14px;padding:14px 10px;text-align:center;box-shadow:0 2px 8px rgba(13,27,42,.06)}
-.stat b{font-size:1.35em;color:var(--navy);display:block}
-.stat span{font-size:.68em;color:#789;text-transform:uppercase;font-weight:700;letter-spacing:.4px}
-.stat.g b{color:#1e8f4e}.stat.r b{color:#c0392b}.stat.o b{color:#c97d0a}
+.stat b{font-size:1.35em;color:var(--ink);display:block}
+.stat span{font-size:.68em;color:var(--mut);text-transform:uppercase;font-weight:700;letter-spacing:.4px}
+.stat.g b{color:var(--ok)}.stat.r b{color:var(--bad)}.stat.o b{color:var(--warn)}
 /* RANK */
 .rk{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 6px rgba(13,27,42,.05)}
 .rk .pos{font-weight:800;color:var(--org);width:36px;font-size:1.05em}
-.rk .nm{flex:1;font-weight:700;color:var(--navy);font-size:.92em}
-.rk .nm small{display:block;font-weight:500;color:#888780;font-size:.8em}
-.rk .pts{font-weight:800;color:#1e8f4e;font-size:.88em}
+.rk .nm{flex:1;font-weight:700;color:var(--ink);font-size:.92em}
+.rk .nm small{display:block;font-weight:500;color:var(--mut);font-size:.8em}
+.rk .pts{font-weight:800;color:var(--ok);font-size:.88em}
 /* NAV */
 .nav{position:absolute;bottom:0;left:0;right:0;background:var(--navy);display:flex;justify-content:space-around;padding:10px 4px 14px;z-index:50}
 .ni{background:none;border:none;color:#B4B2A9;font-size:.66em;font-weight:700;text-align:center;cursor:pointer;padding:2px 8px}
@@ -194,18 +194,18 @@ body.dark p{color:#a8b2bc}
 .ni.on{color:var(--org)}
 /* FORM */
 .fld{margin-bottom:12px}
-.fld label{display:block;font-size:.78em;font-weight:700;color:var(--navy);margin-bottom:6px}
+.fld label{display:block;font-size:.78em;font-weight:700;color:var(--ink);margin-bottom:6px}
 .fld input,.fld select,.fld textarea{width:100%;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;background:#fff;color:#234;font-family:inherit}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{background:#fff;border:1.5px solid #E5E3DB;border-radius:20px;padding:7px 14px;font-size:.78em;font-weight:700;color:#5F5E5A;cursor:pointer}
+.chip{background:#fff;border:1.5px solid #E5E3DB;border-radius:20px;padding:7px 14px;font-size:.78em;font-weight:700;color:var(--ink2);cursor:pointer}
 .chip.on{background:var(--navy2);border-color:var(--navy2);color:#fff}
 /* SCORE */
 .score{background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 10px rgba(13,27,42,.06)}
 .svs{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:14px 0}
-.steam{flex:1;text-align:center;font-size:.82em;font-weight:700;color:var(--navy)}
+.steam{flex:1;text-align:center;font-size:.82em;font-weight:700;color:var(--ink)}
 .snum{display:flex;align-items:center;gap:8px}
-.snum button{width:30px;height:30px;border:none;border-radius:8px;background:#e8eef8;font-weight:800;cursor:pointer;color:var(--navy)}
-.snum b{font-size:1.7em;width:36px;text-align:center;color:var(--navy)}
+.snum button{width:30px;height:30px;border:none;border-radius:8px;background:#e8eef8;font-weight:800;cursor:pointer;color:var(--ink)}
+.snum b{font-size:1.7em;width:36px;text-align:center;color:var(--ink)}
 .dist{background:#f7f9fd;border-radius:12px;padding:12px;margin-top:12px;font-size:.82em}
 .dist .dr{display:flex;justify-content:space-between;padding:4px 0}
 /* ALERT / TOAST */
@@ -219,14 +219,14 @@ body.dark p{color:#a8b2bc}
 .news{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 10px rgba(13,27,42,.06);cursor:pointer}
 .news .nimg{height:86px;display:flex;align-items:center;justify-content:center;font-size:2.4em;color:#fff}
 .news .nbody{padding:12px 14px}
-.news h3{font-size:.9em;color:var(--navy)}
-.news p{font-size:.76em;color:#789;margin-top:4px}
+.news h3{font-size:.9em;color:var(--ink)}
+.news p{font-size:.76em;color:var(--mut);margin-top:4px}
 .news .tag{font-size:.68em;font-weight:800;color:var(--org);text-transform:uppercase;letter-spacing:.5px}
 /* H2H */
 .h2h{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:14px 0}
 .h2h .pl{background:#fff;border-radius:14px;padding:14px 8px;text-align:center;box-shadow:0 2px 8px rgba(13,27,42,.06)}
 .h2h .pl .av{font-size:2em}
-.h2h .pl b{display:block;font-size:.82em;color:var(--navy);margin-top:4px}
+.h2h .pl b{display:block;font-size:.82em;color:var(--ink);margin-top:4px}
 .h2h .vs{font-weight:800;color:var(--org);font-size:1.1em}
 .hbar{display:flex;height:10px;border-radius:6px;overflow:hidden;margin:6px 0 14px}
 .hbar div:first-child{background:var(--grn)}.hbar div:last-child{background:var(--red)}
@@ -252,7 +252,7 @@ const DB = {
   arenas: [
     {id:1, name:'Arena Vida Fit', emoji:'🏖️', dist:'2.3 km', star:4.8, addr:'Rua das Palmeiras, 120', hours:'Seg–Sex 07h–23h · Sáb/Dom 08h–20h', zap:'48999990001', quadras:2, feat:'Coberta · Iluminada · Areia fina'},
     {id:2, name:'Arena Beira Mar', emoji:'🌊', dist:'4.1 km', star:4.6, addr:'Av. Atlântica, 900', hours:'Todos os dias 06h–22h', zap:'48999990002', quadras:3, feat:'Vista mar · Iluminada'},
-    {id:3, name:'Arena Central BT', emoji:'🎾', dist:'5.8 km', star:4.9, addr:'Rua do Centro, 45', hours:'Seg–Sáb 07h–23h', zap:'48999990003', quadras:4, feat:'Coberta · Bar · Estacionamento'},
+    {id:3, name:'Arena Central BT', emoji:'<i class="ti ti-ball-tennis"></i>', dist:'5.8 km', star:4.9, addr:'Rua do Centro, 45', hours:'Seg–Sáb 07h–23h', zap:'48999990003', quadras:4, feat:'Coberta · Bar · Estacionamento'},
   ],
   ligas: [
     {id:1, arenaId:1, name:'Liga Terça Mista Open', cat:'Misto', nivel:'Open', dia:'Terça', hora:'19h–21h', vagas:'2 de 8 duplas', preco:'R$ 40/dupla/semana', status:'ativa'},
@@ -307,9 +307,9 @@ const DB = {
   ],
   news: [
     {tag:'Ranking ITF', t:'Chow e Marchezini assumem o nº 1 mundial', p:'Primeira dupla 100% brasileira a liderar o ranking feminino da ITF em 14 anos.', ic:'🇧🇷', bg:'linear-gradient(135deg,#1e8f4e,#27ae60)'},
-    {tag:'Ranking ITF', t:'Spoto e Gianotti travam duelo pelo topo', p:'Italiano soma 6.654 pts contra 6.616 do francês — disputa mais acirrada da temporada.', ic:'🏆', bg:'linear-gradient(135deg,#444441,#3A3A38)'},
-    {tag:'Circuito', t:'Sand Series Portugal terá premiação recorde', p:'Etapa de Nazaré distribui US$ 100 mil — a maior da temporada.', ic:'💰', bg:'linear-gradient(135deg,#c97d0a,#EF9F27)'},
-    {tag:'Técnica', t:'5 erros mais comuns no smash de beach tennis', p:'Análise técnica com dicas para subir de nível no ataque de rede.', ic:'🎾', bg:'linear-gradient(135deg,#7d3c98,#8e44ad)'},
+    {tag:'Ranking ITF', t:'Spoto e Gianotti travam duelo pelo topo', p:'Italiano soma 6.654 pts contra 6.616 do francês — disputa mais acirrada da temporada.', ic:'<i class="ti ti-trophy"></i>', bg:'linear-gradient(135deg,#444441,#3A3A38)'},
+    {tag:'Circuito', t:'Sand Series Portugal terá premiação recorde', p:'Etapa de Nazaré distribui US$ 100 mil — a maior da temporada.', ic:'<i class="ti ti-coin"></i>', bg:'linear-gradient(135deg,#c97d0a,#EF9F27)'},
+    {tag:'Técnica', t:'5 erros mais comuns no smash de beach tennis', p:'Análise técnica com dicas para subir de nível no ataque de rede.', ic:'<i class="ti ti-ball-tennis"></i>', bg:'linear-gradient(135deg,#7d3c98,#8e44ad)'},
   ],
   h2hData: {a:{n:'João Silva', av:'🧢', v:8, g:142}, b:{n:'Pedro Lima', av:'🧔', v:3, g:98}},
   // Histórico de jogos do jogador (registro individual — vem da tabela game_records)
@@ -359,13 +359,13 @@ const DB = {
     cadastroCompleto:false, codEnviado:false,
     fCat:'Todas', fReg:'Todas',
     itens:[
-      {id:1, t:'Raquete Drop Shot Conqueror 10', cat:'Raquetes', preco:'R$ 850', cond:'Seminova', cid:'Florianópolis', uf:'SC', reg:'Sul', vend:'Rafa M.', dias:3, ic:'🎾'},
+      {id:1, t:'Raquete Drop Shot Conqueror 10', cat:'Raquetes', preco:'R$ 850', cond:'Seminova', cid:'Florianópolis', uf:'SC', reg:'Sul', vend:'Rafa M.', dias:3, ic:'<i class="ti ti-ball-tennis"></i>'},
       {id:2, t:'Kit 3 bolinhas Sexy Brand', cat:'Bolinhas', preco:'R$ 45', cond:'Novas', cid:'São Paulo', uf:'SP', reg:'Sudeste', vend:'Ana C.', dias:12, ic:'🟠'},
       {id:3, t:'Óculos de areia + boné', cat:'Acessórios', preco:'R$ 120', cond:'Usados', cid:'Maringá', uf:'PR', reg:'Sul', vend:'Leo B.', dias:18, ic:'🕶️'},
       {id:4, t:'Rede oficial + fita de marcação', cat:'Equipamentos', preco:'R$ 390', cond:'Usada', cid:'Rio de Janeiro', uf:'RJ', reg:'Sudeste', vend:'Duda F.', dias:19, ic:'🥅'},
       {id:5, t:'Camiseta UV + saia esportiva M', cat:'Vestuário', preco:'R$ 90', cond:'Seminovos', cid:'Curitiba', uf:'PR', reg:'Sul', vend:'Bia R.', dias:8, ic:'👕'},
     ],
-    meus:[{id:9, t:'Raquete Shark Black One', cat:'Raquetes', preco:'R$ 600', dias:19, ic:'🎾'}],
+    meus:[{id:9, t:'Raquete Shark Black One', cat:'Raquetes', preco:'R$ 600', dias:19, ic:'<i class="ti ti-ball-tennis"></i>'}],
   },
   planosGrupo: [
     {n:'Grupo 6', preco:'Grátis', max:6, desc:'Para a turma que joga toda semana', destaque:false},
@@ -423,8 +423,8 @@ function vIntro(){
     <h1 style="font-size:2em;font-weight:800;letter-spacing:-.5px">Beach<span style="color:var(--org)">zinho</span></h1>
     <p style="opacity:.9;margin:12px 0 6px;font-size:1.08em;font-weight:800">Sua arena no controle.<br>Seus jogadores conectados.</p>
     <p style="opacity:.6;font-size:.85em">Quadras, ligas, aulas, rankings e pagamentos — tudo em um só app.</p>
-    <button class="btn btn-o" style="margin-top:18px" onclick="nav('splash')">🚀 Começar agora — grátis</button>
-    <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.45)" onclick="S.pendingPlan=3;go('auth','arena','login')">🔐 Fazer login · Cadastre-se</button>
+    <button class="btn btn-o" style="margin-top:18px" onclick="nav('splash')"><i class="ti ti-rocket"></i> Começar agora — grátis</button>
+    <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.45)" onclick="S.pendingPlan=3;go('auth','arena','login')"><i class="ti ti-lock"></i> Fazer login · Cadastre-se</button>
     <div style="display:flex;justify-content:space-around;margin-top:24px">
       <div><b style="font-size:1.35em;color:var(--org)">3 min</b><br><span style="font-size:.68em;opacity:.7">para cadastrar<br>sua arena</span></div>
       <div><b style="font-size:1.35em;color:var(--org)">0</b><br><span style="font-size:.68em;opacity:.7">conflitos<br>de agenda</span></div>
@@ -441,65 +441,65 @@ function vIntro(){
       ['classificados','<i class="ti ti-shopping-cart"></i>','Classificados','Compre e venda usados do meio esportivo'],
     ].map(f=>`<div class="card" onclick="go('beneficios','${f[0]}')">
       <div style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:1.55em;flex-shrink:0;color:#5F5E5A">${f[1]}</span>
-        <span style="flex:1"><h3>${f[2]}</h3><p style="font-size:.8em;color:#888780;margin-top:2px">${f[3]}</p></span>
+        <span style="font-size:1.55em;flex-shrink:0;color:var(--ink2)">${f[1]}</span>
+        <span style="flex:1"><h3>${f[2]}</h3><p style="font-size:.8em;color:var(--mut);margin-top:2px">${f[3]}</p></span>
         <span style="color:var(--org);font-weight:800;font-size:1.2em">→</span>
       </div>
     </div>`).join('')}
     <div class="card" onclick="S.role=null;nav('portal')" style="border:2px solid #444441">
       <div style="display:flex;align-items:center;gap:12px">
         <span style="font-size:1.7em;flex-shrink:0"><i class="ti ti-world" style="color:#2C2C2A"></i></span>
-        <span style="flex:1"><h3>Portal Beach Tennis — acesso livre</h3><p style="font-size:.8em;color:#888780;margin-top:2px">Rankings ITF, calendário com onde assistir e notícias — sem precisar de login</p></span>
+        <span style="flex:1"><h3>Portal Beach Tennis — acesso livre</h3><p style="font-size:.8em;color:var(--mut);margin-top:2px">Rankings ITF, calendário com onde assistir e notícias — sem precisar de login</p></span>
         <span style="color:#444441;font-weight:800;font-size:1.2em">→</span>
       </div>
     </div>
-    <button class="btn btn-n" onclick="go('beneficios','arena')">✨ Ver os benefícios de cada frente</button>
+    <button class="btn btn-n" onclick="go('beneficios','arena')"><i class="ti ti-sparkles"></i> Ver os benefícios de cada frente</button>
   </div>`;
 }
 const BENEF={
-  arena:{ic:'🏢',t:'Para a sua arena',cta:['🏢 Cadastrar minha arena',"S.pendingPlan=3;go('auth','arena')"],itens:[
-    ['🎾','Agenda de quadras sem erro','Horários livres, ocupados e pendentes em tempo real. Chega de reserva duplicada, caderno ou WhatsApp perdido.'],
-    ['💰','Receba na hora da reserva','Pix e cartão direto no app. O jogador paga ao reservar — menos furo e caixa previsível.'],
-    ['🏅','Ligas e torneios no piloto automático','Você lança o placar uma vez; o sistema distribui os games, monta o ranking e avisa os jogadores.'],
-    ['📣','Sua arena no mapa da cidade','Jogadores próximos encontram sua quadra e chamam direto no seu WhatsApp.'],
-    ['🔔','Cobrança automática de planos','Lembrete, link de pagamento e aviso de atraso por e-mail e WhatsApp.'],
+  arena:{ic:'<i class="ti ti-building"></i>',t:'Para a sua arena',cta:['<i class="ti ti-building"></i> Cadastrar minha arena',"S.pendingPlan=3;go('auth','arena')"],itens:[
+    ['<i class="ti ti-ball-tennis"></i>','Agenda de quadras sem erro','Horários livres, ocupados e pendentes em tempo real. Chega de reserva duplicada, caderno ou WhatsApp perdido.'],
+    ['<i class="ti ti-coin"></i>','Receba na hora da reserva','Pix e cartão direto no app. O jogador paga ao reservar — menos furo e caixa previsível.'],
+    ['<i class="ti ti-medal"></i>','Ligas e torneios no piloto automático','Você lança o placar uma vez; o sistema distribui os games, monta o ranking e avisa os jogadores.'],
+    ['<i class="ti ti-speakerphone"></i>','Sua arena no mapa da cidade','Jogadores próximos encontram sua quadra e chamam direto no seu WhatsApp.'],
+    ['<i class="ti ti-bell"></i>','Cobrança automática de planos','Lembrete, link de pagamento e aviso de atraso por e-mail e WhatsApp.'],
   ]},
-  jogador:{ic:'👤',t:'Para o jogador',cta:['👤 Entrar como jogador',"S.role='player';nav('p-home')"],itens:[
-    ['🔍','Quadra livre em segundos','Mapa com as arenas da cidade, agenda em tempo real e reserva paga em 3 toques.'],
-    ['📊','Seu histórico e ranking','Cada game vira estatística: aproveitamento, head-to-head e ranking da sua cidade.'],
-    ['🌐','O mundo do beach tennis','Ranking ITF ao vivo, calendário com onde assistir e notícias — tudo no app.'],
+  jogador:{ic:'<i class="ti ti-user"></i>',t:'Para o jogador',cta:['<i class="ti ti-user"></i> Entrar como jogador',"S.role='player';nav('p-home')"],itens:[
+    ['<i class="ti ti-search"></i>','Quadra livre em segundos','Mapa com as arenas da cidade, agenda em tempo real e reserva paga em 3 toques.'],
+    ['<i class="ti ti-chart-bar"></i>','Seu histórico e ranking','Cada game vira estatística: aproveitamento, head-to-head e ranking da sua cidade.'],
+    ['<i class="ti ti-world"></i>','O mundo do beach tennis','Ranking ITF ao vivo, calendário com onde assistir e notícias — tudo no app.'],
   ]},
-  grupo:{ic:'👥',t:'Para a sua turma',cta:['👥 Criar meu grupo — a partir de grátis',"nav('g-planos')"],itens:[
-    ['🏆','Ranking da resenha','A turma de toda semana com placar, ranking interno e zoeira organizada.'],
-    ['🔑','Grupo privado por convite','Só entra quem tem o código — fora do mapa e do ranking oficial.'],
+  grupo:{ic:'<i class="ti ti-users"></i>',t:'Para a sua turma',cta:['<i class="ti ti-users"></i> Criar meu grupo — a partir de grátis',"nav('g-planos')"],itens:[
+    ['<i class="ti ti-trophy"></i>','Ranking da resenha','A turma de toda semana com placar, ranking interno e zoeira organizada.'],
+    ['<i class="ti ti-key"></i>','Grupo privado por convite','Só entra quem tem o código — fora do mapa e do ranking oficial.'],
     ['💸','A partir de grátis','Plano gratuito até 6 jogadores; upgrade quando a turma crescer.'],
   ]},
-  professor:{ic:'🎓',t:'Para o professor',cta:['🎓 Sou professor — começar',"S.role='prof';nav('pr-home')"],itens:[
-    ['⏰','Agenda e turmas organizadas','Horários disponíveis, turmas por nível e local de cada aula.'],
-    ['📋','Presença e reposição automáticas','Chamada em um toque; falta avisada gera crédito de reposição sozinha.'],
-    ['📔','Anotações por aluno','Registro por dia com evolução — o aluno acompanha tudo pelo app.'],
-    ['💰','Cobranças sem constrangimento','Lembretes automáticos; você só confirma o recebimento.'],
+  professor:{ic:'<i class="ti ti-school"></i>',t:'Para o professor',cta:['<i class="ti ti-school"></i> Sou professor — começar',"S.role='prof';nav('pr-home')"],itens:[
+    ['<i class="ti ti-alarm"></i>','Agenda e turmas organizadas','Horários disponíveis, turmas por nível e local de cada aula.'],
+    ['<i class="ti ti-clipboard-list"></i>','Presença e reposição automáticas','Chamada em um toque; falta avisada gera crédito de reposição sozinha.'],
+    ['<i class="ti ti-notebook"></i>','Anotações por aluno','Registro por dia com evolução — o aluno acompanha tudo pelo app.'],
+    ['<i class="ti ti-coin"></i>','Cobranças sem constrangimento','Lembretes automáticos; você só confirma o recebimento.'],
   ]},
-  classificados:{ic:'🛒',t:'Classificados',cta:['🛒 Ver os classificados',"S.role='player';nav('cl-home')"],itens:[
-    ['🎾','Só itens do meio esportivo','Raquetes, bolinhas, vestuário e equipamentos — nada fora do tema.'],
-    ['📍','Filtro por cidade e região','Encontre o que está perto de você.'],
-    ['🛡️','Regras de segurança','Cadastro verificado por código, aviso de responsabilidade e dicas em todo anúncio.'],
-    ['⏳','Anúncios de 20 dias','Vitrine sempre atual — expira e o vendedor republica.'],
+  classificados:{ic:'<i class="ti ti-shopping-cart"></i>',t:'Classificados',cta:['<i class="ti ti-shopping-cart"></i> Ver os classificados',"S.role='player';nav('cl-home')"],itens:[
+    ['<i class="ti ti-ball-tennis"></i>','Só itens do meio esportivo','Raquetes, bolinhas, vestuário e equipamentos — nada fora do tema.'],
+    ['<i class="ti ti-map-pin"></i>','Filtro por cidade e região','Encontre o que está perto de você.'],
+    ['<i class="ti ti-shield"></i>','Regras de segurança','Cadastro verificado por código, aviso de responsabilidade e dicas em todo anúncio.'],
+    ['<i class="ti ti-hourglass"></i>','Anúncios de 20 dias','Vitrine sempre atual — expira e o vendedor republica.'],
   ]},
 };
 function vBeneficios(){
   const f=S.param&&BENEF[S.param]?S.param:'arena';
   const b=BENEF[f];
-  const fcard=x=>`<div class="card" style="cursor:default;display:flex;gap:14px;align-items:flex-start"><span style="font-size:1.8em;flex-shrink:0">${x[0]}</span><span><h3>${x[1]}</h3><p style="font-size:.83em;color:#888780;margin-top:3px">${x[2]}</p></span></div>`;
-  return `<div class="hd"><button class="back" onclick="nav('intro')">‹</button><h2>✨ Benefícios<span class="sub">${b.t}</span></h2></div>
+  const fcard=x=>`<div class="card" style="cursor:default;display:flex;gap:14px;align-items:flex-start"><span style="font-size:1.8em;flex-shrink:0">${x[0]}</span><span><h3>${x[1]}</h3><p style="font-size:.83em;color:var(--mut);margin-top:3px">${x[2]}</p></span></div>`;
+  return `<div class="hd"><button class="back" onclick="nav('intro')">‹</button><h2><i class="ti ti-sparkles"></i> Benefícios<span class="sub">${b.t}</span></h2></div>
   <div class="pad">
     <div class="tabs">
       ${Object.keys(BENEF).map(k=>`<div class="tab ${k===f?'on':''}" onclick="S.param='${k}';render()">${BENEF[k].ic} ${k==='arena'?'Arena':k==='jogador'?'Jogador':k==='grupo'?'Grupo':k==='professor'?'Professor':'Classificados'}</div>`).join('')}
     </div>
     ${b.itens.map(fcard).join('')}
-    ${f==='arena'?`<div class="stitle">⚡ Antes × Depois</div>
+    ${f==='arena'?`<div class="stitle"><i class="ti ti-bolt"></i> Antes × Depois</div>
     <div class="card" style="cursor:default">
-      ${[['Reservas','Caderno e WhatsApp','App em tempo real'],['Pagamento','"Depois a gente acerta"','Pix na reserva'],['Ranking','Planilha no Excel','Automático'],['Cobrança','Constrangimento','Régua automática']].map(r=>`<div style="display:flex;gap:6px;font-size:.79em;padding:7px 0;border-bottom:1px solid #f0f3f8"><b style="width:78px;color:var(--navy);flex-shrink:0">${r[0]}</b><span style="flex:1;color:#c0392b">✗ ${r[1]}</span><span style="flex:1;color:#1e8f4e;font-weight:700">✓ ${r[2]}</span></div>`).join('')}
+      ${[['Reservas','Caderno e WhatsApp','App em tempo real'],['Pagamento','"Depois a gente acerta"','Pix na reserva'],['Ranking','Planilha no Excel','Automático'],['Cobrança','Constrangimento','Régua automática']].map(r=>`<div style="display:flex;gap:8px;font-size:.86em;padding:9px 0;border-bottom:1px solid rgba(128,128,128,.22)"><b style="width:82px;color:var(--ink);flex-shrink:0">${r[0]}</b><span style="flex:1;color:var(--bad)">✗ ${r[1]}</span><span style="flex:1;color:var(--ok);font-weight:700">✓ ${r[2]}</span></div>`).join('')}
     </div>`:''}
     <button class="btn btn-o" onclick="${b.cta[1]}">${b.cta[0]}</button>
     <button class="btn btn-ghost" onclick="nav('intro')">← Voltar ao início</button>
@@ -518,18 +518,18 @@ function vSplash(){
     <button class="rolebtn rb-t" onclick="S.role='prof';nav('pr-home');toast('Bem-vindo, professor! 🎓')"><span class="e"><i class="ti ti-school"></i></span><span>Sou Professor<small>Turmas, presença, reposições e cobranças</small></span></button>
     <button class="rolebtn rb-c" onclick="S.role='player';nav('cl-home')"><span class="e"><i class="ti ti-shopping-cart"></i></span><span>Classificados<small>Compra e venda de itens do beach tennis</small></span></button>
     <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e"><i class="ti ti-world"></i></span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
-    <a style="color:#B4B2A9;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')">ℹ️ Por que usar o Beachzinho?</a>
+    <a style="color:#B4B2A9;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')"><i class="ti ti-info-circle"></i> Por que usar o Beachzinho?</a>
   </div>`;
 }
 
 /* ═══════════ TELAS — JOGADOR ═══════════ */
 function vPHome(){
   const liga=DB.ligas[0], arena=DB.arenas[0];
-  return `<div class="hd"><h2>Olá, João 👋<span class="sub">📍 Florianópolis, SC</span></h2><span class="ic" onclick="toast('3 notificações não lidas 🔔')" style="cursor:pointer">🔔</span></div>
+  return `<div class="hd"><h2>Olá, João 👋<span class="sub"><i class="ti ti-map-pin"></i> Florianópolis, SC</span></h2><span class="ic" onclick="toast('3 notificações não lidas 🔔')" style="cursor:pointer"><i class="ti ti-bell"></i></span></div>
   <div class="pad">
-    <div class="search" onclick="go('p-explore')">🔍 <span>Buscar arena, liga ou torneio...</span></div>
+    <div class="search" onclick="go('p-explore')"><i class="ti ti-search"></i> <span>Buscar arena, liga ou torneio...</span></div>
 
-    <div class="stitle">📋 O que você quer fazer?</div>
+    <div class="stitle"><i class="ti ti-clipboard-list"></i> O que você quer fazer?</div>
     <div class="menugrid">
       <button class="mi" onclick="go('p-minhasligas')"><span class="e"><i class="ti ti-medal"></i></span><span>Ligas inscrito<small>${DB.me.minhasLigas.length} ligas ativas</small></span></button>
       <button class="mi" onclick="go('p-ligas')"><span class="e"><i class="ti ti-search"></i></span><span>Ligas existentes<small>${DB.ligas.length} na região</small></span></button>
@@ -541,47 +541,47 @@ function vPHome(){
       <button class="mi" onclick="go('cl-home')"><span class="e"><i class="ti ti-shopping-cart"></i></span><span>Classificados<small>Compra e venda</small></span></button>
     </div>
 
-    <div class="stitle" style="margin-top:14px">🌐 Mundo do Beach Tennis <a onclick="nav('portal')">Ver portal →</a></div>
+    <div class="stitle" style="margin-top:14px"><i class="ti ti-world"></i> Mundo do Beach Tennis <a onclick="nav('portal')">Ver portal →</a></div>
     <div class="live">
       <div class="lrow"><span><span class="dot"></span><b>AO VIVO</b> — BT400 Palmas 🇧🇷</span><span onclick="nav('portal')" style="color:var(--org);cursor:pointer">▶</span></div>
-      <div class="lrow"><span>📊 Seu ranking na cidade</span><b style="color:var(--org)">#12</b></div>
-      <div class="lrow"><span>⚡ Último resultado</span><b style="color:#107c10">6 × 4 vitória</b></div>
+      <div class="lrow"><span><i class="ti ti-chart-bar"></i> Seu ranking na cidade</span><b style="color:var(--org)">#12</b></div>
+      <div class="lrow"><span><i class="ti ti-bolt"></i> Último resultado</span><b style="color:#107c10">6 × 4 vitória</b></div>
     </div>
 
     <div class="stitle">🔥 Ligas desta semana <a onclick="go('p-explore')">Ver todas</a></div>
     <div class="hrow">
-      ${DB.ligas.filter(l=>l.status==='ativa').map(l=>`<div class="hcard" onclick="go('p-liga',${l.id})"><div class="top">🏅</div><h3>${l.name}</h3><p>${l.dia} · ${l.hora}</p><p style="color:#1e8f4e;font-weight:700">${l.vagas}</p></div>`).join('')}
+      ${DB.ligas.filter(l=>l.status==='ativa').map(l=>`<div class="hcard" onclick="go('p-liga',${l.id})"><div class="top"><i class="ti ti-medal"></i></div><h3>${l.name}</h3><p>${l.dia} · ${l.hora}</p><p style="color:var(--ok);font-weight:700">${l.vagas}</p></div>`).join('')}
     </div>
 
-    <div class="stitle">🎾 Quadras disponíveis agora</div>
+    <div class="stitle"><i class="ti ti-ball-tennis"></i> Quadras disponíveis agora</div>
     <div class="card" onclick="go('p-quadra',1)">
       <h3>${arena.emoji} ${arena.name} — Quadra 1</h3>
-      <div class="meta"><span>📍 ${arena.dist}</span><span>⭐ ${arena.star}</span><span style="color:#1e8f4e;font-weight:700">🟢 4 horários livres hoje</span></div>
+      <div class="meta"><span><i class="ti ti-map-pin"></i> ${arena.dist}</span><span><i class="ti ti-star"></i> ${arena.star}</span><span style="color:var(--ok);font-weight:700">🟢 4 horários livres hoje</span></div>
     </div>
 
-    <div class="stitle">🏆 Torneios abertos</div>
-    ${DB.torneios.map(t=>`<div class="card" onclick="go('p-torneio',${t.id})"><h3>🏆 ${t.name}</h3><div class="meta"><span>📅 ${t.data}</span><span>💰 ${t.premio}</span></div></div>`).join('')}
+    <div class="stitle"><i class="ti ti-trophy"></i> Torneios abertos</div>
+    ${DB.torneios.map(t=>`<div class="card" onclick="go('p-torneio',${t.id})"><h3><i class="ti ti-trophy"></i> ${t.name}</h3><div class="meta"><span><i class="ti ti-calendar"></i> ${t.data}</span><span><i class="ti ti-coin"></i> ${t.premio}</span></div></div>`).join('')}
 
-    <div class="stitle">🛒 Classificados <a onclick="go('cl-home')">Ver todos →</a></div>
+    <div class="stitle"><i class="ti ti-shopping-cart"></i> Classificados <a onclick="go('cl-home')">Ver todos →</a></div>
     <div class="card" onclick="go('cl-home')">
-      <h3>🛒 Usados do meio esportivo</h3>
-      <div class="meta"><span>Raquetes, bolinhas, acessórios e mais</span><span style="color:#1e8f4e;font-weight:700">${DB.classif.itens.length} anúncios ativos</span></div>
+      <h3><i class="ti ti-shopping-cart"></i> Usados do meio esportivo</h3>
+      <div class="meta"><span>Raquetes, bolinhas, acessórios e mais</span><span style="color:var(--ok);font-weight:700">${DB.classif.itens.length} anúncios ativos</span></div>
     </div>
-    <div class="stitle">🔄 Rotativos próximos</div>
-    ${DB.rotativos.map(r=>`<div class="card" onclick="toast('Interesse enviado à arena! 🙋')"><h3>🔄 ${r.name}</h3><div class="meta"><span>${r.data}</span><span style="color:#c97d0a;font-weight:700">${r.vagas} vagas</span><span>${r.preco}</span></div></div>`).join('')}
+    <div class="stitle"><i class="ti ti-refresh"></i> Rotativos próximos</div>
+    ${DB.rotativos.map(r=>`<div class="card" onclick="toast('Interesse enviado à arena! 🙋')"><h3><i class="ti ti-refresh"></i> ${r.name}</h3><div class="meta"><span>${r.data}</span><span style="color:var(--warn);font-weight:700">${r.vagas} vagas</span><span>${r.preco}</span></div></div>`).join('')}
   </div>`;
 }
 
 function vPExplore(){
-  return header('🔍 Explorar Arenas','Florianópolis, SC')+`
+  return header('<i class="ti ti-search"></i> Explorar Arenas','Florianópolis, SC')+`
   <div class="pad">
-    <div style="background:linear-gradient(135deg,#EDEBE2,#DEDBCE);border-radius:16px;height:130px;display:flex;align-items:center;justify-content:center;font-size:.85em;color:#444441;font-weight:700;margin-bottom:14px">🗺️ Mapa interativo — ${DB.arenas.length} arenas próximas</div>
+    <div style="background:linear-gradient(135deg,#EDEBE2,#DEDBCE);border-radius:16px;height:130px;display:flex;align-items:center;justify-content:center;font-size:.85em;color:#444441;font-weight:700;margin-bottom:14px"><i class="ti ti-map"></i> Mapa interativo — ${DB.arenas.length} arenas próximas</div>
     <div class="tabs">
-      <div class="tab on">Todas</div><div class="tab" onclick="toast('Filtro: Ligas')">🏅 Ligas</div><div class="tab" onclick="toast('Filtro: Quadras')">🎾 Quadras</div><div class="tab" onclick="toast('Filtro: Rotativos')">🔄 Rotativos</div><div class="tab" onclick="toast('Filtro: Torneios')">🏆 Torneios</div>
+      <div class="tab on">Todas</div><div class="tab" onclick="toast('Filtro: Ligas')"><i class="ti ti-medal"></i> Ligas</div><div class="tab" onclick="toast('Filtro: Quadras')"><i class="ti ti-ball-tennis"></i> Quadras</div><div class="tab" onclick="toast('Filtro: Rotativos')"><i class="ti ti-refresh"></i> Rotativos</div><div class="tab" onclick="toast('Filtro: Torneios')"><i class="ti ti-trophy"></i> Torneios</div>
     </div>
     ${DB.arenas.map(a=>`<div class="card" onclick="go('p-arena',${a.id})">
       <h3>${a.emoji} ${a.name}</h3>
-      <div class="meta"><span>📍 ${a.dist}</span><span>⭐ ${a.star}</span><span>🎾 ${a.quadras} quadras</span></div>
+      <div class="meta"><span><i class="ti ti-map-pin"></i> ${a.dist}</span><span><i class="ti ti-star"></i> ${a.star}</span><span><i class="ti ti-ball-tennis"></i> ${a.quadras} quadras</span></div>
       <div style="margin-top:8px">${DB.ligas.some(l=>l.arenaId===a.id&&l.status==='ativa')?'<span class="badge bO">Ligas</span>':''}<span class="badge bB">Quadras</span>${DB.rotativos.some(r=>r.arenaId===a.id)?'<span class="badge bG">Rotativo</span>':''}${DB.torneios.some(t=>t.arenaId===a.id)?'<span class="badge bP">Torneio</span>':''}</div>
     </div>`).join('')}
   </div>`;
@@ -592,20 +592,20 @@ function vPArena(){
   const tab=S.tab||'ligas';
   const ligas=DB.ligas.filter(l=>l.arenaId===a.id), rots=DB.rotativos.filter(r=>r.arenaId===a.id), tors=DB.torneios.filter(t=>t.arenaId===a.id);
   let body='';
-  if(tab==='ligas') body = ligas.length? ligas.map(l=>`<div class="card" onclick="go('p-liga',${l.id})"><h3>🏅 ${l.name}</h3><div class="meta"><span>📅 ${l.dia} ${l.hora}</span><span>${l.preco}</span></div><div style="margin-top:6px"><span class="badge bB">${l.cat}</span><span class="badge bO">${l.nivel}</span>${l.status==='pausada'?'<span class="badge bR">Pausada</span>':`<span class="badge bG">${l.vagas}</span>`}</div></div>`).join('') : '<div class="empty"><span>🏅</span>Nenhuma liga ativa nesta arena</div>';
-  if(tab==='quadras') body = `<div class="card" onclick="go('p-quadra',${a.id})"><h3>🎾 Quadra 1</h3><div class="meta"><span>💡 ${a.feat}</span></div><div class="meta"><span style="color:#1e8f4e;font-weight:700">🟢 Horários livres hoje — toque para reservar</span></div></div>` + (a.quadras>1?`<div class="card" onclick="go('p-quadra',${a.id})"><h3>🎾 Quadra 2</h3><div class="meta"><span style="color:#c97d0a;font-weight:700">🟡 Poucos horários hoje</span></div></div>`:'');
-  if(tab==='rotativos') body = rots.length? rots.map(r=>`<div class="card"><h3>🔄 ${r.name}</h3><div class="meta"><span>${r.data}</span><span>${r.preco}</span><span>${r.nivel}</span></div><button class="btn btn-o btn-sm" style="margin-top:10px" onclick="event.stopPropagation();toast('Interesse enviado! A arena vai confirmar 🙋')">Quero jogar</button></div>`).join('') : '<div class="empty"><span>🔄</span>Sem rotativos programados</div>';
-  if(tab==='torneios') body = tors.length? tors.map(t=>`<div class="card" onclick="go('p-torneio',${t.id})"><h3>🏆 ${t.name}</h3><div class="meta"><span>📅 ${t.data}</span><span>Inscrições ${t.insc}</span></div></div>`).join('') : '<div class="empty"><span>🏆</span>Sem torneios no momento</div>';
-  return header(`${a.emoji} ${a.name}`, `⭐ ${a.star} · ${a.dist}`)+`
+  if(tab==='ligas') body = ligas.length? ligas.map(l=>`<div class="card" onclick="go('p-liga',${l.id})"><h3><i class="ti ti-medal"></i> ${l.name}</h3><div class="meta"><span><i class="ti ti-calendar"></i> ${l.dia} ${l.hora}</span><span>${l.preco}</span></div><div style="margin-top:6px"><span class="badge bB">${l.cat}</span><span class="badge bO">${l.nivel}</span>${l.status==='pausada'?'<span class="badge bR">Pausada</span>':`<span class="badge bG">${l.vagas}</span>`}</div></div>`).join('') : '<div class="empty"><span><i class="ti ti-medal"></i></span>Nenhuma liga ativa nesta arena</div>';
+  if(tab==='quadras') body = `<div class="card" onclick="go('p-quadra',${a.id})"><h3><i class="ti ti-ball-tennis"></i> Quadra 1</h3><div class="meta"><span><i class="ti ti-bulb"></i> ${a.feat}</span></div><div class="meta"><span style="color:var(--ok);font-weight:700">🟢 Horários livres hoje — toque para reservar</span></div></div>` + (a.quadras>1?`<div class="card" onclick="go('p-quadra',${a.id})"><h3><i class="ti ti-ball-tennis"></i> Quadra 2</h3><div class="meta"><span style="color:var(--warn);font-weight:700">🟡 Poucos horários hoje</span></div></div>`:'');
+  if(tab==='rotativos') body = rots.length? rots.map(r=>`<div class="card"><h3><i class="ti ti-refresh"></i> ${r.name}</h3><div class="meta"><span>${r.data}</span><span>${r.preco}</span><span>${r.nivel}</span></div><button class="btn btn-o btn-sm" style="margin-top:10px" onclick="event.stopPropagation();toast('Interesse enviado! A arena vai confirmar 🙋')">Quero jogar</button></div>`).join('') : '<div class="empty"><span><i class="ti ti-refresh"></i></span>Sem rotativos programados</div>';
+  if(tab==='torneios') body = tors.length? tors.map(t=>`<div class="card" onclick="go('p-torneio',${t.id})"><h3><i class="ti ti-trophy"></i> ${t.name}</h3><div class="meta"><span><i class="ti ti-calendar"></i> ${t.data}</span><span>Inscrições ${t.insc}</span></div></div>`).join('') : '<div class="empty"><span><i class="ti ti-trophy"></i></span>Sem torneios no momento</div>';
+  return header(`${a.emoji} ${a.name}`, `<i class="ti ti-star"></i> ${a.star} · ${a.dist}`)+`
   <div class="pad">
     <div class="card" style="cursor:default">
-      <div class="meta"><span>📍 ${a.addr}</span></div>
-      <div class="meta"><span>⏰ ${a.hours}</span></div>
-      <div class="meta"><span>💡 ${a.feat}</span></div>
-      <button class="btn btn-g" onclick="toast('Abrindo WhatsApp da arena... 💬')">💬 Falar no WhatsApp</button>
+      <div class="meta"><span><i class="ti ti-map-pin"></i> ${a.addr}</span></div>
+      <div class="meta"><span><i class="ti ti-alarm"></i> ${a.hours}</span></div>
+      <div class="meta"><span><i class="ti ti-bulb"></i> ${a.feat}</span></div>
+      <button class="btn btn-g" onclick="toast('Abrindo WhatsApp da arena... 💬')"><i class="ti ti-message-circle"></i> Falar no WhatsApp</button>
     </div>
     <div class="tabs">
-      ${['ligas','quadras','rotativos','torneios'].map(t=>`<div class="tab ${tab===t?'on':''}" onclick="setTab('${t}')">${{ligas:'🏅 Ligas',quadras:'🎾 Quadras',rotativos:'🔄 Rotativos',torneios:'🏆 Torneios'}[t]}</div>`).join('')}
+      ${['ligas','quadras','rotativos','torneios'].map(t=>`<div class="tab ${tab===t?'on':''}" onclick="setTab('${t}')">${{ligas:'<i class="ti ti-medal"></i> Ligas',quadras:'<i class="ti ti-ball-tennis"></i> Quadras',rotativos:'<i class="ti ti-refresh"></i> Rotativos',torneios:'<i class="ti ti-trophy"></i> Torneios'}[t]}</div>`).join('')}
     </div>
     ${body}
   </div>`;
@@ -614,46 +614,46 @@ function vPArena(){
 function vPLiga(){
   const l=DB.ligas.find(x=>x.id===S.param)||DB.ligas[0];
   const a=DB.arenas.find(x=>x.id===l.arenaId);
-  return header('🏅 '+l.name, a.name)+`
+  return header('<i class="ti ti-medal"></i> '+l.name, a.name)+`
   <div class="pad">
     <div class="card" style="cursor:default">
       <div style="margin-bottom:8px"><span class="badge bB">${l.cat}</span><span class="badge bO">${l.nivel}</span><span class="badge ${l.status==='ativa'?'bG':'bR'}">${l.status==='ativa'?'Ativa':'Pausada'}</span></div>
-      <div class="meta"><span>📅 Toda ${l.dia} · ${l.hora}</span></div>
-      <div class="meta"><span>👥 ${l.vagas}</span></div>
-      <div class="meta"><span>💰 ${l.preco}</span></div>
-      <div class="meta"><span>📍 ${a.name} — ${a.addr}</span></div>
+      <div class="meta"><span><i class="ti ti-calendar"></i> Toda ${l.dia} · ${l.hora}</span></div>
+      <div class="meta"><span><i class="ti ti-users"></i> ${l.vagas}</span></div>
+      <div class="meta"><span><i class="ti ti-coin"></i> ${l.preco}</span></div>
+      <div class="meta"><span><i class="ti ti-map-pin"></i> ${a.name} — ${a.addr}</span></div>
     </div>
-    <div class="al al-b">ℹ️ Rodadas semanais com placar lançado pela arena. Seus games entram automaticamente no seu perfil e no ranking da cidade.</div>
-    <div class="stitle">📊 Classificação atual — Rodada 7</div>
+    <div class="al al-b"><i class="ti ti-info-circle"></i> Rodadas semanais com placar lançado pela arena. Seus games entram automaticamente no seu perfil e no ranking da cidade.</div>
+    <div class="stitle"><i class="ti ti-chart-bar"></i> Classificação atual — Rodada 7</div>
     ${[['1º João & Ana','42 games','bG'],['2º Rafa & Duda','38 games','bB'],['3º Pedro & Cris','35 games','bB'],['4º Leo & Bia','29 games','bB']].map(r=>`<div class="rk"><span class="pos">${r[0].split(' ')[0]}</span><span class="nm">${r[0].substring(3)}</span><span class="pts">${r[1]}</span></div>`).join('')}
-    <button class="btn btn-o" onclick="toast('Pedido enviado! A arena vai te chamar 🎾')">✅ Quero Participar</button>
-    <button class="btn btn-g" onclick="toast('Abrindo WhatsApp da arena... 💬')">💬 Falar com a arena</button>
+    <button class="btn btn-o" onclick="toast('Pedido enviado! A arena vai te chamar 🎾')"><i class="ti ti-circle-check"></i> Quero Participar</button>
+    <button class="btn btn-g" onclick="toast('Abrindo WhatsApp da arena... 💬')"><i class="ti ti-message-circle"></i> Falar com a arena</button>
   </div>`;
 }
 
 function vPTorneio(){
   const t=DB.torneios.find(x=>x.id===S.param)||DB.torneios[0];
   const a=DB.arenas.find(x=>x.id===t.arenaId);
-  return header('🏆 '+t.name, a.name)+`
+  return header('<i class="ti ti-trophy"></i> '+t.name, a.name)+`
   <div class="pad">
     <div style="background:linear-gradient(135deg,#444441,#3A3A38);border-radius:16px;padding:22px;text-align:center;color:#fff;margin-bottom:14px">
-      <div style="font-size:2.2em">🏆</div><b style="font-size:1.05em">${t.name}</b>
-      <p style="opacity:.8;font-size:.82em;margin-top:6px">📅 ${t.data} · Inscrições ${t.insc}</p>
+      <div style="font-size:2.2em"><i class="ti ti-trophy"></i></div><b style="font-size:1.05em">${t.name}</b>
+      <p style="opacity:.8;font-size:.82em;margin-top:6px"><i class="ti ti-calendar"></i> ${t.data} · Inscrições ${t.insc}</p>
     </div>
     <div class="card" style="cursor:default">
-      <div class="meta"><span>🏷️ Categorias: ${t.cats}</span></div>
-      <div class="meta"><span>💰 Inscrição: ${t.preco}</span></div>
+      <div class="meta"><span><i class="ti ti-tag"></i> Categorias: ${t.cats}</span></div>
+      <div class="meta"><span><i class="ti ti-coin"></i> Inscrição: ${t.preco}</span></div>
       <div class="meta"><span>🎁 Premiação: ${t.premio}</span></div>
-      <div class="meta"><span>📍 ${a.name}</span></div>
+      <div class="meta"><span><i class="ti ti-map-pin"></i> ${a.name}</span></div>
     </div>
-    <button class="btn btn-o" onclick="toast('Inscrição iniciada! Escolha sua categoria 📝')">📝 Inscrever minha dupla</button>
-    <button class="btn btn-ghost" onclick="toast('Regulamento aberto 📄')">📄 Ver regulamento</button>
+    <button class="btn btn-o" onclick="toast('Inscrição iniciada! Escolha sua categoria 📝')"><i class="ti ti-pencil"></i> Inscrever minha dupla</button>
+    <button class="btn btn-ghost" onclick="toast('Regulamento aberto 📄')"><i class="ti ti-file"></i> Ver regulamento</button>
   </div>`;
 }
 
 function vPQuadra(){
   const days=[['Ter','18'],['Qua','19'],['Qui','20'],['Sex','21'],['Sáb','22']];
-  return header('🎾 Quadra 1 — Agenda','Arena Vida Fit · R$ 80/hora')+`
+  return header('<i class="ti ti-ball-tennis"></i> Quadra 1 — Agenda','Arena Vida Fit · R$ 80/hora')+`
   <div class="pad">
     <div class="days">${days.map((d,i)=>`<div class="day ${S.day===i?'on':''}" onclick="S.day=${i};render()">${d[0]}<b>${d[1]}</b></div>`).join('')}</div>
     ${DB.slots.map((s,i)=>{
@@ -661,7 +661,7 @@ function vPQuadra(){
       if(s.status==='ocupado') return `<div class="slot"><span class="h">${s.h}</span><span class="st st-o">🔴 Ocupado</span><span style="font-size:.78em;color:#99a">—</span></div>`;
       return `<div class="slot"><span class="h">${s.h}</span><span class="st st-p">🟡 Pendente</span><span style="font-size:.78em;color:#99a">aguardando arena</span></div>`;
     }).join('')}
-    <div class="al al-b" style="margin-top:10px">💡 Toque em Reservar para conferir o valor, escolher a forma de pagamento e confirmar.</div>
+    <div class="al al-b" style="margin-top:10px"><i class="ti ti-bulb"></i> Toque em Reservar para conferir o valor, escolher a forma de pagamento e confirmar.</div>
   </div>`;
 }
 
@@ -669,45 +669,45 @@ function vPQuadra(){
 const PRECO_HORA = 80, TAXA_APP = 0;
 function vPCheckout(){
   const i=S.param, s=DB.slots[i];
-  if(!s || s.status!=='livre') return header('🧾 Confirmar Reserva')+`<div class="pad"><div class="empty"><span>⚠️</span>Este horário não está mais disponível.</div></div>`;
+  if(!s || s.status!=='livre') return header('<i class="ti ti-receipt"></i> Confirmar Reserva')+`<div class="pad"><div class="empty"><span><i class="ti ti-alert-triangle"></i></span>Este horário não está mais disponível.</div></div>`;
   const pay=S.pay||'pix';
   const hFim=(parseInt(s.h)+1).toString().padStart(2,'0')+'h';
   const total=PRECO_HORA+TAXA_APP;
-  return header('🧾 Confirmar Reserva','Arena Vida Fit · Quadra 1')+`
+  return header('<i class="ti ti-receipt"></i> Confirmar Reserva','Arena Vida Fit · Quadra 1')+`
   <div class="pad">
     <div class="card" style="cursor:default">
-      <h3>🎾 Resumo da reserva</h3>
-      <div class="meta" style="margin-top:8px"><span>🏢 Arena Vida Fit — Quadra 1</span></div>
-      <div class="meta"><span>📅 Terça, 18/08/2026</span></div>
-      <div class="meta"><span>⏰ ${s.h} às ${hFim} (1 hora)</span></div>
-      <div class="meta"><span>💡 Coberta · Iluminada</span></div>
+      <h3><i class="ti ti-ball-tennis"></i> Resumo da reserva</h3>
+      <div class="meta" style="margin-top:8px"><span><i class="ti ti-building"></i> Arena Vida Fit — Quadra 1</span></div>
+      <div class="meta"><span><i class="ti ti-calendar"></i> Terça, 18/08/2026</span></div>
+      <div class="meta"><span><i class="ti ti-alarm"></i> ${s.h} às ${hFim} (1 hora)</span></div>
+      <div class="meta"><span><i class="ti ti-bulb"></i> Coberta · Iluminada</span></div>
     </div>
     <div class="card" style="cursor:default">
-      <h3>💰 Valores</h3>
+      <h3><i class="ti ti-coin"></i> Valores</h3>
       <div class="dist" style="margin-top:8px;background:#f7f9fd">
         <div class="dr"><span>Locação da quadra (1h)</span><span>R$ ${PRECO_HORA.toFixed(2).replace('.',',')}</span></div>
-        <div class="dr"><span>Taxa do app</span><span style="color:#1e8f4e;font-weight:700">Grátis</span></div>
-        <div class="dr" style="border-top:1.5px dashed #E5E3DB;margin-top:4px;padding-top:8px"><span><b>Total</b></span><span style="font-weight:800;color:var(--navy);font-size:1.1em">R$ ${total.toFixed(2).replace('.',',')}</span></div>
+        <div class="dr"><span>Taxa do app</span><span style="color:var(--ok);font-weight:700">Grátis</span></div>
+        <div class="dr" style="border-top:1.5px dashed #E5E3DB;margin-top:4px;padding-top:8px"><span><b>Total</b></span><span style="font-weight:800;color:var(--ink);font-size:1.1em">R$ ${total.toFixed(2).replace('.',',')}</span></div>
       </div>
     </div>
     <div class="card" style="cursor:default">
-      <h3>💳 Forma de pagamento</h3>
+      <h3><i class="ti ti-credit-card"></i> Forma de pagamento</h3>
       <div class="chips" style="margin-top:10px">
-        <div class="chip ${pay==='pix'?'on':''}" onclick="S.pay='pix';render()">⚡ Pix</div>
-        <div class="chip ${pay==='card'?'on':''}" onclick="S.pay='card';render()">💳 Cartão</div>
-        <div class="chip ${pay==='arena'?'on':''}" onclick="S.pay='arena';render()">🏢 Pagar na arena</div>
+        <div class="chip ${pay==='pix'?'on':''}" onclick="S.pay='pix';render()"><i class="ti ti-bolt"></i> Pix</div>
+        <div class="chip ${pay==='card'?'on':''}" onclick="S.pay='card';render()"><i class="ti ti-credit-card"></i> Cartão</div>
+        <div class="chip ${pay==='arena'?'on':''}" onclick="S.pay='arena';render()"><i class="ti ti-building"></i> Pagar na arena</div>
       </div>
-      <p style="font-size:.78em;color:#789;margin-top:10px">${pay==='pix'?'⚡ Pagamento instantâneo. Sua reserva é confirmada assim que a arena aceitar — se recusar, o valor é estornado na hora.':pay==='card'?'💳 O valor só é cobrado quando a arena confirmar a reserva.':'🏢 Você paga direto no balcão. A reserva fica pendente até a arena confirmar.'}</p>
+      <p style="font-size:.78em;color:var(--mut);margin-top:10px">${pay==='pix'?'<i class="ti ti-bolt"></i> Pagamento instantâneo. Sua reserva é confirmada assim que a arena aceitar — se recusar, o valor é estornado na hora.':pay==='card'?'<i class="ti ti-credit-card"></i> O valor só é cobrado quando a arena confirmar a reserva.':'<i class="ti ti-building"></i> Você paga direto no balcão. A reserva fica pendente até a arena confirmar.'}</p>
     </div>
-    <button class="btn btn-o" onclick="pagarReservar(${i},'${pay}')">${pay==='arena'?'✅ Confirmar reserva':'✅ Pagar R$ '+total.toFixed(2).replace('.',',')+' e reservar'}</button>
+    <button class="btn btn-o" onclick="pagarReservar(${i},'${pay}')">${pay==='arena'?'<i class="ti ti-circle-check"></i> Confirmar reserva':'<i class="ti ti-circle-check"></i> Pagar R$ '+total.toFixed(2).replace('.',',')+' e reservar'}</button>
     <button class="btn btn-ghost" onclick="back()">← Voltar à agenda</button>
-    <div class="al al-b" style="margin-top:12px">🔒 Pagamento simulado no protótipo. No app final: Pix e cartão via gateway (ex: Mercado Pago / Stripe) com repasse à arena.</div>
+    <div class="al al-b" style="margin-top:12px"><i class="ti ti-lock"></i> Pagamento simulado no protótipo. No app final: Pix e cartão via gateway (ex: Mercado Pago / Stripe) com repasse à arena.</div>
   </div>`;
 }
 function pagarReservar(i, pay){
   const s=DB.slots[i];
   s.status='pendente'; s.who='João Silva';
-  const pg= pay==='pix'?'💰 Pago via Pix':pay==='card'?'💳 Cartão (pré-autorizado)':'🏢 Pagamento na arena';
+  const pg= pay==='pix'?'<i class="ti ti-coin"></i> Pago via Pix':pay==='card'?'<i class="ti ti-credit-card"></i> Cartão (pré-autorizado)':'<i class="ti ti-building"></i> Pagamento na arena';
   DB.pedidos.push({id:Date.now(), nome:'João Silva', det:`Quadra 1 · Ter 18/08 · ${s.h}`, slotH:s.h, pg});
   DB.minhasReservas.push({det:`Arena Vida Fit · Quadra 1 · Ter 18/08 · ${s.h}`, status:'pendente', pg, valor:'R$ 80,00'});
   toast(pay==='arena'?'Reserva enviada! Pague na arena 🏢':'Pagamento aprovado! Reserva enviada ✅');
@@ -715,23 +715,23 @@ function pagarReservar(i, pay){
 }
 
 function vPAgenda(){
-  return header('📅 Minha Agenda','Reservas e compromissos', false)+`
+  return header('<i class="ti ti-calendar"></i> Minha Agenda','Reservas e compromissos', false)+`
   <div class="pad">
-    <div class="stitle">🎾 Minhas reservas</div>
-    ${DB.minhasReservas.length? DB.minhasReservas.map(r=>`<div class="card" style="cursor:default"><h3>🎾 ${r.det}</h3><div style="margin-top:6px"><span class="badge ${r.status==='confirmada'?'bG':r.status==='recusada'?'bR':'bO'}">${r.status==='confirmada'?'✅ Confirmada':r.status==='recusada'?'❌ Recusada — valor estornado':'⏳ Aguardando arena'}</span>${r.pg?`<span class="badge bB">${r.pg}</span>`:''}${r.valor?`<span class="badge" style="background:#eef0f5;color:#5F5E5A">${r.valor}</span>`:''}</div></div>`).join('') : '<div class="empty"><span>📅</span>Nenhuma reserva ainda.<br>Explore as arenas e reserve uma quadra!</div>'}
-    <div class="stitle">🏅 Compromissos fixos</div>
-    <div class="card" style="cursor:default"><h3>🏅 Liga Terça Mista Open</h3><div class="meta"><span>Toda terça · 19h–21h · Arena Vida Fit</span></div><div style="margin-top:6px"><span class="badge bG">Próxima: Ter 18/08 · Rodada 8</span></div></div>
-    <div class="card" style="cursor:default"><h3>🏅 Liga Seg Masculina</h3><div class="meta"><span>Toda segunda · 20h–22h · Arena Vida Fit</span></div></div>
+    <div class="stitle"><i class="ti ti-ball-tennis"></i> Minhas reservas</div>
+    ${DB.minhasReservas.length? DB.minhasReservas.map(r=>`<div class="card" style="cursor:default"><h3><i class="ti ti-ball-tennis"></i> ${r.det}</h3><div style="margin-top:6px"><span class="badge ${r.status==='confirmada'?'bG':r.status==='recusada'?'bR':'bO'}">${r.status==='confirmada'?'<i class="ti ti-circle-check"></i> Confirmada':r.status==='recusada'?'<i class="ti ti-circle-x"></i> Recusada — valor estornado':'<i class="ti ti-hourglass"></i> Aguardando arena'}</span>${r.pg?`<span class="badge bB">${r.pg}</span>`:''}${r.valor?`<span class="badge" style="background:#eef0f5;color:var(--ink2)">${r.valor}</span>`:''}</div></div>`).join('') : '<div class="empty"><span><i class="ti ti-calendar"></i></span>Nenhuma reserva ainda.<br>Explore as arenas e reserve uma quadra!</div>'}
+    <div class="stitle"><i class="ti ti-medal"></i> Compromissos fixos</div>
+    <div class="card" style="cursor:default"><h3><i class="ti ti-medal"></i> Liga Terça Mista Open</h3><div class="meta"><span>Toda terça · 19h–21h · Arena Vida Fit</span></div><div style="margin-top:6px"><span class="badge bG">Próxima: Ter 18/08 · Rodada 8</span></div></div>
+    <div class="card" style="cursor:default"><h3><i class="ti ti-medal"></i> Liga Seg Masculina</h3><div class="meta"><span>Toda segunda · 20h–22h · Arena Vida Fit</span></div></div>
   </div>`;
 }
 
 function vPPerfil(){
   const m=DB.me; const total=m.won+m.lost; const ap=(m.won/total*100).toFixed(1);
-  return header('👤 Meu Perfil','', false)+`
+  return header('<i class="ti ti-user"></i> Meu Perfil','', false)+`
   <div class="pad">
     <div style="background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:18px;padding:20px;color:#fff;text-align:center;margin-bottom:14px">
       <div style="font-size:2.6em">🧢</div><b style="font-size:1.15em">${m.name}</b>
-      <p style="opacity:.75;font-size:.8em;margin-top:2px">📍 ${m.city} · Ranking cidade <b style="color:var(--org)">#${m.rank}</b></p>
+      <p style="opacity:.75;font-size:.8em;margin-top:2px"><i class="ti ti-map-pin"></i> ${m.city} · Ranking cidade <b style="color:var(--org)">#${m.rank}</b></p>
     </div>
     <div class="stats">
       <div class="stat g"><b>${m.won}</b><span>Games ganhos</span></div>
@@ -743,56 +743,56 @@ function vPPerfil(){
       <div class="stat"><b>${m.ligas}</b><span>Ligas ativas</span></div>
       <div class="stat"><b>${m.torneios}</b><span>Torneios</span></div>
     </div>
-    <div class="stitle">📈 Últimos jogos <a onclick="go('p-historico')">Ver todos →</a></div>
-    ${DB.historico.slice(0,4).map(j=>`<div class="rk" onclick="go('p-historico')"><span class="pos">${j.res==='win'?'✅':'❌'}</span><span class="nm">${j.ev}<small>${j.d} · ${j.arena} · com ${j.par}</small></span><span class="pts" style="color:${j.res==='win'?'#1e8f4e':'#c0392b'}">${j.pl}</span></div>`).join('')}
-    <button class="btn btn-o" onclick="go('p-historico')">📜 Histórico completo de jogos</button>
-    <button class="btn btn-n" onclick="go('p-aulas')">🎓 Minhas aulas</button>
-    <button class="btn btn-n" onclick="go('portal-h2h')">⚔️ Head-to-Head com outro jogador</button>
-    <button class="btn btn-ghost" onclick="S.role=null;nav('splash')">↩️ Trocar de perfil</button>
+    <div class="stitle"><i class="ti ti-trending-up"></i> Últimos jogos <a onclick="go('p-historico')">Ver todos →</a></div>
+    ${DB.historico.slice(0,4).map(j=>`<div class="rk" onclick="go('p-historico')"><span class="pos">${j.res==='win'?'<i class="ti ti-circle-check"></i>':'<i class="ti ti-circle-x"></i>'}</span><span class="nm">${j.ev}<small>${j.d} · ${j.arena} · com ${j.par}</small></span><span class="pts" style="color:${j.res==='win'?'#1e8f4e':'#c0392b'}">${j.pl}</span></div>`).join('')}
+    <button class="btn btn-o" onclick="go('p-historico')"><i class="ti ti-history"></i> Histórico completo de jogos</button>
+    <button class="btn btn-n" onclick="go('p-aulas')"><i class="ti ti-school"></i> Minhas aulas</button>
+    <button class="btn btn-n" onclick="go('portal-h2h')"><i class="ti ti-swords"></i> Head-to-Head com outro jogador</button>
+    <button class="btn btn-ghost" onclick="S.role=null;nav('splash')"><i class="ti ti-arrow-back-up"></i> Trocar de perfil</button>
   </div>`;
 }
 
 function vPMinhasLigas(){
   const minhas=DB.ligas.filter(l=>DB.me.minhasLigas.includes(l.id));
-  return header('🏅 Minhas Ligas','Você está inscrito em '+minhas.length+' ligas')+`
+  return header('<i class="ti ti-medal"></i> Minhas Ligas','Você está inscrito em '+minhas.length+' ligas')+`
   <div class="pad">
     ${minhas.map(l=>{const a=DB.arenas.find(x=>x.id===l.arenaId);return `<div class="card" onclick="go('p-liga',${l.id})">
-      <h3>🏅 ${l.name}</h3>
+      <h3><i class="ti ti-medal"></i> ${l.name}</h3>
       <div class="meta"><span>${a.emoji} ${a.name}</span><span>${l.dia} · ${l.hora}</span><span>${l.cat} · ${l.nivel}</span></div>
       <div style="margin-top:6px"><span class="badge bG">Próxima rodada: ${l.dia} 18/08</span></div>
     </div>`}).join('')}
     <div class="stitle">Quer jogar mais?</div>
-    <button class="btn btn-o" onclick="go('p-ligas')">🔎 Ver todas as ligas da região</button>
+    <button class="btn btn-o" onclick="go('p-ligas')"><i class="ti ti-search"></i> Ver todas as ligas da região</button>
   </div>`;
 }
 function vPLigas(){
-  return header('🔎 Ligas Existentes',DB.ligas.length+' ligas na região')+`
+  return header('<i class="ti ti-search"></i> Ligas Existentes',DB.ligas.length+' ligas na região')+`
   <div class="pad">
     ${DB.ligas.map(l=>{const a=DB.arenas.find(x=>x.id===l.arenaId);const insc=DB.me.minhasLigas.includes(l.id);return `<div class="card" onclick="go('p-liga',${l.id})">
-      <h3>🏅 ${l.name} ${insc?'<span class="badge bG">Inscrito</span>':''}</h3>
+      <h3><i class="ti ti-medal"></i> ${l.name} ${insc?'<span class="badge bG">Inscrito</span>':''}</h3>
       <div class="meta"><span>${a.emoji} ${a.name}</span><span>${l.dia} · ${l.hora}</span><span>${l.preco}</span></div>
       <div class="meta"><span>${l.cat} · ${l.nivel}</span><span style="color:${l.status==='ativa'?'#1e8f4e':'#c97d0a'};font-weight:700">${l.status==='ativa'?'🟢 '+l.vagas:'⏸️ '+l.vagas}</span></div>
     </div>`}).join('')}
   </div>`;
 }
 function vPTorneios(){
-  return header('🏆 Próximos Torneios','Inscrições abertas')+`
+  return header('<i class="ti ti-trophy"></i> Próximos Torneios','Inscrições abertas')+`
   <div class="pad">
     ${DB.torneios.map(t=>{const a=DB.arenas.find(x=>x.id===t.arenaId);return `<div class="card" onclick="go('p-torneio',${t.id})">
-      <h3>🏆 ${t.name}</h3>
-      <div class="meta"><span>${a.emoji} ${a.name}</span><span>📅 ${t.data}</span><span>💰 ${t.premio}</span></div>
+      <h3><i class="ti ti-trophy"></i> ${t.name}</h3>
+      <div class="meta"><span>${a.emoji} ${a.name}</span><span><i class="ti ti-calendar"></i> ${t.data}</span><span><i class="ti ti-coin"></i> ${t.premio}</span></div>
       <div class="meta"><span>Categorias: ${t.cats}</span></div>
       <div style="margin-top:6px"><span class="badge bO">Inscrições ${t.insc}</span><span class="badge bB">${t.preco}</span></div>
     </div>`}).join('')}
   </div>`;
 }
 function vPQuadras(){
-  return header('🎾 Quadras Disponíveis','Reserve e pague pelo app')+`
+  return header('<i class="ti ti-ball-tennis"></i> Quadras Disponíveis','Reserve e pague pelo app')+`
   <div class="pad">
     ${DB.arenas.map(a=>`<div class="card" onclick="go('p-quadra',1)">
       <h3>${a.emoji} ${a.name}</h3>
-      <div class="meta"><span>📍 ${a.dist}</span><span>⭐ ${a.star}</span><span>${a.quadras} quadras</span></div>
-      <div class="meta"><span>🕐 ${a.hours}</span></div>
+      <div class="meta"><span><i class="ti ti-map-pin"></i> ${a.dist}</span><span><i class="ti ti-star"></i> ${a.star}</span><span>${a.quadras} quadras</span></div>
+      <div class="meta"><span><i class="ti ti-clock"></i> ${a.hours}</span></div>
       <div style="margin-top:6px"><span class="badge bG">🟢 Horários livres hoje</span></div>
     </div>`).join('')}
   </div>`;
@@ -800,7 +800,7 @@ function vPQuadras(){
 function vPPontos(){
   const m=DB.me; const total=m.won+m.lost; const ap=(m.won/total*100).toFixed(1);
   const ult=DB.historico.slice(0,5);
-  return header('📊 Minha Pontuação','Games validados pelas arenas')+`
+  return header('<i class="ti ti-chart-bar"></i> Minha Pontuação','Games validados pelas arenas')+`
   <div class="pad">
     <div style="background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:18px;padding:18px;color:#fff;text-align:center;margin-bottom:12px">
       <p style="opacity:.75;font-size:.8em">Ranking da cidade — ${m.city}</p>
@@ -816,15 +816,15 @@ function vPPontos(){
       <div class="stat"><b>${m.ligas}</b><span>Ligas ativas</span></div>
       <div class="stat"><b>${m.torneios}</b><span>Torneios jogados</span></div>
     </div>
-    <div class="al al-g">📈 Cada game validado pela arena vira pontuação no ranking. Registros manuais não pontuam até o adversário confirmar.</div>
+    <div class="al al-g"><i class="ti ti-trending-up"></i> Cada game validado pela arena vira pontuação no ranking. Registros manuais não pontuam até o adversário confirmar.</div>
     <div class="stitle">Últimos resultados</div>
-    ${ult.map(j=>`<div class="rk"><span class="pos">${j.res==='win'?'✅':'❌'}</span><span class="nm">${j.ev}<small>${j.d} · ${j.arena}</small></span><span class="pts" style="color:${j.res==='win'?'#1e8f4e':'#c0392b'}">${j.pl}</span></div>`).join('')}
-    <button class="btn btn-o" onclick="go('p-historico')">📜 Histórico completo</button>
+    ${ult.map(j=>`<div class="rk"><span class="pos">${j.res==='win'?'<i class="ti ti-circle-check"></i>':'<i class="ti ti-circle-x"></i>'}</span><span class="nm">${j.ev}<small>${j.d} · ${j.arena}</small></span><span class="pts" style="color:${j.res==='win'?'#1e8f4e':'#c0392b'}">${j.pl}</span></div>`).join('')}
+    <button class="btn btn-o" onclick="go('p-historico')"><i class="ti ti-history"></i> Histórico completo</button>
   </div>`;
 }
 function vPDados(){
   const m=DB.me;
-  return header('📝 Meus Dados','Cadastro do jogador')+`
+  return header('<i class="ti ti-pencil"></i> Meus Dados','Cadastro do jogador')+`
   <div class="pad">
     <div class="al al-y">🔗 Ao se inscrever numa <b>aula, liga, torneio ou quadra</b>, estes dados são compartilhados automaticamente com o professor ou a arena responsável.</div>
     <div class="stitle">Dados pessoais</div>
@@ -837,7 +837,7 @@ function vPDados(){
     <label class="lbl">UF</label><input class="inp" id="md-uf" value="${m.uf}" maxlength="2">
     <label class="lbl">Nível</label><select class="inp" id="md-nivel">${['Iniciante','Intermediário','Avançado','Open'].map(n=>`<option ${m.nivel===n?'selected':''}>${n}</option>`).join('')}</select>
     <label class="lbl">Lado preferido</label><select class="inp" id="md-lado">${['Direito','Esquerdo','Ambos'].map(n=>`<option ${m.lado===n?'selected':''}>${n}</option>`).join('')}</select>
-    <button class="btn btn-o" onclick="salvarMeusDados()">💾 Salvar alterações</button>
+    <button class="btn btn-o" onclick="salvarMeusDados()"><i class="ti ti-device-floppy"></i> Salvar alterações</button>
   </div>`;
 }
 function salvarMeusDados(){
@@ -853,66 +853,66 @@ function vPHistorico(){
   let jogos = f==='todos' ? DB.historico : DB.historico.filter(j=>j.tipo===f);
   if(dia!=='todas') jogos=jogos.filter(j=>j.d===dia);
   const v=jogos.filter(j=>j.res==='win').length, d=jogos.length-v;
-  const tipoIc={liga:'🏅',torneio:'🏆',rotativo:'🔄',avulso:'🎾'};
-  return header('📜 Histórico de Jogos', DB.historico.length+' partidas registradas')+`
+  const tipoIc={liga:'<i class="ti ti-medal"></i>',torneio:'<i class="ti ti-trophy"></i>',rotativo:'<i class="ti ti-refresh"></i>',avulso:'<i class="ti ti-ball-tennis"></i>'};
+  return header('<i class="ti ti-history"></i> Histórico de Jogos', DB.historico.length+' partidas registradas')+`
   <div class="pad">
     <div class="tabs">
-      ${[['todos','Todos'],['liga','🏅 Ligas'],['torneio','🏆 Torneios'],['rotativo','🔄 Rotativos'],['avulso','🎾 Avulsos']].map(t=>`<div class="tab ${f===t[0]?'on':''}" onclick="setTab('${t[0]}')">${t[1]}</div>`).join('')}
+      ${[['todos','Todos'],['liga','<i class="ti ti-medal"></i> Ligas'],['torneio','<i class="ti ti-trophy"></i> Torneios'],['rotativo','<i class="ti ti-refresh"></i> Rotativos'],['avulso','<i class="ti ti-ball-tennis"></i> Avulsos']].map(t=>`<div class="tab ${f===t[0]?'on':''}" onclick="setTab('${t[0]}')">${t[1]}</div>`).join('')}
     </div>
     <div class="stitle">Filtrar por dia</div>
     <div class="tabs">
       <div class="tab ${dia==='todas'?'on':''}" onclick="S.histDia='todas';render()">Todos os dias</div>
-      ${[...new Set(DB.historico.map(j=>j.d))].map(d=>`<div class="tab ${dia===d?'on':''}" onclick="S.histDia='${d}';render()">📅 ${d}</div>`).join('')}
+      ${[...new Set(DB.historico.map(j=>j.d))].map(d=>`<div class="tab ${dia===d?'on':''}" onclick="S.histDia='${d}';render()"><i class="ti ti-calendar"></i> ${d}</div>`).join('')}
     </div>
     <div class="stats">
       <div class="stat"><b>${jogos.length}</b><span>Jogos</span></div>
       <div class="stat g"><b>${v}</b><span>Vitórias</span></div>
       <div class="stat r"><b>${d}</b><span>Derrotas</span></div>
     </div>
-    <button class="btn btn-o" onclick="go('p-addjogo')" style="margin:2px 0 14px">➕ Registrar jogo manualmente</button>
+    <button class="btn btn-o" onclick="go('p-addjogo')" style="margin:2px 0 14px"><i class="ti ti-plus"></i> Registrar jogo manualmente</button>
     ${jogos.length? jogos.map(j=>`
     <div class="card" style="cursor:default;border-left:4px solid ${j.res==='win'?'var(--grn)':'var(--red)'}">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <h3>${tipoIc[j.tipo]} ${j.ev}</h3>
         <b style="color:${j.res==='win'?'#1e8f4e':'#c0392b'};font-size:1.05em;white-space:nowrap">${j.pl}</b>
       </div>
-      <div class="meta"><span>📅 ${j.d}${j.hora?' · '+j.hora:''}</span><span>📍 ${j.arena}</span></div>
-      <div class="meta"><span>🤝 Parceiro: <b style="color:#456">${j.par}</b></span></div>
-      <div class="meta"><span>⚔️ Adversários: <b style="color:#456">${j.adv}</b></span></div>
-      <div style="margin-top:6px"><span class="badge ${j.res==='win'?'bG':'bR'}">${j.res==='win'?'✅ Vitória':'❌ Derrota'}</span><span class="badge bB">${{liga:'Liga',torneio:'Torneio',rotativo:'Rotativo',avulso:'Avulso'}[j.tipo]}</span>${j.manual?'<span class="badge bP">📝 Manual</span>':'<span class="badge bGy">🏢 Validado pela arena</span>'}</div>
-    </div>`).join('') : '<div class="empty"><span>📜</span>Nenhum jogo deste tipo ainda</div>'}
-    <div class="al al-b">🗄️ Jogos de liga, torneio e rotativo entram sozinhos quando a arena lança o placar (tabela <b>game_records</b>). Jogos avulsos você pode registrar manualmente — eles ganham o selo 📝 e não contam no ranking oficial.</div>
+      <div class="meta"><span><i class="ti ti-calendar"></i> ${j.d}${j.hora?' · '+j.hora:''}</span><span><i class="ti ti-map-pin"></i> ${j.arena}</span></div>
+      <div class="meta"><span><i class="ti ti-heart-handshake"></i> Parceiro: <b style="color:#456">${j.par}</b></span></div>
+      <div class="meta"><span><i class="ti ti-swords"></i> Adversários: <b style="color:#456">${j.adv}</b></span></div>
+      <div style="margin-top:6px"><span class="badge ${j.res==='win'?'bG':'bR'}">${j.res==='win'?'<i class="ti ti-circle-check"></i> Vitória':'<i class="ti ti-circle-x"></i> Derrota'}</span><span class="badge bB">${{liga:'Liga',torneio:'Torneio',rotativo:'Rotativo',avulso:'Avulso'}[j.tipo]}</span>${j.manual?'<span class="badge bP"><i class="ti ti-pencil"></i> Manual</span>':'<span class="badge bGy"><i class="ti ti-building"></i> Validado pela arena</span>'}</div>
+    </div>`).join('') : '<div class="empty"><span><i class="ti ti-history"></i></span>Nenhum jogo deste tipo ainda</div>'}
+    <div class="al al-b">🗄️ Jogos de liga, torneio e rotativo entram sozinhos quando a arena lança o placar (tabela <b>game_records</b>). Jogos avulsos você pode registrar manualmente — eles ganham o selo <i class="ti ti-pencil"></i> e não contam no ranking oficial.</div>
   </div>`;
 }
 
 /* ─── Registro manual de jogo ─── */
 function vPAddJogo(){
-  return header('➕ Registrar Jogo','Jogo avulso · registro manual')+`
+  return header('<i class="ti ti-plus"></i> Registrar Jogo','Jogo avulso · registro manual')+`
   <div class="pad">
-    <div class="fld"><label>📍 Local</label><select id="mj-local">
+    <div class="fld"><label><i class="ti ti-map-pin"></i> Local</label><select id="mj-local">
       ${DB.arenas.map(a=>`<option>${a.name}</option>`).join('')}
       <option>Outro local</option>
     </select></div>
     <div class="fld"><label>Nome do local (se "Outro")</label><input id="mj-local2" placeholder="Ex: Praia do Campeche — quadra pública"></div>
     <div style="display:flex;gap:10px">
-      <div class="fld" style="flex:1"><label>📅 Data</label><input type="date" id="mj-data" value="2026-08-11"></div>
-      <div class="fld" style="flex:1"><label>⏰ Hora</label><input type="time" id="mj-hora" value="19:00"></div>
+      <div class="fld" style="flex:1"><label><i class="ti ti-calendar"></i> Data</label><input type="date" id="mj-data" value="2026-08-11"></div>
+      <div class="fld" style="flex:1"><label><i class="ti ti-alarm"></i> Hora</label><input type="time" id="mj-hora" value="19:00"></div>
     </div>
-    <div class="fld"><label>🤝 Seu parceiro(a) de dupla</label><input id="mj-par" placeholder="Ex: Ana Costa (vazio = jogo de simples)"></div>
+    <div class="fld"><label><i class="ti ti-heart-handshake"></i> Seu parceiro(a) de dupla</label><input id="mj-par" placeholder="Ex: Ana Costa (vazio = jogo de simples)"></div>
     <div style="display:flex;gap:10px">
-      <div class="fld" style="flex:1"><label>⚔️ Adversário 1</label><input id="mj-adv1" placeholder="Ex: Pedro Lima"></div>
-      <div class="fld" style="flex:1"><label>⚔️ Adversário 2</label><input id="mj-adv2" placeholder="Ex: Cris Melo"></div>
+      <div class="fld" style="flex:1"><label><i class="ti ti-swords"></i> Adversário 1</label><input id="mj-adv1" placeholder="Ex: Pedro Lima"></div>
+      <div class="fld" style="flex:1"><label><i class="ti ti-swords"></i> Adversário 2</label><input id="mj-adv2" placeholder="Ex: Cris Melo"></div>
     </div>
-    <div class="fld"><label>🎾 Placar (games)</label>
+    <div class="fld"><label><i class="ti ti-ball-tennis"></i> Placar (games)</label>
       <div style="display:flex;align-items:center;gap:12px">
-        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:#789;font-weight:700">SUA DUPLA</small><input type="number" id="mj-sa" value="6" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
+        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:var(--mut);font-weight:700">SUA DUPLA</small><input type="number" id="mj-sa" value="6" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
         <b style="color:var(--org);font-size:1.2em">×</b>
-        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:#789;font-weight:700">ADVERSÁRIOS</small><input type="number" id="mj-sb" value="4" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
+        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:var(--mut);font-weight:700">ADVERSÁRIOS</small><input type="number" id="mj-sb" value="4" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
       </div>
     </div>
-    <button class="btn btn-o" onclick="salvarJogo()">✅ Salvar no meu histórico</button>
+    <button class="btn btn-o" onclick="salvarJogo()"><i class="ti ti-circle-check"></i> Salvar no meu histórico</button>
     <button class="btn btn-ghost" onclick="back()">Cancelar</button>
-    <div class="al al-y" style="margin-top:12px">📝 Registros manuais recebem um selo próprio e <b>não contam no ranking oficial</b> — só jogos validados pela arena pontuam. Se o adversário também usa o Beachzinho, ele pode confirmar o placar e o jogo vira validado.</div>
+    <div class="al al-y" style="margin-top:12px"><i class="ti ti-pencil"></i> Registros manuais recebem um selo próprio e <b>não contam no ranking oficial</b> — só jogos validados pela arena pontuam. Se o adversário também usa o Beachzinho, ele pode confirmar o placar e o jogo vira validado.</div>
   </div>`;
 }
 function salvarJogo(){
@@ -962,63 +962,63 @@ function vPortal(){
   if(tab==='ranking'){
     const g=S.gen||'M'; const list=g==='M'?DB.itfM:DB.itfF;
     body=`<div class="tabs"><div class="tab ${g==='M'?'on':''}" onclick="S.gen='M';render()">Masculino</div><div class="tab ${g==='F'?'on':''}" onclick="S.gen='F';render()">Feminino</div></div>
-    ${list.map(r=>`<div class="rk"><span class="pos">#${r.p}</span><span class="nm">${r.n} ${r.c}${r.c==='🇧🇷'?'<small style="color:#1e8f4e">Brasil 🎾</small>':''}</span><span class="pts">${r.pts.toLocaleString('pt-BR')} pts</span></div>`).join('')}
+    ${list.map(r=>`<div class="rk"><span class="pos">#${r.p}</span><span class="nm">${r.n} ${r.c}${r.c==='🇧🇷'?'<small style="color:var(--ok)">Brasil <i class="ti ti-ball-tennis"></i></small>':''}</span><span class="pts">${r.pts.toLocaleString('pt-BR')} pts</span></div>`).join('')}
     <div class="al al-b" style="margin-top:10px">📡 Dados carregados automaticamente da nuvem Beachzinho — o ranking e o calendário são atualizados no banco de dados, sem precisar publicar o app.</div>
-    <div class="stitle">📍 Ranking local Beachzinho — Florianópolis</div>
+    <div class="stitle"><i class="ti ti-map-pin"></i> Ranking local Beachzinho — Florianópolis</div>
     ${[['#10','Rafa Martins','412 games'],['#11','Duda Freitas','405 games'],['#12','João Silva 🧢 (você)','398 games'],['#13','Leo Braga','390 games']].map(r=>`<div class="rk" ${r[1].includes('você')?'style="border:2px solid var(--org)"':''}><span class="pos">${r[0]}</span><span class="nm">${r[1]}</span><span class="pts">${r[2]}</span></div>`).join('')}`;
   }
   if(tab==='calend'){
-    body=`<div class="stitle">🌍 Circuito ITF + eventos locais</div>`+DB.calend.map(c=>`<div class="card" style="cursor:default${c.live?';border:2px solid var(--red)':''}"><h3>${c.live?'<span class="dot"></span>':''} ${c.tipo==='itf'?'🌐':'🏖️'} ${c.n}</h3><div class="meta"><span>${c.det}</span></div><div style="margin-top:6px"><span class="badge ${c.tipo==='itf'?'bB':'bO'}">${c.tipo==='itf'?'ITF Oficial':'Arena local'}</span>${c.yt?`<span class="badge bR" style="cursor:pointer" onclick="event.stopPropagation();window.open('${c.yt}','_blank')">${c.live?'🔴 Assistir AO VIVO':'▶️ YouTube'}</span>`:''}</div>${c.yt?`<button class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="window.open('${c.yt}','_blank')">▶️ Onde assistir: YouTube</button>`:''}</div>`).join('');
+    body=`<div class="stitle">🌍 Circuito ITF + eventos locais</div>`+DB.calend.map(c=>`<div class="card" style="cursor:default${c.live?';border:2px solid var(--red)':''}"><h3>${c.live?'<span class="dot"></span>':''} ${c.tipo==='itf'?'<i class="ti ti-world"></i>':'🏖️'} ${c.n}</h3><div class="meta"><span>${c.det}</span></div><div style="margin-top:6px"><span class="badge ${c.tipo==='itf'?'bB':'bO'}">${c.tipo==='itf'?'ITF Oficial':'Arena local'}</span>${c.yt?`<span class="badge bR" style="cursor:pointer" onclick="event.stopPropagation();window.open('${c.yt}','_blank')">${c.live?'🔴 Assistir AO VIVO':'▶️ YouTube'}</span>`:''}</div>${c.yt?`<button class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="window.open('${c.yt}','_blank')">▶️ Onde assistir: YouTube</button>`:''}</div>`).join('');
   }
   if(tab==='news'){
     body=DB.news.map(n=>`<div class="news" onclick="toast('Abrindo notícia completa 📰')"><div class="nimg" style="background:${n.bg}">${n.ic}</div><div class="nbody"><span class="tag">${n.tag}</span><h3>${n.t}</h3><p>${n.p}</p></div></div>`).join('');
   }
   if(tab==='h2h'){ body=h2hBody(); }
-  return `<div class="hd"><button class="back" onclick="${S.role?'back()':'S.role=null;nav(\'splash\')'}">‹</button><h2>🌐 Portal Beach Tennis<span class="sub">Rankings · Calendário · Notícias · H2H</span></h2></div>
+  return `<div class="hd"><button class="back" onclick="${S.role?'back()':'S.role=null;nav(\'splash\')'}">‹</button><h2><i class="ti ti-world"></i> Portal Beach Tennis<span class="sub">Rankings · Calendário · Notícias · H2H</span></h2></div>
   <div class="pad">
     <div class="tabs">
-      ${[['ranking','🏆 Rankings'],['calend','📅 Calendário'],['news','📰 Notícias'],['h2h','⚔️ H2H']].map(t=>`<div class="tab ${tab===t[0]?'on':''}" onclick="setTab('${t[0]}')">${t[1]}</div>`).join('')}
+      ${[['ranking','<i class="ti ti-trophy"></i> Rankings'],['calend','<i class="ti ti-calendar"></i> Calendário'],['news','📰 Notícias'],['h2h','<i class="ti ti-swords"></i> H2H']].map(t=>`<div class="tab ${tab===t[0]?'on':''}" onclick="setTab('${t[0]}')">${t[1]}</div>`).join('')}
     </div>
     ${body}
   </div>`;
 }
 function h2hBody(){
   const d=DB.h2hData; const tot=d.a.v+d.b.v; const pa=(d.a.v/tot*100).toFixed(0);
-  return `<div class="al al-b">⚔️ Compare dois jogadores — vitórias, games e evolução. Vale para atletas ITF e jogadores da plataforma.</div>
+  return `<div class="al al-b"><i class="ti ti-swords"></i> Compare dois jogadores — vitórias, games e evolução. Vale para atletas ITF e jogadores da plataforma.</div>
   <div class="h2h">
     <div class="pl"><div class="av">${d.a.av}</div><b>${d.a.n}</b></div>
     <div class="vs">VS</div>
     <div class="pl"><div class="av">${d.b.av}</div><b>${d.b.n}</b></div>
   </div>
   <div class="card" style="cursor:default">
-    <div style="display:flex;justify-content:space-between;font-size:.85em;font-weight:800;color:var(--navy)"><span style="color:#1e8f4e">${d.a.v} vitórias</span><span>Confrontos</span><span style="color:#c0392b">${d.b.v} vitórias</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:.85em;font-weight:800;color:var(--ink)"><span style="color:var(--ok)">${d.a.v} vitórias</span><span>Confrontos</span><span style="color:var(--bad)">${d.b.v} vitórias</span></div>
     <div class="hbar"><div style="width:${pa}%"></div><div style="width:${100-pa}%"></div></div>
-    <div style="display:flex;justify-content:space-between;font-size:.85em;font-weight:800;color:var(--navy)"><span style="color:#1e8f4e">${d.a.g}</span><span>Games</span><span style="color:#c0392b">${d.b.g}</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:.85em;font-weight:800;color:var(--ink)"><span style="color:var(--ok)">${d.a.g}</span><span>Games</span><span style="color:var(--bad)">${d.b.g}</span></div>
     <div class="hbar"><div style="width:${(d.a.g/(d.a.g+d.b.g)*100).toFixed(0)}%"></div><div style="width:${(d.b.g/(d.a.g+d.b.g)*100).toFixed(0)}%"></div></div>
   </div>
-  <button class="btn btn-ghost" onclick="toast('Busca de jogadores 🔍')">🔍 Comparar outros jogadores</button>`;
+  <button class="btn btn-ghost" onclick="toast('Busca de jogadores 🔍')"><i class="ti ti-search"></i> Comparar outros jogadores</button>`;
 }
 function vPortalH2H(){ S.tab='h2h'; return vPortal(); }
 
 /* ═══════════ TELAS — PEQUENO GRUPO ═══════════ */
 function vGPlanos(){
-  return `<div class="hd"><button class="back" onclick="S.role=null;nav('splash')">‹</button><h2>👥 Pequenos Grupos<span class="sub">Escolha o plano da sua turma</span></h2></div>
+  return `<div class="hd"><button class="back" onclick="S.role=null;nav('splash')">‹</button><h2><i class="ti ti-users"></i> Pequenos Grupos<span class="sub">Escolha o plano da sua turma</span></h2></div>
   <div class="pad">
-    <div class="al al-g">🎾 Para turmas fixas que já jogam toda semana: registre os jogos, tenha ranking interno e histórico — sem precisar de uma arena.</div>
+    <div class="al al-g"><i class="ti ti-ball-tennis"></i> Para turmas fixas que já jogam toda semana: registre os jogos, tenha ranking interno e histórico — sem precisar de uma arena.</div>
     ${DB.planosGrupo.map((p,i)=>`
     <div class="plano ${p.destaque?'hot':''}" onclick="escolherPlano(${i})">
       ${p.destaque?'<span class="tagp">MAIS POPULAR</span>':''}
-      <h3>${i===3?'🏢':'👥'} ${p.n}</h3>
+      <h3>${i===3?'<i class="ti ti-building"></i>':'<i class="ti ti-users"></i>'} ${p.n}</h3>
       <div class="pr">${p.preco}</div>
       <p>${p.desc}</p>
       <div style="margin-top:8px">
         <span class="badge bB">${p.max==='∞'?'Membros ilimitados':'Até '+p.max+' jogadores'}</span>
-        <span class="badge ${i===3?'bO':''}" style="${i===3?'':'background:#eef0f5;color:#5F5E5A'}">${i===3?'Todos os recursos':'1 local fixo'}</span>
+        <span class="badge ${i===3?'bO':''}" style="${i===3?'':'background:#eef0f5;color:var(--ink2)'}">${i===3?'Todos os recursos':'1 local fixo'}</span>
       </div>
     </div>`).join('')}
-    <div class="stitle">📋 O que muda entre Grupo e Arena</div>
+    <div class="stitle"><i class="ti ti-clipboard-list"></i> O que muda entre Grupo e Arena</div>
     <div class="card" style="cursor:default">
-      ${[['Registrar jogos e placares','✅','✅'],['Ranking interno do grupo','✅','✅'],['Portal ITF e notícias','✅','✅'],['Locais cadastrados','1 fixo','Ilimitados'],['Aparecer no Explorar (mapa)','—','✅'],['Locação de quadra (agenda pública)','—','✅'],['Ligas e rotativos abertos ao público','—','✅'],['Torneios com inscrição','—','✅'],['Ranking oficial da cidade','—','✅'],['Leads via WhatsApp','—','✅']].map(r=>`<div style="display:flex;justify-content:space-between;font-size:.82em;padding:6px 0;border-bottom:1px solid #f0f3f8"><span style="color:#456">${r[0]}</span><span style="width:64px;text-align:center;font-weight:700;color:#1e8f4e">${r[1]}</span><span style="width:64px;text-align:center;font-weight:700;color:#444441">${r[2]}</span></div>`).join('')}
+      ${[['Registrar jogos e placares','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Ranking interno do grupo','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Portal ITF e notícias','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Locais cadastrados','1 fixo','Ilimitados'],['Aparecer no Explorar (mapa)','—','<i class="ti ti-circle-check"></i>'],['Locação de quadra (agenda pública)','—','<i class="ti ti-circle-check"></i>'],['Ligas e rotativos abertos ao público','—','<i class="ti ti-circle-check"></i>'],['Torneios com inscrição','—','<i class="ti ti-circle-check"></i>'],['Ranking oficial da cidade','—','<i class="ti ti-circle-check"></i>'],['Leads via WhatsApp','—','<i class="ti ti-circle-check"></i>']].map(r=>`<div style="display:flex;justify-content:space-between;font-size:.82em;padding:6px 0;border-bottom:1px solid #f0f3f8"><span style="color:#456">${r[0]}</span><span style="width:64px;text-align:center;font-weight:700;color:var(--ok)">${r[1]}</span><span style="width:64px;text-align:center;font-weight:700;color:#444441">${r[2]}</span></div>`).join('')}
       <div style="display:flex;justify-content:space-between;font-size:.7em;font-weight:800;color:#99a;padding-top:6px"><span></span><span style="width:64px;text-align:center">GRUPO</span><span style="width:64px;text-align:center">ARENA</span></div>
     </div>
   </div>`;
@@ -1041,27 +1041,27 @@ function rankGrupo(){
 }
 function vGHome(){
   const g=DB.grupo, rk=rankGrupo();
-  return `<div class="hd"><h2>👥 ${g.nome}<span class="sub">${g.plano} · ${g.membros.length}/${g.max} membros</span></h2><span class="ic" onclick="nav('g-plano')" style="cursor:pointer">⚙️</span></div>
+  return `<div class="hd"><h2><i class="ti ti-users"></i> ${g.nome}<span class="sub">${g.plano} · ${g.membros.length}/${g.max} membros</span></h2><span class="ic" onclick="nav('g-plano')" style="cursor:pointer"><i class="ti ti-settings"></i></span></div>
   <div class="pad">
     <div class="live">
-      <div class="lrow"><span>📍 ${g.local}</span></div>
-      <div class="lrow"><span>📅 Próximo jogo</span><b style="color:var(--org)">Ter 18/08 · 20h–22h</b></div>
-      <div class="lrow"><span>🔑 Código de convite</span><b style="color:var(--org);letter-spacing:1px">${g.codigo}</b></div>
+      <div class="lrow"><span><i class="ti ti-map-pin"></i> ${g.local}</span></div>
+      <div class="lrow"><span><i class="ti ti-calendar"></i> Próximo jogo</span><b style="color:var(--org)">Ter 18/08 · 20h–22h</b></div>
+      <div class="lrow"><span><i class="ti ti-key"></i> Código de convite</span><b style="color:var(--org);letter-spacing:1px">${g.codigo}</b></div>
     </div>
-    <button class="btn btn-o" onclick="nav('g-addjogo')">➕ Lançar placar do jogo</button>
+    <button class="btn btn-o" onclick="nav('g-addjogo')"><i class="ti ti-plus"></i> Lançar placar do jogo</button>
     <div style="display:flex;gap:8px;margin:10px 0">
       <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')"><i class="ti ti-world"></i> Portal ITF</button>
       <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')"><i class="ti ti-shopping-cart"></i> Classificados</button>
     </div>
-    <div class="stitle">🏆 Ranking interno <a onclick="nav('g-jogos')">Ver jogos →</a></div>
+    <div class="stitle"><i class="ti ti-trophy"></i> Ranking interno <a onclick="nav('g-jogos')">Ver jogos →</a></div>
     ${rk.slice(0,5).map((m,i)=>`<div class="rk" ${m.n.includes('🧢')?'style="border:2px solid var(--org)"':''}><span class="pos">${['🥇','🥈','🥉','#4','#5'][i]}</span><span class="nm">${m.n}<small>${m.j} jogos · ${m.won} ganhos / ${m.lost} perdidos</small></span><span class="pts">${m.won-m.lost>0?'+':''}${m.won-m.lost}</span></div>`).join('')}
-    <div class="stitle">👥 Membros (${g.membros.length}/${g.max})</div>
+    <div class="stitle"><i class="ti ti-users"></i> Membros (${g.membros.length}/${g.max})</div>
     <div class="card" style="cursor:default">
       <div class="chips">${g.membros.map(m=>`<div class="chip" style="cursor:default">${m}</div>`).join('')}
       ${g.membros.length<g.max?`<div class="chip on" onclick="convidar()">+ Convidar</div>`:''}</div>
-      ${g.membros.length>=g.max?`<div class="al al-y" style="margin:10px 0 0">⚠️ Limite do plano atingido (${g.max}). Faça upgrade para adicionar mais membros.</div>`:''}
+      ${g.membros.length>=g.max?`<div class="al al-y" style="margin:10px 0 0"><i class="ti ti-alert-triangle"></i> Limite do plano atingido (${g.max}). Faça upgrade para adicionar mais membros.</div>`:''}
     </div>
-    <div class="al al-b">🔒 Grupo privado: não aparece no mapa nem no ranking oficial da cidade. Entrada só com o código de convite.</div>
+    <div class="al al-b"><i class="ti ti-lock"></i> Grupo privado: não aparece no mapa nem no ranking oficial da cidade. Entrada só com o código de convite.</div>
   </div>`;
 }
 function convidar(){
@@ -1072,43 +1072,43 @@ function convidar(){
 }
 function vGJogos(){
   const g=DB.grupo;
-  return header('📜 Jogos do Grupo', g.jogos.length+' partidas registradas', false)+`
+  return header('<i class="ti ti-history"></i> Jogos do Grupo', g.jogos.length+' partidas registradas', false)+`
   <div class="pad">
-    <button class="btn btn-o" onclick="nav('g-addjogo')">➕ Lançar placar</button>
+    <button class="btn btn-o" onclick="nav('g-addjogo')"><i class="ti ti-plus"></i> Lançar placar</button>
     <div style="height:8px"></div>
     ${g.jogos.map(j=>`
     <div class="card" style="cursor:default;border-left:4px solid ${j.sa>j.sb?'var(--grn)':'var(--red)'}">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <h3 style="font-size:.88em">${j.a.join(' & ')}</h3><b style="color:#1e8f4e">${j.sa}</b>
+        <h3 style="font-size:.88em">${j.a.join(' & ')}</h3><b style="color:var(--ok)">${j.sa}</b>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-        <h3 style="font-size:.88em">${j.b.join(' & ')}</h3><b style="color:#c0392b">${j.sb}</b>
+        <h3 style="font-size:.88em">${j.b.join(' & ')}</h3><b style="color:var(--bad)">${j.sb}</b>
       </div>
-      <div class="meta" style="margin-top:8px"><span>📅 ${j.d}</span><span>📍 ${g.local.split(' (')[0]}</span></div>
+      <div class="meta" style="margin-top:8px"><span><i class="ti ti-calendar"></i> ${j.d}</span><span><i class="ti ti-map-pin"></i> ${g.local.split(' (')[0]}</span></div>
     </div>`).join('')}
   </div>`;
 }
 function vGAddJogo(){
   const g=DB.grupo;
   const sel=(id,def)=>`<select id="${id}">${g.membros.map((m,i)=>`<option ${i===def?'selected':''}>${m}</option>`).join('')}</select>`;
-  return header('➕ Lançar Placar','Jogo interno do grupo')+`
+  return header('<i class="ti ti-plus"></i> Lançar Placar','Jogo interno do grupo')+`
   <div class="pad">
     <div style="display:flex;gap:10px">
-      <div class="fld" style="flex:1"><label>📅 Data</label><input type="date" id="gj-data" value="2026-08-11"></div>
-      <div class="fld" style="flex:1"><label>⏰ Hora</label><input type="time" id="gj-hora" value="20:00"></div>
+      <div class="fld" style="flex:1"><label><i class="ti ti-calendar"></i> Data</label><input type="date" id="gj-data" value="2026-08-11"></div>
+      <div class="fld" style="flex:1"><label><i class="ti ti-alarm"></i> Hora</label><input type="time" id="gj-hora" value="20:00"></div>
     </div>
     <div class="fld"><label>🔵 Dupla A</label><div style="display:flex;gap:8px">${sel('gj-a1',0)}${sel('gj-a2',1)}</div></div>
     <div class="fld"><label>🔴 Dupla B</label><div style="display:flex;gap:8px">${sel('gj-b1',2)}${sel('gj-b2',3)}</div></div>
-    <div class="fld"><label>🎾 Placar (games)</label>
+    <div class="fld"><label><i class="ti ti-ball-tennis"></i> Placar (games)</label>
       <div style="display:flex;align-items:center;gap:12px">
-        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:#789;font-weight:700">DUPLA A</small><input type="number" id="gj-sa" value="6" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
+        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:var(--mut);font-weight:700">DUPLA A</small><input type="number" id="gj-sa" value="6" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
         <b style="color:var(--org);font-size:1.2em">×</b>
-        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:#789;font-weight:700">DUPLA B</small><input type="number" id="gj-sb" value="4" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
+        <div style="flex:1;text-align:center"><small style="font-size:.72em;color:var(--mut);font-weight:700">DUPLA B</small><input type="number" id="gj-sb" value="4" min="0" style="text-align:center;font-size:1.3em;font-weight:800"></div>
       </div>
     </div>
-    <button class="btn btn-o" onclick="salvarJogoGrupo()">✅ Salvar — atualiza o ranking do grupo</button>
+    <button class="btn btn-o" onclick="salvarJogoGrupo()"><i class="ti ti-circle-check"></i> Salvar — atualiza o ranking do grupo</button>
     <button class="btn btn-ghost" onclick="back()">Cancelar</button>
-    <div class="al al-b" style="margin-top:12px">📊 O placar atualiza o ranking interno na hora e fica visível para todos os ${g.membros.length} membros.</div>
+    <div class="al al-b" style="margin-top:12px"><i class="ti ti-chart-bar"></i> O placar atualiza o ranking interno na hora e fica visível para todos os ${g.membros.length} membros.</div>
   </div>`;
 }
 function salvarJogoGrupo(){
@@ -1124,25 +1124,25 @@ function salvarJogoGrupo(){
 }
 function vGPlano(){
   const g=DB.grupo;
-  return header('⚙️ Meu Plano', g.nome, false)+`
+  return header('<i class="ti ti-settings"></i> Meu Plano', g.nome, false)+`
   <div class="pad">
     <div style="background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:18px;padding:20px;color:#fff;text-align:center;margin-bottom:14px">
-      <div style="font-size:2.2em">👥</div><b style="font-size:1.1em">${g.plano}</b>
+      <div style="font-size:2.2em"><i class="ti ti-users"></i></div><b style="font-size:1.1em">${g.plano}</b>
       <p style="opacity:.75;font-size:.8em;margin-top:4px">${g.membros.length}/${g.max} membros · 1 local fixo · Código ${g.codigo}</p>
     </div>
     <div class="stitle">📏 Regras do plano Grupo</div>
     <div class="card" style="cursor:default"><ul style="margin:0 0 0 18px">
-      <li style="font-size:.85em;color:#456;margin-bottom:7px">👥 Limite de <b>${g.max} jogadores</b> — upgrade libera mais vagas</li>
-      <li style="font-size:.85em;color:#456;margin-bottom:7px">📍 <b>1 local fixo</b> cadastrado (sem agenda pública de locação)</li>
-      <li style="font-size:.85em;color:#456;margin-bottom:7px">🔒 Grupo <b>privado</b> — fora do mapa e da busca; entrada só por convite</li>
-      <li style="font-size:.85em;color:#456;margin-bottom:7px">🏆 Ranking <b>interno</b> — não pontua no ranking oficial da cidade</li>
+      <li style="font-size:.85em;color:#456;margin-bottom:7px"><i class="ti ti-users"></i> Limite de <b>${g.max} jogadores</b> — upgrade libera mais vagas</li>
+      <li style="font-size:.85em;color:#456;margin-bottom:7px"><i class="ti ti-map-pin"></i> <b>1 local fixo</b> cadastrado (sem agenda pública de locação)</li>
+      <li style="font-size:.85em;color:#456;margin-bottom:7px"><i class="ti ti-lock"></i> Grupo <b>privado</b> — fora do mapa e da busca; entrada só por convite</li>
+      <li style="font-size:.85em;color:#456;margin-bottom:7px"><i class="ti ti-trophy"></i> Ranking <b>interno</b> — não pontua no ranking oficial da cidade</li>
       <li style="font-size:.85em;color:#456;margin-bottom:7px">🚫 Sem ligas públicas, rotativos abertos, torneios ou leads comerciais</li>
-      <li style="font-size:.85em;color:#456">🌐 Portal ITF, notícias e H2H liberados para todos os membros</li>
+      <li style="font-size:.85em;color:#456"><i class="ti ti-world"></i> Portal ITF, notícias e H2H liberados para todos os membros</li>
     </ul></div>
-    <button class="btn btn-n" onclick="go('sub-status')">💳 Minha assinatura e cobranças</button>
+    <button class="btn btn-n" onclick="go('sub-status')"><i class="ti ti-credit-card"></i> Minha assinatura e cobranças</button>
     <div class="stitle">⬆️ Fazer upgrade</div>
-    ${DB.planosGrupo.map((p,i)=>p.n===g.plano?'':`<div class="plano ${p.destaque?'hot':''}" onclick="escolherPlano(${i})"><h3>${i===3?'🏢':'👥'} ${p.n} — <span style="color:var(--navy2)">${p.preco}</span></h3><p>${p.max==='∞'?'Membros ilimitados + todos os recursos de arena':'Até '+p.max+' jogadores'} · histórico preservado</p></div>`).join('')}
-    <button class="btn btn-ghost" onclick="S.role=null;nav('splash')">↩️ Trocar de perfil</button>
+    ${DB.planosGrupo.map((p,i)=>p.n===g.plano?'':`<div class="plano ${p.destaque?'hot':''}" onclick="escolherPlano(${i})"><h3>${i===3?'<i class="ti ti-building"></i>':'<i class="ti ti-users"></i>'} ${p.n} — <span style="color:var(--navy2)">${p.preco}</span></h3><p>${p.max==='∞'?'Membros ilimitados + todos os recursos de arena':'Até '+p.max+' jogadores'} · histórico preservado</p></div>`).join('')}
+    <button class="btn btn-ghost" onclick="S.role=null;nav('splash')"><i class="ti ti-arrow-back-up"></i> Trocar de perfil</button>
   </div>`;
 }
 
@@ -1151,37 +1151,37 @@ function vAuth(){
   const dest=S.param||'arena';
   const tab=S.tab||'cadastro';
   const p = dest==='grupo' ? DB.planosGrupo[S.pendingPlan??1] : DB.planosGrupo[3];
-  return header('🔐 Acesso '+(dest==='grupo'?'do Grupo':'da Arena'), 'Plano escolhido: '+p.n+' · '+p.preco)+`
+  return header('<i class="ti ti-lock"></i> Acesso '+(dest==='grupo'?'do Grupo':'da Arena'), 'Plano escolhido: '+p.n+' · '+p.preco)+`
   <div class="pad">
     <div class="tabs">
-      <div class="tab ${tab==='cadastro'?'on':''}" onclick="setTab('cadastro')">✨ Criar conta</div>
+      <div class="tab ${tab==='cadastro'?'on':''}" onclick="setTab('cadastro')"><i class="ti ti-sparkles"></i> Criar conta</div>
       <div class="tab ${tab==='login'?'on':''}" onclick="setTab('login')">Já tenho conta</div>
     </div>
     ${tab==='cadastro'?`
-    <div class="fld"><label>${dest==='grupo'?'👥 Nome do grupo':'🏢 Nome da arena'}</label><input placeholder="${dest==='grupo'?'Ex: Turma da Terça':'Ex: Arena Vida Fit'}"></div>
-    <div class="fld"><label>👤 Seu nome (responsável)</label><input placeholder="Nome completo"></div>
-    <div class="fld"><label>📧 E-mail</label><input type="email" placeholder="voce@email.com"></div>
-    <div class="fld"><label>💬 WhatsApp</label><input placeholder="(48) 9 9999-9999"></div>
-    <div class="fld"><label>🔒 Senha</label><input type="password" placeholder="Mínimo 8 caracteres"></div>`:`
-    <div class="fld"><label>📧 E-mail</label><input type="email" id="lg-email" placeholder="voce@email.com"></div>
-    <div class="fld"><label>🔒 Senha</label><input type="password" id="lg-senha" placeholder="Sua senha"></div>
+    <div class="fld"><label>${dest==='grupo'?'<i class="ti ti-users"></i> Nome do grupo':'<i class="ti ti-building"></i> Nome da arena'}</label><input placeholder="${dest==='grupo'?'Ex: Turma da Terça':'Ex: Arena Vida Fit'}"></div>
+    <div class="fld"><label><i class="ti ti-user"></i> Seu nome (responsável)</label><input placeholder="Nome completo"></div>
+    <div class="fld"><label><i class="ti ti-mail"></i> E-mail</label><input type="email" placeholder="voce@email.com"></div>
+    <div class="fld"><label><i class="ti ti-message-circle"></i> WhatsApp</label><input placeholder="(48) 9 9999-9999"></div>
+    <div class="fld"><label><i class="ti ti-lock"></i> Senha</label><input type="password" placeholder="Mínimo 8 caracteres"></div>`:`
+    <div class="fld"><label><i class="ti ti-mail"></i> E-mail</label><input type="email" id="lg-email" placeholder="voce@email.com"></div>
+    <div class="fld"><label><i class="ti ti-lock"></i> Senha</label><input type="password" id="lg-senha" placeholder="Sua senha"></div>
     <div class="al al-b">🎭 <b>Acesso de demonstração:</b> use o e-mail e a senha que você recebeu para explorar o app completo.</div>`}
     <button class="btn btn-o" onclick="${tab==='cadastro'?`go('auth-verif','${dest}')`:`loginDemo()`}">${tab==='cadastro'?'Criar conta → Verificar':'Entrar'}</button>
     <button class="btn btn-ghost" onclick="toast('Login Google simulado 🔑');go('sub-checkout','${dest}')">🔴 Continuar com Google</button>
-    <div class="al al-b" style="margin-top:12px">🔒 No app real: Supabase Auth — e-mail verificado, recuperação de senha e login Google/telefone já prontos, sem custo extra.</div>
+    <div class="al al-b" style="margin-top:12px"><i class="ti ti-lock"></i> No app real: Supabase Auth — e-mail verificado, recuperação de senha e login Google/telefone já prontos, sem custo extra.</div>
   </div>`;
 }
 function vAuthVerif(){
   const dest=S.param||'arena';
-  return header('📨 Verifique sua conta','Enviamos um código para você')+`
+  return header('<i class="ti ti-send"></i> Verifique sua conta','Enviamos um código para você')+`
   <div class="pad">
-    <div class="al al-b">🔐 Para confirmar sua identidade, enviamos um <b>código de 6 dígitos</b> para o seu e-mail (e por SMS, se cadastrado). Digite abaixo.</div>
+    <div class="al al-b"><i class="ti ti-lock"></i> Para confirmar sua identidade, enviamos um <b>código de 6 dígitos</b> para o seu e-mail (e por SMS, se cadastrado). Digite abaixo.</div>
     <div class="fld"><label>🔢 Código de verificação</label><input id="av-cod" placeholder="000000" style="text-align:center;font-size:1.4em;letter-spacing:8px"></div>
     <div class="al al-b">🧪 <b>Demonstração:</b> a validação está desligada — toque em Confirmar para continuar (no app real o código será exigido).</div>
-    <button class="btn btn-o" onclick="authVerificar('${dest}')">✅ Confirmar código</button>
+    <button class="btn btn-o" onclick="authVerificar('${dest}')"><i class="ti ti-circle-check"></i> Confirmar código</button>
     <button class="btn btn-ghost" onclick="toast('Novo código enviado 📨')">Reenviar código</button>
     <button class="btn btn-ghost" onclick="back()">← Voltar</button>
-    <div class="al al-b" style="margin-top:12px">💡 No app real: Supabase Auth envia o código por e-mail (grátis) ou SMS/WhatsApp (via Twilio). Sem confirmação, a conta não é ativada.</div>
+    <div class="al al-b" style="margin-top:12px"><i class="ti ti-bulb"></i> No app real: Supabase Auth envia o código por e-mail (grátis) ou SMS/WhatsApp (via Twilio). Sem confirmação, a conta não é ativada.</div>
   </div>`;
 }
 function authVerificar(dest){
@@ -1196,7 +1196,7 @@ function loginDemo(){
   const s=(document.getElementById('lg-senha')||{value:''}).value;
   if(e==='demo@beachzinho.app' && s==='beach123'){
     S.demo=true; DB.classif.cadastroCompleto=true; try{localStorage.setItem('bz-demo','1');}catch(e){}
-    DB.assinatura={plano:'Arena Pro', preco:'R$ 149/mês', dest:'arena', metodo:'💳 Cartão •••• 4242 (demo)', status:'ativa', venc:'11/09/26', log:['11/08 ✅ Conta demo ativada — acesso completo liberado']};
+    DB.assinatura={plano:'Arena Pro', preco:'R$ 149/mês', dest:'arena', metodo:'<i class="ti ti-credit-card"></i> Cartão •••• 4242 (demo)', status:'ativa', venc:'11/09/26', log:['11/08 <i class="ti ti-circle-check"></i> Conta demo ativada — acesso completo liberado']};
     const dest=S.param;
     if(dest==='arena'){ S.role='arena'; toast('Bem-vindo! Gerencial da arena 🎭'); nav('a-dash'); }
     else if(dest==='grupo'){ S.role='grupo'; DB.grupo.plano=DB.planosGrupo[S.pendingPlan??1].n; toast('Bem-vindo! Área do grupo 🎭'); nav('g-home'); }
@@ -1210,54 +1210,54 @@ function vSubCheckout(){
   const p = dest==='grupo' ? DB.planosGrupo[S.pendingPlan??1] : DB.planosGrupo[3];
   const gratis = p.preco==='Grátis';
   const pay=S.pay||'card';
-  return header('💳 Assinatura','Checkout seguro')+`
+  return header('<i class="ti ti-credit-card"></i> Assinatura','Checkout seguro')+`
   <div class="pad">
     <div class="plano hot" style="cursor:default">
-      <h3>${dest==='grupo'?'👥':'🏢'} ${p.n}</h3>
+      <h3>${dest==='grupo'?'<i class="ti ti-users"></i>':'<i class="ti ti-building"></i>'} ${p.n}</h3>
       <div class="pr">${p.preco}</div>
       <p>${p.desc}</p>
       <div style="margin-top:6px"><span class="badge bB">${p.max==='∞'?'Membros ilimitados':'Até '+p.max+' jogadores'}</span><span class="badge bG">Cancele quando quiser</span></div>
     </div>
     ${gratis?`<div class="al al-g">🎁 Plano gratuito — sem cartão e sem cobrança. Faça upgrade quando o grupo crescer.</div>`:`
     <div class="card" style="cursor:default">
-      <h3>💳 Forma de pagamento</h3>
+      <h3><i class="ti ti-credit-card"></i> Forma de pagamento</h3>
       <div class="chips" style="margin-top:10px">
-        <div class="chip ${pay==='card'?'on':''}" onclick="S.pay='card';render()">💳 Cartão — renova sozinho</div>
-        <div class="chip ${pay==='pix'?'on':''}" onclick="S.pay='pix';render()">⚡ Pix — link por ciclo</div>
+        <div class="chip ${pay==='card'?'on':''}" onclick="S.pay='card';render()"><i class="ti ti-credit-card"></i> Cartão — renova sozinho</div>
+        <div class="chip ${pay==='pix'?'on':''}" onclick="S.pay='pix';render()"><i class="ti ti-bolt"></i> Pix — link por ciclo</div>
       </div>
-      <p style="font-size:.78em;color:#789;margin-top:10px">${pay==='card'?'💳 Renovação automática todo mês. Você recebe aviso por e-mail antes de cada cobrança.':'⚡ Todo mês o link Pix chega por e-mail e WhatsApp, 7 dias antes do vencimento.'}</p>
+      <p style="font-size:.78em;color:var(--mut);margin-top:10px">${pay==='card'?'<i class="ti ti-credit-card"></i> Renovação automática todo mês. Você recebe aviso por e-mail antes de cada cobrança.':'<i class="ti ti-bolt"></i> Todo mês o link Pix chega por e-mail e WhatsApp, 7 dias antes do vencimento.'}</p>
       ${pay==='card'?`<div class="fld" style="margin-top:10px"><label>Número do cartão</label><input placeholder="0000 0000 0000 0000"></div>
       <div style="display:flex;gap:10px"><div class="fld" style="flex:1"><label>Validade</label><input placeholder="MM/AA"></div><div class="fld" style="flex:1"><label>CVV</label><input placeholder="123"></div></div>`:''}
     </div>`}
-    <button class="btn btn-o" onclick="assinar('${dest}','${pay}')">${gratis?'✅ Ativar plano grátis':'✅ Assinar — '+p.preco}</button>
+    <button class="btn btn-o" onclick="assinar('${dest}','${pay}')">${gratis?'<i class="ti ti-circle-check"></i> Ativar plano grátis':'<i class="ti ti-circle-check"></i> Assinar — '+p.preco}</button>
     <button class="btn btn-ghost" onclick="back()">← Voltar</button>
-    <div class="al al-b" style="margin-top:12px">🔒 Pagamento simulado no protótipo. No app real: gateway (Asaas / Mercado Pago / Stripe) — o webhook de "pagamento aprovado" ativa o plano automaticamente, sem ação manual.</div>
+    <div class="al al-b" style="margin-top:12px"><i class="ti ti-lock"></i> Pagamento simulado no protótipo. No app real: gateway (Asaas / Mercado Pago / Stripe) — o webhook de "pagamento aprovado" ativa o plano automaticamente, sem ação manual.</div>
   </div>`;
 }
 function assinar(dest, pay){
   const p = dest==='grupo' ? DB.planosGrupo[S.pendingPlan??1] : DB.planosGrupo[3];
   const gratis = p.preco==='Grátis';
   DB.assinatura={plano:p.n, preco:p.preco, dest,
-    metodo: gratis?'—':(pay==='pix'?'⚡ Pix (link por ciclo)':'💳 Cartão •••• 4242'),
+    metodo: gratis?'—':(pay==='pix'?'<i class="ti ti-bolt"></i> Pix (link por ciclo)':'<i class="ti ti-credit-card"></i> Cartão •••• 4242'),
     status:'ativa', venc:'11/09/26',
-    log: gratis?['02/07 📧 Boas-vindas enviado — plano grátis ativo']:['02/07 ✅ Pagamento aprovado via webhook — '+p.preco,'02/07 📧 E-mail de boas-vindas + recibo enviado']};
+    log: gratis?['02/07 <i class="ti ti-mail"></i> Boas-vindas enviado — plano grátis ativo']:['02/07 <i class="ti ti-circle-check"></i> Pagamento aprovado via webhook — '+p.preco,'02/07 <i class="ti ti-mail"></i> E-mail de boas-vindas + recibo enviado']};
   if(dest==='grupo'){ DB.grupo.plano=p.n; DB.grupo.max=p.max==='∞'?99:p.max; S.role='grupo'; nav('g-home'); }
   else { S.role='arena'; nav('a-dash'); }
   toast(gratis?'Conta criada! Plano grátis ativo 🎉':'Assinatura ativa! Bem-vindo 🎉');
 }
 function vSubStatus(){
-  if(!DB.assinatura) DB.assinatura={plano:S.role==='grupo'?DB.grupo.plano:'Arena Pro',preco:S.role==='grupo'?'R$ 29/mês':'R$ 149/mês',dest:S.role==='grupo'?'grupo':'arena',metodo:'💳 Cartão •••• 4242',status:'ativa',venc:'11/09/26',log:['02/07 ✅ Pagamento aprovado — assinatura ativa','02/07 📧 Recibo enviado por e-mail']};
+  if(!DB.assinatura) DB.assinatura={plano:S.role==='grupo'?DB.grupo.plano:'Arena Pro',preco:S.role==='grupo'?'R$ 29/mês':'R$ 149/mês',dest:S.role==='grupo'?'grupo':'arena',metodo:'<i class="ti ti-credit-card"></i> Cartão •••• 4242',status:'ativa',venc:'11/09/26',log:['02/07 <i class="ti ti-circle-check"></i> Pagamento aprovado — assinatura ativa','02/07 <i class="ti ti-mail"></i> Recibo enviado por e-mail']};
   const a=DB.assinatura;
   const st={ativa:['🟢 Ativa','bG','Próxima cobrança em '+a.venc],d3:['🟡 Vence em 3 dias','bO','Renove até '+a.venc+' para não perder o acesso'],vencida:['🔴 Vencida','bR','Pagamento em atraso — acesso será limitado em 4 dias'],rebaixada:['⚪ Rebaixada p/ grátis','bGy','Dados preservados. Reative quando quiser']}[a.status];
-  const etapas=[['D-7','📧 E-mail + push: lembrete de renovação'],['D-3','📧 E-mail + 💬 WhatsApp com link de pagamento'],['D0','💳 Cobrança automática (cartão) ou vencimento do Pix'],['D+3','⚠️ Aviso de atraso por e-mail e WhatsApp'],['D+7','⚪ Conta rebaixada para o plano grátis (dados preservados)']];
+  const etapas=[['D-7','<i class="ti ti-mail"></i> E-mail + push: lembrete de renovação'],['D-3','<i class="ti ti-mail"></i> E-mail + <i class="ti ti-message-circle"></i> WhatsApp com link de pagamento'],['D0','<i class="ti ti-credit-card"></i> Cobrança automática (cartão) ou vencimento do Pix'],['D+3','<i class="ti ti-alert-triangle"></i> Aviso de atraso por e-mail e WhatsApp'],['D+7','⚪ Conta rebaixada para o plano grátis (dados preservados)']];
   const idx={ativa:0,d3:1,vencida:3,rebaixada:4}[a.status];
-  return header('💳 Minha Assinatura', a.plano+' · '+a.preco, false)+`
+  return header('<i class="ti ti-credit-card"></i> Minha Assinatura', a.plano+' · '+a.preco, false)+`
   <div class="pad">
     <div class="card" style="cursor:default">
       <div style="display:flex;justify-content:space-between;align-items:center"><h3>${a.plano}</h3><span class="badge ${st[1]}">${st[0]}</span></div>
-      <div class="meta"><span>💰 ${a.preco}</span><span>${a.metodo}</span></div>
+      <div class="meta"><span><i class="ti ti-coin"></i> ${a.preco}</span><span>${a.metodo}</span></div>
       <div class="meta"><span>${st[2]}</span></div>
-      ${a.status==='vencida'||a.status==='rebaixada'?`<button class="btn btn-o" onclick="DB.assinatura.status='ativa';DB.assinatura.venc='11/10/26';DB.assinatura.log.unshift('hoje ✅ Pagamento recebido — plano reativado');toast('Plano reativado! 🎉');render()">💳 Pagar agora e reativar</button>`:''}
+      ${a.status==='vencida'||a.status==='rebaixada'?`<button class="btn btn-o" onclick="DB.assinatura.status='ativa';DB.assinatura.venc='11/10/26';DB.assinatura.log.unshift('hoje <i class="ti ti-circle-check"></i> Pagamento recebido — plano reativado');toast('Plano reativado! 🎉');render()"><i class="ti ti-credit-card"></i> Pagar agora e reativar</button>`:''}
     </div>
     <div class="stitle">📏 Régua de cobrança automática</div>
     <div class="card" style="cursor:default">
@@ -1266,32 +1266,32 @@ function vSubStatus(){
     <button class="btn btn-n" onclick="simTempo()">⏩ Simular passagem do tempo (demo)</button>
     <div class="stitle">📬 Comunicações enviadas (automáticas)</div>
     ${a.log.map(l=>`<div class="rk" style="font-size:.85em"><span class="nm" style="font-weight:500">${l}</span></div>`).join('')}
-    <button class="btn btn-ghost" onclick="go('g-planos')">🔁 Trocar de plano</button>
+    <button class="btn btn-ghost" onclick="go('g-planos')"><i class="ti ti-repeat"></i> Trocar de plano</button>
     <button class="btn btn-ghost" onclick="toast('Assinatura será cancelada ao fim do ciclo 😢')">Cancelar assinatura</button>
   </div>`;
 }
 function simTempo(){
   const a=DB.assinatura; if(!a) return;
-  if(a.status==='ativa'){ a.status='d3'; a.log.unshift('30/07 📧 Lembrete automático: assinatura vence em 3 dias','30/07 💬 WhatsApp: link de pagamento enviado'); toast('⏩ 27 dias depois... lembretes disparados'); }
-  else if(a.status==='d3'){ a.status='vencida'; a.log.unshift('02/08 💳 Cobrança automática falhou (cartão recusado)','05/08 ⚠️ E-mail + WhatsApp: pagamento em atraso'); toast('⏩ Venceu — avisos de atraso enviados'); }
+  if(a.status==='ativa'){ a.status='d3'; a.log.unshift('30/07 <i class="ti ti-mail"></i> Lembrete automático: assinatura vence em 3 dias','30/07 <i class="ti ti-message-circle"></i> WhatsApp: link de pagamento enviado'); toast('⏩ 27 dias depois... lembretes disparados'); }
+  else if(a.status==='d3'){ a.status='vencida'; a.log.unshift('02/08 <i class="ti ti-credit-card"></i> Cobrança automática falhou (cartão recusado)','05/08 <i class="ti ti-alert-triangle"></i> E-mail + WhatsApp: pagamento em atraso'); toast('⏩ Venceu — avisos de atraso enviados'); }
   else if(a.status==='vencida'){ a.status='rebaixada'; a.log.unshift('09/08 ⚪ Conta rebaixada para o plano grátis — dados preservados'); toast('⏩ 7 dias de atraso — conta rebaixada'); }
-  else { a.status='ativa'; a.venc='11/10/26'; a.log.unshift('10/08 ✅ Pagamento recebido — plano reativado com todo o histórico'); toast('✅ Pagou — tudo reativado!'); }
+  else { a.status='ativa'; a.venc='11/10/26'; a.log.unshift('10/08 <i class="ti ti-circle-check"></i> Pagamento recebido — plano reativado com todo o histórico'); toast('✅ Pagou — tudo reativado!'); }
   render();
 }
 
 /* ═══════════ TELAS — CLASSIFICADOS ═══════════ */
 function clDicas(){
-  return `<div class="al al-y"><b>⚠️ O Beachzinho não se responsabiliza</b> pela negociação, pagamento, entrega ou estado dos produtos anunciados. A compra é feita diretamente entre as partes.<br><br><b>🛡️ Dicas de segurança:</b><br>• Negocie e encontre em local público e movimentado<br>• Inspecione e teste o produto antes de pagar<br>• Nunca pague adiantado a desconhecidos<br>• Desconfie de preços muito abaixo do mercado</div>`;
+  return `<div class="al al-y"><b><i class="ti ti-alert-triangle"></i> O Beachzinho não se responsabiliza</b> pela negociação, pagamento, entrega ou estado dos produtos anunciados. A compra é feita diretamente entre as partes.<br><br><b><i class="ti ti-shield"></i> Dicas de segurança:</b><br>• Negocie e encontre em local público e movimentado<br>• Inspecione e teste o produto antes de pagar<br>• Nunca pague adiantado a desconhecidos<br>• Desconfie de preços muito abaixo do mercado</div>`;
 }
 function vClHome(){
   const c=DB.classif;
   const cats=['Todas','Raquetes','Bolinhas','Vestuário','Acessórios','Equipamentos'];
   const regs=['Todas','Sul','Sudeste','Centro-Oeste','Nordeste','Norte'];
   const itens=c.itens.filter(i=>(c.fCat==='Todas'||i.cat===c.fCat)&&(c.fReg==='Todas'||i.reg===c.fReg)&&i.dias<20);
-  return header('🛒 Classificados','Usados do meio esportivo · anúncios de 20 dias')+`
+  return header('<i class="ti ti-shopping-cart"></i> Classificados','Usados do meio esportivo · anúncios de 20 dias')+`
   <div class="pad">
-    <button class="btn btn-o" onclick="clAnunciar()">➕ Anunciar um item</button>
-    <button class="btn btn-ghost" onclick="go('cl-meus')">📦 Meus anúncios (${DB.classif.meus.length})</button>
+    <button class="btn btn-o" onclick="clAnunciar()"><i class="ti ti-plus"></i> Anunciar um item</button>
+    <button class="btn btn-ghost" onclick="go('cl-meus')"><i class="ti ti-package"></i> Meus anúncios (${DB.classif.meus.length})</button>
     <div class="stitle">Categoria</div>
     <div class="tabs">${cats.map(x=>`<div class="tab ${c.fCat===x?'on':''}" onclick="DB.classif.fCat='${x}';render()">${x}</div>`).join('')}</div>
     <div class="stitle">Região</div>
@@ -1301,26 +1301,26 @@ function vClHome(){
       <div style="display:flex;gap:12px;align-items:center">
         <span style="font-size:2em">${i.ic}</span>
         <span style="flex:1"><h3>${i.t}</h3>
-        <div class="meta"><span>📍 ${i.cid}/${i.uf}</span><span>${i.cond}</span><span style="color:#c97d0a">⏳ ${20-i.dias} dias restantes</span></div></span>
-        <b style="color:#1e8f4e;white-space:nowrap">${i.preco}</b>
+        <div class="meta"><span><i class="ti ti-map-pin"></i> ${i.cid}/${i.uf}</span><span>${i.cond}</span><span style="color:var(--warn)"><i class="ti ti-hourglass"></i> ${20-i.dias} dias restantes</span></div></span>
+        <b style="color:var(--ok);white-space:nowrap">${i.preco}</b>
       </div>
-    </div>`).join('') : '<div class="empty"><span>🛒</span>Nenhum anúncio com esses filtros</div>'}
-    <div class="al al-b">📋 Somente itens do meio esportivo. Anúncios expiram em <b>20 dias</b> e precisam ser republicados pelo vendedor.</div>
+    </div>`).join('') : '<div class="empty"><span><i class="ti ti-shopping-cart"></i></span>Nenhum anúncio com esses filtros</div>'}
+    <div class="al al-b"><i class="ti ti-clipboard-list"></i> Somente itens do meio esportivo. Anúncios expiram em <b>20 dias</b> e precisam ser republicados pelo vendedor.</div>
   </div>`;
 }
 function vClItem(){
   const i=DB.classif.itens.find(x=>x.id===S.param)||DB.classif.itens[0];
-  return header('🛒 '+i.t, i.cat+' · '+i.cond)+`
+  return header('<i class="ti ti-shopping-cart"></i> '+i.t, i.cat+' · '+i.cond)+`
   <div class="pad">
     <div style="background:linear-gradient(135deg,#e8eef8,#d5e2f2);border-radius:16px;height:150px;display:flex;align-items:center;justify-content:center;font-size:4em;margin-bottom:14px">${i.ic}</div>
     <div class="card" style="cursor:default">
-      <div style="display:flex;justify-content:space-between;align-items:center"><h3>${i.t}</h3><b style="color:#1e8f4e;font-size:1.2em">${i.preco}</b></div>
-      <div class="meta"><span>🏷️ ${i.cat}</span><span>${i.cond}</span></div>
-      <div class="meta"><span>📍 ${i.cid}/${i.uf} — região ${i.reg}</span></div>
-      <div class="meta"><span>👤 Vendedor: ${i.vend}</span><span style="color:#c97d0a">⏳ expira em ${20-i.dias} dias</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center"><h3>${i.t}</h3><b style="color:var(--ok);font-size:1.2em">${i.preco}</b></div>
+      <div class="meta"><span><i class="ti ti-tag"></i> ${i.cat}</span><span>${i.cond}</span></div>
+      <div class="meta"><span><i class="ti ti-map-pin"></i> ${i.cid}/${i.uf} — região ${i.reg}</span></div>
+      <div class="meta"><span><i class="ti ti-user"></i> Vendedor: ${i.vend}</span><span style="color:var(--warn)"><i class="ti ti-hourglass"></i> expira em ${20-i.dias} dias</span></div>
     </div>
     ${clDicas()}
-    <button class="btn btn-g" onclick="toast('Abrindo WhatsApp do vendedor 💬')">💬 Falar com o vendedor no WhatsApp</button>
+    <button class="btn btn-g" onclick="toast('Abrindo WhatsApp do vendedor 💬')"><i class="ti ti-message-circle"></i> Falar com o vendedor no WhatsApp</button>
     <button class="btn btn-ghost" onclick="toast('Anúncio denunciado — obrigado! 🛡️')">🚩 Denunciar anúncio</button>
   </div>`;
 }
@@ -1330,20 +1330,20 @@ function clAnunciar(){
 }
 function vClCadastro(){
   const c=DB.classif;
-  return header('🔐 Cadastro Completo','Obrigatório para anunciar')+`
+  return header('<i class="ti ti-lock"></i> Cadastro Completo','Obrigatório para anunciar')+`
   <div class="pad">
-    <div class="al al-b">🛡️ Para a segurança de todos, só usuários com cadastro completo e verificado podem anunciar nos Classificados.</div>
-    <div class="fld"><label>👤 Nome completo</label><input placeholder="Seu nome completo"></div>
-    <div class="fld"><label>💬 WhatsApp</label><input placeholder="(48) 9 9999-9999"></div>
+    <div class="al al-b"><i class="ti ti-shield"></i> Para a segurança de todos, só usuários com cadastro completo e verificado podem anunciar nos Classificados.</div>
+    <div class="fld"><label><i class="ti ti-user"></i> Nome completo</label><input placeholder="Seu nome completo"></div>
+    <div class="fld"><label><i class="ti ti-message-circle"></i> WhatsApp</label><input placeholder="(48) 9 9999-9999"></div>
     <div style="display:flex;gap:10px">
-      <div class="fld" style="flex:2"><label>📍 Cidade</label><input placeholder="Sua cidade"></div>
+      <div class="fld" style="flex:2"><label><i class="ti ti-map-pin"></i> Cidade</label><input placeholder="Sua cidade"></div>
       <div class="fld" style="flex:1"><label>UF</label><input placeholder="SC"></div>
     </div>
     ${!c.codEnviado?`
-    <button class="btn btn-o" onclick="DB.classif.codEnviado=true;toast('Código enviado por e-mail e SMS 📨');render()">📨 Enviar código de verificação</button>
+    <button class="btn btn-o" onclick="DB.classif.codEnviado=true;toast('Código enviado por e-mail e SMS 📨');render()"><i class="ti ti-send"></i> Enviar código de verificação</button>
     <div class="al al-b" style="margin-top:10px">Enviaremos um código de 6 dígitos por e-mail (ou SMS) para confirmar sua identidade.</div>`:`
     <div class="fld"><label>🔢 Código recebido (6 dígitos)</label><input id="cl-cod" placeholder="000000" style="text-align:center;font-size:1.3em;letter-spacing:6px"></div>
-    <button class="btn btn-o" onclick="clConfirmar()">✅ Confirmar código</button>
+    <button class="btn btn-o" onclick="clConfirmar()"><i class="ti ti-circle-check"></i> Confirmar código</button>
     <button class="btn btn-ghost" onclick="toast('Novo código enviado 📨')">Reenviar código</button>`}
   </div>`;
 }
@@ -1354,16 +1354,16 @@ function clConfirmar(){
   toast('Cadastro verificado! ✅'); go('cl-novo');
 }
 function vClNovo(){
-  return header('➕ Novo Anúncio','Válido por 20 dias')+`
+  return header('<i class="ti ti-plus"></i> Novo Anúncio','Válido por 20 dias')+`
   <div class="pad">
-    <div class="fld"><label>📦 Título do anúncio</label><input id="cn-t" placeholder="Ex: Raquete Shark Black One"></div>
-    <div class="fld"><label>🏷️ Categoria (somente itens esportivos)</label><div class="chips" id="cn-cat">${['Raquetes','Bolinhas','Vestuário','Acessórios','Equipamentos'].map((c,i)=>`<div class="chip ${i===0?'on':''}" onclick="this.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${c}</div>`).join('')}</div></div>
+    <div class="fld"><label><i class="ti ti-package"></i> Título do anúncio</label><input id="cn-t" placeholder="Ex: Raquete Shark Black One"></div>
+    <div class="fld"><label><i class="ti ti-tag"></i> Categoria (somente itens esportivos)</label><div class="chips" id="cn-cat">${['Raquetes','Bolinhas','Vestuário','Acessórios','Equipamentos'].map((c,i)=>`<div class="chip ${i===0?'on':''}" onclick="this.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${c}</div>`).join('')}</div></div>
     <div style="display:flex;gap:10px">
-      <div class="fld" style="flex:1"><label>💰 Preço</label><input id="cn-p" placeholder="R$ 0,00"></div>
+      <div class="fld" style="flex:1"><label><i class="ti ti-coin"></i> Preço</label><input id="cn-p" placeholder="R$ 0,00"></div>
       <div class="fld" style="flex:1"><label>Condição</label><select><option>Novo</option><option>Seminovo</option><option>Usado</option></select></div>
     </div>
     <div style="display:flex;gap:10px">
-      <div class="fld" style="flex:2"><label>📍 Cidade</label><input placeholder="Sua cidade"></div>
+      <div class="fld" style="flex:2"><label><i class="ti ti-map-pin"></i> Cidade</label><input placeholder="Sua cidade"></div>
       <div class="fld" style="flex:1"><label>UF</label><input placeholder="SC"></div>
     </div>
     <div class="fld"><label>📷 Fotos</label><button class="btn btn-ghost" style="margin-top:0" onclick="toast('Upload de fotos no app real 📷')">+ Adicionar fotos</button></div>
@@ -1374,7 +1374,7 @@ function vClNovo(){
         <span style="font-size:.83em;color:#456">Li e aceito as políticas: anúncio válido por <b>20 dias</b> (depois preciso republicar), somente <b>itens do meio esportivo</b>, e o Beachzinho <b>não se responsabiliza</b> pela negociação.</span>
       </div>
     </div>
-    <button class="btn btn-o" onclick="clPublicar()">✅ Publicar anúncio</button>
+    <button class="btn btn-o" onclick="clPublicar()"><i class="ti ti-circle-check"></i> Publicar anúncio</button>
     <button class="btn btn-ghost" onclick="back()">Cancelar</button>
   </div>`;
 }
@@ -1382,24 +1382,24 @@ function clPublicar(){
   if(!DB.classif.aceite){ toast('⚠️ Aceite as políticas para publicar'); return; }
   const t=(document.getElementById('cn-t')||{value:''}).value||'Item esportivo';
   const p=(document.getElementById('cn-p')||{value:''}).value||'R$ 0,00';
-  DB.classif.meus.unshift({id:Date.now(), t, cat:'Raquetes', preco:p, dias:0, ic:'🎾'});
+  DB.classif.meus.unshift({id:Date.now(), t, cat:'Raquetes', preco:p, dias:0, ic:'<i class="ti ti-ball-tennis"></i>'});
   DB.classif.aceite=false;
   toast('Anúncio publicado por 20 dias! 🛒'); nav('p-home'); go('cl-meus');
 }
 function vClMeus(){
   const c=DB.classif;
-  return header('📦 Meus Anúncios','Validade de 20 dias cada')+`
+  return header('<i class="ti ti-package"></i> Meus Anúncios','Validade de 20 dias cada')+`
   <div class="pad">
     ${c.meus.length? c.meus.map(m=>{
       const rest=20-m.dias;
       const st= m.dias>=20?['🔴 Expirado','bR']: rest<=3?['🟡 Expira em '+rest+' dia'+(rest>1?'s':''),'bO']:['🟢 Ativo · '+rest+' dias restantes','bG'];
       return `<div class="card" style="cursor:default">
-      <div style="display:flex;justify-content:space-between;align-items:center"><h3>${m.ic} ${m.t}</h3><b style="color:#1e8f4e">${m.preco}</b></div>
+      <div style="display:flex;justify-content:space-between;align-items:center"><h3>${m.ic} ${m.t}</h3><b style="color:var(--ok)">${m.preco}</b></div>
       <div style="margin-top:6px"><span class="badge ${st[1]}">${st[0]}</span><span class="badge bB">${m.cat}</span></div>
-      <button class="btn ${m.dias>=20?'btn-o':'btn-ghost'} btn-sm" style="margin-top:10px" onclick="clRenovar(${m.id})">${m.dias>=20?'🔄 Republicar por 20 dias':'🔄 Renovar agora'}</button>
+      <button class="btn ${m.dias>=20?'btn-o':'btn-ghost'} btn-sm" style="margin-top:10px" onclick="clRenovar(${m.id})">${m.dias>=20?'<i class="ti ti-refresh"></i> Republicar por 20 dias':'<i class="ti ti-refresh"></i> Renovar agora'}</button>
       </div>`;
-    }).join('') : '<div class="empty"><span>📦</span>Você ainda não tem anúncios</div>'}
-    <button class="btn btn-o" onclick="clAnunciar()">➕ Novo anúncio</button>
+    }).join('') : '<div class="empty"><span><i class="ti ti-package"></i></span>Você ainda não tem anúncios</div>'}
+    <button class="btn btn-o" onclick="clAnunciar()"><i class="ti ti-plus"></i> Novo anúncio</button>
   </div>`;
 }
 function clRenovar(id){
@@ -1413,10 +1413,10 @@ function vProfHome(){
   const p=DB.prof;
   const pend=p.alunos.filter(a=>a.pag!=='pago').length;
   const chamadaFeita=Object.keys(p.chamada).length>0;
-  return `<div class="hd"><h2>🎓 ${p.nome}<span class="sub">${p.vinculo?'Vinculado à '+p.vinculo:'Professor independente'}</span></h2><span class="ic" onclick="toast('Tudo em dia por aqui 🔔')" style="cursor:pointer">🔔</span></div>
+  return `<div class="hd"><h2><i class="ti ti-school"></i> ${p.nome}<span class="sub">${p.vinculo?'Vinculado à '+p.vinculo:'Professor independente'}</span></h2><span class="ic" onclick="toast('Tudo em dia por aqui 🔔')" style="cursor:pointer"><i class="ti ti-bell"></i></span></div>
   <div class="pad">
-    ${!chamadaFeita?`<div class="al al-y" style="cursor:pointer" onclick="nav('pr-chamada')">📋 <b>Aula de hoje: Iniciante Manhã · 08h</b> — chamada pendente, toque para fazer</div>`:`<div class="al al-g">✅ Chamada de hoje registrada</div>`}
-    ${pend?`<div class="al al-y" style="cursor:pointer" onclick="nav('pr-alunos')">💰 <b>${pend} mensalidade${pend>1?'s':''} a receber</b> — toque para ver</div>`:''}
+    ${!chamadaFeita?`<div class="al al-y" style="cursor:pointer" onclick="nav('pr-chamada')"><i class="ti ti-clipboard-list"></i> <b>Aula de hoje: Iniciante Manhã · 08h</b> — chamada pendente, toque para fazer</div>`:`<div class="al al-g"><i class="ti ti-circle-check"></i> Chamada de hoje registrada</div>`}
+    ${pend?`<div class="al al-y" style="cursor:pointer" onclick="nav('pr-alunos')"><i class="ti ti-coin"></i> <b>${pend} mensalidade${pend>1?'s':''} a receber</b> — toque para ver</div>`:''}
     <div class="stats">
       <div class="stat" style="cursor:pointer" onclick="nav('pr-turmas')"><b>${p.turmas.length}</b><span>Turmas →</span></div>
       <div class="stat" style="cursor:pointer" onclick="nav('pr-alunos')"><b>${p.alunos.length}</b><span>Alunos →</span></div>
@@ -1426,44 +1426,44 @@ function vProfHome(){
       <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('portal')"><i class="ti ti-world"></i> Portal ITF</button>
       <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('cl-home')"><i class="ti ti-shopping-cart"></i> Classificados</button>
     </div>
-    <div class="stitle">📅 Hoje</div>
+    <div class="stitle"><i class="ti ti-calendar"></i> Hoje</div>
     <div class="card" onclick="nav('pr-chamada')">
-      <h3>👥 Iniciante Manhã — 08h</h3>
-      <div class="meta"><span>📍 Arena Vida Fit — Quadra 2</span><span>${p.alunos.filter(a=>a.turma===1).length} alunos</span></div>
+      <h3><i class="ti ti-users"></i> Iniciante Manhã — 08h</h3>
+      <div class="meta"><span><i class="ti ti-map-pin"></i> Arena Vida Fit — Quadra 2</span><span>${p.alunos.filter(a=>a.turma===1).length} alunos</span></div>
       <div style="margin-top:6px"><span class="badge bO">Fazer chamada</span></div>
     </div>
-    <div class="stitle">⚡ Ações rápidas</div>
+    <div class="stitle"><i class="ti ti-bolt"></i> Ações rápidas</div>
     <div class="hrow">
-      <div class="hcard" onclick="nav('pr-agenda')"><div class="top">⏰</div><h3>Disponibilidade</h3><p>Abrir/bloquear horários</p></div>
-      <div class="hcard" onclick="S.tab='form';nav('pr-turmas');S.tab='form';render()"><div class="top">👥</div><h3>+ Nova Turma</h3><p>Criar turma</p></div>
-      <div class="hcard" onclick="nav('pr-alunos')"><div class="top">💰</div><h3>Cobranças</h3><p>Confirmar recebimentos</p></div>
+      <div class="hcard" onclick="nav('pr-agenda')"><div class="top"><i class="ti ti-alarm"></i></div><h3>Disponibilidade</h3><p>Abrir/bloquear horários</p></div>
+      <div class="hcard" onclick="S.tab='form';nav('pr-turmas');S.tab='form';render()"><div class="top"><i class="ti ti-users"></i></div><h3>+ Nova Turma</h3><p>Criar turma</p></div>
+      <div class="hcard" onclick="nav('pr-alunos')"><div class="top"><i class="ti ti-coin"></i></div><h3>Cobranças</h3><p>Confirmar recebimentos</p></div>
     </div>
   </div>`;
 }
 function vProfAgenda(){
   const p=DB.prof; const dias=Object.keys(p.agenda); const d=p.diaSel;
-  return header('⏰ Minha Disponibilidade','Toque no horário para abrir/bloquear', false)+`
+  return header('<i class="ti ti-alarm"></i> Minha Disponibilidade','Toque no horário para abrir/bloquear', false)+`
   <div class="pad">
     <div class="days">${dias.map(x=>`<div class="day ${x===d?'on':''}" onclick="DB.prof.diaSel='${x}';render()">${x}</div>`).join('')}</div>
     ${p.agenda[d].map((s,i)=>{
-      if(s[1]==='aula') return `<div class="slot"><span class="h">${s[0]}</span><span class="st st-o">👥 Aula fixa</span><span style="font-size:.75em;color:#99a">turma</span></div>`;
+      if(s[1]==='aula') return `<div class="slot"><span class="h">${s[0]}</span><span class="st st-o"><i class="ti ti-users"></i> Aula fixa</span><span style="font-size:.75em;color:#99a">turma</span></div>`;
       if(s[1]==='livre') return `<div class="slot"><span class="h">${s[0]}</span><span class="st st-l">🟢 Disponível</span><button class="btn btn-ghost btn-sm" onclick="DB.prof.agenda['${d}'][${i}][1]='bloq';toast('Horário bloqueado 🔒');render()">Bloquear</button></div>`;
-      return `<div class="slot"><span class="h">${s[0]}</span><span class="st st-p">🔒 Bloqueado</span><button class="btn btn-ghost btn-sm" onclick="DB.prof.agenda['${d}'][${i}][1]='livre';toast('Horário aberto ✅');render()">Abrir</button></div>`;
+      return `<div class="slot"><span class="h">${s[0]}</span><span class="st st-p"><i class="ti ti-lock"></i> Bloqueado</span><button class="btn btn-ghost btn-sm" onclick="DB.prof.agenda['${d}'][${i}][1]='livre';toast('Horário aberto ✅');render()">Abrir</button></div>`;
     }).join('')}
-    <div class="al al-b" style="margin-top:10px">💡 Horários 🟢 disponíveis aparecem para alunos agendarem aula avulsa ou experimental — e é neles que você marca reposições.</div>
+    <div class="al al-b" style="margin-top:10px"><i class="ti ti-bulb"></i> Horários 🟢 disponíveis aparecem para alunos agendarem aula avulsa ou experimental — e é neles que você marca reposições.</div>
   </div>`;
 }
 function vProfTurmas(){
   const tab=S.tab||'lista';
-  if(tab==='form') return header('👥 Nova Turma','')+`
+  if(tab==='form') return header('<i class="ti ti-users"></i> Nova Turma','')+`
   <div class="pad">
     <div class="fld"><label>Nome da turma</label><input id="pt-nome" placeholder="Ex: Intermediário Tarde"></div>
-    <div class="fld"><label>Nível</label><div class="chips">${DB.prof.niveis.map(c=>`<div class="chip ${(S.nivelSel||DB.prof.niveis[0])===c?'on':''}" onclick="S.nivelSel='${c}';render()">${c}</div>`).join('')}<div class="chip" style="border-style:dashed" onclick="S.novoNv=!S.novoNv;render()">➕ Criar nível</div></div></div>
+    <div class="fld"><label>Nível</label><div class="chips">${DB.prof.niveis.map(c=>`<div class="chip ${(S.nivelSel||DB.prof.niveis[0])===c?'on':''}" onclick="S.nivelSel='${c}';render()">${c}</div>`).join('')}<div class="chip" style="border-style:dashed" onclick="S.novoNv=!S.novoNv;render()"><i class="ti ti-plus"></i> Criar nível</div></div></div>
     ${S.novoNv?`<div style="display:flex;gap:8px;margin-bottom:12px">
       <input id="nv-nome" placeholder="Nome do novo nível (ex: Competitivo, 60+)" style="flex:1;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
       <button class="btn btn-o btn-sm" onclick="profCriarNivel()">Criar</button>
     </div>`:''}
-    <div class="fld"><label>📍 Local da aula</label><input id="pt-local" placeholder="Ex: Arena Vida Fit — Quadra 2"></div>
+    <div class="fld"><label><i class="ti ti-map-pin"></i> Local da aula</label><input id="pt-local" placeholder="Ex: Arena Vida Fit — Quadra 2"></div>
     <div style="display:flex;gap:10px">
       <div class="fld" style="flex:1"><label>Dias</label><input id="pt-dia" placeholder="Ex: Seg/Qua"></div>
       <div class="fld" style="flex:1"><label>Horário</label><input id="pt-hora" placeholder="Ex: 08h"></div>
@@ -1472,17 +1472,17 @@ function vProfTurmas(){
       <div class="fld" style="flex:1"><label>Máx. alunos</label><input type="number" id="pt-max" value="6"></div>
       <div class="fld" style="flex:1"><label>Valor</label><input id="pt-valor" placeholder="R$ 250/mês"></div>
     </div>
-    <button class="btn btn-o" onclick="profCriarTurma()">✅ Criar turma</button>
+    <button class="btn btn-o" onclick="profCriarTurma()"><i class="ti ti-circle-check"></i> Criar turma</button>
     <button class="btn btn-ghost" onclick="setTab('lista')">Cancelar</button>
   </div>`;
-  return header('👥 Minhas Turmas','', false)+`
+  return header('<i class="ti ti-users"></i> Minhas Turmas','', false)+`
   <div class="pad">
-    <button class="btn btn-n" onclick="go('pr-cal')">📅 Calendário de aulas — o que aconteceu em cada dia</button>
+    <button class="btn btn-n" onclick="go('pr-cal')"><i class="ti ti-calendar"></i> Calendário de aulas — o que aconteceu em cada dia</button>
     ${DB.prof.turmas.map(t=>{
       const n=DB.prof.alunos.filter(a=>a.turma===t.id).length;
-      return `<div class="card" onclick="go('pr-turma',${t.id})"><h3>👥 ${t.nome}</h3>
-      <div class="meta"><span>📅 ${t.dia} · ${t.hora}</span><span>📍 ${t.local}</span></div>
-      <div class="meta"><span>💰 ${t.valor}</span></div>
+      return `<div class="card" onclick="go('pr-turma',${t.id})"><h3><i class="ti ti-users"></i> ${t.nome}</h3>
+      <div class="meta"><span><i class="ti ti-calendar"></i> ${t.dia} · ${t.hora}</span><span><i class="ti ti-map-pin"></i> ${t.local}</span></div>
+      <div class="meta"><span><i class="ti ti-coin"></i> ${t.valor}</span></div>
       <div style="margin-top:6px"><span class="badge bB">${t.nivel}</span><span class="badge ${n>=t.max?'bR':'bG'}">${n}/${t.max} alunos</span><span class="badge bO">Abrir turma →</span></div></div>`;
     }).join('')}
     <button class="btn btn-o" onclick="setTab('form')">+ Nova Turma</button>
@@ -1503,25 +1503,25 @@ function profCriarTurma(){
 function vProfTurma(){
   const t=DB.prof.turmas.find(x=>x.id===S.param)||DB.prof.turmas[0];
   const alunos=DB.prof.alunos.filter(a=>a.turma===t.id);
-  const badge={pago:['✅ Pago','bG'],pendente:['⏳ Pendente','bO'],atrasado:['🔴 Atrasado','bR']};
-  return header('👥 '+t.nome, t.nivel+' · '+t.dia+' '+t.hora)+`
+  const badge={pago:['<i class="ti ti-circle-check"></i> Pago','bG'],pendente:['<i class="ti ti-hourglass"></i> Pendente','bO'],atrasado:['🔴 Atrasado','bR']};
+  return header('<i class="ti ti-users"></i> '+t.nome, t.nivel+' · '+t.dia+' '+t.hora)+`
   <div class="pad">
     <div class="card" style="cursor:default">
-      <div class="meta"><span>📍 ${t.local}</span></div>
-      <div class="meta"><span>💰 ${t.valor}</span><span>👥 ${alunos.length}/${t.max} vagas ocupadas</span></div>
+      <div class="meta"><span><i class="ti ti-map-pin"></i> ${t.local}</span></div>
+      <div class="meta"><span><i class="ti ti-coin"></i> ${t.valor}</span><span><i class="ti ti-users"></i> ${alunos.length}/${t.max} vagas ocupadas</span></div>
       <div style="margin-top:6px"><span class="badge bB">${t.nivel}</span></div>
     </div>
-    <button class="btn btn-n" onclick="S.calTurma=${t.id};go('pr-cal')">📅 Ver os dias desta turma no calendário</button>
-    <button class="btn btn-ghost" onclick="go('pr-novo-aluno')">➕ Matricular aluno nesta turma</button>
+    <button class="btn btn-n" onclick="S.calTurma=${t.id};go('pr-cal')"><i class="ti ti-calendar"></i> Ver os dias desta turma no calendário</button>
+    <button class="btn btn-ghost" onclick="go('pr-novo-aluno')"><i class="ti ti-plus"></i> Matricular aluno nesta turma</button>
     <div class="stitle">Alunos matriculados (${alunos.length})</div>
     ${alunos.length? alunos.map(a=>`
     <div class="card" onclick="go('pr-aluno',${a.id})">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <h3>${a.nome}</h3><span class="badge ${badge[a.pag][1]}">${badge[a.pag][0]}</span>
       </div>
-      <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span>🔁 ${a.repo}</span></div>
+      <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span><i class="ti ti-repeat"></i> ${a.repo}</span></div>
       <div style="margin-top:6px"><span class="badge bB">📇 Ficha completa →</span></div>
-    </div>`).join('') : '<div class="empty"><span>👥</span>Nenhum aluno matriculado ainda</div>'}
+    </div>`).join('') : '<div class="empty"><span><i class="ti ti-users"></i></span>Nenhum aluno matriculado ainda</div>'}
   </div>`;
 }
 function vProfCal(){
@@ -1532,7 +1532,7 @@ function vProfCal(){
   const regs=[];
   p.alunos.forEach(a=>{(a.hist||[]).forEach(r=>{ if(r.d===d && (!ft||a.turma===ft)) regs.push({a,r}); })});
   const pres=regs.filter(x=>x.r.st==='pres').length, fal=regs.length-pres;
-  return header('📅 Calendário de Aulas','Selecione o dia e a turma')+`
+  return header('<i class="ti ti-calendar"></i> Calendário de Aulas','Selecione o dia e a turma')+`
   <div class="pad">
     <div class="stitle">Dia</div>
     <div class="days">${dias.map(x=>`<div class="day ${x[0]===d?'on':''}" onclick="S.calDia='${x[0]}';render()">${x[1]}<b>${x[0].slice(0,5)}</b></div>`).join('')}</div>
@@ -1543,38 +1543,38 @@ function vProfCal(){
       <div class="stat g"><b>${pres}</b><span>Presenças</span></div>
       <div class="stat r"><b>${fal}</b><span>Faltas/avisos</span></div>
     </div>`:''}
-    <div class="stitle">📋 O que aconteceu em ${d}</div>
-    ${regs.length? regs.map(x=>`<div class="rk" onclick="go('pr-aluno',${x.a.id})"><span class="pos">${x.r.st==='pres'?'✅':x.r.st==='avisada'?'📩':'❌'}</span><span class="nm">${x.a.nome}<small>${profTurmaNome(x.a.turma)} · ${x.r.obs||'Sem anotação'}</small></span><span class="pts" style="color:#444441">ficha →</span></div>`).join('') : `<div class="empty"><span>📅</span>Nenhum registro em ${d}${ft?' para esta turma':''}</div>`}
-    <div class="al al-b">💡 A chamada de cada aula alimenta este calendário automaticamente. Toque num registro para abrir a ficha do aluno.</div>
+    <div class="stitle"><i class="ti ti-clipboard-list"></i> O que aconteceu em ${d}</div>
+    ${regs.length? regs.map(x=>`<div class="rk" onclick="go('pr-aluno',${x.a.id})"><span class="pos">${x.r.st==='pres'?'<i class="ti ti-circle-check"></i>':x.r.st==='avisada'?'<i class="ti ti-mail"></i>':'<i class="ti ti-circle-x"></i>'}</span><span class="nm">${x.a.nome}<small>${profTurmaNome(x.a.turma)} · ${x.r.obs||'Sem anotação'}</small></span><span class="pts" style="color:#444441">ficha →</span></div>`).join('') : `<div class="empty"><span><i class="ti ti-calendar"></i></span>Nenhum registro em ${d}${ft?' para esta turma':''}</div>`}
+    <div class="al al-b"><i class="ti ti-bulb"></i> A chamada de cada aula alimenta este calendário automaticamente. Toque num registro para abrir a ficha do aluno.</div>
   </div>`;
 }
 function vProfChamada(){
   const p=DB.prof; const alunos=p.alunos.filter(a=>a.turma===1);
   const st=id=>p.chamada[id]||null;
-  return header('📋 Chamada','Iniciante Manhã · hoje 08h · Arena Vida Fit Q2')+`
+  return header('<i class="ti ti-clipboard-list"></i> Chamada','Iniciante Manhã · hoje 08h · Arena Vida Fit Q2')+`
   <div class="pad">
     ${alunos.map(a=>`
     <div class="card" style="cursor:default">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <h3 style="cursor:pointer" onclick="go('pr-aluno',${a.id})">${a.nome} ›</h3>
-        ${st(a.id)?`<span class="badge ${st(a.id)==='pres'?'bG':st(a.id)==='avisada'?'bO':'bR'}">${st(a.id)==='pres'?'✅ Presente':st(a.id)==='avisada'?'📩 Falta avisada':'❌ Faltou'}</span>`:'<span class="badge" style="background:#eef0f5;color:#789">aguardando</span>'}
+        ${st(a.id)?`<span class="badge ${st(a.id)==='pres'?'bG':st(a.id)==='avisada'?'bO':'bR'}">${st(a.id)==='pres'?'<i class="ti ti-circle-check"></i> Presente':st(a.id)==='avisada'?'<i class="ti ti-mail"></i> Falta avisada':'<i class="ti ti-circle-x"></i> Faltou'}</span>`:'<span class="badge" style="background:#eef0f5;color:var(--mut)">aguardando</span>'}
       </div>
       <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span>Reposições: ${a.repo}</span></div>
       <div style="display:flex;gap:8px;margin-top:10px">
-        <button class="btn btn-grn btn-sm" style="flex:1" onclick="profChamada(${a.id},'pres')">✅ Presente</button>
-        <button class="btn btn-sm" style="flex:1;background:#fff3d0;color:#c97d0a" onclick="profChamada(${a.id},'avisada')">📩 Avisou</button>
-        <button class="btn btn-red btn-sm" style="flex:1" onclick="profChamada(${a.id},'falta')">❌ Faltou</button>
+        <button class="btn btn-grn btn-sm" style="flex:1" onclick="profChamada(${a.id},'pres')"><i class="ti ti-circle-check"></i> Presente</button>
+        <button class="btn btn-sm" style="flex:1;background:#fff3d0;color:var(--warn)" onclick="profChamada(${a.id},'avisada')"><i class="ti ti-mail"></i> Avisou</button>
+        <button class="btn btn-red btn-sm" style="flex:1" onclick="profChamada(${a.id},'falta')"><i class="ti ti-circle-x"></i> Faltou</button>
       </div>
     </div>`).join('')}
-    <button class="btn btn-o" onclick="toast('Chamada encerrada! Alunos notificados 🔔');nav('pr-home')">✅ Encerrar chamada</button>
-    <div class="al al-b" style="margin-top:10px">🔁 Falta <b>avisada</b> (até 4h antes) gera crédito de reposição automaticamente. Falta sem aviso não gera — e o aluno recebe o registro no app.</div>
+    <button class="btn btn-o" onclick="toast('Chamada encerrada! Alunos notificados 🔔');nav('pr-home')"><i class="ti ti-circle-check"></i> Encerrar chamada</button>
+    <div class="al al-b" style="margin-top:10px"><i class="ti ti-repeat"></i> Falta <b>avisada</b> (até 4h antes) gera crédito de reposição automaticamente. Falta sem aviso não gera — e o aluno recebe o registro no app.</div>
   </div>`;
 }
 function profChamada(id, st){
   const a=DB.prof.alunos.find(x=>x.id===id); if(!a) return;
   const antes=DB.prof.chamada[id];
   DB.prof.chamada[id]=st;
-  if(st==='avisada' && antes!=='avisada'){ a.repo++; toast(a.nome.split(' ')[0]+' ganhou 1 reposição 🔁'); }
+  if(st==='avisada' && antes!=='avisada'){ a.repo++; toast(a.nome.split(' ')[0]+' ganhou 1 reposição <i class="ti ti-repeat"></i>'); }
   else if(st==='falta' && antes!=='falta'){ a.faltas++; toast('Falta registrada — aluno notificado 🔔'); }
   else if(st==='pres' && antes!=='pres'){ a.pres++; }
   render();
@@ -1584,8 +1584,8 @@ function vProfAlunos(){
   const f=S.tab||'todos';
   const busca=(S.busca||'').toLowerCase();
   const lista=p.alunos.filter(a=>(f==='todos'||a.pag===f)&&(!busca||a.nome.toLowerCase().includes(busca)));
-  const badge={pago:['✅ Pago','bG'],pendente:['⏳ Pendente','bO'],atrasado:['🔴 Atrasado','bR']};
-  return header('📋 Alunos & Cobranças','Toque em Pagos/Pendentes/Atrasados para filtrar', false)+`
+  const badge={pago:['<i class="ti ti-circle-check"></i> Pago','bG'],pendente:['<i class="ti ti-hourglass"></i> Pendente','bO'],atrasado:['🔴 Atrasado','bR']};
+  return header('<i class="ti ti-clipboard-list"></i> Alunos & Cobranças','Toque em Pagos/Pendentes/Atrasados para filtrar', false)+`
   <div class="pad">
     <div class="stats">
       <div class="stat g" style="cursor:pointer;${f==='pago'?'outline:2.5px solid #107c10':''}" onclick="setTab(S.tab==='pago'?'todos':'pago')"><b>${p.alunos.filter(a=>a.pag==='pago').length}</b><span>Pagos</span></div>
@@ -1593,24 +1593,24 @@ function vProfAlunos(){
       <div class="stat r" style="cursor:pointer;${f==='atrasado'?'outline:2.5px solid #d13438':''}" onclick="setTab(S.tab==='atrasado'?'todos':'atrasado')"><b>${p.alunos.filter(a=>a.pag==='atrasado').length}</b><span>Atrasados</span></div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:4px">
-      <input value="${S.busca||''}" placeholder="🔎 Buscar aluno por nome..." oninput="S.busca=this.value" onchange="render()" style="flex:1;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff">
+      <input value="${S.busca||''}" placeholder="<i class="ti ti-search"></i> Buscar aluno por nome..." oninput="S.busca=this.value" onchange="render()" style="flex:1;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff">
       <button class="btn btn-ghost btn-sm" onclick="render()">Buscar</button>
     </div>
-    ${S.busca?`<div class="al al-b" style="cursor:pointer" onclick="S.busca='';render()">🔎 Buscando: <b>"${S.busca}"</b> (${lista.length}) — toque para limpar</div>`:''}
-    <button class="btn btn-o" onclick="go('pr-novo-aluno')">➕ Cadastrar aluno</button>
-    ${f!=='todos'?`<div class="al al-b" style="cursor:pointer" onclick="setTab('todos')">🔎 Filtrando: <b>${badge[f][0]}</b> (${lista.length}) — toque para limpar</div>`:''}
-    ${lista.length? '' : '<div class="empty"><span>🔎</span>Nenhum aluno neste filtro</div>'}
+    ${S.busca?`<div class="al al-b" style="cursor:pointer" onclick="S.busca='';render()"><i class="ti ti-search"></i> Buscando: <b>"${S.busca}"</b> (${lista.length}) — toque para limpar</div>`:''}
+    <button class="btn btn-o" onclick="go('pr-novo-aluno')"><i class="ti ti-plus"></i> Cadastrar aluno</button>
+    ${f!=='todos'?`<div class="al al-b" style="cursor:pointer" onclick="setTab('todos')"><i class="ti ti-search"></i> Filtrando: <b>${badge[f][0]}</b> (${lista.length}) — toque para limpar</div>`:''}
+    ${lista.length? '' : '<div class="empty"><span><i class="ti ti-search"></i></span>Nenhum aluno neste filtro</div>'}
     ${lista.map(a=>`
     <div class="card" onclick="go('pr-aluno',${a.id})">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <h3>${a.nome}</h3><span class="badge ${badge[a.pag][1]}">${badge[a.pag][0]}</span>
       </div>
-      <div class="meta"><span>👥 ${profTurmaNome(a.turma)}</span><span>Vence ${a.venc}</span></div>
-      <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span>🔁 Reposições: ${a.repo}</span></div>
-      <div style="margin-top:6px"><span class="badge bB">📔 Ficha completa →</span><span class="badge" style="background:#eef0f5;color:#5F5E5A">${a.cad&&a.cad.origem==='app'?'📱 Auto-cadastro no app':'✍️ Cadastrado pelo professor'}</span></div>
+      <div class="meta"><span><i class="ti ti-users"></i> ${profTurmaNome(a.turma)}</span><span>Vence ${a.venc}</span></div>
+      <div class="meta"><span>Presenças: ${a.pres}</span><span>Faltas: ${a.faltas}</span><span><i class="ti ti-repeat"></i> Reposições: ${a.repo}</span></div>
+      <div style="margin-top:6px"><span class="badge bB"><i class="ti ti-notebook"></i> Ficha completa →</span><span class="badge" style="background:#eef0f5;color:var(--ink2)">${a.cad&&a.cad.origem==='app'?'<i class="ti ti-device-mobile"></i> Auto-cadastro no app':'✍️ Cadastrado pelo professor'}</span></div>
       ${a.pag!=='pago'?`<button class="btn btn-grn btn-sm" style="margin-top:10px" onclick="event.stopPropagation();profConfirmarPag(${a.id})">✓ Confirmar recebimento</button>`:''}
     </div>`).join('')}
-    <div class="al al-b">💡 Lembretes automáticos por e-mail/WhatsApp: D-3 antes do vencimento, no dia, e aviso de atraso no D+3 — você só confirma o Pix recebido.</div>
+    <div class="al al-b"><i class="ti ti-bulb"></i> Lembretes automáticos por e-mail/WhatsApp: D-3 antes do vencimento, no dia, e aviso de atraso no D+3 — você só confirma o Pix recebido.</div>
   </div>`;
 }
 function profConfirmarPag(id){
@@ -1620,7 +1620,7 @@ function profConfirmarPag(id){
 function vProfAluno(){
   const a=DB.prof.alunos.find(x=>x.id===S.param)||DB.prof.alunos[0];
   if(!a.hist) a.hist=[];
-  return header('👤 '+a.nome, profTurmaNome(a.turma)+' · anotações por dia')+`
+  return header('<i class="ti ti-user"></i> '+a.nome, profTurmaNome(a.turma)+' · anotações por dia')+`
   <div class="pad">
     <div class="stats">
       <div class="stat g"><b>${a.pres}</b><span>Presenças</span></div>
@@ -1629,30 +1629,30 @@ function vProfAluno(){
     </div>
     <div class="stitle">📇 Cadastro</div>
     <div class="card" style="cursor:default">
-      <div class="meta"><span>${a.cad&&a.cad.origem==='app'?'📱 Auto-cadastro pelo app':'✍️ Cadastrado pelo professor'}</span></div>
-      <div class="meta"><span>📅 Aluno desde: <b style="color:#456">${a.cad?a.cad.desde:'—'}</b></span><span>🎾 1ª aula: <b style="color:#456">${a.cad?a.cad.primeira:'—'}</b></span></div>
-      <div class="fld" style="margin:10px 0 0"><label>👥 Turma (toque para trocar)</label>
+      <div class="meta"><span>${a.cad&&a.cad.origem==='app'?'<i class="ti ti-device-mobile"></i> Auto-cadastro pelo app':'✍️ Cadastrado pelo professor'}</span></div>
+      <div class="meta"><span><i class="ti ti-calendar"></i> Aluno desde: <b style="color:#456">${a.cad?a.cad.desde:'—'}</b></span><span><i class="ti ti-ball-tennis"></i> 1ª aula: <b style="color:#456">${a.cad?a.cad.primeira:'—'}</b></span></div>
+      <div class="fld" style="margin:10px 0 0"><label><i class="ti ti-users"></i> Turma (toque para trocar)</label>
         <select onchange="alunoTrocaTurma(${a.id},this.value)">${DB.prof.turmas.map(t=>`<option value="${t.id}" ${t.id===a.turma?'selected':''}>${t.nome} · ${t.nivel} · ${t.dia} ${t.hora}</option>`).join('')}</select>
       </div>
-      <div class="meta"><span>💬 WhatsApp: <b style="color:#456">${a.cad?a.cad.zap:'—'}</b></span></div>
-      ${a.cad&&a.cad.zap&&a.cad.zap!=='—'?`<button class="btn btn-g btn-sm" style="margin-top:10px" onclick="window.open('https://wa.me/55'+'${a.cad.zap}'.replace(/\D/g,''),'_blank')">💬 Chamar ${a.nome.split(' ')[0]} no WhatsApp</button>`:''}
+      <div class="meta"><span><i class="ti ti-message-circle"></i> WhatsApp: <b style="color:#456">${a.cad?a.cad.zap:'—'}</b></span></div>
+      ${a.cad&&a.cad.zap&&a.cad.zap!=='—'?`<button class="btn btn-g btn-sm" style="margin-top:10px" onclick="window.open('https://wa.me/55'+'${a.cad.zap}'.replace(/\D/g,''),'_blank')"><i class="ti ti-message-circle"></i> Chamar ${a.nome.split(' ')[0]} no WhatsApp</button>`:''}
     </div>
-    <div class="stitle">💰 Pagamentos (com data)</div>
-    ${(a.pagtos||[]).map((pg,pi)=>`<div class="rk"><span class="pos">${pg.st==='pago'?'✅':pg.st==='pendente'?'⏳':'🔴'}</span><span class="nm">${pg.m} · ${pg.v}<small>${pg.st==='pago'?'Pago em '+pg.dt:pg.st==='pendente'?'Aguardando pagamento':'Em atraso'}</small></span>${pg.st!=='pago'?`<button class="btn btn-grn btn-sm" onclick="alunoPagMes(${a.id},${pi})">✓ Recebi</button>`:''}</div>`).join('')}
-    <button class="btn btn-o" onclick="alunoNovaAnot(${a.id})">➕ Anotar aula de hoje</button>
-    <div class="stitle">📅 Aulas feitas e faltas — por data</div>
+    <div class="stitle"><i class="ti ti-coin"></i> Pagamentos (com data)</div>
+    ${(a.pagtos||[]).map((pg,pi)=>`<div class="rk"><span class="pos">${pg.st==='pago'?'<i class="ti ti-circle-check"></i>':pg.st==='pendente'?'<i class="ti ti-hourglass"></i>':'🔴'}</span><span class="nm">${pg.m} · ${pg.v}<small>${pg.st==='pago'?'Pago em '+pg.dt:pg.st==='pendente'?'Aguardando pagamento':'Em atraso'}</small></span>${pg.st!=='pago'?`<button class="btn btn-grn btn-sm" onclick="alunoPagMes(${a.id},${pi})">✓ Recebi</button>`:''}</div>`).join('')}
+    <button class="btn btn-o" onclick="alunoNovaAnot(${a.id})"><i class="ti ti-plus"></i> Anotar aula de hoje</button>
+    <div class="stitle"><i class="ti ti-calendar"></i> Aulas feitas e faltas — por data</div>
     ${a.hist.length? a.hist.map((r,i)=>`
     <div class="card" style="cursor:default">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <h3>📅 ${r.d}</h3>
-        <span class="badge ${r.st==='pres'?'bG':r.st==='avisada'?'bO':'bR'}" style="cursor:pointer" onclick="alunoCicloSt(${a.id},${i})">${r.st==='pres'?'✅ Presente':r.st==='avisada'?'📩 Avisou falta':'❌ Faltou'} ↻</span>
+        <h3><i class="ti ti-calendar"></i> ${r.d}</h3>
+        <span class="badge ${r.st==='pres'?'bG':r.st==='avisada'?'bO':'bR'}" style="cursor:pointer" onclick="alunoCicloSt(${a.id},${i})">${r.st==='pres'?'<i class="ti ti-circle-check"></i> Presente':r.st==='avisada'?'<i class="ti ti-mail"></i> Avisou falta':'<i class="ti ti-circle-x"></i> Faltou'} ↻</span>
       </div>
       <div style="display:flex;gap:8px;margin-top:10px">
         <input id="obs-${i}" value="${(r.obs||'').replace(/"/g,'&quot;')}" placeholder="Anotação da aula (evolução, combinados...)" style="flex:1;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
-        <button class="btn btn-ghost btn-sm" onclick="alunoSalvaObs(${a.id},${i})">💾 Salvar</button>
+        <button class="btn btn-ghost btn-sm" onclick="alunoSalvaObs(${a.id},${i})"><i class="ti ti-device-floppy"></i> Salvar</button>
       </div>
-    </div>`).join('') : '<div class="empty"><span>📔</span>Sem anotações ainda — toque em Anotar aula de hoje</div>'}
-    <div class="al al-b">💡 Toque no selo de presença para corrigir o dia (presente → avisou → faltou). Edite o texto e salve.</div>
+    </div>`).join('') : '<div class="empty"><span><i class="ti ti-notebook"></i></span>Sem anotações ainda — toque em Anotar aula de hoje</div>'}
+    <div class="al al-b"><i class="ti ti-bulb"></i> Toque no selo de presença para corrigir o dia (presente → avisou → faltou). Edite o texto e salve.</div>
   </div>`;
 }
 function alunoCicloSt(id,i){
@@ -1810,7 +1810,7 @@ function vAQuadras(){
     ${DB.slots.map((s,i)=>{
       if(s.status==='livre') return `<div class="slot"><span class="h">${s.h}</span><span class="st st-l">🟢 Livre</span><button class="btn btn-ghost btn-sm" onclick="DB.slots[${i}].status='ocupado';DB.slots[${i}].who='Bloqueio manual';toast('Horário bloqueado 🔒');render()">Bloquear</button></div>`;
       if(s.status==='ocupado') return `<div class="slot"><span class="h">${s.h}</span><span class="st st-o">🔴 ${s.who}</span><button class="btn btn-ghost btn-sm" onclick="DB.slots[${i}].status='livre';DB.slots[${i}].who=null;toast('Horário liberado ✅');render()">Liberar</button></div>`;
-      return `<div class="slot"><span class="h">${s.h}</span><span class="st st-p">🟡 ${s.who}</span><span style="font-size:.75em;color:#c97d0a;font-weight:700">responder acima ↑</span></div>`;
+      return `<div class="slot"><span class="h">${s.h}</span><span class="st st-p">🟡 ${s.who}</span><span style="font-size:.75em;color:var(--warn);font-weight:700">responder acima ↑</span></div>`;
     }).join('')}
   </div>`;
 }
@@ -1864,7 +1864,7 @@ function vAGames(){
   return header('📋 Lançar Games','Liga Ter Mista · Rodada 8 · Partida 1 de 4', false)+`
   <div class="pad">
     <div class="score">
-      <div style="text-align:center;font-size:.78em;font-weight:800;color:#888780;text-transform:uppercase;letter-spacing:.5px">Placar da partida (games)</div>
+      <div style="text-align:center;font-size:.78em;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.5px">Placar da partida (games)</div>
       <div class="svs">
         <div class="steam">🔵 ${p.ta}</div>
         <div class="snum"><button onclick="DB.partidaAtual.sa=Math.max(0,DB.partidaAtual.sa-1);render()">−</button><b>${p.sa}</b><button onclick="DB.partidaAtual.sa++;render()">+</button></div>
@@ -1875,7 +1875,7 @@ function vAGames(){
         <div class="snum"><button onclick="DB.partidaAtual.sb=Math.max(0,DB.partidaAtual.sb-1);render()">−</button><b>${p.sb}</b><button onclick="DB.partidaAtual.sb++;render()">+</button></div>
       </div>
       <div class="dist">
-        <b style="color:var(--navy)">O sistema vai distribuir automaticamente:</b>
+        <b style="color:var(--ink)">O sistema vai distribuir automaticamente:</b>
         <div class="dr"><span>▸ ${p.ta.split(' & ')[0]} / ${p.ta.split(' & ')[1]}</span><span style="color:${p.sa>=p.sb?'#1e8f4e':'#c0392b'};font-weight:700">+${p.sa} ganhos · ${p.sa>p.sb?'WIN':p.sa<p.sb?'LOSS':'—'}</span></div>
         <div class="dr"><span>▸ ${p.tb.split(' & ')[0]} / ${p.tb.split(' & ')[1]}</span><span style="color:${p.sb>=p.sa?'#1e8f4e':'#c0392b'};font-weight:700">+${p.sb} ganhos · ${p.sb>p.sa?'WIN':p.sb<p.sa?'LOSS':'—'}</span></div>
       </div>
