@@ -1166,7 +1166,7 @@ function vAuth(){
     <div class="fld"><label><i class="ti ti-mail"></i> E-mail</label><input type="email" id="lg-email" placeholder="voce@email.com"></div>
     <div class="fld"><label><i class="ti ti-lock"></i> Senha</label><input type="password" id="lg-senha" placeholder="Sua senha"></div>
     <div class="al al-b">🎭 <b>Acesso de demonstração:</b> use o e-mail e a senha que você recebeu para explorar o app completo.</div>`}
-    <button class="btn btn-o" onclick="${tab==='cadastro'?`go('auth-verif','${dest}')`:`loginDemo()`}">${tab==='cadastro'?'Criar conta → Verificar':'Entrar'}</button>
+    <button class="btn btn-o" onclick="${tab==='cadastro'?`toast('Conta criada! Verificação desligada na demonstração ✅');go('sub-checkout','${dest}')`:`loginDemo()`}">${tab==='cadastro'?'Criar conta':'Entrar'}</button>
     <button class="btn btn-ghost" onclick="toast('Login Google simulado 🔑');go('sub-checkout','${dest}')">🔴 Continuar com Google</button>
     <div class="al al-b" style="margin-top:12px"><i class="ti ti-lock"></i> No app real: Supabase Auth — e-mail verificado, recuperação de senha e login Google/telefone já prontos, sem custo extra.</div>
   </div>`;
@@ -1325,7 +1325,7 @@ function vClItem(){
   </div>`;
 }
 function clAnunciar(){
-  if(!DB.classif.cadastroCompleto){ go('cl-cadastro'); toast('Complete o cadastro para anunciar 🔐'); return; }
+  // Demonstração: cadastro/verificação desligados — todos podem anunciar
   go('cl-novo');
 }
 function vClCadastro(){
@@ -1348,8 +1348,6 @@ function vClCadastro(){
   </div>`;
 }
 function clConfirmar(){
-  const v=(document.getElementById('cl-cod')||{value:''}).value.trim();
-  if(v.length<6){ toast('⚠️ Digite os 6 dígitos do código'); return; }
   DB.classif.cadastroCompleto=true;
   toast('Cadastro verificado! ✅'); go('cl-novo');
 }
