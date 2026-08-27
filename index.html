@@ -1239,7 +1239,7 @@ function salvarAtletaOrg(){
   DB.orgd.atletas.push(novo);
   toast('Atleta cadastrado! Já pode entrar nas ligas ✅'); back();
 }
-function nlSet(k,v){ S.nl[k]=v; if(k==='tipo'&&v==='super8'){ S.nl.insc='individual'; S.nl.pont='ind'; S.nl.formato='dupla'; } render(); }
+function nlSet(k,v){ S.nl[k]=v; if(k==='tipo'&&v==='super8'){ S.nl.insc='individual'; S.nl.pont='ind'; S.nl.formato='dupla'; } if(k==='insc'&&v==='dupla') S.nl.pont='dupla'; if(k==='pont'&&v==='ind'&&S.nl.insc==='dupla') S.nl.pont='dupla'; render(); }
 function criarLigaOrg(){
   const g=id=>(document.getElementById(id)||{value:''}).value;
   const nome=g('nl-nome').trim(); if(!nome){ toast('⚠️ Dê um nome à liga'); return; }
@@ -1353,7 +1353,8 @@ function vOrgNovaLiga(){
     <div class="chips">${[4,5,6].map(n=>chip((nl.games||6)===n,`nlSet('games',${n})`,'Set de '+n+' games')).join('')}</div>
     <div class="al al-b"><i class="ti ti-bulb"></i> Regra do set de ${nl.games||6}: fecha em ${nl.games||6}×${(nl.games||6)-2} ou menos · empate em ${(nl.games||6)-1}×${(nl.games||6)-1} vai a ${(nl.games||6)+1} · empate em ${nl.games||6}×${nl.games||6} abre <b>tie-break</b> (7 pontos, 2 de vantagem).</div>
     ${s8?'':`<div class="stitle">3 · Pontuação</div>
-    <div class="chips">${chip(nl.pont==='ind',"nlSet('pont','ind')",'Conta para o indivíduo')}${chip(nl.pont==='dupla',"nlSet('pont','dupla')",'Conta para a dupla')}</div>`}
+    <div class="chips">${chip(nl.pont==='ind',"nlSet('pont','ind')",'Conta para o indivíduo')}${chip(nl.pont==='dupla',"nlSet('pont','dupla')",'Conta para a dupla')}</div>
+    ${nl.insc==='dupla'?'<div class="al al-b"><i class="ti ti-lock"></i> Dupla fixa inscrita pontua sempre <b>como dupla</b> — na chave e no mata-mata.</div>':''}`}
     <div style="display:flex;gap:8px;margin-top:6px">
       <div class="fld" style="flex:1"><label>Pontos por vitória</label><input id="nl-v" type="number" value="3"></div>
       <div class="fld" style="flex:1"><label>Pontos por derrota</label><input id="nl-d" type="number" value="1"></div>
