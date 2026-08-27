@@ -390,7 +390,7 @@ const DB = {
 let S = {role:null, screen:'intro', stack:[], param:null, tab:null, day:0};
 
 function go(screen, param=null, tab=null){ S.stack.push({screen:S.screen,param:S.param,tab:S.tab}); S.screen=screen; S.param=param; S.tab=tab; render(); }
-function back(){ const p=S.stack.pop(); if(p){S.screen=p.screen;S.param=p.param;S.tab=p.tab; render(); return;} const home={player:'p-home',arena:'a-dash',prof:'pr-home',grupo:'g-home'}[S.role]; nav(home||'splash'); }
+function back(){ const p=S.stack.pop(); if(p){S.screen=p.screen;S.param=p.param;S.tab=p.tab; render(); return;} const home={player:'p-home',arena:'a-dash',prof:'pr-home',grupo:'g-home',org:'org-home'}[S.role]; nav(home||'splash'); }
 function nav(screen){ S.stack=[]; S.screen=screen; S.param=null; S.tab=null; render(); }
 function setTab(t){ S.tab=t; render(); }
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2400); }
@@ -410,6 +410,9 @@ function navbar(){
   } else if(S.role==='prof'){
     const items=[['pr-home','<i class=\"ti ti-layout-dashboard\"></i>','Início'],['pr-agenda','<i class=\"ti ti-clock\"></i>','Agenda'],['pr-turmas','<i class=\"ti ti-users\"></i>','Turmas'],['pr-alunos','<i class=\"ti ti-clipboard-list\"></i>','Alunos'],['pr-perfil','<i class=\"ti ti-school\"></i>','Perfil']];
     el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span><i class="ti ti-home"></i></span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
+  } else if(S.role==='org'){
+    const items=[['org-home','<i class=\"ti ti-layout-dashboard\"></i>','Painel'],['org-nova-liga','<i class=\"ti ti-plus\"></i>','Nova liga'],['org-circuito','<i class=\"ti ti-tournament\"></i>','Circuito'],['org-atletas','<i class=\"ti ti-users\"></i>','Atletas']];
+    el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span><i class="ti ti-home"></i></span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="S.nl=null;nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
   } else if(S.role==='grupo'){
     const items=[['g-home','<i class=\"ti ti-users\"></i>','Grupo'],['g-jogos','<i class=\"ti ti-list\"></i>','Jogos'],['g-addjogo','<i class=\"ti ti-plus\"></i>','Placar'],['portal','<i class=\"ti ti-world\"></i>','Portal'],['g-plano','<i class=\"ti ti-settings\"></i>','Plano']];
     el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span><i class="ti ti-home"></i></span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
@@ -438,6 +441,7 @@ function vIntro(){
       ['jogador','<i class="ti ti-user"></i>','Sou jogador','Reserve quadras, jogue ligas e suba no ranking'],
       ['grupo','<i class="ti ti-users"></i>','Pequeno grupo','A turma fixa com placar e ranking interno'],
       ['professor','<i class="ti ti-school"></i>','Sou professor','Turmas, presença, reposições e cobranças'],
+      ['organizador','<i class="ti ti-tournament"></i>','Organizador de ligas','Circuitos, sorteio de duplas e ranking automático'],
       ['classificados','<i class="ti ti-shopping-cart"></i>','Classificados','Compre e venda usados do meio esportivo'],
     ].map(f=>`<div class="card" onclick="go('beneficios','${f[0]}')">
       <div style="display:flex;align-items:center;gap:12px">
@@ -457,6 +461,12 @@ function vIntro(){
   </div>`;
 }
 const BENEF={
+  organizador:{ic:'<i class="ti ti-tournament"></i>',t:'Para o organizador de ligas',cta:['<i class="ti ti-tournament"></i> Abrir o organizador',"S.role='org';nav('org-home')"],itens:[
+    ['<i class="ti ti-wand"></i>','Liga configurada em minutos','Formato, categoria, pontuação e inscrição definidos antes de abrir — sem discussão depois.'],
+    ['<i class="ti ti-arrows-shuffle"></i>','Sorteio justo e automático','Duplas mistas, por nível ou aleatórias; confrontos e quadras com um toque. SUPER 8 pronto.'],
+    ['<i class="ti ti-tournament"></i>','Circuitos com ranking somado','Some as etapas automaticamente e tenha o ranking geral sempre atualizado.'],
+    ['<i class="ti ti-eye"></i>','Atletas acompanham sozinhos','Cada jogador vê seus jogos, resultados e posição sem te perguntar nada.'],
+  ]},
   arena:{ic:'<i class="ti ti-building"></i>',t:'Para a sua arena',cta:['<i class="ti ti-building"></i> Cadastrar minha arena',"S.pendingPlan=3;go('auth','arena')"],itens:[
     ['<i class="ti ti-ball-tennis"></i>','Agenda de quadras sem erro','Horários livres, ocupados e pendentes em tempo real. Chega de reserva duplicada, caderno ou WhatsApp perdido.'],
     ['<i class="ti ti-coin"></i>','Receba na hora da reserva','Pix e cartão direto no app. O jogador paga ao reservar — menos furo e caixa previsível.'],
@@ -516,6 +526,7 @@ function vSplash(){
     <button class="rolebtn rb-a" onclick="entrarArena()"><span class="e"><i class="ti ti-building"></i></span><span>Sou Arena<small>Gerenciar quadras, ligas e torneios</small></span></button>
     <button class="rolebtn rb-g" onclick="entrarGrupo()"><span class="e"><i class="ti ti-users"></i></span><span>Pequeno Grupo <span style="background:var(--org);color:#1b1b1b;border-radius:10px;font-size:.6em;padding:2px 8px;vertical-align:middle">NOVO</span><small>Sua turma fixa: jogos, ranking interno e 1 local</small></span></button>
     <button class="rolebtn rb-t" onclick="S.role='prof';nav('pr-home');toast('Bem-vindo, professor! 🎓')"><span class="e"><i class="ti ti-school"></i></span><span>Sou Professor<small>Turmas, presença, reposições e cobranças</small></span></button>
+    <button class="rolebtn rb-a" onclick="S.role='org';nav('org-home');toast('Bem-vindo, organizador! 🏆')"><span class="e"><i class="ti ti-tournament"></i></span><span>Organizador de Ligas<small>Circuitos, sorteios e rankings</small></span></button>
     <button class="rolebtn rb-c" onclick="S.role='player';nav('cl-home')"><span class="e"><i class="ti ti-shopping-cart"></i></span><span>Classificados<small>Compra e venda de itens do beach tennis</small></span></button>
     <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e"><i class="ti ti-world"></i></span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
     <a style="color:#B4B2A9;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')"><i class="ti ti-info-circle"></i> Por que usar o Beachzinho?</a>
@@ -538,6 +549,7 @@ function vPHome(){
       <button class="mi" onclick="go('p-pontos')"><span class="e"><i class="ti ti-chart-bar"></i></span><span>Minha pontuação<small>Ranking #${DB.me.rank} na cidade</small></span></button>
       <button class="mi" onclick="go('p-dados')"><span class="e"><i class="ti ti-id"></i></span><span>Meus dados<small>Editar cadastro</small></span></button>
       <button class="mi" onclick="go('p-historico')"><span class="e"><i class="ti ti-history"></i></span><span>Histórico<small>Por tipo e por dia</small></span></button>
+      <button class="mi" onclick="go('p-atleta')"><span class="e"><i class="ti ti-eye"></i></span><span>Área do Atleta<small>Ligas, circuitos e jogos</small></span></button>
       <button class="mi" onclick="go('cl-home')"><span class="e"><i class="ti ti-shopping-cart"></i></span><span>Classificados<small>Compra e venda</small></span></button>
     </div>
 
@@ -953,6 +965,353 @@ function carregarITF(){
     if(S.screen==='portal'||S.screen==='portal-h2h') render();
   }).catch(()=>{});
 }
+
+
+/* ═══════════ MÓDULO — ORGANIZADOR DE LIGAS ═══════════ */
+DB.orgd = {
+  cats:['Iniciante','D','CD','C','CB','B','A','PRO'],
+  atletas:[
+    {id:1,n:'João Silva',sexo:'M',cat:'C',origem:'aluno',zap:'(63) 9 5500-1122',cid:'Palmas/TO',lado:'Direito',insc:'02/08/26'},
+    {id:2,n:'Ana Costa',sexo:'F',cat:'C',origem:'aluno',zap:'(63) 9 8811-2233',cid:'Palmas/TO',lado:'Esquerdo',insc:'02/08/26'},
+    {id:3,n:'Pedro Lima',sexo:'M',cat:'CB',origem:'aluno',zap:'(63) 9 9922-4455',cid:'Palmas/TO',lado:'Direito',insc:'03/08/26'},
+    {id:4,n:'Duda Freitas',sexo:'F',cat:'C',origem:'aluno',zap:'(63) 9 7700-1188',cid:'Palmas/TO',lado:'Direito',insc:'03/08/26'},
+    {id:5,n:'Rafa Martins',sexo:'M',cat:'B',origem:'aluno',zap:'(63) 9 6644-2299',cid:'Palmas/TO',lado:'Esquerdo',insc:'04/08/26'},
+    {id:6,n:'Bia Rocha',sexo:'F',cat:'CB',origem:'aluno',zap:'(63) 9 6611-0022',cid:'Palmas/TO',lado:'Direito',insc:'04/08/26'},
+    {id:7,n:'Leo Braga',sexo:'M',cat:'C',origem:'aluno',zap:'(63) 9 4433-6677',cid:'Palmas/TO',lado:'Direito',insc:'05/08/26'},
+    {id:8,n:'Mel Dias',sexo:'F',cat:'D',origem:'externo',zap:'(63) 9 3322-5511',cid:'Paraíso/TO',lado:'Direito',insc:'05/08/26'},
+    {id:9,n:'Caio Nunes',sexo:'M',cat:'C',origem:'externo',zap:'(63) 9 2211-8844',cid:'Palmas/TO',lado:'Esquerdo',insc:'06/08/26'},
+    {id:10,n:'Nina Reis',sexo:'F',cat:'C',origem:'externo',zap:'(63) 9 8855-3366',cid:'Palmas/TO',lado:'Direito',insc:'06/08/26'},
+    {id:11,n:'Tico Souza',sexo:'M',cat:'D',origem:'externo',zap:'(63) 9 7788-9900',cid:'Porto Nacional/TO',lado:'Direito',insc:'07/08/26'},
+    {id:12,n:'Carla Mota',sexo:'F',cat:'B',origem:'externo',zap:'(63) 9 5566-7788',cid:'Palmas/TO',lado:'Esquerdo',insc:'07/08/26'},
+    {id:13,n:'Beto Alves',sexo:'M',cat:'CB',origem:'externo',zap:'(63) 9 1122-3344',cid:'Palmas/TO',lado:'Direito',insc:'08/08/26'},
+    {id:14,n:'Lia Prado',sexo:'F',cat:'CB',origem:'externo',zap:'(63) 9 9988-7766',cid:'Palmas/TO',lado:'Direito',insc:'08/08/26'},
+    {id:15,n:'Davi Luz',sexo:'M',cat:'C',origem:'externo',zap:'(63) 9 4455-6611',cid:'Palmas/TO',lado:'Direito',insc:'09/08/26'},
+    {id:16,n:'Gil Ramos',sexo:'M',cat:'C',origem:'externo',zap:'(63) 9 3311-2299',cid:'Palmas/TO',lado:'Esquerdo',insc:'10/08/26'},
+  ],
+  circuitos:[{id:1,nome:'Circuito Verão',dia:'Segundas · 19h',cat:'C',etapas:10,formato:'Dupla',pont:'Individual'}],
+  ligas:[
+    {id:1,nome:'Etapa 1 — Circuito Verão',data:'10/08/26',hora:'19h',circ:1,tipo:'normal',formato:'dupla',gen:'mista',cat:'C',pont:'ind',regra:{v:3,d:1,g:1},insc:'individual',sorteio:'rodada',equil:'misto',vagas:12,status:'concluída',rod:3,inscritos:[1,2,3,4,5,6,7,8,9,10,11,12],
+     resultados:[
+       {r:1,a:[1,2],b:[3,4],sa:6,sb:4,d:'10/08/26'},{r:1,a:[5,6],b:[7,8],sa:6,sb:2,d:'10/08/26'},{r:1,a:[9,10],b:[11,12],sa:4,sb:6,d:'10/08/26'},
+       {r:2,a:[1,4],b:[5,8],sa:6,sb:3,d:'10/08/26'},{r:2,a:[7,2],b:[9,12],sa:5,sb:7,d:'10/08/26'},{r:2,a:[11,6],b:[3,10],sa:2,sb:6,d:'10/08/26'}]},
+    {id:2,nome:'Etapa 2 — Circuito Verão',data:'17/08/26',hora:'19h',circ:1,tipo:'normal',formato:'dupla',gen:'mista',cat:'C',pont:'ind',regra:{v:3,d:1,g:1},insc:'individual',sorteio:'rodada',equil:'misto',vagas:12,status:'concluída',rod:3,inscritos:[1,2,3,4,5,6,7,8,9,10,11,12],
+     resultados:[
+       {r:1,a:[5,2],b:[1,6],sa:6,sb:7,d:'17/08/26'},{r:1,a:[3,12],b:[9,4],sa:6,sb:3,d:'17/08/26'},{r:1,a:[7,10],b:[11,8],sa:6,sb:1,d:'17/08/26'},
+       {r:2,a:[1,10],b:[3,2],sa:6,sb:4,d:'17/08/26'},{r:2,a:[5,4],b:[7,12],sa:7,sb:5,d:'17/08/26'},{r:2,a:[9,6],b:[11,14],sa:6,sb:3,d:'17/08/26'}]},
+    {id:3,nome:'Etapa 3 — Circuito Verão',data:'24/08/26',hora:'19h',circ:1,tipo:'normal',formato:'dupla',gen:'mista',cat:'C',pont:'ind',regra:{v:3,d:1,g:1},insc:'individual',sorteio:'rodada',equil:'misto',vagas:12,status:'inscrições abertas',rod:1,inscritos:[1,2,3,4,5,6,7,8,9,10,11,12,13,14],resultados:[]},
+    {id:4,nome:'Liga Duplas Feminina',data:'30/08/26',hora:'09h',circ:0,tipo:'normal',formato:'dupla',gen:'feminina',cat:'B',pont:'dupla',regra:{v:3,d:1,g:1},insc:'dupla',vagas:0,status:'inscrições abertas',rod:1,duplas:[[2,4],[6,8],[10,12]],resultados:[]},
+    {id:5,nome:'SUPER 8 — Masculino C',data:'31/08/26',hora:'08h',circ:0,tipo:'super8',formato:'dupla',gen:'masculina',cat:'C',pont:'ind',regra:{v:3,d:1,g:1},insc:'individual',vagas:8,status:'inscrições abertas',rod:1,inscritos:[1,3,5,7,9,11,13,15,16],resultados:[]},
+  ],
+};
+const S8TAB=[
+ [[0,1],[2,3],[4,5],[6,7]], [[0,2],[1,3],[4,6],[5,7]], [[0,3],[1,2],[4,7],[5,6]],
+ [[0,4],[1,5],[2,6],[3,7]], [[0,5],[1,4],[2,7],[3,6]], [[0,6],[1,7],[2,4],[3,5]], [[0,7],[1,6],[2,5],[3,4]]
+];
+function orgAt(id){ return DB.orgd.atletas.find(a=>a.id===id); }
+function orgNome(id){ const a=orgAt(id); return a?a.n:'?'; }
+function orgLiga(id){ return DB.orgd.ligas.find(l=>l.id===id); }
+function orgConfirmados(l){ const v=l.vagas||0; return v>0?(l.inscritos||[]).slice(0,v):(l.inscritos||[]); }
+function orgEspera(l){ const v=l.vagas||0; return v>0?(l.inscritos||[]).slice(v):[]; }
+function shuffleArr(v){ const a=[...v]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function orgPontosLiga(l){
+  const r={};
+  const add=(key,nome,pts,win)=>{ if(!r[key])r[key]={key,nome,pts:0,j:0,v:0}; r[key].pts+=pts; r[key].j++; if(win)r[key].v++; };
+  (l.resultados||[]).forEach(jg=>{
+    const winA=jg.sa>jg.sb;
+    const pA=(winA?l.regra.v:l.regra.d)+l.regra.g*jg.sa;
+    const pB=(winA?l.regra.d:l.regra.v)+l.regra.g*jg.sb;
+    if(l.pont==='ind'){
+      jg.a.forEach(id=>add('a'+id,orgNome(id),pA,winA));
+      jg.b.forEach(id=>add('a'+id,orgNome(id),pB,!winA));
+    } else {
+      add('d'+[...jg.a].sort((x,y)=>x-y).join('-'), jg.a.map(orgNome).join(' & '), pA, winA);
+      add('d'+[...jg.b].sort((x,y)=>x-y).join('-'), jg.b.map(orgNome).join(' & '), pB, !winA);
+    }
+  });
+  return Object.values(r).sort((x,y)=>y.pts-x.pts);
+}
+function orgRankCircuito(cid){
+  const r={};
+  DB.orgd.ligas.filter(l=>l.circ===cid).forEach(l=>{
+    orgPontosLiga(l).forEach(e=>{ if(!r[e.key])r[e.key]={...e}; else { r[e.key].pts+=e.pts; r[e.key].j+=e.j; r[e.key].v+=e.v; } });
+  });
+  return Object.values(r).sort((x,y)=>y.pts-x.pts);
+}
+function orgSortear(id){
+  const l=orgLiga(id); if(!l) return;
+  if(l.tipo==='super8'){
+    const conf8=orgConfirmados(l);
+    if(conf8.length<8){ toast('⚠️ O SUPER 8 precisa de 8 confirmados ('+conf8.length+'/8)'); return; }
+    if(!l.s8ordem) l.s8ordem=shuffleArr(conf8.slice(0,8));
+    const rod=Math.min(l.rod||1,7);
+    const t=S8TAB[rod-1], o=l.s8ordem;
+    l.preview={conf:[{a:[o[t[0][0]],o[t[0][1]]],b:[o[t[1][0]],o[t[1][1]]]},{a:[o[t[2][0]],o[t[2][1]]],b:[o[t[3][0]],o[t[3][1]]]}],byeAt:null,byeDupla:null};
+    toast('Rodada '+rod+' de 7 gerada — todos jogam com todos 🎲'); render(); return;
+  }
+  let duplas=[], byeAt=null;
+  if(l.insc==='dupla'){ duplas=[...(l.duplas||[])]; }
+  else {
+    const ids=[...orgConfirmados(l)];
+    if(l.equil==='misto'){
+      const h=shuffleArr(ids.filter(i=>orgAt(i)&&orgAt(i).sexo==='M'));
+      const m=shuffleArr(ids.filter(i=>orgAt(i)&&orgAt(i).sexo==='F'));
+      while(h.length&&m.length) duplas.push([h.pop(),m.pop()]);
+      const sobra=[...h,...m];
+      while(sobra.length>=2) duplas.push([sobra.pop(),sobra.pop()]);
+      if(sobra.length) byeAt=sobra.pop();
+    } else if(l.equil==='nivel'){
+      const ord=[...ids].sort((a,b)=>DB.orgd.cats.indexOf(orgAt(b).cat)-DB.orgd.cats.indexOf(orgAt(a).cat));
+      while(ord.length>=2) duplas.push([ord.shift(),ord.pop()]);
+      if(ord.length) byeAt=ord.pop();
+    } else {
+      const s=shuffleArr(ids);
+      while(s.length>=2) duplas.push([s.pop(),s.pop()]);
+      if(s.length) byeAt=s.pop();
+    }
+  }
+  const ds=shuffleArr(duplas), conf=[]; let byeDupla=null;
+  while(ds.length>=2) conf.push({a:ds.pop(),b:ds.pop()});
+  if(ds.length) byeDupla=ds.pop();
+  l.preview={conf,byeAt,byeDupla};
+  toast('Sorteio feito! Confira e trave para publicar 🎲'); render();
+}
+function orgTravar(id){ const l=orgLiga(id); if(!l||!l.preview) return; l.rodadaAtual=l.preview; l.preview=null; l.status='rodada publicada'; toast('Rodada publicada aos atletas ✅'); render(); }
+function orgPlacar(id){
+  const l=orgLiga(id); const rc=l&&l.rodadaAtual; if(!rc) return;
+  let lanc=0;
+  rc.conf.forEach((c,i)=>{
+    const sa=parseInt((document.getElementById('or-sa-'+i)||{value:''}).value)||0;
+    const sb=parseInt((document.getElementById('or-sb-'+i)||{value:''}).value)||0;
+    if(sa===sb) return;
+    l.resultados=l.resultados||[];
+    l.resultados.push({r:l.rod||1,a:c.a,b:c.b,sa,sb,d:l.data});
+    lanc++;
+  });
+  if(!lanc){ toast('⚠️ Preencha ao menos um placar (sem empate)'); return; }
+  l.rod=(l.rod||1)+1; l.rodadaAtual=null;
+  if(l.tipo==='super8'&&l.rod>7){ l.status='concluída'; toast('SUPER 8 concluído! Classificação final pronta 🏆'); }
+  else { l.status='em andamento'; toast('Resultados lançados! Classificação atualizada 🏆'); }
+  render();
+}
+function orgAddInscrito(id){
+  const l=orgLiga(id); const v=parseInt((document.getElementById('ol-add')||{value:''}).value);
+  if(!v){ toast('Escolha um atleta'); return; }
+  if(l.inscritos.includes(v)){ toast('⚠️ Já inscrito'); return; }
+  l.inscritos.push(v);
+  const pos=l.inscritos.length, vg=l.vagas||0;
+  toast(vg>0&&pos>vg ? orgNome(v)+' entrou na lista de espera ('+(pos-vg)+'º) ⏳' : orgNome(v)+' inscrito — '+pos+'º na ordem ✅');
+  render();
+}
+function orgAddDupla(id){
+  const l=orgLiga(id);
+  const d1=parseInt((document.getElementById('ol-d1')||{value:''}).value), d2=parseInt((document.getElementById('ol-d2')||{value:''}).value);
+  if(!d1||!d2||d1===d2){ toast('⚠️ Escolha dois atletas diferentes'); return; }
+  l.duplas=l.duplas||[]; l.duplas.push([d1,d2]); toast('Dupla inscrita ✅'); render();
+}
+function salvarAtletaOrg(){
+  const g=id=>(document.getElementById(id)||{value:''}).value;
+  const nome=g('oa-nome').trim(); if(!nome){ toast('⚠️ Informe o nome'); return; }
+  const novo={id:Math.max(...DB.orgd.atletas.map(a=>a.id))+1, n:nome, sexo:g('oa-sexo')||'M', cat:g('oa-cat')||'C', origem:'externo', zap:g('oa-zap'), cid:g('oa-cid'), lado:g('oa-lado')||'Direito', insc:new Date().toLocaleDateString('pt-BR').slice(0,8)};
+  DB.orgd.atletas.push(novo);
+  toast('Atleta cadastrado! Já pode entrar nas ligas ✅'); back();
+}
+function nlSet(k,v){ S.nl[k]=v; if(k==='tipo'&&v==='super8'){ S.nl.insc='individual'; S.nl.pont='ind'; S.nl.formato='dupla'; } render(); }
+function criarLigaOrg(){
+  const g=id=>(document.getElementById(id)||{value:''}).value;
+  const nome=g('nl-nome').trim(); if(!nome){ toast('⚠️ Dê um nome à liga'); return; }
+  const novaCat=g('nl-novacat').trim();
+  const dISO=g('nl-data'); const d=dISO? dISO.split('-').reverse().map((x,i)=>i===2?x.slice(2):x).join('/') : '—';
+  if(novaCat && !DB.orgd.cats.includes(novaCat)) DB.orgd.cats.push(novaCat);
+  const nl=S.nl;
+  const s8=nl.tipo==='super8';
+  const liga={id:Math.max(...DB.orgd.ligas.map(l=>l.id))+1, nome, data:d, hora:g('nl-hora')||'19h', circ:parseInt(g('nl-circ'))||0,
+    tipo:nl.tipo||'normal', formato:s8?'dupla':nl.formato, gen:nl.gen||'mista', cat:novaCat||nl.cat, pont:s8?'ind':nl.pont,
+    regra:{v:parseInt(g('nl-v'))||3, d:parseInt(g('nl-d'))||1, g:parseInt(g('nl-g'))||1},
+    insc:s8?'individual':nl.insc, sorteio:nl.sorteio, equil:nl.equil,
+    vagas:s8?8:(parseInt(g('nl-vagas'))||0),
+    status:'inscrições abertas', rod:1, inscritos:[], duplas:[], resultados:[]};
+  DB.orgd.ligas.push(liga); S.nl=null;
+  toast('Liga criada! Abra as inscrições 🎉'); go('org-liga', liga.id);
+}
+function vOrgHome(){
+  const d=DB.orgd;
+  return `<div class="hd"><h2><i class="ti ti-tournament"></i> Organizador de Ligas<span class="sub">Ligas, circuitos, sorteios e rankings</span></h2></div>
+  <div class="pad">
+    <div class="stats">
+      <div class="stat o"><b>${d.ligas.length}</b><span>Ligas criadas</span></div>
+      <div class="stat"><b>${d.circuitos.length}</b><span>Circuitos</span></div>
+      <div class="stat g"><b>${d.atletas.length}</b><span>Atletas</span></div>
+    </div>
+    <button class="btn btn-o" onclick="S.nl=null;go('org-nova-liga')"><i class="ti ti-plus"></i> Nova liga</button>
+    <div style="display:flex;gap:8px;margin:10px 0">
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('org-atletas')"><i class="ti ti-users"></i> Atletas</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="go('org-circuito',1)"><i class="ti ti-trophy"></i> Circuito Verão</button>
+    </div>
+    <div class="stitle"><i class="ti ti-medal"></i> Minhas ligas</div>
+    ${d.ligas.map(l=>`<div class="card" onclick="go('org-liga',${l.id})">
+      <h3>${l.nome}</h3>
+      <div class="meta"><span><i class="ti ti-calendar"></i> ${l.data} · ${l.hora}</span><span>${l.tipo==='super8'?'SUPER 8':(l.formato==='dupla'?'Dupla':'Simples')} · ${l.gen} · cat. ${l.cat}</span></div>
+      <div style="margin-top:6px"><span class="badge ${l.status==='concluída'?'bGy':l.status==='inscrições abertas'?'bO':'bG'}">${l.status}</span>
+      <span class="badge bB">${l.tipo==='super8'?'8 jogadores · todos com todos':(l.insc==='dupla'?'inscrição por dupla':'individual + sorteio')}</span>
+      ${l.circ?'<span class="badge bP">circuito</span>':''}</div>
+    </div>`).join('')}
+  </div>`;
+}
+function vOrgAtletas(){
+  const busca=(S.buscaOrg||'').toLowerCase();
+  const lista=DB.orgd.atletas.filter(a=>!busca||a.n.toLowerCase().includes(busca));
+  return header('<i class="ti ti-users"></i> Atletas','Registro único — para as ligas só o nome importa')+`
+  <div class="pad">
+    <button class="btn btn-o" onclick="go('org-novo-atleta')"><i class="ti ti-user-plus"></i> Cadastrar atleta</button>
+    <input placeholder="Buscar por nome..." oninput="S.buscaOrg=this.value" onchange="render()" style="width:100%;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff;margin:8px 0" value="${S.buscaOrg||''}">
+    ${lista.map(a=>`<div class="rk">
+      <span class="pos">${a.sexo==='M'?'♂':'♀'}</span>
+      <span class="nm">${a.n}<small>cat. ${a.cat} · ${a.cid||'—'} · lado ${a.lado||'—'} · desde ${a.insc||'—'}</small></span>
+      <span class="pts" style="cursor:pointer" onclick="event.stopPropagation();toast('Abrindo WhatsApp de ${a.n} 💬')"><i class="ti ti-brand-whatsapp"></i></span>
+    </div>`).join('')}
+  </div>`;
+}
+function vOrgNovoAtleta(){
+  return header('<i class="ti ti-user-plus"></i> Cadastrar atleta','Entra no registro único')+`
+  <div class="pad">
+    <div class="fld"><label>Nome completo</label><input id="oa-nome" placeholder="Nome e sobrenome"></div>
+    <div class="fld"><label>WhatsApp</label><input id="oa-zap" placeholder="(63) 9 9999-9999"></div>
+    <div style="display:flex;gap:8px">
+      <div class="fld" style="flex:1"><label>Sexo</label><select id="oa-sexo"><option value="M">Masculino</option><option value="F">Feminino</option></select></div>
+      <div class="fld" style="flex:1"><label>Categoria</label><select id="oa-cat">${DB.orgd.cats.map(c=>`<option ${c==='C'?'selected':''}>${c}</option>`).join('')}</select></div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <div class="fld" style="flex:1"><label>Cidade/UF</label><input id="oa-cid" placeholder="Palmas/TO"></div>
+      <div class="fld" style="flex:1"><label>Lado preferido</label><select id="oa-lado"><option>Direito</option><option>Esquerdo</option><option>Ambos</option></select></div>
+    </div>
+    <button class="btn btn-o" onclick="salvarAtletaOrg()"><i class="ti ti-device-floppy"></i> Salvar atleta</button>
+    <button class="btn btn-ghost" onclick="toast('Link de auto-cadastro copiado! Envie pelo WhatsApp 💬')"><i class="ti ti-link"></i> Gerar link de auto-cadastro</button>
+    <div class="al al-b">O atleta preenche a própria ficha pelo link e você só aprova. Para as ligas, não importa a origem — só o nome no registro.</div>
+  </div>`;
+}
+function vOrgNovaLiga(){
+  if(!S.nl) S.nl={tipo:'normal',formato:'dupla',gen:'mista',cat:'C',pont:'ind',insc:'individual',sorteio:'rodada',equil:'misto'};
+  const nl=S.nl; const s8=nl.tipo==='super8';
+  const chip=(on,click,txt)=>`<div class="chip ${on?'on':''}" onclick="${click}">${txt}</div>`;
+  return header('<i class="ti ti-wand"></i> Nova Liga','Defina tudo antes de abrir as inscrições')+`
+  <div class="pad">
+    <div class="stitle">Tipo de liga</div>
+    <div class="chips">${chip(nl.tipo==='normal',"nlSet('tipo','normal')",'Liga normal')}${chip(s8,"nlSet('tipo','super8')",'SUPER 8 — 8 jogadores, todos com todos')}</div>
+    ${s8?'<div class="al al-b">SUPER 8: 8 vagas, pontuação individual, 7 rodadas — cada jogador joga <b>com</b> todos (como parceiro) e <b>contra</b> todos. Categoria e gênero à sua escolha.</div>':''}
+    <div class="fld"><label>Nome da liga</label><input id="nl-nome" placeholder="${s8?'Ex: SUPER 8 — Feminino B':'Ex: Etapa 4 — Circuito Verão'}"></div>
+    <div style="display:flex;gap:8px">
+      <div class="fld" style="flex:1"><label>Data</label><input id="nl-data" type="date"></div>
+      <div class="fld" style="flex:1"><label>Hora</label><input id="nl-hora" placeholder="19h"></div>
+    </div>
+    <div class="fld"><label>Faz parte de um circuito?</label><select id="nl-circ"><option value="0">Não — liga avulsa</option>${DB.orgd.circuitos.map(c=>`<option value="${c.id}">${c.nome} (${c.etapas} etapas)</option>`).join('')}</select></div>
+    ${s8?'':`<div class="stitle">1 · Formato do jogo</div>
+    <div class="chips">${chip(nl.formato==='dupla',"nlSet('formato','dupla')",'Dupla (2x2)')}${chip(nl.formato==='simples',"nlSet('formato','simples')",'Simples (1x1)')}</div>`}
+    <div class="stitle">${s8?'Gênero e categoria':'2 · Gênero'}</div>
+    <div class="chips">${chip(nl.gen==='masculina',"nlSet('gen','masculina')",'Masculina')}${chip(nl.gen==='feminina',"nlSet('gen','feminina')",'Feminina')}${chip(nl.gen==='mista',"nlSet('gen','mista')",'Mista')}</div>
+    <div class="chips" style="margin-top:6px">${DB.orgd.cats.map(c=>chip(nl.cat===c,`nlSet('cat','${c}')`,c)).join('')}</div>
+    <div class="fld" style="margin-top:6px"><label>Ou criar categoria nova</label><input id="nl-novacat" placeholder="Ex: Sub-14, 40+..."></div>
+    ${s8?'':`<div class="stitle">3 · Pontuação</div>
+    <div class="chips">${chip(nl.pont==='ind',"nlSet('pont','ind')",'Conta para o indivíduo')}${chip(nl.pont==='dupla',"nlSet('pont','dupla')",'Conta para a dupla')}</div>`}
+    <div style="display:flex;gap:8px;margin-top:6px">
+      <div class="fld" style="flex:1"><label>Vitória</label><input id="nl-v" type="number" value="3"></div>
+      <div class="fld" style="flex:1"><label>Derrota</label><input id="nl-d" type="number" value="1"></div>
+      <div class="fld" style="flex:1"><label>Por game</label><input id="nl-g" type="number" value="1"></div>
+    </div>
+    ${s8?'':`<div class="stitle">4 · Inscrição</div>
+    <div class="chips">${chip(nl.insc==='individual',"nlSet('insc','individual')",'Individual — app sorteia as duplas')}${chip(nl.insc==='dupla',"nlSet('insc','dupla')",'Por dupla — já entra o nome da dupla')}</div>
+    <div class="fld" style="margin-top:6px"><label>Vagas (em branco = sem limite) — a ordem de inscrição define quem joga</label><input id="nl-vagas" type="number" placeholder="Ex: 12"></div>
+    ${nl.insc==='individual'?`
+    <div class="stitle">4a · Sorteio das duplas</div>
+    <div class="chips">${chip(nl.sorteio==='rodada',"nlSet('sorteio','rodada')",'Re-sorteio a cada rodada')}${chip(nl.sorteio==='fixa',"nlSet('sorteio','fixa')",'Dupla fixa na etapa')}</div>
+    <div class="stitle">4b · Equilíbrio</div>
+    <div class="chips">${chip(nl.equil==='misto',"nlSet('equil','misto')",'Misto: 1 homem + 1 mulher')}${chip(nl.equil==='nivel',"nlSet('equil','nivel')",'Por nível')}${chip(nl.equil==='aleatorio',"nlSet('equil','aleatorio')",'Aleatório puro')}</div>`:`
+    <div class="al al-b">Inscrição por dupla: o registro já entra com o nome da dupla formada. O sorteio define só confrontos e quadras.</div>`}`}
+    <button class="btn btn-o" style="margin-top:14px" onclick="criarLigaOrg()"><i class="ti ti-circle-check"></i> Revisar e criar liga</button>
+  </div>`;
+}
+function vOrgLiga(){
+  const l=orgLiga(S.param)||DB.orgd.ligas[0];
+  const classi=orgPontosLiga(l);
+  const conf=orgConfirmados(l), esp=orgEspera(l);
+  const selAt=(id,filtro)=>`<select id="${id}" style="flex:1;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px;font-family:inherit;background:#fff"><option value="">Escolher...</option>${DB.orgd.atletas.filter(filtro||(()=>true)).map(a=>`<option value="${a.id}">${a.n} (${a.cat})</option>`).join('')}</select>`;
+  return header(l.nome, l.data+' · '+l.hora+' · '+l.gen+' · cat. '+l.cat)+`
+  <div class="pad">
+    <div style="margin-bottom:8px"><span class="badge bB">${l.tipo==='super8'?'SUPER 8 · 7 rodadas':(l.formato==='dupla'?'Dupla':'Simples')}</span><span class="badge bB">${l.pont==='ind'?'pontua indivíduo':'pontua dupla'}</span><span class="badge bB">${l.tipo==='super8'?'todos com todos':(l.insc==='dupla'?'inscrição por dupla':'individual · sorteio '+(l.sorteio==='rodada'?'por rodada':'fixo')+(l.equil?' · '+l.equil:''))}</span><span class="badge ${l.status==='concluída'?'bGy':'bO'}">${l.status}</span>${l.circ?`<span class="badge bP" onclick="event.stopPropagation();go('org-circuito',${l.circ})" style="cursor:pointer">ver circuito →</span>`:''}</div>
+    ${l.insc==='individual'?`
+    <div class="stitle">Inscritos por ordem de chegada (${(l.inscritos||[]).length}${l.vagas?' · '+l.vagas+' vagas':''})</div>
+    ${conf.map((id,i)=>`<div class="rk" style="cursor:default"><span class="pos">${i+1}º</span><span class="nm">${orgNome(id)}<small>inscrito em ${(orgAt(id)||{}).insc||'—'}</small></span><span class="badge bG" style="margin:0">confirmado</span></div>`).join('')}
+    ${esp.map((id,i)=>`<div class="rk" style="cursor:default;opacity:.75"><span class="pos">${conf.length+i+1}º</span><span class="nm">${orgNome(id)}<small>entra se abrir vaga ou fechar grupo</small></span><span class="badge bO" style="margin:0">espera ${i+1}º</span></div>`).join('')}
+    <div style="display:flex;gap:6px;margin:8px 0 10px">${selAt('ol-add',a=>!(l.inscritos||[]).includes(a.id))}<button class="btn btn-n" style="margin:0;width:auto;padding:0 16px" onclick="orgAddInscrito(${l.id})">Inscrever</button></div>`:`
+    <div class="stitle">Duplas inscritas (${(l.duplas||[]).length})</div>
+    ${(l.duplas||[]).map((d,i)=>`<div class="rk" style="cursor:default"><span class="pos">${i+1}º</span><span class="nm">${orgNome(d[0])} & ${orgNome(d[1])}</span></div>`).join('')||'<div class="empty"><span><i class="ti ti-users"></i></span>Nenhuma dupla ainda</div>'}
+    <div style="display:flex;gap:6px;margin:8px 0 10px">${selAt('ol-d1')}${selAt('ol-d2')}<button class="btn btn-n" style="margin:0;width:auto;padding:0 14px" onclick="orgAddDupla(${l.id})">+</button></div>`}
+    ${l.status!=='concluída'?`
+    <div class="stitle">${l.tipo==='super8'?'Rodada '+(l.rod||1)+' de 7':'Sorteio — rodada '+(l.rod||1)}</div>
+    ${!l.preview&&!l.rodadaAtual?`<button class="btn btn-o" onclick="orgSortear(${l.id})"><i class="ti ti-arrows-shuffle"></i> ${l.tipo==='super8'?'Gerar rodada '+(l.rod||1):'Sortear '+(l.insc==='individual'?'duplas e confrontos':'confrontos')}</button>`:''}
+    ${l.preview?`
+      ${l.preview.conf.map((c,i)=>`<div class="card" style="cursor:default"><h3 style="font-size:.95em">${c.a.map(orgNome).join(' & ')} <span style="color:var(--mut)">vs</span> ${c.b.map(orgNome).join(' & ')}</h3><div class="meta"><span>Quadra ${i+1}</span></div></div>`).join('')}
+      ${l.preview.byeDupla?`<div class="al al-y">${l.preview.byeDupla.map(orgNome).join(' & ')} folgam nesta rodada (bye)</div>`:''}
+      ${l.preview.byeAt?`<div class="al al-y">${orgNome(l.preview.byeAt)} descansa nesta rodada</div>`:''}
+      <div style="display:flex;gap:8px"><button class="btn btn-ghost" style="flex:1;margin:0" onclick="orgSortear(${l.id})"><i class="ti ti-refresh"></i> Re-sortear</button><button class="btn btn-o" style="flex:1;margin:0" onclick="orgTravar(${l.id})"><i class="ti ti-lock"></i> Travar e publicar</button></div>`:''}
+    ${l.rodadaAtual?`
+      <div class="al al-g">Rodada publicada — os atletas já veem os jogos. Lance os placares abaixo.</div>
+      ${l.rodadaAtual.conf.map((c,i)=>`<div class="card" style="cursor:default"><h3 style="font-size:.92em">${c.a.map(orgNome).join(' & ')} <span style="color:var(--mut)">vs</span> ${c.b.map(orgNome).join(' & ')}</h3>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:8px"><input id="or-sa-${i}" type="number" placeholder="0" style="width:64px;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px;text-align:center;font-family:inherit"><span style="color:var(--mut)">×</span><input id="or-sb-${i}" type="number" placeholder="0" style="width:64px;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px;text-align:center;font-family:inherit"><span style="color:var(--mut);font-size:.8em">Quadra ${i+1}</span></div></div>`).join('')}
+      <button class="btn btn-o" onclick="orgPlacar(${l.id})"><i class="ti ti-clipboard-check"></i> Lançar resultados da rodada</button>`:''}`:''}
+    ${classi.length?`
+    <div class="stitle">Classificação ${l.pont==='ind'?'individual':'por dupla'}</div>
+    ${classi.slice(0,10).map((e,i)=>`<div class="rk" style="cursor:default"><span class="pos">${['🥇','🥈','🥉'][i]||'#'+(i+1)}</span><span class="nm">${e.nome}<small>${e.j} jogos · ${e.v} vitórias</small></span><span class="pts">${e.pts} pts</span></div>`).join('')}`:''}
+    ${(l.resultados||[]).length?`
+    <div class="stitle">Resultados lançados</div>
+    ${l.resultados.map(jg=>`<div class="rk" style="cursor:default"><span class="pos">R${jg.r}</span><span class="nm">${jg.a.map(orgNome).join(' & ')} × ${jg.b.map(orgNome).join(' & ')}<small>${jg.d}</small></span><span class="pts">${jg.sa}×${jg.sb}</span></div>`).join('')}`:''}
+  </div>`;
+}
+function vOrgCircuito(){
+  const c=DB.orgd.circuitos.find(x=>x.id===S.param)||DB.orgd.circuitos[0];
+  const etapas=DB.orgd.ligas.filter(l=>l.circ===c.id);
+  const rank=orgRankCircuito(c.id);
+  return header('<i class="ti ti-tournament"></i> '+c.nome, c.etapas+' etapas · '+c.dia+' · cat. '+c.cat)+`
+  <div class="pad">
+    <div class="stitle">Ranking geral — soma das etapas</div>
+    ${rank.length?rank.slice(0,10).map((e,i)=>`<div class="rk" style="cursor:default"><span class="pos">${['🥇','🥈','🥉'][i]||'#'+(i+1)}</span><span class="nm">${e.nome}<small>${e.j} jogos · ${e.v} vitórias</small></span><span class="pts">${e.pts} pts</span></div>`).join(''):'<div class="empty"><span><i class="ti ti-trophy"></i></span>Sem resultados ainda</div>'}
+    <div class="stitle">Etapas (${etapas.length} de ${c.etapas} criadas)</div>
+    ${etapas.map(l=>{const campea=orgPontosLiga(l)[0];return `<div class="card" onclick="go('org-liga',${l.id})">
+      <h3 style="font-size:.95em">${l.nome}</h3>
+      <div class="meta"><span><i class="ti ti-calendar"></i> ${l.data}</span><span class="badge ${l.status==='concluída'?'bG':'bO'}" style="margin:0">${l.status}</span>${campea&&l.status==='concluída'?`<span><i class="ti ti-medal"></i> ${campea.nome}</span>`:''}</div>
+    </div>`}).join('')}
+    <button class="btn btn-o" onclick="S.nl=null;go('org-nova-liga')"><i class="ti ti-plus"></i> Criar próxima etapa</button>
+  </div>`;
+}
+function vPAtleta(){
+  const eu=1;
+  const circ=DB.orgd.circuitos[0];
+  const rank=orgRankCircuito(circ.id);
+  const minha=rank.findIndex(e=>e.key==='a'+eu);
+  let prox=null;
+  DB.orgd.ligas.forEach(l=>{ if(l.rodadaAtual) l.rodadaAtual.conf.forEach((cf,i)=>{ if(cf.a.includes(eu)||cf.b.includes(eu)) prox={l,cf,q:i+1}; }); });
+  if(!prox){ const l3=DB.orgd.ligas.find(l=>l.status==='inscrições abertas'&&(l.inscritos||[]).includes(eu)); if(l3) prox={l:l3}; }
+  const meus=[];
+  DB.orgd.ligas.forEach(l=>(l.resultados||[]).forEach(jg=>{
+    const noA=jg.a.includes(eu), noB=jg.b.includes(eu);
+    if(noA||noB) meus.push({liga:l.nome,d:jg.d,pl:jg.sa+'×'+jg.sb,win:noA?jg.sa>jg.sb:jg.sb>jg.sa});
+  }));
+  const minhasLigas=DB.orgd.ligas.filter(l=>(l.inscritos||[]).includes(eu)||(l.duplas||[]).some(d=>d.includes(eu)));
+  return header('<i class="ti ti-eye"></i> Área do Atleta','Acompanhe suas ligas e circuitos')+`
+  <div class="pad">
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:18px;padding:18px;color:#fff;text-align:center;margin-bottom:12px">
+      <p style="opacity:.7;font-size:.8em">${circ.nome} — minha posição</p>
+      <b style="font-size:1.9em;color:var(--org)">${minha>=0?(minha+1)+'º':'—'}</b>
+      <p style="opacity:.85;font-size:.85em">${minha>=0?rank[minha].pts+' pontos somados':'ainda sem pontos'}</p>
+    </div>
+    <div class="stitle">Próximo jogo</div>
+    ${prox?`<div class="card" style="cursor:default"><h3 style="font-size:.95em">${prox.l.nome}</h3><div class="meta"><span><i class="ti ti-calendar"></i> ${prox.l.data} · ${prox.l.hora}</span>${prox.cf?`<span>vs ${(prox.cf.a.includes(eu)?prox.cf.b:prox.cf.a).map(orgNome).join(' & ')}</span><span>Quadra ${prox.q}</span>`:'<span class="badge bO" style="margin:0">aguardando sorteio</span>'}</div></div>`:'<div class="empty"><span><i class="ti ti-calendar"></i></span>Nenhum jogo agendado</div>'}
+    <div class="stitle">Meus resultados</div>
+    ${meus.length?meus.slice().reverse().slice(0,8).map(m=>`<div class="rk" style="cursor:default"><span class="pos">${m.win?'✅':'❌'}</span><span class="nm">${m.liga}<small>${m.d}</small></span><span class="pts" style="color:${m.win?'var(--ok)':'var(--bad)'}">${m.pl}</span></div>`).join(''):'<div class="empty"><span><i class="ti ti-history"></i></span>Sem resultados ainda</div>'}
+    <div class="stitle">Minhas ligas e circuitos</div>
+    ${minhasLigas.map(l=>`<div class="card" style="cursor:default"><h3 style="font-size:.92em">${l.nome}</h3><div class="meta"><span>${l.data}</span><span class="badge ${l.status==='concluída'?'bGy':'bO'}" style="margin:0">${l.status}</span></div></div>`).join('')}
+  </div>`;
+}
+
 
 /* ═══════════ TELAS — PORTAL ═══════════ */
 function vPortal(){
@@ -1919,6 +2278,7 @@ const SCREENS = {
   'a-dash':vADash,'a-quadras':vAQuadras,'a-ligas':vALigas,'a-games':vAGames,'a-perfil':vAPerfil,
   'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
   'auth':vAuth,'auth-verif':vAuthVerif,'sub-checkout':vSubCheckout,'sub-status':vSubStatus,
+  'org-home':vOrgHome,'org-atletas':vOrgAtletas,'org-novo-atleta':vOrgNovoAtleta,'org-nova-liga':vOrgNovaLiga,'org-liga':vOrgLiga,'org-circuito':vOrgCircuito,'p-atleta':vPAtleta,
   'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-turma':vProfTurma,'pr-cal':vProfCal,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-aluno':vProfAluno,'pr-novo-aluno':vProfNovoAluno,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
   'cl-home':vClHome,'cl-item':vClItem,'cl-cadastro':vClCadastro,'cl-novo':vClNovo,'cl-meus':vClMeus,
 };
