@@ -436,7 +436,7 @@ const DB = {
 let S = {role:null, screen:'intro', stack:[], param:null, tab:null, day:0};
 
 function go(screen, param=null, tab=null){ S.stack.push({screen:S.screen,param:S.param,tab:S.tab}); S.screen=screen; S.param=param; S.tab=tab; render(); }
-function back(){ const p=S.stack.pop(); if(p){S.screen=p.screen;S.param=p.param;S.tab=p.tab; render(); return;} const home={player:'p-home',arena:'a-dash',prof:'pr-home',grupo:'g-home',org:'org-home'}[S.role]; nav(home||'splash'); }
+function back(){ const p=S.stack.pop(); if(p){S.screen=p.screen;S.param=p.param;S.tab=p.tab; render(); return;} const home={player:'p-home',arena:'a-dash',prof:'pr-home',grupo:'g-home',org:'org-home',admin:'ad-home'}[S.role]; nav(home||'splash'); }
 function nav(screen){ S.stack=[]; S.screen=screen; S.param=null; S.tab=null; render(); }
 function setTab(t){ S.tab=t; render(); }
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2400); }
@@ -455,6 +455,9 @@ function navbar(){
     el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span><i class="ti ti-home"></i></span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
   } else if(S.role==='prof'){
     const items=[['pr-home','<i class=\"ti ti-layout-dashboard\"></i>','Início'],['pr-agenda','<i class=\"ti ti-clock\"></i>','Agenda'],['pr-turmas','<i class=\"ti ti-users\"></i>','Turmas'],['pr-alunos','<i class=\"ti ti-clipboard-list\"></i>','Alunos'],['pr-perfil','<i class=\"ti ti-school\"></i>','Perfil']];
+    el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span><i class="ti ti-home"></i></span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
+  } else if(S.role==='admin'){
+    const items=[['ad-home','<i class=\"ti ti-gauge\"></i>','Contas'],['ad-fin','<i class=\"ti ti-coin\"></i>','Financeiro']];
     el.innerHTML=`<div class="nav"><button class="ni" onclick="S.role=null;nav('splash')"><span><i class="ti ti-home"></i></span>App</button>${items.map(i=>`<button class="ni ${S.screen===i[0]?'on':''}" onclick="nav('${i[0]}')"><span>${i[1]}</span>${i[2]}</button>`).join('')}</div>`;
   } else if(S.role==='org'){
     const items=[['org-home','<i class=\"ti ti-layout-dashboard\"></i>','Painel'],['org-nova-liga','<i class=\"ti ti-plus\"></i>','Nova liga'],['org-circuito','<i class=\"ti ti-tournament\"></i>','Circuito'],['org-atletas','<i class=\"ti ti-users\"></i>','Atletas']];
@@ -576,6 +579,7 @@ function vSplash(){
     <button class="rolebtn rb-c" onclick="S.role='player';nav('cl-home')"><span class="e"><i class="ti ti-shopping-cart"></i></span><span>Classificados<small>Compra e venda de itens do beach tennis</small></span></button>
     <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e"><i class="ti ti-world"></i></span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
     <a style="color:#9AA3AB;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')"><i class="ti ti-info-circle"></i> Por que usar o Beachzinho?</a>
+    <a style="color:#C3CCD5;font-size:.72em;margin-top:6px;cursor:pointer" onclick="nav('ad-login')"><i class="ti ti-key"></i> Acesso do gestor</a>
   </div>`;
 }
 
@@ -1533,6 +1537,125 @@ function vPAtleta(){
     ${meus.length?meus.slice().reverse().slice(0,8).map(m=>`<div class="rk" style="cursor:default"><span class="pos">${m.win?'✅':'❌'}</span><span class="nm">${m.liga}<small>${m.d}</small></span><span class="pts" style="color:${m.win?'var(--ok)':'var(--bad)'}">${m.pl}</span></div>`).join(''):'<div class="empty"><span><i class="ti ti-history"></i></span>Sem resultados ainda</div>'}
     <div class="stitle">Minhas ligas e circuitos</div>
     ${minhasLigas.map(l=>`<div class="card" style="cursor:default"><h3 style="font-size:.92em">${l.nome}</h3><div class="meta"><span>${l.data}</span><span class="badge ${l.status==='concluída'?'bGy':'bO'}" style="margin:0">${l.status}</span></div></div>`).join('')}
+  </div>`;
+}
+
+
+
+/* ═══════════ MÓDULO — PAINEL DO GESTOR (dono do app) ═══════════ */
+DB.admin = {
+  contas:[
+    {id:1, nome:'Arena Vida Fit', resp:'Carlos Souza', mod:'arena', plano:'Arena Pro', valor:149, status:'em dia', venc:'02/09/26', desde:'02/07/26', ult:'hoje', zap:'(63) 9 9111-2233', uso:'2 quadras · 3 ligas · 41 reservas', pagtos:[{m:'Ago/26',v:149,st:'pago',dt:'02/08/26'},{m:'Jul/26',v:149,st:'pago',dt:'02/07/26'}]},
+    {id:2, nome:'Arena Beira Lago', resp:'Fernanda Reis', mod:'arena', plano:'Arena Pro', valor:149, status:'vence em 3 dias', venc:'17/08/26', desde:'17/06/26', ult:'ontem', zap:'(63) 9 9222-3344', uso:'3 quadras · 1 liga · 28 reservas', pagtos:[{m:'Jul/26',v:149,st:'pago',dt:'17/07/26'},{m:'Jun/26',v:149,st:'pago',dt:'17/06/26'}]},
+    {id:3, nome:'Prof. Marcos Vinícius', resp:'Marcos Vinícius', mod:'professor', plano:'Professor', valor:39, status:'atrasado', venc:'09/08/26', desde:'09/05/26', ult:'há 2 dias', zap:'(63) 9 9333-4455', uso:'3 turmas · 14 alunos', pagtos:[{m:'Ago/26',v:39,st:'atrasado',dt:null},{m:'Jul/26',v:39,st:'pago',dt:'10/07/26'},{m:'Jun/26',v:39,st:'pago',dt:'09/06/26'}]},
+    {id:4, nome:'Luís Organizador', resp:'Luís Aguiar', mod:'organizador', plano:'Organizador', valor:59, status:'em dia', venc:'05/09/26', desde:'05/06/26', ult:'hoje', zap:'(63) 9 9444-5566', uso:'6 ligas · 1 circuito · 17 atletas', pagtos:[{m:'Ago/26',v:59,st:'pago',dt:'05/08/26'},{m:'Jul/26',v:59,st:'pago',dt:'05/07/26'}]},
+    {id:5, nome:'Turma da Terça', resp:'João Silva', mod:'grupo', plano:'Grupo 12', valor:29, status:'em dia', venc:'11/09/26', desde:'11/04/26', ult:'há 3 dias', zap:'(63) 9 9555-6677', uso:'10 membros · 22 jogos', pagtos:[{m:'Ago/26',v:29,st:'pago',dt:'11/08/26'},{m:'Jul/26',v:29,st:'pago',dt:'11/07/26'}]},
+    {id:6, nome:'Grupo Sunset BT', resp:'Paula Andrade', mod:'grupo', plano:'Grupo 20', valor:49, status:'atrasado', venc:'01/08/26', desde:'01/03/26', ult:'há 12 dias', zap:'(63) 9 9666-7788', uso:'18 membros · 40 jogos', pagtos:[{m:'Ago/26',v:49,st:'atrasado',dt:null},{m:'Jul/26',v:49,st:'pago',dt:'03/07/26'}]},
+    {id:7, nome:'Prof. Ana Beatriz', resp:'Ana Beatriz', mod:'professor', plano:'Professor', valor:39, status:'em dia', venc:'20/08/26', desde:'20/07/26', ult:'hoje', zap:'(63) 9 9777-8899', uso:'1 turma · 6 alunos', pagtos:[{m:'Ago/26',v:39,st:'pago',dt:'20/07/26'}]},
+  ],
+};
+const AD_MOD={arena:['🏢','Arena'],professor:['🎓','Professor'],organizador:['🏆','Organizador'],grupo:['👥','Grupo']};
+function adConta(id){ return DB.admin.contas.find(c=>c.id===id); }
+function adStatusBadge(st){ return st==='em dia'?'bG':st==='atrasado'?'bR':'bO'; }
+function adLoginGestor(){
+  const e=(document.getElementById('ad-email')||{value:''}).value.trim().toLowerCase();
+  const s=(document.getElementById('ad-senha')||{value:''}).value;
+  if(e==='admin@beachzinho.app' && s==='gestor2026'){
+    S.role='admin'; toast('Bem-vindo, gestor! 🔑'); nav('ad-home');
+  } else toast('⚠️ Credenciais do gestor inválidas');
+}
+function adPagar(id){
+  const c=adConta(id); if(!c) return;
+  c.status='em dia'; if(c.pagtos[0]&&c.pagtos[0].st!=='pago'){ c.pagtos[0].st='pago'; c.pagtos[0].dt='hoje'; }
+  toast('Pagamento registrado — conta em dia ✅'); render();
+}
+function adCobrar(id){ toast('Cobrança enviada por e-mail e WhatsApp 📨'); }
+function vAdLogin(){
+  return header('<i class="ti ti-key"></i> Acesso do Gestor','Restrito ao administrador do Beachzinho')+`
+  <div class="pad">
+    <div class="al al-y"><i class="ti ti-shield-lock"></i> Área exclusiva do dono do app: contas, uso e pagamentos de todos os módulos.</div>
+    <div class="fld"><label>E-mail do gestor</label><input id="ad-email" type="email" placeholder="admin@beachzinho.app"></div>
+    <div class="fld"><label>Senha</label><input id="ad-senha" type="password" placeholder="Sua senha de gestor"></div>
+    <button class="btn btn-o" onclick="adLoginGestor()"><i class="ti ti-key"></i> Entrar no painel</button>
+    <div class="al al-b" style="margin-top:10px">Demonstração: admin@beachzinho.app · senha gestor2026. No app real: Supabase Auth com papel de administrador e verificação em duas etapas.</div>
+  </div>`;
+}
+function vAdHome(){
+  const cs=DB.admin.contas;
+  const mrr=cs.reduce((s,c)=>s+c.valor,0);
+  const emdia=cs.filter(c=>c.status==='em dia').length;
+  const atras=cs.filter(c=>c.status==='atrasado');
+  const fMod=S.adMod||'todos', fSt=S.adSt||'todos';
+  const lista=cs.filter(c=>(fMod==='todos'||c.mod===fMod)&&(fSt==='todos'||(fSt==='atrasado'?c.status==='atrasado':fSt==='em dia'?c.status==='em dia':c.status.startsWith('vence'))));
+  return `<div class="hd"><h2><i class="ti ti-gauge"></i> Painel do Gestor<span class="sub">Todas as contas · todos os módulos</span></h2><span class="ic" style="cursor:pointer" onclick="S.role=null;nav('splash')"><i class="ti ti-logout"></i></span></div>
+  <div class="pad">
+    <div class="stats">
+      <div class="stat"><b>${cs.length}</b><span>Contas ativas</span></div>
+      <div class="stat g"><b>R$ ${mrr}</b><span>Receita/mês (MRR)</span></div>
+      <div class="stat o"><b>${atras.length}</b><span>Em atraso</span></div>
+    </div>
+    ${atras.length?`<div class="al al-y" style="cursor:pointer" onclick="S.adSt='atrasado';render()"><i class="ti ti-alert-triangle"></i> <b>${atras.length} conta${atras.length>1?'s':''} em atraso</b> — R$ ${atras.reduce((s,c)=>s+c.valor,0)} a recuperar. Toque para filtrar.</div>`:''}
+    <div class="stitle">Filtrar por módulo</div>
+    <div class="tabs">
+      <div class="tab ${fMod==='todos'?'on':''}" onclick="S.adMod='todos';render()">Todos</div>
+      ${Object.keys(AD_MOD).map(m=>`<div class="tab ${fMod===m?'on':''}" onclick="S.adMod='${m}';render()">${AD_MOD[m][0]} ${AD_MOD[m][1]}s</div>`).join('')}
+    </div>
+    <div class="tabs">
+      <div class="tab ${fSt==='todos'?'on':''}" onclick="S.adSt='todos';render()">Todas</div>
+      <div class="tab ${fSt==='em dia'?'on':''}" onclick="S.adSt='em dia';render()">Em dia</div>
+      <div class="tab ${fSt==='vence'?'on':''}" onclick="S.adSt='vence';render()">Vencendo</div>
+      <div class="tab ${fSt==='atrasado'?'on':''}" onclick="S.adSt='atrasado';render()">Atrasadas</div>
+    </div>
+    <div class="stitle">Contas (${lista.length})</div>
+    ${lista.map(c=>`<div class="card" onclick="go('ad-conta',${c.id})">
+      <h3>${AD_MOD[c.mod][0]} ${c.nome} <span class="badge ${adStatusBadge(c.status)}">${c.status}</span></h3>
+      <div class="meta"><span>${AD_MOD[c.mod][1]} · ${c.plano} · R$ ${c.valor}/mês</span><span><i class="ti ti-calendar"></i> vence ${c.venc}</span><span>último acesso: ${c.ult}</span></div>
+      <div class="meta"><span><i class="ti ti-chart-bar"></i> ${c.uso}</span></div>
+    </div>`).join('')}
+  </div>`;
+}
+function vAdConta(){
+  const c=adConta(S.param)||DB.admin.contas[0];
+  return header(AD_MOD[c.mod][0]+' '+c.nome, AD_MOD[c.mod][1]+' · cliente desde '+c.desde)+`
+  <div class="pad">
+    <div style="margin-bottom:8px"><span class="badge ${adStatusBadge(c.status)}">${c.status}</span><span class="badge bB">${c.plano} · R$ ${c.valor}/mês</span><span class="badge bB">vence ${c.venc}</span></div>
+    <div class="stitle">Dados do responsável</div>
+    <div class="card" style="cursor:default"><h3>${c.resp}</h3><div class="meta"><span><i class="ti ti-brand-whatsapp"></i> ${c.zap}</span><span>último acesso: ${c.ult}</span></div></div>
+    <div class="stitle">O que esta conta criou</div>
+    <div class="card" style="cursor:default"><div class="meta"><span><i class="ti ti-chart-bar"></i> ${c.uso}</span></div></div>
+    <div class="stitle">Histórico de pagamentos</div>
+    ${c.pagtos.map(p=>`<div class="rk" style="cursor:default"><span class="pos">${p.st==='pago'?'✅':'⚠️'}</span><span class="nm">${p.m}<small>${p.dt?'pago em '+p.dt:'não pago'}</small></span><span class="pts">R$ ${p.v}</span></div>`).join('')}
+    <div style="display:flex;gap:8px;margin-top:10px">
+      ${c.status!=='em dia'?`<button class="btn btn-o" style="flex:1;margin:0" onclick="adPagar(${c.id})"><i class="ti ti-circle-check"></i> Registrar pagamento</button>`:''}
+      <button class="btn btn-n" style="flex:1;margin:0" onclick="adCobrar(${c.id})"><i class="ti ti-send"></i> Enviar cobrança</button>
+      <button class="btn btn-ghost" style="flex:1;margin:0" onclick="toast('Conta suspensa — dados preservados ⏸️')"><i class="ti ti-lock"></i> Suspender</button>
+    </div>
+  </div>`;
+}
+function vAdFin(){
+  const cs=DB.admin.contas;
+  const mrr=cs.reduce((s,c)=>s+c.valor,0);
+  const recebido=cs.filter(c=>c.pagtos[0]&&c.pagtos[0].st==='pago').reduce((s,c)=>s+c.valor,0);
+  const pend=mrr-recebido;
+  const porMod={};
+  cs.forEach(c=>{ porMod[c.mod]=(porMod[c.mod]||0)+c.valor; });
+  const hist=[['Mai/26',180],['Jun/26',257],['Jul/26',464],['Ago/26',recebido]];
+  const max=Math.max(...hist.map(h=>h[1]));
+  return header('<i class="ti ti-coin"></i> Financeiro do App','Receita das assinaturas')+`
+  <div class="pad">
+    <div class="stats">
+      <div class="stat"><b>R$ ${mrr}</b><span>MRR contratado</span></div>
+      <div class="stat g"><b>R$ ${recebido}</b><span>Recebido no mês</span></div>
+      <div class="stat o"><b>R$ ${pend}</b><span>A recuperar</span></div>
+    </div>
+    <div class="stitle">Receita por módulo</div>
+    ${Object.keys(porMod).map(m=>`<div class="rk" style="cursor:default"><span class="pos">${AD_MOD[m][0]}</span><span class="nm">${AD_MOD[m][1]}s<small>${cs.filter(c=>c.mod===m).length} conta(s)</small></span><span class="pts">R$ ${porMod[m]}/mês</span></div>`).join('')}
+    <div class="stitle">Evolução mensal</div>
+    <div class="card" style="cursor:default">
+      ${hist.map(h=>`<div style="display:flex;align-items:center;gap:10px;margin:7px 0"><span style="width:56px;font-size:.78em;color:var(--mut)">${h[0]}</span><div style="flex:1;background:#EEF1F4;border-radius:6px;height:18px;overflow:hidden"><div style="width:${Math.round(h[1]/max*100)}%;background:var(--org);height:100%"></div></div><b style="font-size:.82em;width:64px;text-align:right">R$ ${h[1]}</b></div>`).join('')}
+    </div>
+    <div class="stitle">Inadimplência</div>
+    ${cs.filter(c=>c.status==='atrasado').map(c=>`<div class="rk" onclick="go('ad-conta',${c.id})"><span class="pos">⚠️</span><span class="nm">${c.nome}<small>venceu ${c.venc} · ${c.plano}</small></span><span class="pts" style="color:var(--bad)">R$ ${c.valor}</span></div>`).join('')||'<div class="al al-g">Ninguém em atraso 🎉</div>'}
   </div>`;
 }
 
@@ -2502,7 +2625,7 @@ const SCREENS = {
   'a-dash':vADash,'a-quadras':vAQuadras,'a-ligas':vALigas,'a-games':vAGames,'a-perfil':vAPerfil,
   'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
   'auth':vAuth,'auth-verif':vAuthVerif,'sub-checkout':vSubCheckout,'sub-status':vSubStatus,
-  'org-home':vOrgHome,'org-atletas':vOrgAtletas,'org-novo-atleta':vOrgNovoAtleta,'org-nova-liga':vOrgNovaLiga,'org-liga':vOrgLiga,'org-circuito':vOrgCircuito,'org-print':vOrgPrint,'p-atleta':vPAtleta,
+  'org-home':vOrgHome,'org-atletas':vOrgAtletas,'org-novo-atleta':vOrgNovoAtleta,'org-nova-liga':vOrgNovaLiga,'org-liga':vOrgLiga,'org-circuito':vOrgCircuito,'org-print':vOrgPrint,'p-atleta':vPAtleta,'ad-login':vAdLogin,'ad-home':vAdHome,'ad-conta':vAdConta,'ad-fin':vAdFin,
   'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-turma':vProfTurma,'pr-cal':vProfCal,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-aluno':vProfAluno,'pr-novo-aluno':vProfNovoAluno,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
   'cl-home':vClHome,'cl-item':vClItem,'cl-cadastro':vClCadastro,'cl-novo':vClNovo,'cl-meus':vClMeus,
 };
