@@ -103,6 +103,7 @@ body.dark:not(.force-mobile) .hd{background:#252525;border-bottom:1px solid #3a3
 body.dark:not(.force-mobile) .card,body.dark:not(.force-mobile) .rk,body.dark:not(.force-mobile) .slot,body.dark:not(.force-mobile) .stat,body.dark:not(.force-mobile) .plano,body.dark:not(.force-mobile) .score,body.dark:not(.force-mobile) .news,body.dark:not(.force-mobile) .hcard{border-color:#3a3a3a}
 }
 @media(max-width:899px){#btn-view{display:none}}
+@media print{ #navbar,#modes,.no-print,#toast{display:none !important} .phone{box-shadow:none;max-width:none;border-radius:0} body{background:#fff;padding:0} }
 /* MODO NOTURNO (Windows dark) */
 body.dark{background:#141414;--ink:#F1EFE8;--ink2:#C9C7BE;--mut:#a8b2bc;--ok:#5DCAA5;--bad:#F09975;--warn:#FAC775}
 body.dark .phone{background:#202020}
@@ -1031,7 +1032,7 @@ DB.orgd = {
      resultados:[
        {r:1,a:[5,2],b:[1,6],sa:6,sb:7,d:'17/08/26'},{r:1,a:[3,12],b:[9,4],sa:6,sb:3,d:'17/08/26'},{r:1,a:[7,10],b:[11,8],sa:6,sb:1,d:'17/08/26'},
        {r:2,a:[1,10],b:[3,2],sa:6,sb:4,d:'17/08/26'},{r:2,a:[5,4],b:[7,12],sa:7,sb:5,d:'17/08/26'},{r:2,a:[9,6],b:[11,14],sa:6,sb:3,d:'17/08/26'}]},
-    {id:3,nome:'Etapa 3 — Circuito Verão',data:'24/08/26',hora:'19h',circ:1,local:'Arena Vida Fit',end:'Rua das Palmeiras, 120 — Palmas/TO',tipo:'normal',formato:'dupla',gen:'mista',cat:'C',pont:'ind',regra:{v:3,d:1,g:1},games:6,insc:'individual',sorteio:'rodada',equil:'misto',vagas:12,status:'inscrições abertas',rod:1,inscritos:[1,2,3,4,5,6,7,8,9,10,11,12,13,14],resultados:[]},
+    {id:3,nome:'Etapa 3 — Circuito Verão',data:'24/08/26',hora:'19h',circ:1,local:'Arena Vida Fit',end:'Rua das Palmeiras, 120 — Palmas/TO',tipo:'normal',formato:'dupla',gen:'mista',cat:'C',pont:'ind',regra:{v:3,d:1,g:1},games:6,insc:'individual',sorteio:'rodada',equil:'misto',vagas:12,status:'inscrições abertas',rod:1,inscritos:[1,2,3,4,5,6,7,8,9,10,11,12,13,14],precos:{v1:30,ate:'2026-08-20',v2:40},valores:{1:30,2:30,3:30,4:30,5:30,6:30,7:30,8:30,9:30,10:40,11:40,12:40,13:40,14:40},pagos:{1:true,2:true,3:true,4:true,5:true,6:true,9:true,10:true},resultados:[]},
     {id:4,nome:'Liga Duplas Feminina',data:'30/08/26',hora:'09h',circ:0,local:'Arena Beira Lago',end:'Av. Beira Lago, 900 — Palmas/TO',tipo:'normal',formato:'dupla',gen:'feminina',cat:'B',pont:'dupla',regra:{v:3,d:1,g:1},games:6,insc:'dupla',vagas:0,status:'inscrições abertas',rod:1,duplas:[[2,4],[6,8],[10,12]],resultados:[]},
     {id:5,nome:'SUPER 8 — Masculino C',data:'31/08/26',hora:'08h',circ:0,local:'Arena Vida Fit',end:'Rua das Palmeiras, 120 — Palmas/TO',tipo:'super8',formato:'dupla',gen:'masculina',cat:'C',pont:'ind',regra:{v:3,d:1,g:1},games:6,insc:'individual',vagas:8,status:'inscrições abertas',rod:1,inscritos:[1,3,5,7,9,11,13,15,16],resultados:[]},
   ],
@@ -1048,27 +1049,27 @@ function orgEspera(l){ const v=l.vagas||0; return v>0?(l.inscritos||[]).slice(v)
 function shuffleArr(v){ const a=[...v]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function orgPontosLiga(l){
   const r={};
-  const add=(key,nome,pts,win)=>{ if(!r[key])r[key]={key,nome,pts:0,j:0,v:0}; r[key].pts+=pts; r[key].j++; if(win)r[key].v++; };
+  const add=(key,nome,pts,win,gw,gl)=>{ if(!r[key])r[key]={key,nome,pts:0,j:0,v:0,gw:0,gl:0}; r[key].pts+=pts; r[key].j++; if(win)r[key].v++; r[key].gw+=gw; r[key].gl+=gl; };
   (l.resultados||[]).forEach(jg=>{
     const winA=jg.sa>jg.sb;
     const pA=(winA?l.regra.v:l.regra.d)+l.regra.g*jg.sa;
     const pB=(winA?l.regra.d:l.regra.v)+l.regra.g*jg.sb;
     if(l.pont==='ind'){
-      jg.a.forEach(id=>add('a'+id,orgNome(id),pA,winA));
-      jg.b.forEach(id=>add('a'+id,orgNome(id),pB,!winA));
+      jg.a.forEach(id=>add('a'+id,orgNome(id),pA,winA,jg.sa,jg.sb));
+      jg.b.forEach(id=>add('a'+id,orgNome(id),pB,!winA,jg.sb,jg.sa));
     } else {
-      add('d'+[...jg.a].sort((x,y)=>x-y).join('-'), jg.a.map(orgNome).join(' & '), pA, winA);
-      add('d'+[...jg.b].sort((x,y)=>x-y).join('-'), jg.b.map(orgNome).join(' & '), pB, !winA);
+      add('d'+[...jg.a].sort((x,y)=>x-y).join('-'), jg.a.map(orgNome).join(' & '), pA, winA, jg.sa, jg.sb);
+      add('d'+[...jg.b].sort((x,y)=>x-y).join('-'), jg.b.map(orgNome).join(' & '), pB, !winA, jg.sb, jg.sa);
     }
   });
-  return Object.values(r).sort((x,y)=>y.pts-x.pts);
+  return Object.values(r).sort((x,y)=> y.pts-x.pts || (y.gw-y.gl)-(x.gw-x.gl) || y.gw-x.gw);
 }
 function orgRankCircuito(cid){
   const r={};
   DB.orgd.ligas.filter(l=>l.circ===cid).forEach(l=>{
-    orgPontosLiga(l).forEach(e=>{ if(!r[e.key])r[e.key]={...e}; else { r[e.key].pts+=e.pts; r[e.key].j+=e.j; r[e.key].v+=e.v; } });
+    orgPontosLiga(l).forEach(e=>{ if(!r[e.key])r[e.key]={...e}; else { r[e.key].pts+=e.pts; r[e.key].j+=e.j; r[e.key].v+=e.v; r[e.key].gw+=e.gw; r[e.key].gl+=e.gl; } });
   });
-  return Object.values(r).sort((x,y)=>y.pts-x.pts);
+  return Object.values(r).sort((x,y)=> y.pts-x.pts || (y.gw-y.gl)-(x.gw-x.gl) || y.gw-x.gw);
 }
 function orgMontaDuplas(l,ids){
   let duplas=[], sobraFinal=null;
@@ -1146,9 +1147,15 @@ function orgFaseFinal(id){
     const ds=shuffleArr(md.duplas);
     while(ds.length>=2) conf.push({a:ds.pop(),b:ds.pop(),g:'F'});
   } else {
-    const ds=classificados.map(e=>e.key.slice(1).split('-').map(Number));
+    let ordenados=[...classificados];
+    if(l.circ){
+      const rc=orgRankCircuito(l.circ);
+      const posRc=k=>{ const i=rc.findIndex(e=>e.key===k); return i<0?999:i; };
+      ordenados.sort((a,b)=>posRc(a.key)-posRc(b.key));
+    }
+    const ds=ordenados.map(e=>e.key.slice(1).split('-').map(Number));
     const n=Math.floor(ds.length/2);
-    for(let i=0;i<n;i++) conf.push({a:ds[i],b:ds[ds.length-1-i],g:'F'});
+    for(let i=0;i<n;i++) conf.push({a:ds[i],b:ds[ds.length-1-i],g:'F',seed:i+1});
   }
   if(!conf.length){ toast('⚠️ Poucos classificados para o mata-mata'); return; }
   l.fase='final';
@@ -1222,6 +1229,7 @@ function orgAddInscrito(id){
   if(!v){ toast('Escolha um atleta'); return; }
   if(l.inscritos.includes(v)){ toast('⚠️ Já inscrito'); return; }
   l.inscritos.push(v);
+  if(l.precos){ const hoje=new Date().toISOString().slice(0,10); const lote1=l.precos.ate&&hoje<=l.precos.ate; l.valores=l.valores||{}; l.valores[v]=lote1?l.precos.v1:l.precos.v2; }
   const pos=l.inscritos.length, vg=l.vagas||0;
   toast(vg>0&&pos>vg ? orgNome(v)+' entrou na lista de espera ('+(pos-vg)+'º) ⏳' : orgNome(v)+' inscrito — '+pos+'º na ordem ✅');
   render();
@@ -1232,6 +1240,9 @@ function orgAddDupla(id){
   if(!d1||!d2||d1===d2){ toast('⚠️ Escolha dois atletas diferentes'); return; }
   l.duplas=l.duplas||[]; l.duplas.push([d1,d2]); toast('Dupla inscrita ✅'); render();
 }
+function orgTogglePago(lid,key){ const l=orgLiga(lid); l.pagos=l.pagos||{}; l.pagos[key]=!l.pagos[key]; toast(l.pagos[key]?'Pagamento confirmado ✅':'Pagamento desmarcado'); render(); }
+function orgBuscaPar(lid){ const l=orgLiga(lid); const v=parseInt((document.getElementById('ol-bp')||{value:''}).value); if(!v){ toast('Escolha um atleta'); return; } l.buscamPar=l.buscamPar||[]; if(l.buscamPar.includes(v)){ toast('⚠️ Já está na lista'); return; } l.buscamPar.push(v); toast(orgNome(v)+' procura parceria 🤝'); render(); }
+function orgFormarDupla(lid){ const l=orgLiga(lid); if((l.buscamPar||[]).length<2){ toast('⚠️ Precisa de 2 atletas buscando parceria'); return; } const d1=l.buscamPar.shift(), d2=l.buscamPar.shift(); l.duplas=l.duplas||[]; l.duplas.push([d1,d2]); toast('Dupla formada: '+orgNome(d1)+' & '+orgNome(d2)+' 🤝'); render(); }
 function salvarAtletaOrg(){
   const g=id=>(document.getElementById(id)||{value:''}).value;
   const nome=g('oa-nome').trim(); if(!nome){ toast('⚠️ Informe o nome'); return; }
@@ -1261,6 +1272,7 @@ function criarLigaOrg(){
     regra:{v:parseInt(g('nl-v'))||3, d:parseInt(g('nl-d'))||1, g:parseInt(g('nl-g'))||1}, games:nl.games||6,
     insc:s8?'individual':nl.insc, sorteio:nl.sorteio, equil:nl.equil, grupos:s8?0:(nl.grupos||0), avanca:nl.avanca||'2', fase:(!s8&&nl.grupos)?'grupos':'',
     vagas:s8?8:(parseInt(g('nl-vagas'))||0),
+    precos:(parseInt(g('nl-p1'))||0)?{v1:parseInt(g('nl-p1')),ate:g('nl-p1ate')||'',v2:parseInt(g('nl-p2'))||parseInt(g('nl-p1'))}:null, valores:{}, pagos:{}, buscamPar:[],
     status:'inscrições abertas', rod:1, inscritos:[], duplas:[], resultados:[]};
   DB.orgd.ligas.push(liga); S.nl=null;
   toast('Liga criada! Abra as inscrições 🎉'); go('org-liga', liga.id);
@@ -1370,6 +1382,13 @@ function vOrgNovaLiga(){
     <div class="stitle">5 · Inscrição</div>
     <div class="chips">${chip(nl.insc==='individual',"nlSet('insc','individual')",'Individual — app sorteia as duplas')}${chip(nl.insc==='dupla',"nlSet('insc','dupla')",'Por dupla — já entra o nome da dupla')}</div>
     <div class="fld" style="margin-top:6px"><label>Vagas (em branco = sem limite) — a ordem de inscrição define quem joga</label><input id="nl-vagas" type="number" placeholder="Ex: 12"></div>
+    <div class="stitle">Inscrição paga? (opcional)</div>
+    <div style="display:flex;gap:8px">
+      <div class="fld" style="flex:1"><label>Lote 1 — valor (R$)</label><input id="nl-p1" type="number" placeholder="119"></div>
+      <div class="fld" style="flex:1"><label>Lote 1 — até</label><input id="nl-p1ate" type="date"></div>
+      <div class="fld" style="flex:1"><label>Lote 2 — valor (R$)</label><input id="nl-p2" type="number" placeholder="139"></div>
+    </div>
+    <div class="al al-b"><i class="ti ti-coin"></i> Deixe em branco para liga gratuita. Quem se inscreve até a data do lote 1 paga o valor menor; depois, vale o lote 2. Você confirma os pagamentos manualmente na página da liga.</div>
     ${nl.insc==='individual'?`
     <div class="stitle">5a · Sorteio das duplas</div>
     <div class="chips">${chip(nl.sorteio==='rodada',"nlSet('sorteio','rodada')",'Re-sorteio a cada rodada')}${chip(nl.sorteio==='fixa',"nlSet('sorteio','fixa')",'Dupla fixa na etapa')}</div>
@@ -1390,7 +1409,7 @@ function vOrgLiga(){
     <div style="margin-bottom:8px"><span class="badge bB">${l.tipo==='super8'?'SUPER 8 · 7 rodadas':(l.formato==='dupla'?'Dupla':'Simples')}</span><span class="badge bB">set de ${l.games||6} games</span><span class="badge bB">${l.pont==='ind'?'pontua indivíduo':'pontua dupla'}</span><span class="badge bB">${l.tipo==='super8'?'todos com todos':(l.insc==='dupla'?'inscrição por dupla':'individual · sorteio '+(l.sorteio==='rodada'?'por rodada':'fixo')+(l.equil?' · '+l.equil:''))}</span><span class="badge ${l.status==='concluída'?'bGy':'bO'}">${l.status}</span>${l.grupos?`<span class="badge bP">grupos de ${l.grupos} · avança ${{'2':'2','3':'3','2+2':'2+2 mel. 3ºs','3+2':'3+2 mel. 4ºs'}[l.avanca||'2']}</span>`:''}${l.circ?`<span class="badge bP" onclick="event.stopPropagation();go('org-circuito',${l.circ})" style="cursor:pointer">ver circuito →</span>`:''}</div>
     ${l.insc==='individual'?`
     <div class="stitle">Inscritos por ordem de chegada (${(l.inscritos||[]).length}${l.vagas?' · '+l.vagas+' vagas':''})</div>
-    ${conf.map((id,i)=>`<div class="rk" style="cursor:default"><span class="pos">${i+1}º</span><span class="nm">${orgNome(id)}<small>inscrito em ${(orgAt(id)||{}).insc||'—'}</small></span><span class="badge bG" style="margin:0">confirmado</span></div>`).join('')}
+    ${conf.map((id,i)=>`<div class="rk" style="cursor:default"><span class="pos">${i+1}º</span><span class="nm">${orgNome(id)}<small>inscrito em ${(orgAt(id)||{}).insc||'—'}${l.precos?' · R$ '+((l.valores||{})[id]||l.precos.v2):''}</small></span>${l.precos?`<span class="badge ${(l.pagos||{})[id]?'bG':'bO'}" style="margin:0;cursor:pointer" onclick="orgTogglePago(${l.id},${id})">${(l.pagos||{})[id]?'pago ✓':'marcar pago'}</span>`:'<span class="badge bG" style="margin:0">confirmado</span>'}</div>`).join('')}
     ${esp.map((id,i)=>`<div class="rk" style="cursor:default;opacity:.75"><span class="pos">${conf.length+i+1}º</span><span class="nm">${orgNome(id)}<small>entra se abrir vaga ou fechar grupo</small></span><span class="badge bO" style="margin:0">espera ${i+1}º</span></div>`).join('')}
     <div style="display:flex;gap:6px;margin:8px 0 10px">${selAt('ol-add',a=>!(l.inscritos||[]).includes(a.id))}<button class="btn btn-n" style="margin:0;width:auto;padding:0 16px" onclick="orgAddInscrito(${l.id})">Inscrever</button></div>`:`
     <div class="stitle">Duplas inscritas (${(l.duplas||[]).length})</div>
@@ -1403,6 +1422,13 @@ function vOrgLiga(){
     <div class="stitle">Classificação dos grupos ${l.pont==='ind'?'(individual)':'(por dupla)'}</div>
     ${orgLetrasGrupos(l).map(letra=>{const cl=orgClassGrupo(l,letra);return `<div class="card" style="cursor:default"><h3 style="font-size:.9em">Grupo ${letra}</h3>${cl.map((e,i)=>`<div class="meta" style="justify-content:space-between"><span>${i+1}º ${e.nome}</span><b>${e.pts} pts</b></div>`).join('')}</div>`;}).join('')}
     ${l.fase==='grupos'&&!l.preview&&!l.rodadaAtual?`<button class="btn btn-o" onclick="orgFaseFinal(${l.id})"><i class="ti ti-tournament"></i> 2º sorteio — gerar fase final (${{'2':'2 primeiros','3':'3 primeiros','2+2':'2 primeiros + 2 melhores 3ºs','3+2':'3 primeiros + 2 melhores 4ºs'}[l.avanca||'2']})</button>`:''}`:''}
+    ${l.precos?`
+    <div class="stitle">Financeiro da liga</div>
+    ${(()=>{const tot=conf.reduce((s,id)=>s+((l.valores||{})[id]||l.precos.v2),0);const rec=conf.reduce((s,id)=>s+(((l.pagos||{})[id])?((l.valores||{})[id]||l.precos.v2):0),0);return `<div class="stats"><div class="stat"><b>R$ ${tot}</b><span>Esperado</span></div><div class="stat g"><b>R$ ${rec}</b><span>Recebido</span></div><div class="stat o"><b>R$ ${tot-rec}</b><span>A receber</span></div></div>`})()}`:''}
+    ${l.insc==='dupla'&&l.status!=='concluída'?`
+    <div class="stitle">Sugestão de parceria <span style="font-weight:400;text-transform:none">— quem não tem dupla</span></div>
+    ${(l.buscamPar||[]).length?`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px">${l.buscamPar.map(id=>`<span class="badge bO">${orgNome(id)} 🤝</span>`).join('')}</div>`:''}
+    <div style="display:flex;gap:6px;margin-bottom:10px">${selAt('ol-bp')}<button class="btn btn-n" style="margin:0;width:auto;padding:0 12px" onclick="orgBuscaPar(${l.id})">🤝</button>${(l.buscamPar||[]).length>=2?`<button class="btn btn-o" style="margin:0;width:auto;padding:0 12px" onclick="orgFormarDupla(${l.id})">Formar dupla</button>`:''}</div>`:''}
     ${l.status!=='concluída'?`
     <div class="stitle">${l.tipo==='super8'?'Rodada '+(l.rod||1)+' de 7':(l.grupos?(l.fase==='final'?'Fase final — mata-mata':'1º sorteio — grupos'):'Sorteio — rodada '+(l.rod||1))}</div>
     ${!l.preview&&!l.rodadaAtual?`<button class="btn btn-o" onclick="orgSortear(${l.id})"><i class="ti ti-arrows-shuffle"></i> ${l.tipo==='super8'?'Gerar rodada '+(l.rod||1):'Sortear '+(l.insc==='individual'?'duplas e confrontos':'confrontos')}</button>`:''}
@@ -1418,11 +1444,36 @@ function vOrgLiga(){
       <button class="btn btn-o" onclick="orgPlacar(${l.id})"><i class="ti ti-clipboard-check"></i> Lançar resultados da rodada</button>`:''}`:''}
     ${classi.length?`
     <div class="stitle">Classificação ${l.pont==='ind'?'individual':'por dupla'}</div>
-    ${classi.slice(0,10).map((e,i)=>`<div class="rk" style="cursor:default"><span class="pos">${['🥇','🥈','🥉'][i]||'#'+(i+1)}</span><span class="nm">${e.nome}<small>${e.j} jogos · ${e.v} vitórias</small></span><span class="pts">${e.pts} pts</span></div>`).join('')}`:''}
+    ${classi.slice(0,10).map((e,i)=>`<div class="rk" style="cursor:default"><span class="pos">${['🥇','🥈','🥉'][i]||'#'+(i+1)}</span><span class="nm">${e.nome}<small>${e.j} jogos · ${e.v} vitórias · saldo ${e.gw-e.gl>=0?'+':''}${e.gw-e.gl}</small></span><span class="pts">${e.pts} pts</span></div>`).join('')}`:''}
     ${(l.resultados||[]).length?`
     <div class="stitle">Resultados lançados</div>
     ${l.resultados.map(jg=>`<div class="rk" style="cursor:default"><span class="pos">R${jg.r}</span><span class="nm">${jg.a.map(orgNome).join(' & ')} × ${jg.b.map(orgNome).join(' & ')}<small>${jg.g&&jg.g!=='F'?'Grupo '+jg.g+' · ':''}${jg.g==='F'?'mata-mata · ':''}${jg.d}</small></span><span class="pts">${jg.sa}×${jg.sb}${jg.tb?' <small style="color:var(--warn)">TB</small>':''}</span></div>`).join('')}`:''}
+    <button class="btn btn-ghost" onclick="go('org-print',${l.id})"><i class="ti ti-printer"></i> Documentos para impressão</button>
   </div>`;
+}
+function vOrgPrint(){
+  const l=orgLiga(S.param)||DB.orgd.ligas[0];
+  const classi=orgPontosLiga(l);
+  return `<div class="hd no-print"><button class="back" onclick="back()">‹</button><h2><i class="ti ti-printer"></i> Impressão<span class="sub">${l.nome}</span></h2></div>
+  <div class="pad" style="background:#fff" id="folha">
+    <div style="text-align:center;border-bottom:2px solid #000;padding-bottom:10px;margin-bottom:14px">
+      <b style="font-size:1.3em">${l.nome}</b><br>
+      <span style="font-size:.85em">${l.data} · ${l.hora}${l.local?' · '+l.local:''} · ${l.gen} · cat. ${l.cat} · set de ${l.games||6} games</span>
+    </div>
+    ${l.gruposDef?l.gruposDef.map((gd,gi)=>`<div style="margin-bottom:12px;border:1px solid #999;border-radius:6px;padding:10px">
+      <b>GRUPO ${'ABCDEFGH'[gi]}</b>
+      ${gd.map(d=>`<div style="padding:4px 0;border-bottom:1px dashed #ccc">${d.map(orgNome).join(' & ')}</div>`).join('')}
+    </div>`).join(''):''}
+    <div style="margin-bottom:12px"><b>SÚMULA DE JOGOS</b></div>
+    ${(l.rodadaAtual?l.rodadaAtual.conf:[]).map((c,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ccc;padding:8px 0;font-size:.9em">
+      <span>${c.g&&c.g!=='F'?'['+c.g+'] ':''}${c.a.map(orgNome).join(' & ')} × ${c.b.map(orgNome).join(' & ')}</span>
+      <span style="border:1px solid #999;border-radius:4px;padding:2px 18px;color:#bbb">___ × ___</span>
+    </div>`).join('')||(l.resultados||[]).map(jg=>`<div style="display:flex;justify-content:space-between;border-bottom:1px solid #ccc;padding:6px 0;font-size:.9em"><span>${jg.g&&jg.g!=='F'?'['+jg.g+'] ':''}${jg.a.map(orgNome).join(' & ')} × ${jg.b.map(orgNome).join(' & ')}</span><b>${jg.sa}×${jg.sb}</b></div>`).join('')}
+    ${classi.length?`<div style="margin:14px 0 6px"><b>CLASSIFICAÇÃO</b></div>
+    ${classi.map((e,i)=>`<div style="display:flex;justify-content:space-between;border-bottom:1px dashed #ccc;padding:4px 0;font-size:.88em"><span>${i+1}º ${e.nome}</span><span>${e.pts} pts · saldo ${e.gw-e.gl>=0?'+':''}${e.gw-e.gl}</span></div>`).join('')}`:''}
+    <div style="margin-top:16px;font-size:.75em;color:#888;text-align:center">Gerado pelo Beachzinho · beachzinho.vercel.app</div>
+  </div>
+  <div class="pad no-print"><button class="btn btn-o" onclick="window.print()"><i class="ti ti-printer"></i> Imprimir esta folha</button></div>`;
 }
 function vOrgCircuito(){
   const c=DB.orgd.circuitos.find(x=>x.id===S.param)||DB.orgd.circuitos[0];
@@ -1431,7 +1482,7 @@ function vOrgCircuito(){
   return header('<i class="ti ti-tournament"></i> '+c.nome, c.etapas+' etapas · '+c.dia+' · cat. '+c.cat)+`
   <div class="pad">
     <div class="stitle">Ranking geral — soma das etapas</div>
-    ${rank.length?rank.slice(0,10).map((e,i)=>`<div class="rk" style="cursor:default"><span class="pos">${['🥇','🥈','🥉'][i]||'#'+(i+1)}</span><span class="nm">${e.nome}<small>${e.j} jogos · ${e.v} vitórias</small></span><span class="pts">${e.pts} pts</span></div>`).join(''):'<div class="empty"><span><i class="ti ti-trophy"></i></span>Sem resultados ainda</div>'}
+    ${rank.length?rank.slice(0,10).map((e,i)=>`<div class="rk" style="cursor:default"><span class="pos">${['🥇','🥈','🥉'][i]||'#'+(i+1)}</span><span class="nm">${e.nome}<small>${e.j} jogos · ${e.v} vitórias · saldo ${e.gw-e.gl>=0?'+':''}${e.gw-e.gl}</small></span><span class="pts">${e.pts} pts</span></div>`).join(''):'<div class="empty"><span><i class="ti ti-trophy"></i></span>Sem resultados ainda</div>'}
     <div class="stitle">Etapas (${etapas.length} de ${c.etapas} criadas)</div>
     ${etapas.map(l=>{const campea=orgPontosLiga(l)[0];return `<div class="card" onclick="go('org-liga',${l.id})">
       <h3 style="font-size:.95em">${l.nome}</h3>
@@ -2439,7 +2490,7 @@ const SCREENS = {
   'a-dash':vADash,'a-quadras':vAQuadras,'a-ligas':vALigas,'a-games':vAGames,'a-perfil':vAPerfil,
   'g-planos':vGPlanos,'g-home':vGHome,'g-jogos':vGJogos,'g-addjogo':vGAddJogo,'g-plano':vGPlano,
   'auth':vAuth,'auth-verif':vAuthVerif,'sub-checkout':vSubCheckout,'sub-status':vSubStatus,
-  'org-home':vOrgHome,'org-atletas':vOrgAtletas,'org-novo-atleta':vOrgNovoAtleta,'org-nova-liga':vOrgNovaLiga,'org-liga':vOrgLiga,'org-circuito':vOrgCircuito,'p-atleta':vPAtleta,
+  'org-home':vOrgHome,'org-atletas':vOrgAtletas,'org-novo-atleta':vOrgNovoAtleta,'org-nova-liga':vOrgNovaLiga,'org-liga':vOrgLiga,'org-circuito':vOrgCircuito,'org-print':vOrgPrint,'p-atleta':vPAtleta,
   'pr-home':vProfHome,'pr-agenda':vProfAgenda,'pr-turmas':vProfTurmas,'pr-turma':vProfTurma,'pr-cal':vProfCal,'pr-chamada':vProfChamada,'pr-alunos':vProfAlunos,'pr-aluno':vProfAluno,'pr-novo-aluno':vProfNovoAluno,'pr-perfil':vProfPerfil,'p-aulas':vPAulas,
   'cl-home':vClHome,'cl-item':vClItem,'cl-cadastro':vClCadastro,'cl-novo':vClNovo,'cl-meus':vClMeus,
 };
