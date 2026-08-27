@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Beachzinho — Beach Tennis</title>
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#0C3B4A">
+<meta name="theme-color" content="#24292E">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,14 +16,14 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 .ti{line-height:1;vertical-align:-2px}
-:root{--navy:#0C3B4A;--navy2:#155E75;--navy3:#0F4C5E;--org:#EF9F27;--grn:#107c10;--red:#d13438;--blu:#D3D1C7;--bg:#FAFAF8;--ink:#123240;--ink2:#51646E;--mut:#7E8C94;--ok:#1e8f4e;--bad:#c0392b;--warn:#c97d0a}
-body{font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:#E9E7E1;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
+:root{--navy:#24292E;--navy2:#56789B;--navy3:#3D5A75;--org:#F59E0B;--grn:#107c10;--red:#d13438;--blu:#C3CCD5;--bg:#F7F8F9;--ink:#212529;--ink2:#4A5359;--mut:#7A838B;--ok:#1e8f4e;--bad:#c0392b;--warn:#c97d0a}
+body{font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:#E7E9EB;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px 0}
 .phone{width:100%;max-width:420px;min-height:92vh;background:var(--bg);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 60px rgba(0,0,0,.5);position:relative}
 @media(max-width:440px){body{padding:0}.phone{border-radius:0;min-height:100vh}}
 /* MODO COMPUTADOR — painel com menu lateral */
 @media(min-width:900px){
-body:not(.force-mobile){padding:0;display:block;background:#F5F4EF}
-body:not(.force-mobile) .phone{max-width:none;width:100%;height:100vh;max-height:none;border-radius:0;box-shadow:none;display:flex;flex-direction:row;background:#F5F4EF}
+body:not(.force-mobile){padding:0;display:block;background:#F2F3F5}
+body:not(.force-mobile) .phone{max-width:none;width:100%;height:100vh;max-height:none;border-radius:0;box-shadow:none;display:flex;flex-direction:row;background:#F2F3F5}
 body:not(.force-mobile) #navbar{order:-1;flex-shrink:0}
 body:not(.force-mobile) #navbar .nav{position:sticky;top:0;height:100vh;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:4px;width:250px;padding:20px 14px;border-radius:0}
 body:not(.force-mobile) #navbar .nav::before{content:'🏖️ Beachzinho';display:block;font-weight:800;font-size:1.35em;letter-spacing:-.3px;padding:8px 12px 20px;border-bottom:1px solid rgba(128,128,128,.28);margin-bottom:14px}
@@ -76,18 +76,18 @@ body:not(.force-mobile) .plano{grid-column:1/-1}
 /* chrome claro */
 @media(min-width:900px){
 body:not(.force-mobile):not(.dark) #navbar .nav{background:#fff;border-right:1px solid #e1e1e1}
-body:not(.force-mobile):not(.dark) #navbar .nav::before{color:#155E75}
+body:not(.force-mobile):not(.dark) #navbar .nav::before{color:#56789B}
 body:not(.force-mobile):not(.dark) #navbar .ni{color:#3a3a3a}
-body:not(.force-mobile):not(.dark) #navbar .ni:hover{background:#F5F4EF}
-body:not(.force-mobile):not(.dark) #navbar .ni.on{background:#F1EFE8;color:#155E75;box-shadow:inset 3px 0 0 #155E75}
+body:not(.force-mobile):not(.dark) #navbar .ni:hover{background:#F2F3F5}
+body:not(.force-mobile):not(.dark) #navbar .ni.on{background:#EEF1F4;color:#56789B;box-shadow:inset 3px 0 0 #56789B}
 body:not(.force-mobile):not(.dark) .hd{background:#fff;border-bottom:1px solid #e1e1e1;color:#1b1b1b}
 body:not(.force-mobile):not(.dark) .hd h2{color:#1b1b1b}
 body:not(.force-mobile):not(.dark) .hd .sub{color:#666;opacity:1}
 body:not(.force-mobile):not(.dark) .hd .back{background:#f0f0f0;color:#1b1b1b}
-body:not(.force-mobile):not(.dark) .btn-o{background:#155E75;color:#fff}
-body:not(.force-mobile):not(.dark) .btn-n{background:#fff;color:#155E75;border:1px solid #155E75}
-body:not(.force-mobile):not(.dark) .tab.on{background:#155E75;border-color:#155E75;color:#fff}
-body:not(.force-mobile):not(.dark) .stat b{color:#0F4C5E}
+body:not(.force-mobile):not(.dark) .btn-o{background:#56789B;color:#fff}
+body:not(.force-mobile):not(.dark) .btn-n{background:#fff;color:#56789B;border:1px solid #56789B}
+body:not(.force-mobile):not(.dark) .tab.on{background:#56789B;border-color:#56789B;color:#fff}
+body:not(.force-mobile):not(.dark) .stat b{color:#3D5A75}
 body:not(.force-mobile):not(.dark) .stitle{color:#3a3a3a}
 body:not(.force-mobile):not(.dark) #btn-dark,body:not(.force-mobile):not(.dark) #btn-view{background:#fff;border-color:#d0d0d0;color:#3a3a3a}
 }
@@ -96,26 +96,26 @@ body:not(.force-mobile):not(.dark) #btn-dark,body:not(.force-mobile):not(.dark) 
 body.dark:not(.force-mobile){background:#141414}
 body.dark:not(.force-mobile) .phone{background:#141414}
 body.dark:not(.force-mobile) #navbar .nav{background:#252525;border-right:1px solid #3a3a3a}
-body.dark:not(.force-mobile) #navbar .nav::before{color:#D3D1C7}
+body.dark:not(.force-mobile) #navbar .nav::before{color:#C3CCD5}
 body.dark:not(.force-mobile) #navbar .ni:hover{background:#2e2e2e}
-body.dark:not(.force-mobile) #navbar .ni.on{background:#17293a;color:#D3D1C7;box-shadow:inset 3px 0 0 #D3D1C7}
+body.dark:not(.force-mobile) #navbar .ni.on{background:#17293a;color:#C3CCD5;box-shadow:inset 3px 0 0 #C3CCD5}
 body.dark:not(.force-mobile) .hd{background:#252525;border-bottom:1px solid #3a3a3a}
 body.dark:not(.force-mobile) .card,body.dark:not(.force-mobile) .rk,body.dark:not(.force-mobile) .slot,body.dark:not(.force-mobile) .stat,body.dark:not(.force-mobile) .plano,body.dark:not(.force-mobile) .score,body.dark:not(.force-mobile) .news,body.dark:not(.force-mobile) .hcard{border-color:#3a3a3a}
 }
 @media(max-width:899px){#btn-view{display:none}}
 @media print{ #navbar,#modes,.no-print,#toast{display:none !important} .phone{box-shadow:none;max-width:none;border-radius:0} body{background:#fff;padding:0} }
 /* MODO NOTURNO (Windows dark) */
-body.dark{background:#141414;--ink:#F1EFE8;--ink2:#C9C7BE;--mut:#a8b2bc;--ok:#5DCAA5;--bad:#F09975;--warn:#FAC775}
+body.dark{background:#141414;--ink:#EEF1F4;--ink2:#C9C7BE;--mut:#a8b2bc;--ok:#5DCAA5;--bad:#F09975;--warn:#FAC775}
 body.dark .phone{background:#202020}
 body.dark .card,body.dark .hcard,body.dark .rk,body.dark .slot,body.dark .news,body.dark .score,body.dark .plano,body.dark .stat{background:#2b2b2b;box-shadow:none;border-color:#3a3a3a}
 body.dark .plano{border-color:#3a3a3a}
-body.dark .plano.hot{border-color:#EF9F27}
+body.dark .plano.hot{border-color:#F59E0B}
 body.dark h3,body.dark .card h3,body.dark .hcard h3,body.dark .rk .nm,body.dark .slot .h,body.dark .stat b,body.dark .news h3{color:#f0f0f0}
 body.dark .stitle{color:#e8e8e8}
 body.dark .search,body.dark .tabs .tab,body.dark .chip,body.dark .day{background:#2b2b2b;border-color:#3a3a3a;color:#cfd6dd}
-body.dark .tab.on{background:#EF9F27;border-color:#EF9F27;color:#1b1b1b}
-body.dark .chip.on{background:#155E75;border-color:#155E75;color:#fff}
-body.dark .day.on{background:#155E75;border-color:#155E75;color:#fff}
+body.dark .tab.on{background:#F59E0B;border-color:#F59E0B;color:#1b1b1b}
+body.dark .chip.on{background:#56789B;border-color:#56789B;color:#fff}
+body.dark .day.on{background:#56789B;border-color:#56789B;color:#fff}
 body.dark .fld input,body.dark .fld select,body.dark .fld textarea{background:#2b2b2b;border-color:#3a3a3a;color:#eee}
 body.dark .btn-ghost{background:#2b2b2b;color:#e8e8e8;border-color:#3a3a3a}
 body.dark .dist{background:#252525}
@@ -128,13 +128,20 @@ body.dark p{color:#a8b2bc}
 }
 #app{flex:1;overflow-y:auto;padding-bottom:78px}
 /* HEADER */
-.hd{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:18px 18px 14px;position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px}
-.hd .back{background:rgba(255,255,255,.14);border:none;color:#fff;border-radius:10px;width:34px;height:34px;font-size:1.05em;cursor:pointer;flex-shrink:0}
+.hd{background:#fff;color:#1b1b1b;padding:16px 18px 12px;position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;border-bottom:1px solid #E4E7EA}
+.hd .sub{color:#7A838B;opacity:1}
+body.dark .hd{background:#252525;color:#f0f0f0;border-bottom:1px solid #3a3a3a}
+body.dark .hd .sub{color:#a8b2bc}
+.hd .back{background:#F0F2F4;border:none;color:#24292E;border-radius:50%;width:34px;height:34px;font-size:1.25em;cursor:pointer;flex-shrink:0;line-height:1}
+body.dark .hd .back{background:#3a3a3a;color:#eee}
 .hd h2{font-size:1.06em;font-weight:800;flex:1}
 .hd .sub{font-size:.72em;opacity:.7;display:block;font-weight:400}
 .hd .ic{font-size:1.3em}
 /* SPLASH */
-.splash{background:linear-gradient(160deg,#0C3B4A 0%,#0F4C5E 55%,#155E75 100%);min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;text-align:center;padding:30px}
+.splash{background:#F4F5F6;min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#1b1b1b;text-align:center;padding:30px}
+.splash>p{color:#5c6670}
+body.dark .splash{background:#141414;color:#eee}
+body.dark .splash>p{color:#a8b2bc}
 .splash h1{font-size:2.6em;font-weight:800;letter-spacing:-1px}
 .splash h1 span{color:var(--org)}
 .splash p{opacity:.75;margin:8px 0 38px;font-size:.95em}
@@ -142,18 +149,22 @@ body.dark p{color:#a8b2bc}
 .rolebtn:active{transform:scale(.97)}
 .rolebtn .e{font-size:1.7em}
 .rolebtn small{display:block;font-weight:500;font-size:.78em;opacity:.75;margin-top:2px}
-.rb-p{background:var(--org);color:#1b1b1b}
-.rb-a{background:rgba(255,255,255,.10);color:#EAF4F7;border:1.5px solid rgba(255,255,255,.30)}
-.rb-w{background:rgba(255,255,255,.10);color:#F1EFE8;border:1.5px solid rgba(239,159,39,.55)}
-.rb-g{background:rgba(255,255,255,.10);color:#EAF4F7;border:1.5px solid rgba(255,255,255,.30)}
-.rb-t{background:rgba(255,255,255,.10);color:#EAF4F7;border:1.5px solid rgba(255,255,255,.30)}
-.rb-c{background:rgba(255,255,255,.10);color:#EAF4F7;border:1.5px solid rgba(255,255,255,.30)}
+.rb-p{background:#fff;color:#24292E;border:1px solid #DFE3E6;border-left:4px solid var(--org)}
+.rb-a{background:#fff;color:#24292E;border:1px solid #DFE3E6}
+.rb-w{background:#fff;color:#24292E;border:1px solid #56789B;border-left:4px solid #56789B}
+.rb-g{background:#fff;color:#24292E;border:1px solid #DFE3E6}
+.rb-t{background:#fff;color:#24292E;border:1px solid #DFE3E6}
+.rb-c{background:#fff;color:#24292E;border:1px solid #DFE3E6}
+.rolebtn{box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.rolebtn small{color:#7A838B}
+body.dark .rolebtn{background:#2b2b2b !important;color:#eee !important;border-color:#3a3a3a}
+body.dark .rolebtn small{color:#a8b2bc}
 .menugrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
 .mi{background:#fff;border:1.5px solid #e3e7ee;border-radius:14px;padding:12px 10px;text-align:left;cursor:pointer;font-family:inherit;display:flex;gap:8px;align-items:center;font-size:.85em;font-weight:700;color:var(--ink)}
 .mi span.e{font-size:1.4em}
 .mi small{display:block;font-weight:400;color:var(--mut);font-size:.85em}
 .dark .mi{background:#2b2b2b;border-color:#3a3a3a;color:#eee}
-.plano{background:#fff;border:2px solid #E5E3DB;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;position:relative;transition:.15s}
+.plano{background:#fff;border:2px solid #DFE3E6;border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;position:relative;transition:.15s}
 .plano:active{transform:scale(.98)}
 .plano.hot{border-color:var(--org);box-shadow:0 4px 16px rgba(245,166,35,.25)}
 .plano .tagp{position:absolute;top:-10px;right:14px;background:var(--org);color:#1b1b1b;border-radius:20px;font-size:.66em;font-weight:800;padding:3px 12px}
@@ -162,10 +173,11 @@ body.dark p{color:#a8b2bc}
 .plano p{font-size:.8em;color:var(--mut)}
 /* SECTIONS */
 .pad{padding:16px}
-.stitle{font-size:.82em;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
+.stitle{font-size:.8em;font-weight:800;color:#fff;background:var(--org);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:6px}
+.stitle a{color:#fff !important}
 .stitle a{color:var(--org);font-size:.9em;text-decoration:none;cursor:pointer}
 /* SEARCH */
-.search{background:#fff;border:1.5px solid #E5E3DB;border-radius:14px;padding:12px 16px;display:flex;gap:10px;color:var(--mut);font-size:.92em;margin-bottom:4px}
+.search{background:#fff;border:1.5px solid #DFE3E6;border-radius:14px;padding:12px 16px;display:flex;gap:10px;color:var(--mut);font-size:.92em;margin-bottom:4px}
 /* CARDS */
 .card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(13,27,42,.06);cursor:pointer;transition:.15s}
 .card:active{transform:scale(.98)}
@@ -179,14 +191,14 @@ body.dark p{color:#a8b2bc}
 .hcard p{font-size:.76em;color:var(--mut);margin-top:3px}
 /* BADGES */
 .badge{display:inline-block;border-radius:20px;padding:3px 11px;font-size:.72em;font-weight:700;margin:2px 2px 2px 0}
-.bO{background:#fff3d0;color:var(--warn)}.bB{background:#F1EFE8;color:#155E75}.bG{background:#e5f9ee;color:var(--ok)}.bR{background:#fdeaea;color:var(--bad)}.bP{background:#f3e9fa;color:#7d3c98}.bN{background:var(--navy);color:#fff}.bGy{background:#636e72;color:#fff}
+.bO{background:#fff3d0;color:var(--warn)}.bB{background:#EEF1F4;color:#56789B}.bG{background:#e5f9ee;color:var(--ok)}.bR{background:#fdeaea;color:var(--bad)}.bP{background:#f3e9fa;color:#7d3c98}.bN{background:var(--navy);color:#fff}.bGy{background:#636e72;color:#fff}
 /* BUTTONS */
 .btn{border:none;border-radius:12px;padding:13px 18px;font-size:.92em;font-weight:800;cursor:pointer;width:100%;margin-top:10px;transition:.15s}
 .btn:active{transform:scale(.97)}
-.btn-o{background:var(--org);color:#1b1b1b}
+.btn-o{background:var(--org);color:#fff}
 .btn-g{background:#25d366;color:#fff}
 .btn-n{background:var(--navy2);color:#fff}
-.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid #E5E3DB}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid #DFE3E6}
 .btn-sm{width:auto;padding:8px 14px;font-size:.8em;margin-top:0}
 .btn-grn{background:var(--grn);color:#fff}
 .btn-red{background:var(--red);color:#fff}
@@ -198,7 +210,7 @@ body.dark p{color:#a8b2bc}
 @keyframes pl{50%{opacity:.3}}
 /* AGENDA */
 .days{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px;scrollbar-width:none}
-.day{background:#fff;border:1.5px solid #E5E3DB;border-radius:12px;padding:8px 14px;text-align:center;cursor:pointer;flex-shrink:0;font-size:.8em;color:var(--ink2)}
+.day{background:#fff;border:1.5px solid #DFE3E6;border-radius:12px;padding:8px 14px;text-align:center;cursor:pointer;flex-shrink:0;font-size:.8em;color:var(--ink2)}
 .day.on{background:var(--navy);color:#fff;border-color:var(--ink)}
 .day b{display:block;font-size:1.15em}
 .slot{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 6px rgba(13,27,42,.05)}
@@ -207,7 +219,7 @@ body.dark p{color:#a8b2bc}
 .st-l{background:#e5f9ee;color:var(--ok)}.st-o{background:#fdeaea;color:var(--bad)}.st-p{background:#fff3d0;color:var(--warn)}
 /* TABS */
 .tabs{display:flex;gap:6px;margin:12px 0;overflow-x:auto;scrollbar-width:none}
-.tab{background:#fff;border:1.5px solid #E5E3DB;border-radius:20px;padding:7px 16px;font-size:.8em;font-weight:700;color:var(--ink2);cursor:pointer;white-space:nowrap;flex-shrink:0}
+.tab{background:#fff;border:1.5px solid #DFE3E6;border-radius:20px;padding:7px 16px;font-size:.8em;font-weight:700;color:var(--ink2);cursor:pointer;white-space:nowrap;flex-shrink:0}
 .tab.on{background:var(--org);border-color:var(--org);color:#1b1b1b}
 /* STATS */
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
@@ -223,15 +235,15 @@ body.dark p{color:#a8b2bc}
 .rk .pts{font-weight:800;color:var(--ok);font-size:.88em}
 /* NAV */
 .nav{position:absolute;bottom:0;left:0;right:0;background:var(--navy);display:flex;justify-content:space-around;padding:10px 4px 14px;z-index:50}
-.ni{background:none;border:none;color:#B4B2A9;font-size:.66em;font-weight:700;text-align:center;cursor:pointer;padding:2px 8px}
+.ni{background:none;border:none;color:#9AA3AB;font-size:.66em;font-weight:700;text-align:center;cursor:pointer;padding:2px 8px}
 .ni span{display:block;font-size:1.55em;margin-bottom:2px}
 .ni.on{color:var(--org)}
 /* FORM */
 .fld{margin-bottom:12px}
 .fld label{display:block;font-size:.78em;font-weight:700;color:var(--ink);margin-bottom:6px}
-.fld input,.fld select,.fld textarea{width:100%;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;background:#fff;color:#234;font-family:inherit}
+.fld input,.fld select,.fld textarea{width:100%;border:1.5px solid #DFE3E6;border-radius:12px;padding:11px 14px;font-size:.9em;background:#fff;color:#234;font-family:inherit}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{background:#fff;border:1.5px solid #E5E3DB;border-radius:20px;padding:7px 14px;font-size:.78em;font-weight:700;color:var(--ink2);cursor:pointer}
+.chip{background:#fff;border:1.5px solid #DFE3E6;border-radius:20px;padding:7px 14px;font-size:.78em;font-weight:700;color:var(--ink2);cursor:pointer}
 .chip.on{background:var(--navy2);border-color:var(--navy2);color:#fff}
 /* SCORE */
 .score{background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 10px rgba(13,27,42,.06)}
@@ -246,7 +258,7 @@ body.dark p{color:#a8b2bc}
 .al{border-radius:12px;padding:13px 15px;margin-bottom:12px;font-size:.85em}
 .al-y{background:#fff9e8;border:1.5px solid #f5d78e;color:#8a6d1a}
 .al-g{background:#eafaf1;border:1.5px solid #a8e6c5;color:#1e6b42}
-.al-b{background:#e8f4fd;border:1.5px solid #a8d4f0;color:#155E75}
+.al-b{background:#e8f4fd;border:1.5px solid #a8d4f0;color:#56789B}
 #toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:30px;font-size:.85em;font-weight:700;opacity:0;transition:.3s;z-index:99;white-space:nowrap;pointer-events:none;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 /* NEWS */
@@ -341,8 +353,8 @@ const DB = {
   ],
   news: [
     {tag:'Ranking ITF', t:'Chow e Marchezini assumem o nº 1 mundial', p:'Primeira dupla 100% brasileira a liderar o ranking feminino da ITF em 14 anos.', ic:'🇧🇷', bg:'linear-gradient(135deg,#1e8f4e,#27ae60)'},
-    {tag:'Ranking ITF', t:'Spoto e Gianotti travam duelo pelo topo', p:'Italiano soma 6.654 pts contra 6.616 do francês — disputa mais acirrada da temporada.', ic:'<i class="ti ti-trophy"></i>', bg:'linear-gradient(135deg,#155E75,#0F4C5E)'},
-    {tag:'Circuito', t:'Sand Series Portugal terá premiação recorde', p:'Etapa de Nazaré distribui US$ 100 mil — a maior da temporada.', ic:'<i class="ti ti-coin"></i>', bg:'linear-gradient(135deg,#c97d0a,#EF9F27)'},
+    {tag:'Ranking ITF', t:'Spoto e Gianotti travam duelo pelo topo', p:'Italiano soma 6.654 pts contra 6.616 do francês — disputa mais acirrada da temporada.', ic:'<i class="ti ti-trophy"></i>', bg:'linear-gradient(135deg,#56789B,#3D5A75)'},
+    {tag:'Circuito', t:'Sand Series Portugal terá premiação recorde', p:'Etapa de Nazaré distribui US$ 100 mil — a maior da temporada.', ic:'<i class="ti ti-coin"></i>', bg:'linear-gradient(135deg,#c97d0a,#F59E0B)'},
     {tag:'Técnica', t:'5 erros mais comuns no smash de beach tennis', p:'Análise técnica com dicas para subir de nível no ataque de rede.', ic:'<i class="ti ti-ball-tennis"></i>', bg:'linear-gradient(135deg,#7d3c98,#8e44ad)'},
   ],
   h2hData: {a:{n:'João Silva', av:'🧢', v:8, g:142}, b:{n:'Pedro Lima', av:'🧔', v:3, g:98}},
@@ -455,17 +467,17 @@ function navbar(){
 
 /* ═══════════ TELA — APRESENTAÇÃO ═══════════ */
 function vIntro(){
-  return `<div style="background:linear-gradient(160deg,#0C3B4A 0%,#0F4C5E 55%,#155E75 100%);color:#fff;padding:44px 24px 28px;text-align:center">
+  return `<div style="background:#fff;color:#1b1b1b;padding:40px 24px 24px;text-align:center;border-bottom:3px solid var(--org)">
     <div style="font-size:3em">🏖️</div>
-    <h1 style="font-size:2em;font-weight:800;letter-spacing:-.5px">Beach<span style="color:var(--org)">zinho</span></h1>
-    <p style="opacity:.9;margin:12px 0 6px;font-size:1.08em;font-weight:800">Sua arena no controle.<br>Seus jogadores conectados.</p>
-    <p style="opacity:.6;font-size:.85em">Quadras, ligas, aulas, rankings e pagamentos — tudo em um só app.</p>
+    <h1 style="font-size:2em;font-weight:800;letter-spacing:-.5px">Beach<span style="color:#D6342C;border-bottom:4px solid #D6342C">zinho</span></h1>
+    <p style="color:#24292E;margin:12px 0 6px;font-size:1.08em;font-weight:800">Sua arena no controle.<br>Seus jogadores conectados.</p>
+    <p style="color:#7A838B;font-size:.85em">Quadras, ligas, aulas, rankings e pagamentos — tudo em um só app.</p>
     <button class="btn btn-o" style="margin-top:18px" onclick="nav('splash')"><i class="ti ti-rocket"></i> Começar agora — grátis</button>
-    <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.45)" onclick="S.pendingPlan=3;go('auth','arena','login')"><i class="ti ti-lock"></i> Fazer login · Cadastre-se</button>
+    <button class="btn" style="background:#56789B;color:#fff" onclick="S.pendingPlan=3;go('auth','arena','login')"><i class="ti ti-lock"></i> Fazer login · Cadastre-se</button>
     <div style="display:flex;justify-content:space-around;margin-top:24px">
-      <div><b style="font-size:1.35em;color:var(--org)">3 min</b><br><span style="font-size:.68em;opacity:.7">para cadastrar<br>sua arena</span></div>
-      <div><b style="font-size:1.35em;color:var(--org)">0</b><br><span style="font-size:.68em;opacity:.7">conflitos<br>de agenda</span></div>
-      <div><b style="font-size:1.35em;color:var(--org)">100%</b><br><span style="font-size:.68em;opacity:.7">cobrança<br>automática</span></div>
+      <div><b style="font-size:1.35em;color:var(--org)">3 min</b><br><span style="font-size:.68em;color:#7A838B">para cadastrar<br>sua arena</span></div>
+      <div><b style="font-size:1.35em;color:var(--org)">0</b><br><span style="font-size:.68em;color:#7A838B">conflitos<br>de agenda</span></div>
+      <div><b style="font-size:1.35em;color:var(--org)">100%</b><br><span style="font-size:.68em;color:#7A838B">cobrança<br>automática</span></div>
     </div>
   </div>
   <div class="pad">
@@ -484,11 +496,11 @@ function vIntro(){
         <span style="color:var(--org);font-weight:800;font-size:1.2em">→</span>
       </div>
     </div>`).join('')}
-    <div class="card" onclick="S.role=null;nav('portal')" style="border:2px solid #155E75">
+    <div class="card" onclick="S.role=null;nav('portal')" style="border:2px solid #56789B">
       <div style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:1.7em;flex-shrink:0"><i class="ti ti-world" style="color:#0C3B4A"></i></span>
+        <span style="font-size:1.7em;flex-shrink:0"><i class="ti ti-world" style="color:#24292E"></i></span>
         <span style="flex:1"><h3>Portal Beach Tennis — acesso livre</h3><p style="font-size:.8em;color:var(--mut);margin-top:2px">Rankings ITF, calendário com onde assistir e notícias — sem precisar de login</p></span>
-        <span style="color:#155E75;font-weight:800;font-size:1.2em">→</span>
+        <span style="color:#56789B;font-weight:800;font-size:1.2em">→</span>
       </div>
     </div>
     <button class="btn btn-n" onclick="go('beneficios','arena')"><i class="ti ti-sparkles"></i> Ver os benefícios de cada frente</button>
@@ -553,9 +565,9 @@ function vBeneficios(){
 /* ═══════════ TELAS — SPLASH ═══════════ */
 function vSplash(){
   return `<div class="splash">
-    <h1>🏖️ Beach<span>zinho</span></h1>
+    <h1>🏖️ Beach<span style="color:#D6342C;border-bottom:4px solid #D6342C">zinho</span></h1>
     <p>Arenas · Ligas · Quadras · Rankings<br>Tudo do Beach Tennis em um só lugar</p>
-    ${S.demo?'<div style="background:rgba(255,185,0,.18);border:1.5px solid rgba(255,185,0,.5);border-radius:12px;padding:10px 16px;font-size:.8em;margin-bottom:16px;max-width:300px">🎭 <b>MODO DEMONSTRAÇÃO</b><br>Entre em qualquer perfil abaixo — crie, edite e teste à vontade. Os dados são de exemplo. <a style="color:#ffd970;text-decoration:underline;cursor:pointer" onclick="sairDemo()">Sair do demo</a></div>':''}
+    ${S.demo?'<div style="background:#FFF6E2;border:1.5px solid #F59E0B;border-radius:12px;padding:10px 16px;font-size:.8em;margin-bottom:16px;max-width:300px">🎭 <b>MODO DEMONSTRAÇÃO</b><br>Entre em qualquer perfil abaixo — crie, edite e teste à vontade. Os dados são de exemplo. <a style="color:#B36B00;text-decoration:underline;cursor:pointer" onclick="sairDemo()">Sair do demo</a></div>':''}
     <button class="rolebtn rb-p" onclick="S.role='player';nav('p-home');toast('Bem-vindo, João! 👋')"><span class="e"><i class="ti ti-user"></i></span><span>Sou Jogador<small>Buscar arenas, ligas e reservar quadras</small></span></button>
     <button class="rolebtn rb-a" onclick="entrarArena()"><span class="e"><i class="ti ti-building"></i></span><span>Sou Arena<small>Gerenciar quadras, ligas e torneios</small></span></button>
     <button class="rolebtn rb-g" onclick="entrarGrupo()"><span class="e"><i class="ti ti-users"></i></span><span>Pequeno Grupo <span style="background:var(--org);color:#1b1b1b;border-radius:10px;font-size:.6em;padding:2px 8px;vertical-align:middle">NOVO</span><small>Sua turma fixa: jogos, ranking interno e 1 local</small></span></button>
@@ -563,7 +575,7 @@ function vSplash(){
     <button class="rolebtn rb-a" onclick="S.role='org';nav('org-home');toast('Bem-vindo, organizador! 🏆')"><span class="e"><i class="ti ti-tournament"></i></span><span>Organizador de Ligas<small>Circuitos, sorteios e rankings</small></span></button>
     <button class="rolebtn rb-c" onclick="S.role='player';nav('cl-home')"><span class="e"><i class="ti ti-shopping-cart"></i></span><span>Classificados<small>Compra e venda de itens do beach tennis</small></span></button>
     <button class="rolebtn rb-w" onclick="S.role='player';nav('portal')"><span class="e"><i class="ti ti-world"></i></span><span>Portal Beach Tennis<small>Rankings ITF, calendário e notícias</small></span></button>
-    <a style="color:#B4B2A9;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')"><i class="ti ti-info-circle"></i> Por que usar o Beachzinho?</a>
+    <a style="color:#9AA3AB;font-size:.82em;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="nav('intro')"><i class="ti ti-info-circle"></i> Por que usar o Beachzinho?</a>
   </div>`;
 }
 
@@ -621,7 +633,7 @@ function vPHome(){
 function vPExplore(){
   return header('<i class="ti ti-search"></i> Explorar Arenas','Florianópolis, SC')+`
   <div class="pad">
-    <div style="background:linear-gradient(135deg,#EDEBE2,#DEDBCE);border-radius:16px;height:130px;display:flex;align-items:center;justify-content:center;font-size:.85em;color:#155E75;font-weight:700;margin-bottom:14px"><i class="ti ti-map"></i> Mapa interativo — ${DB.arenas.length} arenas próximas</div>
+    <div style="background:linear-gradient(135deg,#E9EDF1,#D6DDE4);border-radius:16px;height:130px;display:flex;align-items:center;justify-content:center;font-size:.85em;color:#56789B;font-weight:700;margin-bottom:14px"><i class="ti ti-map"></i> Mapa interativo — ${DB.arenas.length} arenas próximas</div>
     <div class="tabs">
       <div class="tab on">Todas</div><div class="tab" onclick="toast('Filtro: Ligas')"><i class="ti ti-medal"></i> Ligas</div><div class="tab" onclick="toast('Filtro: Quadras')"><i class="ti ti-ball-tennis"></i> Quadras</div><div class="tab" onclick="toast('Filtro: Rotativos')"><i class="ti ti-refresh"></i> Rotativos</div><div class="tab" onclick="toast('Filtro: Torneios')"><i class="ti ti-trophy"></i> Torneios</div>
     </div>
@@ -682,7 +694,7 @@ function vPTorneio(){
   const a=DB.arenas.find(x=>x.id===t.arenaId);
   return header('<i class="ti ti-trophy"></i> '+t.name, a.name)+`
   <div class="pad">
-    <div style="background:linear-gradient(135deg,#155E75,#0F4C5E);border-radius:16px;padding:22px;text-align:center;color:#fff;margin-bottom:14px">
+    <div style="background:linear-gradient(135deg,#56789B,#3D5A75);border-radius:16px;padding:22px;text-align:center;color:#fff;margin-bottom:14px">
       <div style="font-size:2.2em"><i class="ti ti-trophy"></i></div><b style="font-size:1.05em">${t.name}</b>
       <p style="opacity:.8;font-size:.82em;margin-top:6px"><i class="ti ti-calendar"></i> ${t.data} · Inscrições ${t.insc}</p>
     </div>
@@ -733,7 +745,7 @@ function vPCheckout(){
       <div class="dist" style="margin-top:8px;background:#f7f9fd">
         <div class="dr"><span>Locação da quadra (1h)</span><span>R$ ${PRECO_HORA.toFixed(2).replace('.',',')}</span></div>
         <div class="dr"><span>Taxa do app</span><span style="color:var(--ok);font-weight:700">Grátis</span></div>
-        <div class="dr" style="border-top:1.5px dashed #E5E3DB;margin-top:4px;padding-top:8px"><span><b>Total</b></span><span style="font-weight:800;color:var(--ink);font-size:1.1em">R$ ${total.toFixed(2).replace('.',',')}</span></div>
+        <div class="dr" style="border-top:1.5px dashed #DFE3E6;margin-top:4px;padding-top:8px"><span><b>Total</b></span><span style="font-weight:800;color:var(--ink);font-size:1.1em">R$ ${total.toFixed(2).replace('.',',')}</span></div>
       </div>
     </div>
     <div class="card" style="cursor:default">
@@ -1307,7 +1319,7 @@ function vOrgAtletas(){
   return header('<i class="ti ti-users"></i> Atletas','Registro único — para as ligas só o nome importa')+`
   <div class="pad">
     <button class="btn btn-o" onclick="go('org-novo-atleta')"><i class="ti ti-user-plus"></i> Cadastrar atleta</button>
-    <input placeholder="Buscar por nome..." oninput="S.buscaOrg=this.value" onchange="render()" style="width:100%;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff;margin:8px 0" value="${S.buscaOrg||''}">
+    <input placeholder="Buscar por nome..." oninput="S.buscaOrg=this.value" onchange="render()" style="width:100%;border:1.5px solid #DFE3E6;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff;margin:8px 0" value="${S.buscaOrg||''}">
     ${lista.map(a=>`<div class="rk">
       <span class="pos">${a.sexo==='M'?'♂':'♀'}</span>
       <span class="nm">${a.n}<small>cat. ${a.cat} · ${a.cid||'—'} · lado ${a.lado||'—'} · desde ${a.insc||'—'}</small></span>
@@ -1402,7 +1414,7 @@ function vOrgLiga(){
   const l=orgLiga(S.param)||DB.orgd.ligas[0];
   const classi=orgPontosLiga(l);
   const conf=orgConfirmados(l), esp=orgEspera(l);
-  const selAt=(id,filtro)=>`<select id="${id}" style="flex:1;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px;font-family:inherit;background:#fff"><option value="">Escolher...</option>${DB.orgd.atletas.filter(filtro||(()=>true)).map(a=>`<option value="${a.id}">${a.n} (${a.cat})</option>`).join('')}</select>`;
+  const selAt=(id,filtro)=>`<select id="${id}" style="flex:1;border:1.5px solid #DFE3E6;border-radius:10px;padding:9px;font-family:inherit;background:#fff"><option value="">Escolher...</option>${DB.orgd.atletas.filter(filtro||(()=>true)).map(a=>`<option value="${a.id}">${a.n} (${a.cat})</option>`).join('')}</select>`;
   return header(l.nome, l.data+' · '+l.hora+' · '+l.gen+' · cat. '+l.cat)+`
   <div class="pad">
     ${l.local?`<div class="al al-b" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span><i class="ti ti-map-pin"></i> <b>${l.local}</b>${l.end?' — '+l.end:''}</span><a href="https://maps.google.com/?q=${encodeURIComponent((l.local||'')+' '+(l.end||''))}" target="_blank" style="color:var(--navy2);font-weight:700;white-space:nowrap;text-decoration:underline;cursor:pointer">abrir no Maps ↗</a></div>`:''}
@@ -1440,7 +1452,7 @@ function vOrgLiga(){
     ${l.rodadaAtual?`
       <div class="al al-g">Rodada publicada — os atletas já veem os jogos. Lance os placares abaixo.</div>
       ${l.rodadaAtual.conf.map((c,i)=>`<div class="card" style="cursor:default"><h3 style="font-size:.92em">${c.g&&c.g!=='F'?'<span class="badge bP">G'+c.g+'</span> ':''}${c.g==='F'?'<span class="badge bO">final</span> ':''}${c.a.map(orgNome).join(' & ')} <span style="color:var(--mut)">vs</span> ${c.b.map(orgNome).join(' & ')}</h3>
-        <div style="display:flex;gap:8px;align-items:center;margin-top:8px"><input id="or-sa-${i}" type="number" placeholder="0" style="width:64px;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px;text-align:center;font-family:inherit"><span style="color:var(--mut)">×</span><input id="or-sb-${i}" type="number" placeholder="0" style="width:64px;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px;text-align:center;font-family:inherit"><span style="color:var(--mut);font-size:.8em">Quadra ${i+1}</span></div></div>`).join('')}
+        <div style="display:flex;gap:8px;align-items:center;margin-top:8px"><input id="or-sa-${i}" type="number" placeholder="0" style="width:64px;border:1.5px solid #DFE3E6;border-radius:10px;padding:9px;text-align:center;font-family:inherit"><span style="color:var(--mut)">×</span><input id="or-sb-${i}" type="number" placeholder="0" style="width:64px;border:1.5px solid #DFE3E6;border-radius:10px;padding:9px;text-align:center;font-family:inherit"><span style="color:var(--mut);font-size:.8em">Quadra ${i+1}</span></div></div>`).join('')}
       <button class="btn btn-o" onclick="orgPlacar(${l.id})"><i class="ti ti-clipboard-check"></i> Lançar resultados da rodada</button>`:''}`:''}
     ${classi.length?`
     <div class="stitle">Classificação ${l.pont==='ind'?'individual':'por dupla'}</div>
@@ -1589,7 +1601,7 @@ function vGPlanos(){
     </div>`).join('')}
     <div class="stitle"><i class="ti ti-clipboard-list"></i> O que muda entre Grupo e Arena</div>
     <div class="card" style="cursor:default">
-      ${[['Registrar jogos e placares','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Ranking interno do grupo','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Portal ITF e notícias','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Locais cadastrados','1 fixo','Ilimitados'],['Aparecer no Explorar (mapa)','—','<i class="ti ti-circle-check"></i>'],['Locação de quadra (agenda pública)','—','<i class="ti ti-circle-check"></i>'],['Ligas e rotativos abertos ao público','—','<i class="ti ti-circle-check"></i>'],['Torneios com inscrição','—','<i class="ti ti-circle-check"></i>'],['Ranking oficial da cidade','—','<i class="ti ti-circle-check"></i>'],['Leads via WhatsApp','—','<i class="ti ti-circle-check"></i>']].map(r=>`<div style="display:flex;justify-content:space-between;font-size:.82em;padding:6px 0;border-bottom:1px solid #f0f3f8"><span style="color:#456">${r[0]}</span><span style="width:64px;text-align:center;font-weight:700;color:var(--ok)">${r[1]}</span><span style="width:64px;text-align:center;font-weight:700;color:#155E75">${r[2]}</span></div>`).join('')}
+      ${[['Registrar jogos e placares','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Ranking interno do grupo','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Portal ITF e notícias','<i class="ti ti-circle-check"></i>','<i class="ti ti-circle-check"></i>'],['Locais cadastrados','1 fixo','Ilimitados'],['Aparecer no Explorar (mapa)','—','<i class="ti ti-circle-check"></i>'],['Locação de quadra (agenda pública)','—','<i class="ti ti-circle-check"></i>'],['Ligas e rotativos abertos ao público','—','<i class="ti ti-circle-check"></i>'],['Torneios com inscrição','—','<i class="ti ti-circle-check"></i>'],['Ranking oficial da cidade','—','<i class="ti ti-circle-check"></i>'],['Leads via WhatsApp','—','<i class="ti ti-circle-check"></i>']].map(r=>`<div style="display:flex;justify-content:space-between;font-size:.82em;padding:6px 0;border-bottom:1px solid #f0f3f8"><span style="color:#456">${r[0]}</span><span style="width:64px;text-align:center;font-weight:700;color:var(--ok)">${r[1]}</span><span style="width:64px;text-align:center;font-weight:700;color:#56789B">${r[2]}</span></div>`).join('')}
       <div style="display:flex;justify-content:space-between;font-size:.7em;font-weight:800;color:#99a;padding-top:6px"><span></span><span style="width:64px;text-align:center">GRUPO</span><span style="width:64px;text-align:center">ARENA</span></div>
     </div>
   </div>`;
@@ -2029,7 +2041,7 @@ function vProfTurmas(){
     <div class="fld"><label>Nome da turma</label><input id="pt-nome" placeholder="Ex: Intermediário Tarde"></div>
     <div class="fld"><label>Nível</label><div class="chips">${DB.prof.niveis.map(c=>`<div class="chip ${(S.nivelSel||DB.prof.niveis[0])===c?'on':''}" onclick="S.nivelSel='${c}';render()">${c}</div>`).join('')}<div class="chip" style="border-style:dashed" onclick="S.novoNv=!S.novoNv;render()"><i class="ti ti-plus"></i> Criar nível</div></div></div>
     ${S.novoNv?`<div style="display:flex;gap:8px;margin-bottom:12px">
-      <input id="nv-nome" placeholder="Nome do novo nível (ex: Competitivo, 60+)" style="flex:1;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
+      <input id="nv-nome" placeholder="Nome do novo nível (ex: Competitivo, 60+)" style="flex:1;border:1.5px solid #DFE3E6;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
       <button class="btn btn-o btn-sm" onclick="profCriarNivel()">Criar</button>
     </div>`:''}
     <div class="fld"><label><i class="ti ti-map-pin"></i> Local da aula</label><input id="pt-local" placeholder="Ex: Arena Vida Fit — Quadra 2"></div>
@@ -2113,7 +2125,7 @@ function vProfCal(){
       <div class="stat r"><b>${fal}</b><span>Faltas/avisos</span></div>
     </div>`:''}
     <div class="stitle"><i class="ti ti-clipboard-list"></i> O que aconteceu em ${d}</div>
-    ${regs.length? regs.map(x=>`<div class="rk" onclick="go('pr-aluno',${x.a.id})"><span class="pos">${x.r.st==='pres'?'<i class="ti ti-circle-check"></i>':x.r.st==='avisada'?'<i class="ti ti-mail"></i>':'<i class="ti ti-circle-x"></i>'}</span><span class="nm">${x.a.nome}<small>${profTurmaNome(x.a.turma)} · ${x.r.obs||'Sem anotação'}</small></span><span class="pts" style="color:#155E75">ficha →</span></div>`).join('') : `<div class="empty"><span><i class="ti ti-calendar"></i></span>Nenhum registro em ${d}${ft?' para esta turma':''}</div>`}
+    ${regs.length? regs.map(x=>`<div class="rk" onclick="go('pr-aluno',${x.a.id})"><span class="pos">${x.r.st==='pres'?'<i class="ti ti-circle-check"></i>':x.r.st==='avisada'?'<i class="ti ti-mail"></i>':'<i class="ti ti-circle-x"></i>'}</span><span class="nm">${x.a.nome}<small>${profTurmaNome(x.a.turma)} · ${x.r.obs||'Sem anotação'}</small></span><span class="pts" style="color:#56789B">ficha →</span></div>`).join('') : `<div class="empty"><span><i class="ti ti-calendar"></i></span>Nenhum registro em ${d}${ft?' para esta turma':''}</div>`}
     <div class="al al-b"><i class="ti ti-bulb"></i> A chamada de cada aula alimenta este calendário automaticamente. Toque num registro para abrir a ficha do aluno.</div>
   </div>`;
 }
@@ -2162,7 +2174,7 @@ function vProfAlunos(){
       <div class="stat r" style="cursor:pointer;${f==='atrasado'?'outline:2.5px solid #d13438':''}" onclick="setTab(S.tab==='atrasado'?'todos':'atrasado')"><b>${p.alunos.filter(a=>a.pag==='atrasado').length}</b><span>Atrasados</span></div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:4px">
-      <input value="${S.busca||''}" placeholder="Buscar aluno por nome..." oninput="S.busca=this.value" onchange="render()" style="flex:1;border:1.5px solid #E5E3DB;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff">
+      <input value="${S.busca||''}" placeholder="Buscar aluno por nome..." oninput="S.busca=this.value" onchange="render()" style="flex:1;border:1.5px solid #DFE3E6;border-radius:12px;padding:11px 14px;font-size:.9em;font-family:inherit;background:#fff">
       <button class="btn btn-ghost btn-sm" onclick="render()">Buscar</button>
     </div>
     ${S.busca?`<div class="al al-b" style="cursor:pointer" onclick="S.busca='';render()"><i class="ti ti-search"></i> Buscando: <b>"${S.busca}"</b> (${lista.length}) — toque para limpar</div>`:''}
@@ -2217,7 +2229,7 @@ function vProfAluno(){
         <span class="badge ${r.st==='pres'?'bG':r.st==='avisada'?'bO':'bR'}" style="cursor:pointer" onclick="alunoCicloSt(${a.id},${i})">${r.st==='pres'?'<i class="ti ti-circle-check"></i> Presente':r.st==='avisada'?'<i class="ti ti-mail"></i> Avisou falta':'<i class="ti ti-circle-x"></i> Faltou'} ↻</span>
       </div>
       <div style="display:flex;gap:8px;margin-top:10px">
-        <input id="obs-${i}" value="${(r.obs||'').replace(/"/g,'&quot;')}" placeholder="Anotação da aula (evolução, combinados...)" style="flex:1;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
+        <input id="obs-${i}" value="${(r.obs||'').replace(/"/g,'&quot;')}" placeholder="Anotação da aula (evolução, combinados...)" style="flex:1;border:1.5px solid #DFE3E6;border-radius:10px;padding:9px 12px;font-size:.85em;font-family:inherit">
         <button class="btn btn-ghost btn-sm" onclick="alunoSalvaObs(${a.id},${i})"><i class="ti ti-device-floppy"></i> Salvar</button>
       </div>
     </div>`).join('') : '<div class="empty"><span><i class="ti ti-notebook"></i></span>Sem anotações ainda — toque em Anotar aula de hoje</div>'}
