@@ -1070,8 +1070,94 @@ function orgRankCircuito(cid){
   });
   return Object.values(r).sort((x,y)=>y.pts-x.pts);
 }
+function orgMontaDuplas(l,ids){
+  let duplas=[], sobraFinal=null;
+  if(l.equil==='misto'){
+    const h=shuffleArr(ids.filter(i=>orgAt(i)&&orgAt(i).sexo==='M'));
+    const m=shuffleArr(ids.filter(i=>orgAt(i)&&orgAt(i).sexo==='F'));
+    while(h.length&&m.length) duplas.push([h.pop(),m.pop()]);
+    const sobra=[...h,...m];
+    while(sobra.length>=2) duplas.push([sobra.pop(),sobra.pop()]);
+    if(sobra.length) sobraFinal=sobra.pop();
+  } else if(l.equil==='nivel'){
+    const ord=[...ids].sort((a,b)=>DB.orgd.cats.indexOf(orgAt(b).cat)-DB.orgd.cats.indexOf(orgAt(a).cat));
+    while(ord.length>=2) duplas.push([ord.shift(),ord.pop()]);
+    if(ord.length) sobraFinal=ord.pop();
+  } else {
+    const s=shuffleArr(ids);
+    while(s.length>=2) duplas.push([s.pop(),s.pop()]);
+    if(s.length) sobraFinal=s.pop();
+  }
+  return {duplas, bye:sobraFinal};
+}
+function orgSortearGrupos(l){
+  let duplas;
+  if(l.insc==='dupla') duplas=shuffleArr(l.duplas||[]);
+  else duplas=orgMontaDuplas(l, orgConfirmados(l)).duplas;
+  const tam=l.grupos, grupos=[];
+  const ds=shuffleArr(duplas);
+  while(ds.length) grupos.push(ds.splice(0,tam));
+  const LETRAS='ABCDEFGH';
+  const conf=[];
+  grupos.forEach((gd,gi)=>{
+    const letra=LETRAS[gi];
+    if(l.insc==='individual'&&l.sorteio==='rodada'){
+      const jogadores=gd.flat();
+      const nJogos=gd.length===3?3:4;
+      for(let k=0;k<nJogos;k++){
+        const s=shuffleArr(jogadores);
+        conf.push({a:[s[0],s[1]],b:[s[2],s[3]],g:letra});
+      }
+    } else {
+      for(let x=0;x<gd.length;x++) for(let y=x+1;y<gd.length;y++) conf.push({a:gd[x],b:gd[y],g:letra});
+    }
+  });
+  l.gruposDef=grupos;
+  l.preview={conf,byeAt:null,byeDupla:null,grupos:true};
+  toast('Grupos sorteados: '+grupos.length+' grupo'+(grupos.length>1?'s':'')+' de até '+tam+' duplas 🎲'); render();
+}
+function orgClassGrupo(l,letra){
+  const jogos=(l.resultados||[]).filter(j=>j.g===letra);
+  const fake={...l,resultados:jogos};
+  return orgPontosLiga(fake);
+}
+function orgLetrasGrupos(l){
+  return [...new Set((l.resultados||[]).filter(j=>j.g).map(j=>j.g))].sort();
+}
+function orgFaseFinal(id){
+  const l=orgLiga(id); if(!l) return;
+  const letras=orgLetrasGrupos(l);
+  if(!letras.length){ toast('⚠️ Lance os resultados dos grupos primeiro'); return; }
+  const av=l.avanca||'2';
+  const diretos=av==='3'||av==='3+2'?3:2;
+  let classificados=[], repescagem=[];
+  letras.forEach(letra=>{
+    const cl=orgClassGrupo(l,letra);
+    classificados.push(...cl.slice(0,diretos));
+    if(av==='2+2'&&cl[2]) repescagem.push(cl[2]);
+    if(av==='3+2'&&cl[3]) repescagem.push(cl[3]);
+  });
+  repescagem.sort((a,b)=>b.pts-a.pts);
+  classificados.push(...repescagem.slice(0,2));
+  let conf=[];
+  if(l.pont==='ind'){
+    const ids=classificados.map(e=>parseInt(e.key.slice(1)));
+    const md=orgMontaDuplas(l,ids);
+    const ds=shuffleArr(md.duplas);
+    while(ds.length>=2) conf.push({a:ds.pop(),b:ds.pop(),g:'F'});
+  } else {
+    const ds=classificados.map(e=>e.key.slice(1).split('-').map(Number));
+    const n=Math.floor(ds.length/2);
+    for(let i=0;i<n;i++) conf.push({a:ds[i],b:ds[ds.length-1-i],g:'F'});
+  }
+  if(!conf.length){ toast('⚠️ Poucos classificados para o mata-mata'); return; }
+  l.fase='final';
+  l.preview={conf,byeAt:null,byeDupla:null,final:true};
+  toast('2º sorteio feito: '+classificados.length+' classificados no mata-mata 🏆'); render();
+}
 function orgSortear(id){
   const l=orgLiga(id); if(!l) return;
+  if(l.grupos&&l.fase==='grupos'){ orgSortearGrupos(l); return; }
   if(l.tipo==='super8'){
     const conf8=orgConfirmados(l);
     if(conf8.length<8){ toast('⚠️ O SUPER 8 precisa de 8 confirmados ('+conf8.length+'/8)'); return; }
@@ -1121,7 +1207,7 @@ function orgPlacar(id){
     const w=Math.max(sa,sb), p=Math.min(sa,sb);
     if(sa===sb||!placarValido(w,p)){ invalido=sa+'×'+sb; return; }
     l.resultados=l.resultados||[];
-    l.resultados.push({r:l.rod||1,a:c.a,b:c.b,sa,sb,tb:(w===N+1&&p===N),d:l.data});
+    l.resultados.push({r:l.rod||1,a:c.a,b:c.b,sa,sb,tb:(w===N+1&&p===N),g:c.g||'',d:l.data});
     lanc++;
   });
   if(invalido){ toast('⚠️ Placar '+invalido+' inválido no set de '+N+': fecha '+N+'×'+(N-2)+' ou menos, '+(N+1)+'×'+(N-1)+', ou '+(N+1)+'×'+N+' no tie-break'); return; }
@@ -1173,7 +1259,7 @@ function criarLigaOrg(){
   const liga={id:Math.max(...DB.orgd.ligas.map(l=>l.id))+1, nome, data:d, hora:g('nl-hora')||'19h', circ:circId, local:g('nl-local').trim(), end:g('nl-end').trim(),
     tipo:nl.tipo||'normal', formato:s8?'dupla':nl.formato, gen:nl.gen||'mista', cat:novaCat||nl.cat, pont:s8?'ind':nl.pont,
     regra:{v:parseInt(g('nl-v'))||3, d:parseInt(g('nl-d'))||1, g:parseInt(g('nl-g'))||1}, games:nl.games||6,
-    insc:s8?'individual':nl.insc, sorteio:nl.sorteio, equil:nl.equil,
+    insc:s8?'individual':nl.insc, sorteio:nl.sorteio, equil:nl.equil, grupos:s8?0:(nl.grupos||0), avanca:nl.avanca||'2', fase:(!s8&&nl.grupos)?'grupos':'',
     vagas:s8?8:(parseInt(g('nl-vagas'))||0),
     status:'inscrições abertas', rod:1, inscritos:[], duplas:[], resultados:[]};
   DB.orgd.ligas.push(liga); S.nl=null;
@@ -1274,13 +1360,19 @@ function vOrgNovaLiga(){
       <div class="fld" style="flex:1"><label>Pontos por game ganho</label><input id="nl-g" type="number" value="1"></div>
     </div>
     <div class="al al-b"><i class="ti ti-bulb"></i> É a regra que monta a classificação. Exemplo com 3/1/1: jogo 6×4 → quem venceu leva 3 + 6 games = <b>9 pts</b>; quem perdeu leva 1 + 4 games = <b>5 pts</b>. Quer só contar vitórias? Deixe game = 0. Ajuste como preferir.</div>
-    ${s8?'':`<div class="stitle">4 · Inscrição</div>
+    ${s8?'':`<div class="stitle">4 · Fase de grupos</div>
+    <div class="chips">${chip(!nl.grupos,"nlSet('grupos',0)",'Sem grupos — rodadas corridas')}${chip(nl.grupos===3,"nlSet('grupos',3)",'Grupos de 3 duplas')}${chip(nl.grupos===4,"nlSet('grupos',4)",'Grupos de 4 duplas')}</div>
+    ${nl.grupos?`
+    <div class="al al-b"><i class="ti ti-bulb"></i> 1º sorteio monta os grupos (${nl.grupos} duplas = ${nl.grupos*2} jogadores por grupo${nl.insc==='individual'&&nl.sorteio==='rodada'?', trocando de dupla a cada jogo com pontuação individual':''}). Depois da fase de grupos, o 2º sorteio monta o mata-mata com quem avançar.</div>
+    <div class="stitle">4a · Quem avança do grupo?</div>
+    <div class="chips">${chip((nl.avanca||'2')==='2',"nlSet('avanca','2')",'2 primeiros')}${chip(nl.avanca==='3',"nlSet('avanca','3')",'3 primeiros')}${chip(nl.avanca==='2+2',"nlSet('avanca','2+2')",'2 primeiros + 2 melhores 3ºs')}${chip(nl.avanca==='3+2',"nlSet('avanca','3+2')",'3 primeiros + 2 melhores 4ºs')}</div>`:''}
+    <div class="stitle">5 · Inscrição</div>
     <div class="chips">${chip(nl.insc==='individual',"nlSet('insc','individual')",'Individual — app sorteia as duplas')}${chip(nl.insc==='dupla',"nlSet('insc','dupla')",'Por dupla — já entra o nome da dupla')}</div>
     <div class="fld" style="margin-top:6px"><label>Vagas (em branco = sem limite) — a ordem de inscrição define quem joga</label><input id="nl-vagas" type="number" placeholder="Ex: 12"></div>
     ${nl.insc==='individual'?`
-    <div class="stitle">4a · Sorteio das duplas</div>
+    <div class="stitle">5a · Sorteio das duplas</div>
     <div class="chips">${chip(nl.sorteio==='rodada',"nlSet('sorteio','rodada')",'Re-sorteio a cada rodada')}${chip(nl.sorteio==='fixa',"nlSet('sorteio','fixa')",'Dupla fixa na etapa')}</div>
-    <div class="stitle">4b · Equilíbrio</div>
+    <div class="stitle">5b · Equilíbrio</div>
     <div class="chips">${chip(nl.equil==='misto',"nlSet('equil','misto')",'Misto: 1 homem + 1 mulher')}${chip(nl.equil==='nivel',"nlSet('equil','nivel')",'Por nível')}${chip(nl.equil==='aleatorio',"nlSet('equil','aleatorio')",'Aleatório puro')}</div>`:`
     <div class="al al-b">Inscrição por dupla: o registro já entra com o nome da dupla formada. O sorteio define só confrontos e quadras.</div>`}`}
     <button class="btn btn-o" style="margin-top:14px" onclick="criarLigaOrg()"><i class="ti ti-circle-check"></i> Revisar e criar liga</button>
@@ -1294,7 +1386,7 @@ function vOrgLiga(){
   return header(l.nome, l.data+' · '+l.hora+' · '+l.gen+' · cat. '+l.cat)+`
   <div class="pad">
     ${l.local?`<div class="al al-b" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span><i class="ti ti-map-pin"></i> <b>${l.local}</b>${l.end?' — '+l.end:''}</span><a href="https://maps.google.com/?q=${encodeURIComponent((l.local||'')+' '+(l.end||''))}" target="_blank" style="color:var(--navy2);font-weight:700;white-space:nowrap;text-decoration:underline;cursor:pointer">abrir no Maps ↗</a></div>`:''}
-    <div style="margin-bottom:8px"><span class="badge bB">${l.tipo==='super8'?'SUPER 8 · 7 rodadas':(l.formato==='dupla'?'Dupla':'Simples')}</span><span class="badge bB">set de ${l.games||6} games</span><span class="badge bB">${l.pont==='ind'?'pontua indivíduo':'pontua dupla'}</span><span class="badge bB">${l.tipo==='super8'?'todos com todos':(l.insc==='dupla'?'inscrição por dupla':'individual · sorteio '+(l.sorteio==='rodada'?'por rodada':'fixo')+(l.equil?' · '+l.equil:''))}</span><span class="badge ${l.status==='concluída'?'bGy':'bO'}">${l.status}</span>${l.circ?`<span class="badge bP" onclick="event.stopPropagation();go('org-circuito',${l.circ})" style="cursor:pointer">ver circuito →</span>`:''}</div>
+    <div style="margin-bottom:8px"><span class="badge bB">${l.tipo==='super8'?'SUPER 8 · 7 rodadas':(l.formato==='dupla'?'Dupla':'Simples')}</span><span class="badge bB">set de ${l.games||6} games</span><span class="badge bB">${l.pont==='ind'?'pontua indivíduo':'pontua dupla'}</span><span class="badge bB">${l.tipo==='super8'?'todos com todos':(l.insc==='dupla'?'inscrição por dupla':'individual · sorteio '+(l.sorteio==='rodada'?'por rodada':'fixo')+(l.equil?' · '+l.equil:''))}</span><span class="badge ${l.status==='concluída'?'bGy':'bO'}">${l.status}</span>${l.grupos?`<span class="badge bP">grupos de ${l.grupos} · avança ${{'2':'2','3':'3','2+2':'2+2 mel. 3ºs','3+2':'3+2 mel. 4ºs'}[l.avanca||'2']}</span>`:''}${l.circ?`<span class="badge bP" onclick="event.stopPropagation();go('org-circuito',${l.circ})" style="cursor:pointer">ver circuito →</span>`:''}</div>
     ${l.insc==='individual'?`
     <div class="stitle">Inscritos por ordem de chegada (${(l.inscritos||[]).length}${l.vagas?' · '+l.vagas+' vagas':''})</div>
     ${conf.map((id,i)=>`<div class="rk" style="cursor:default"><span class="pos">${i+1}º</span><span class="nm">${orgNome(id)}<small>inscrito em ${(orgAt(id)||{}).insc||'—'}</small></span><span class="badge bG" style="margin:0">confirmado</span></div>`).join('')}
@@ -1303,17 +1395,24 @@ function vOrgLiga(){
     <div class="stitle">Duplas inscritas (${(l.duplas||[]).length})</div>
     ${(l.duplas||[]).map((d,i)=>`<div class="rk" style="cursor:default"><span class="pos">${i+1}º</span><span class="nm">${orgNome(d[0])} & ${orgNome(d[1])}</span></div>`).join('')||'<div class="empty"><span><i class="ti ti-users"></i></span>Nenhuma dupla ainda</div>'}
     <div style="display:flex;gap:6px;margin:8px 0 10px">${selAt('ol-d1')}${selAt('ol-d2')}<button class="btn btn-n" style="margin:0;width:auto;padding:0 14px" onclick="orgAddDupla(${l.id})">+</button></div>`}
+    ${l.grupos&&l.gruposDef?`
+    <div class="stitle">Grupos sorteados</div>
+    ${l.gruposDef.map((gd,gi)=>`<div class="card" style="cursor:default"><h3 style="font-size:.9em">Grupo ${'ABCDEFGH'[gi]}</h3><div class="meta">${gd.map(d=>`<span>${d.map(orgNome).join(' & ')}</span>`).join('')}</div></div>`).join('')}`:''}
+    ${l.grupos&&orgLetrasGrupos(l).length?`
+    <div class="stitle">Classificação dos grupos ${l.pont==='ind'?'(individual)':'(por dupla)'}</div>
+    ${orgLetrasGrupos(l).map(letra=>{const cl=orgClassGrupo(l,letra);return `<div class="card" style="cursor:default"><h3 style="font-size:.9em">Grupo ${letra}</h3>${cl.map((e,i)=>`<div class="meta" style="justify-content:space-between"><span>${i+1}º ${e.nome}</span><b>${e.pts} pts</b></div>`).join('')}</div>`;}).join('')}
+    ${l.fase==='grupos'&&!l.preview&&!l.rodadaAtual?`<button class="btn btn-o" onclick="orgFaseFinal(${l.id})"><i class="ti ti-tournament"></i> 2º sorteio — gerar fase final (${{'2':'2 primeiros','3':'3 primeiros','2+2':'2 primeiros + 2 melhores 3ºs','3+2':'3 primeiros + 2 melhores 4ºs'}[l.avanca||'2']})</button>`:''}`:''}
     ${l.status!=='concluída'?`
-    <div class="stitle">${l.tipo==='super8'?'Rodada '+(l.rod||1)+' de 7':'Sorteio — rodada '+(l.rod||1)}</div>
+    <div class="stitle">${l.tipo==='super8'?'Rodada '+(l.rod||1)+' de 7':(l.grupos?(l.fase==='final'?'Fase final — mata-mata':'1º sorteio — grupos'):'Sorteio — rodada '+(l.rod||1))}</div>
     ${!l.preview&&!l.rodadaAtual?`<button class="btn btn-o" onclick="orgSortear(${l.id})"><i class="ti ti-arrows-shuffle"></i> ${l.tipo==='super8'?'Gerar rodada '+(l.rod||1):'Sortear '+(l.insc==='individual'?'duplas e confrontos':'confrontos')}</button>`:''}
     ${l.preview?`
-      ${l.preview.conf.map((c,i)=>`<div class="card" style="cursor:default"><h3 style="font-size:.95em">${c.a.map(orgNome).join(' & ')} <span style="color:var(--mut)">vs</span> ${c.b.map(orgNome).join(' & ')}</h3><div class="meta"><span>Quadra ${i+1}</span></div></div>`).join('')}
+      ${l.preview.conf.map((c,i)=>`<div class="card" style="cursor:default"><h3 style="font-size:.95em">${c.a.map(orgNome).join(' & ')} <span style="color:var(--mut)">vs</span> ${c.b.map(orgNome).join(' & ')}</h3><div class="meta">${c.g&&c.g!=='F'?`<span class="badge bP" style="margin:0">Grupo ${c.g}</span>`:c.g==='F'?'<span class="badge bO" style="margin:0">mata-mata</span>':''}<span>Quadra ${i%4+1}</span></div></div>`).join('')}
       ${l.preview.byeDupla?`<div class="al al-y">${l.preview.byeDupla.map(orgNome).join(' & ')} folgam nesta rodada (bye)</div>`:''}
       ${l.preview.byeAt?`<div class="al al-y">${orgNome(l.preview.byeAt)} descansa nesta rodada</div>`:''}
       <div style="display:flex;gap:8px"><button class="btn btn-ghost" style="flex:1;margin:0" onclick="orgSortear(${l.id})"><i class="ti ti-refresh"></i> Re-sortear</button><button class="btn btn-o" style="flex:1;margin:0" onclick="orgTravar(${l.id})"><i class="ti ti-lock"></i> Travar e publicar</button></div>`:''}
     ${l.rodadaAtual?`
       <div class="al al-g">Rodada publicada — os atletas já veem os jogos. Lance os placares abaixo.</div>
-      ${l.rodadaAtual.conf.map((c,i)=>`<div class="card" style="cursor:default"><h3 style="font-size:.92em">${c.a.map(orgNome).join(' & ')} <span style="color:var(--mut)">vs</span> ${c.b.map(orgNome).join(' & ')}</h3>
+      ${l.rodadaAtual.conf.map((c,i)=>`<div class="card" style="cursor:default"><h3 style="font-size:.92em">${c.g&&c.g!=='F'?'<span class="badge bP">G'+c.g+'</span> ':''}${c.g==='F'?'<span class="badge bO">final</span> ':''}${c.a.map(orgNome).join(' & ')} <span style="color:var(--mut)">vs</span> ${c.b.map(orgNome).join(' & ')}</h3>
         <div style="display:flex;gap:8px;align-items:center;margin-top:8px"><input id="or-sa-${i}" type="number" placeholder="0" style="width:64px;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px;text-align:center;font-family:inherit"><span style="color:var(--mut)">×</span><input id="or-sb-${i}" type="number" placeholder="0" style="width:64px;border:1.5px solid #E5E3DB;border-radius:10px;padding:9px;text-align:center;font-family:inherit"><span style="color:var(--mut);font-size:.8em">Quadra ${i+1}</span></div></div>`).join('')}
       <button class="btn btn-o" onclick="orgPlacar(${l.id})"><i class="ti ti-clipboard-check"></i> Lançar resultados da rodada</button>`:''}`:''}
     ${classi.length?`
@@ -1321,7 +1420,7 @@ function vOrgLiga(){
     ${classi.slice(0,10).map((e,i)=>`<div class="rk" style="cursor:default"><span class="pos">${['🥇','🥈','🥉'][i]||'#'+(i+1)}</span><span class="nm">${e.nome}<small>${e.j} jogos · ${e.v} vitórias</small></span><span class="pts">${e.pts} pts</span></div>`).join('')}`:''}
     ${(l.resultados||[]).length?`
     <div class="stitle">Resultados lançados</div>
-    ${l.resultados.map(jg=>`<div class="rk" style="cursor:default"><span class="pos">R${jg.r}</span><span class="nm">${jg.a.map(orgNome).join(' & ')} × ${jg.b.map(orgNome).join(' & ')}<small>${jg.d}</small></span><span class="pts">${jg.sa}×${jg.sb}${jg.tb?' <small style="color:var(--warn)">TB</small>':''}</span></div>`).join('')}`:''}
+    ${l.resultados.map(jg=>`<div class="rk" style="cursor:default"><span class="pos">R${jg.r}</span><span class="nm">${jg.a.map(orgNome).join(' & ')} × ${jg.b.map(orgNome).join(' & ')}<small>${jg.g&&jg.g!=='F'?'Grupo '+jg.g+' · ':''}${jg.g==='F'?'mata-mata · ':''}${jg.d}</small></span><span class="pts">${jg.sa}×${jg.sb}${jg.tb?' <small style="color:var(--warn)">TB</small>':''}</span></div>`).join('')}`:''}
   </div>`;
 }
 function vOrgCircuito(){
