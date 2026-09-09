@@ -13,25 +13,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Buscar ranking ITF e gerar itf.json
+      - name: Buscar ranking e calendario ITF e gerar itf.json
         run: |
           node -e '
           const fs = require("fs");
           const BAND = {BRA:"🇧🇷",ITA:"🇮🇹",FRA:"🇫🇷",ESP:"🇪🇸",POR:"🇵🇹",ARG:"🇦🇷",USA:"🇺🇸",GER:"🇩🇪",NED:"🇳🇱",GRE:"🇬🇷",SUI:"🇨🇭",GBR:"🇬🇧",JPN:"🇯🇵",CHI:"🇨🇱",URU:"🇺🇾",PAR:"🇵🇾",MEX:"🇲🇽",VEN:"🇻🇪",COL:"🇨🇴",AUS:"🇦🇺",BEL:"🇧🇪",SMR:"🇸🇲",EST:"🇪🇪",UKR:"🇺🇦",POL:"🇵🇱",CZE:"🇨🇿",SVK:"🇸🇰",HUN:"🇭🇺",CRO:"🇭🇷",SLO:"🇸🇮"};
           const NEUTRA = "🏳️";
+          const H = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36", "Accept": "application/json, text/plain, */*" };
           (async () => {
-            const base = g => "https://www.itftennis.com/tennis/api/PlayerRankApi/GetPlayerRankings?circuitCode=BT&matchTypeCode=D&take=10&skip=0&isOrderAscending=true&playerTypeCode=" + g;
             const out = { atualizado: new Date().toISOString() };
+            try { const prev = JSON.parse(fs.readFileSync("itf.json","utf8")); if (prev.eventos) out.eventos = prev.eventos; } catch(e) {}
+            const base = g => "https://www.itftennis.com/tennis/api/PlayerRankApi/GetPlayerRankings?circuitCode=BT&matchTypeCode=D&take=10&skip=0&isOrderAscending=true&playerTypeCode=" + g;
             for (const g of ["M","W"]) {
               const chave = g === "W" ? "F" : "M";
-              const r = await fetch(base(g), { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36", "Accept": "application/json, text/plain, */*" } });
+              const r = await fetch(base(g), { headers: H });
               const t = await r.text();
-              if (!r.ok || t.trim().startsWith("<")) { console.error("ITF bloqueou " + g + " status " + r.status); process.exit(1); }
+              if (!r.ok || t.trim().startsWith("<")) { console.error("ITF bloqueou ranking " + g + " status " + r.status); process.exit(1); }
               const j = JSON.parse(t);
               out[chave] = j.items.map(it => ({ p: it.rank, n: ((it.playerGivenName||"") + " " + (it.playerFamilyName||"")).trim(), c: BAND[it.playerNationalityCode] || NEUTRA, pts: Math.round(it.pointsRankingTotal ?? it.points ?? 0) }));
             }
+            const f = d => d.toISOString().slice(0,10);
+            const calUrl = "https://www.itftennis.com/tennis/api/TournamentApi/GetCalendar?circuitCode=BT&skip=0&take=100&dateFrom=" + f(new Date()) + "&dateTo=" + f(new Date(Date.now()+120*864e5));
+            const rc = await fetch(calUrl, { headers: H });
+            const tc = await rc.text();
+            if (rc.ok && !tc.trim().startsWith("<")) {
+              const jc = JSON.parse(tc);
+              const meses = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+              const fmt = s => { const d = new Date(s); return d.getUTCDate() + " " + meses[d.getUTCMonth()]; };
+              const its = (jc.items||[]).filter(t2 => t2.startDate).sort((a,b) => a.startDate.localeCompare(b.startDate)).slice(0,10);
+              out.eventos = its.map(t2 => ({
+                n: t2.name || t2.tournamentName,
+                det: fmt(t2.startDate) + (t2.endDate && t2.endDate !== t2.startDate ? "–" + fmt(t2.endDate) : "") + " · " + (t2.venue || t2.location || "") + " (" + (BAND[t2.hostNationCode] || t2.hostNationCode || "") + ")" + (t2.prizeMoney && t2.prizeMoney !== "$0" ? " · " + t2.prizeMoney : ""),
+                tipo: "itf", live: false, yt: t2.liveStreamingUrl || null
+              }));
+              console.log("calendario: " + out.eventos.length + " torneios");
+            } else { console.log("calendario indisponivel (" + rc.status + ") — mantendo eventos anteriores"); }
             fs.writeFileSync("itf.json", JSON.stringify(out));
-            console.log("ok M=" + out.M.length + " F=" + out.F.length);
+            console.log("ok M=" + out.M.length + " F=" + out.F.length + " eventos=" + (out.eventos ? out.eventos.length : 0));
           })().catch(e => { console.error(e); process.exit(1); });
           '
       - name: Commit se mudou
@@ -39,5 +57,5 @@ jobs:
           git config user.name "beachzinho-bot"
           git config user.email "actions@users.noreply.github.com"
           git add itf.json
-          git diff --cached --quiet || git commit -m "Atualiza ranking ITF automaticamente"
+          git diff --cached --quiet || git commit -m "Atualiza ranking e calendario ITF automaticamente"
           git push
