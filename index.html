@@ -1002,7 +1002,7 @@ function carregarITF(){
   const hd={apikey:SB_KEY};
   Promise.all([
     fetch('/itf.json?v='+Date.now()).then(r=>r.json()).catch(()=>null),
-    fetch(SB_URL+'/rest/v1/itf_eventos?select=*&order=ordem.asc',{headers:hd}).then(r=>r.json()).catch(()=>null)
+    fetch(SB_URL+'/rest/v1/itf_events?select=*&order=ordem.asc',{headers:hd}).then(r=>r.json()).catch(()=>null)
   ]).then(([rk,ev])=>{
     if(rk&&Array.isArray(rk.M)&&rk.M.length){
       DB.itfM=rk.M;
